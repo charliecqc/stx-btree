@@ -1,0 +1,749 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+BTREE_ASSERT	btree.h	60;"	d
+BTREE_ASSERT	btree.h	68;"	d
+BTREE_FRIENDS	btree.h	79;"	d
+BTREE_MAX	btree.h	73;"	d
+BTREE_PRINT	btree.h	57;"	d
+BTREE_PRINT	btree.h	65;"	d
+BalanceFactor	Ttree.cpp	/^int CTtree::BalanceFactor(TTREENODE *pNode) const$/;"	f	class:CTtree
+BalanceFactor	ttree.h	/^    int BalanceFactor(TTREENODE *pNode) const$/;"	f	class:CTtree
+BalanceLeftBranch	Ttree.cpp	/^int CTtree::BalanceLeftBranch(TTREENODE *&pNode)$/;"	f	class:CTtree
+BalanceLeftBranch	ttree.h	/^    int BalanceLeftBranch(TTREENODE *&pNode)$/;"	f	class:CTtree
+BalanceRightBranch	Ttree.cpp	/^int CTtree::BalanceRightBranch(TTREENODE *&pNode)$/;"	f	class:CTtree
+BalanceRightBranch	ttree.h	/^    int BalanceRightBranch(TTREENODE *&pNode)$/;"	f	class:CTtree
+CTtree	Ttree.cpp	/^CTtree::CTtree()$/;"	f	class:CTtree
+CTtree	ttree.h	/^    CTtree(): root(NULL), m_nSize(0)$/;"	f	class:CTtree
+CTtree	ttree.h	/^class CTtree$/;"	c
+Clear	Ttree.cpp	/^void CTtree::Clear()$/;"	f	class:CTtree
+Clear	ttree.h	/^    void Clear()$/;"	f	class:CTtree
+Delete	Ttree.cpp	/^void CTtree::Delete(ElementType key)$/;"	f	class:CTtree
+Delete	ttree.h	/^    void Delete(ElementType key)$/;"	f	class:CTtree
+Depth	Ttree.cpp	/^int CTtree::Depth()$/;"	f	class:CTtree
+Depth	ttree.h	/^    int Depth()$/;"	f	class:CTtree
+DoubleRotateLeft	Ttree.cpp	/^TTREENODE *CTtree::DoubleRotateLeft(TTREENODE *pNode)$/;"	f	class:CTtree
+DoubleRotateLeft	ttree.h	/^    TTREENODE *DoubleRotateLeft(TTREENODE *pNode)$/;"	f	class:CTtree
+DoubleRotateRight	Ttree.cpp	/^TTREENODE *CTtree::DoubleRotateRight(TTREENODE *pNode)$/;"	f	class:CTtree
+DoubleRotateRight	ttree.h	/^    TTREENODE *DoubleRotateRight(TTREENODE *pNode)$/;"	f	class:CTtree
+ElementData	ttree.h	/^typedef int ElementData;$/;"	t
+ElementType	ttree.h	/^typedef int ElementType;$/;"	t
+Find	Ttree.cpp	/^ElementData CTtree::Find(ElementType key)$/;"	f	class:CTtree
+Find	ttree.h	/^    ElementData Find(ElementType key)$/;"	f	class:CTtree
+FindMax	Ttree.cpp	/^TTREENODE* FindMax(TTREENODE *pNode)$/;"	f
+FindMin	Ttree.cpp	/^TTREENODE* FindMin(TTREENODE *pNode)$/;"	f
+FreeNode	Ttree.cpp	/^void CTtree::FreeNode(TTREENODE *pNode)$/;"	f	class:CTtree
+FreeNode	ttree.h	/^    void FreeNode(TTREENODE *pNode)$/;"	f	class:CTtree
+GetMaxNode	Ttree.cpp	/^const TTREENODE *CTtree::GetMaxNode()$/;"	f	class:CTtree
+GetMaxNode	ttree.h	/^    const TTREENODE *GetMaxNode()$/;"	f	class:CTtree
+GetMinNode	Ttree.cpp	/^const TTREENODE *CTtree::GetMinNode()$/;"	f	class:CTtree
+GetMinNode	ttree.h	/^    const TTREENODE *GetMinNode()$/;"	f	class:CTtree
+GetNodeSize	Ttree.cpp	/^int CTtree::GetNodeSize()$/;"	f	class:CTtree
+GetNodeSize	ttree.h	/^    int GetNodeSize()$/;"	f	class:CTtree
+InOrder	ttree.h	/^    InOrder,$/;"	e	enum:TraverseOrder
+InOrderTraverse	Ttree.cpp	/^void CTtree::InOrderTraverse(TTREENODE *pNode) const$/;"	f	class:CTtree
+InOrderTraverse	ttree.h	/^    void InOrderTraverse(TTREENODE *pNode) const$/;"	f	class:CTtree
+Insert	Ttree.cpp	/^void CTtree::Insert(ElementType key, ElementData data)$/;"	f	class:CTtree
+Insert	ttree.h	/^    void Insert(ElementType key, ElementData data)$/;"	f	class:CTtree
+IsEmpty	Ttree.cpp	/^bool CTtree::IsEmpty( ) const$/;"	f	class:CTtree
+IsEmpty	ttree.h	/^    bool IsEmpty( ) const$/;"	f	class:CTtree
+LPTTREENODE	ttree.h	/^} TTREENODE, *LPTTREENODE, *PTTREENODE;$/;"	t	typeref:struct:tagTTREENODE
+LevelOrder	ttree.h	/^    LevelOrder$/;"	e	enum:TraverseOrder
+LevelOrderTraverse	Ttree.cpp	/^void CTtree::LevelOrderTraverse(TTREENODE *pNode) const$/;"	f	class:CTtree
+LevelOrderTraverse	ttree.h	/^    void LevelOrderTraverse(TTREENODE *pNode) const$/;"	f	class:CTtree
+LevelOrderTraverse	ttree.h	/^void CTtree::LevelOrderTraverse(TTREENODE *pNode) const$/;"	f	class:CTtree::CTtree
+MallocNode	Ttree.cpp	/^TTREENODE *CTtree::MallocNode()$/;"	f	class:CTtree
+MallocNode	ttree.h	/^    TTREENODE *MallocNode()$/;"	f	class:CTtree
+Max	Ttree.cpp	/^int CTtree::Max( int a, int b ) const$/;"	f	class:CTtree
+Max	ttree.h	/^    int Max(int a, int b) const$/;"	f	class:CTtree
+PTTREENODE	ttree.h	/^} TTREENODE, *LPTTREENODE, *PTTREENODE;$/;"	t	typeref:struct:tagTTREENODE
+PostOrder	ttree.h	/^    PostOrder,$/;"	e	enum:TraverseOrder
+PostOrderTraverse	Ttree.cpp	/^void CTtree::PostOrderTraverse(TTREENODE *pNode) const$/;"	f	class:CTtree
+PostOrderTraverse	ttree.h	/^    void PostOrderTraverse(TTREENODE *pNode) const$/;"	f	class:CTtree
+PreOrder	ttree.h	/^    PreOrder,$/;"	e	enum:TraverseOrder
+PreOrderTraverse	Ttree.cpp	/^void CTtree::PreOrderTraverse(TTREENODE *pNode) const$/;"	f	class:CTtree
+PreOrderTraverse	ttree.h	/^    void PreOrderTraverse(TTREENODE *pNode) const$/;"	f	class:CTtree
+STX_STX_BTREE_H_HEADER	btree.h	33;"	d
+STX_STX_BTREE_MAP_H_HEADER	btree_map.h	33;"	d
+STX_STX_BTREE_MULTIMAP_H_HEADER	btree_multimap.h	33;"	d
+STX_STX_BTREE_MULTISET_H_HEADER	btree_multiset.h	33;"	d
+STX_STX_BTREE_SET_H_HEADER	btree_set.h	33;"	d
+SingleRotateLeft	Ttree.cpp	/^TTREENODE *CTtree::SingleRotateLeft(TTREENODE *pNode)$/;"	f	class:CTtree
+SingleRotateLeft	ttree.h	/^    TTREENODE *SingleRotateLeft(TTREENODE *pNode)$/;"	f	class:CTtree
+SingleRotateRight	Ttree.cpp	/^TTREENODE *CTtree::SingleRotateRight(TTREENODE *pNode)$/;"	f	class:CTtree
+SingleRotateRight	ttree.h	/^    TTREENODE *SingleRotateRight(TTREENODE *pNode)$/;"	f	class:CTtree
+TTREENODE	ttree.h	/^} TTREENODE, *LPTTREENODE, *PTTREENODE;$/;"	t	typeref:struct:tagTTREENODE
+TraverseOrder	ttree.h	/^enum TraverseOrder$/;"	g
+TraverseTree	Ttree.cpp	/^void CTtree::TraverseTree(TraverseOrder order)$/;"	f	class:CTtree
+TraverseTree	ttree.h	/^    void TraverseTree(TraverseOrder order)$/;"	f	class:CTtree
+_LINKEDQUEUE_H_	LinkedQueue.h	2;"	d
+_NODE_H_	Node.h	2;"	d
+_TTREE_H_	ttree.h	27;"	d
+_countof	Ttree_test.cpp	2;"	d	file:
+_earse	Ttree.cpp	/^void CTtree::_earse(TTREENODE *pNode)$/;"	f	class:CTtree
+_earse	ttree.h	/^    void _earse(TTREENODE *pNode)$/;"	f	class:CTtree
+_insert	Ttree.cpp	/^bool CTtree::_insert(TTREENODE *&pNode, ElementType key, ElementData data)$/;"	f	class:CTtree
+_insert	ttree.h	/^    bool _insert(TTREENODE *&pNode, ElementType key, ElementData data)$/;"	f	class:CTtree
+a	Ttree_test.cpp	/^static int a[] = { 30, 28, 45, 15, 16, 17, 19, 90, 25, 36, 31, 32, 20, 95, 23, 91, 21, 11, 12, 13, 10, 8, 9, 7};$/;"	v	file:
+alloc_type	btree.h	/^        typedef typename _Alloc::template rebind<inner_node>::other alloc_type;$/;"	t	struct:stx::btree::inner_node
+alloc_type	btree.h	/^        typedef typename _Alloc::template rebind<leaf_node>::other alloc_type;$/;"	t	struct:stx::btree::leaf_node
+allocate_inner	btree.h	/^    inline inner_node * allocate_inner(unsigned short level)$/;"	f	class:stx::btree
+allocate_leaf	btree.h	/^    inline leaf_node * allocate_leaf()$/;"	f	class:stx::btree
+allocator_type	btree.h	/^    typedef _Alloc allocator_type;$/;"	t	class:stx::btree
+allocator_type	btree_map.h	/^    typedef _Alloc allocator_type;$/;"	t	class:stx::btree_map
+allocator_type	btree_multimap.h	/^    typedef _Alloc allocator_type;$/;"	t	class:stx::btree_multimap
+allocator_type	btree_multiset.h	/^    typedef _Alloc allocator_type;$/;"	t	class:stx::btree_multiset
+allocator_type	btree_set.h	/^    typedef _Alloc allocator_type;$/;"	t	class:stx::btree_set
+allow_duplicates	btree.h	/^        bool           allow_duplicates;$/;"	m	struct:stx::btree::dump_header
+allow_duplicates	btree.h	/^    static const bool allow_duplicates = _Duplicates;$/;"	m	class:stx::btree
+allow_duplicates	btree_map.h	/^    static const bool allow_duplicates = btree_impl::allow_duplicates;$/;"	m	class:stx::btree_map
+allow_duplicates	btree_multimap.h	/^    static const bool allow_duplicates = btree_impl::allow_duplicates;$/;"	m	class:stx::btree_multimap
+allow_duplicates	btree_multiset.h	/^    static const bool allow_duplicates = btree_impl::allow_duplicates;$/;"	m	class:stx::btree_multiset
+allow_duplicates	btree_set.h	/^    static const bool allow_duplicates = btree_impl::allow_duplicates;$/;"	m	class:stx::btree_set
+avgfill_leaves	btree.h	/^        inline double               avgfill_leaves() const$/;"	f	struct:stx::btree::tree_stats
+begin	btree.h	/^    inline const_iterator begin() const$/;"	f	class:stx::btree
+begin	btree.h	/^    inline iterator begin()$/;"	f	class:stx::btree
+begin	btree_map.h	/^    inline const_iterator begin() const$/;"	f	class:stx::btree_map
+begin	btree_map.h	/^    inline iterator begin()$/;"	f	class:stx::btree_map
+begin	btree_multimap.h	/^    inline const_iterator begin() const$/;"	f	class:stx::btree_multimap
+begin	btree_multimap.h	/^    inline iterator begin()$/;"	f	class:stx::btree_multimap
+begin	btree_multiset.h	/^    inline const_iterator begin() const$/;"	f	class:stx::btree_multiset
+begin	btree_multiset.h	/^    inline iterator begin()$/;"	f	class:stx::btree_multiset
+begin	btree_set.h	/^    inline const_iterator begin() const$/;"	f	class:stx::btree_set
+begin	btree_set.h	/^    inline iterator begin()$/;"	f	class:stx::btree_set
+bf	ttree.h	/^    char bf;                    \/\/ Balabce factor(bf = right subtree height - left subtree height)$/;"	m	struct:tagTTREENODE
+binsearch_threshold	btree.h	/^    static const size_t binsearch_threshold = 256;$/;"	m	class:stx::btree_default_map_traits
+binsearch_threshold	btree.h	/^    static const size_t binsearch_threshold = 256;$/;"	m	class:stx::btree_default_set_traits
+btree	btree.h	/^    explicit inline btree(const allocator_type& alloc = allocator_type())$/;"	f	class:stx::btree
+btree	btree.h	/^    explicit inline btree(const key_compare& kcf,$/;"	f	class:stx::btree
+btree	btree.h	/^    inline btree(InputIterator first, InputIterator last, const key_compare& kcf,$/;"	f	class:stx::btree
+btree	btree.h	/^    inline btree(InputIterator first, InputIterator last,$/;"	f	class:stx::btree
+btree	btree.h	/^    inline btree(const btree& other)$/;"	f	class:stx::btree
+btree	btree.h	/^class btree$/;"	c	namespace:stx
+btree_default_map_traits	btree.h	/^class btree_default_map_traits$/;"	c	namespace:stx
+btree_default_set_traits	btree.h	/^class btree_default_set_traits$/;"	c	namespace:stx
+btree_fixmerge	btree.h	/^        btree_fixmerge = 4$/;"	e	enum:stx::btree::result_flags_t
+btree_impl	btree_map.h	/^                       traits, false, allocator_type, false> btree_impl;$/;"	t	class:stx::btree_map
+btree_impl	btree_multimap.h	/^                       traits, true, allocator_type, false> btree_impl;$/;"	t	class:stx::btree_multimap
+btree_impl	btree_multiset.h	/^                       traits, true, allocator_type, true> btree_impl;$/;"	t	class:stx::btree_multiset
+btree_impl	btree_set.h	/^                       traits, false, allocator_type, true> btree_impl;$/;"	t	class:stx::btree_set
+btree_map	btree_map.h	/^    explicit inline btree_map(const allocator_type& alloc = allocator_type())$/;"	f	class:stx::btree_map
+btree_map	btree_map.h	/^    explicit inline btree_map(const key_compare& kcf,$/;"	f	class:stx::btree_map
+btree_map	btree_map.h	/^    inline btree_map(InputIterator first, InputIterator last, const key_compare& kcf,$/;"	f	class:stx::btree_map
+btree_map	btree_map.h	/^    inline btree_map(InputIterator first, InputIterator last,$/;"	f	class:stx::btree_map
+btree_map	btree_map.h	/^    inline btree_map(const btree_map& other)$/;"	f	class:stx::btree_map
+btree_map	btree_map.h	/^class btree_map$/;"	c	namespace:stx
+btree_multimap	btree_multimap.h	/^    explicit inline btree_multimap(const allocator_type& alloc = allocator_type())$/;"	f	class:stx::btree_multimap
+btree_multimap	btree_multimap.h	/^    explicit inline btree_multimap(const key_compare& kcf,$/;"	f	class:stx::btree_multimap
+btree_multimap	btree_multimap.h	/^    inline btree_multimap(InputIterator first, InputIterator last, const key_compare& kcf,$/;"	f	class:stx::btree_multimap
+btree_multimap	btree_multimap.h	/^    inline btree_multimap(InputIterator first, InputIterator last,$/;"	f	class:stx::btree_multimap
+btree_multimap	btree_multimap.h	/^    inline btree_multimap(const btree_multimap& other)$/;"	f	class:stx::btree_multimap
+btree_multimap	btree_multimap.h	/^class btree_multimap$/;"	c	namespace:stx
+btree_multiset	btree_multiset.h	/^    explicit inline btree_multiset(const allocator_type& alloc = allocator_type())$/;"	f	class:stx::btree_multiset
+btree_multiset	btree_multiset.h	/^    explicit inline btree_multiset(const key_compare& kcf,$/;"	f	class:stx::btree_multiset
+btree_multiset	btree_multiset.h	/^    inline btree_multiset(InputIterator first, InputIterator last, const key_compare& kcf,$/;"	f	class:stx::btree_multiset
+btree_multiset	btree_multiset.h	/^    inline btree_multiset(InputIterator first, InputIterator last,$/;"	f	class:stx::btree_multiset
+btree_multiset	btree_multiset.h	/^    inline btree_multiset(const btree_multiset& other)$/;"	f	class:stx::btree_multiset
+btree_multiset	btree_multiset.h	/^class btree_multiset$/;"	c	namespace:stx
+btree_not_found	btree.h	/^        btree_not_found = 1,$/;"	e	enum:stx::btree::result_flags_t
+btree_ok	btree.h	/^        btree_ok = 0,$/;"	e	enum:stx::btree::result_flags_t
+btree_pair_to_value	btree.h	/^    struct btree_pair_to_value$/;"	s	class:stx::btree
+btree_pair_to_value	btree.h	/^    struct btree_pair_to_value<value_type, value_type>$/;"	s	class:stx::btree
+btree_set	btree_set.h	/^    explicit inline btree_set(const allocator_type& alloc = allocator_type())$/;"	f	class:stx::btree_set
+btree_set	btree_set.h	/^    explicit inline btree_set(const key_compare& kcf,$/;"	f	class:stx::btree_set
+btree_set	btree_set.h	/^    inline btree_set(InputIterator first, InputIterator last, const key_compare& kcf,$/;"	f	class:stx::btree_set
+btree_set	btree_set.h	/^    inline btree_set(InputIterator first, InputIterator last,$/;"	f	class:stx::btree_set
+btree_set	btree_set.h	/^    inline btree_set(const btree_set& other)$/;"	f	class:stx::btree_set
+btree_set	btree_set.h	/^class btree_set$/;"	c	namespace:stx
+btree_update_lastkey	btree.h	/^        btree_update_lastkey = 2,$/;"	e	enum:stx::btree::result_flags_t
+bulk_load	btree.h	/^    void bulk_load(Iterator ibegin, Iterator iend)$/;"	f	class:stx::btree
+bulk_load	btree_map.h	/^    inline void bulk_load(Iterator first, Iterator last)$/;"	f	class:stx::btree_map
+bulk_load	btree_multimap.h	/^    inline void bulk_load(Iterator first, Iterator last)$/;"	f	class:stx::btree_multimap
+bulk_load	btree_multiset.h	/^    inline void bulk_load(Iterator first, Iterator last)$/;"	f	class:stx::btree_multiset
+bulk_load	btree_set.h	/^    inline void bulk_load(Iterator first, Iterator last)$/;"	f	class:stx::btree_set
+childid	btree.h	/^        node     * childid[innerslotmax + 1];$/;"	m	struct:stx::btree::inner_node
+clear	LinkedQueue.h	/^void linkedQueue<T>::clear()$/;"	f	class:linkedQueue
+clear	btree.h	/^    void clear()$/;"	f	class:stx::btree
+clear	btree_map.h	/^    void clear()$/;"	f	class:stx::btree_map
+clear	btree_multimap.h	/^    void clear()$/;"	f	class:stx::btree_multimap
+clear	btree_multiset.h	/^    void clear()$/;"	f	class:stx::btree_multiset
+clear	btree_set.h	/^    void clear()$/;"	f	class:stx::btree_set
+clear_recursive	btree.h	/^    void clear_recursive(node* n)$/;"	f	class:stx::btree
+const_iterator	btree.h	/^        inline const_iterator()$/;"	f	class:stx::btree::const_iterator
+const_iterator	btree.h	/^        inline const_iterator(const const_reverse_iterator& it) \/\/ NOLINT$/;"	f	class:stx::btree::const_iterator
+const_iterator	btree.h	/^        inline const_iterator(const iterator& it) \/\/ NOLINT$/;"	f	class:stx::btree::const_iterator
+const_iterator	btree.h	/^        inline const_iterator(const reverse_iterator& it) \/\/ NOLINT$/;"	f	class:stx::btree::const_iterator
+const_iterator	btree.h	/^        inline const_iterator(const typename btree::leaf_node* l, unsigned short s)$/;"	f	class:stx::btree::const_iterator
+const_iterator	btree.h	/^    class const_iterator$/;"	c	class:stx::btree
+const_iterator	btree_map.h	/^    typedef typename btree_impl::const_iterator const_iterator;$/;"	t	class:stx::btree_map
+const_iterator	btree_multimap.h	/^    typedef typename btree_impl::const_iterator const_iterator;$/;"	t	class:stx::btree_multimap
+const_iterator	btree_multiset.h	/^    typedef typename btree_impl::const_iterator const_iterator;$/;"	t	class:stx::btree_multiset
+const_iterator	btree_set.h	/^    typedef typename btree_impl::const_iterator const_iterator;$/;"	t	class:stx::btree_set
+const_reverse_iterator	btree.h	/^        inline const_reverse_iterator()$/;"	f	class:stx::btree::const_reverse_iterator
+const_reverse_iterator	btree.h	/^        inline const_reverse_iterator(const const_iterator& it) \/\/ NOLINT$/;"	f	class:stx::btree::const_reverse_iterator
+const_reverse_iterator	btree.h	/^        inline const_reverse_iterator(const iterator& it) \/\/ NOLINT$/;"	f	class:stx::btree::const_reverse_iterator
+const_reverse_iterator	btree.h	/^        inline const_reverse_iterator(const reverse_iterator& it) \/\/ NOLINT$/;"	f	class:stx::btree::const_reverse_iterator
+const_reverse_iterator	btree.h	/^        inline const_reverse_iterator(const typename btree::leaf_node* l, unsigned short s)$/;"	f	class:stx::btree::const_reverse_iterator
+const_reverse_iterator	btree.h	/^    class const_reverse_iterator$/;"	c	class:stx::btree
+const_reverse_iterator	btree_map.h	/^    typedef typename btree_impl::const_reverse_iterator const_reverse_iterator;$/;"	t	class:stx::btree_map
+const_reverse_iterator	btree_multimap.h	/^    typedef typename btree_impl::const_reverse_iterator const_reverse_iterator;$/;"	t	class:stx::btree_multimap
+const_reverse_iterator	btree_multiset.h	/^    typedef typename btree_impl::const_reverse_iterator const_reverse_iterator;$/;"	t	class:stx::btree_multiset
+const_reverse_iterator	btree_set.h	/^    typedef typename btree_impl::const_reverse_iterator const_reverse_iterator;$/;"	t	class:stx::btree_set
+copy	LinkedQueue.h	/^void linkedQueue<T>::copy(const linkedQueue<T>& q)$/;"	f	class:linkedQueue
+copy_recursive	btree.h	/^    struct node * copy_recursive(const node* n)$/;"	f	class:stx::btree
+count	btree.h	/^    size_type count(const key_type& key) const$/;"	f	class:stx::btree
+count	btree_map.h	/^    size_type count(const key_type& key) const$/;"	f	class:stx::btree_map
+count	btree_multimap.h	/^    size_type count(const key_type& key) const$/;"	f	class:stx::btree_multimap
+count	btree_multiset.h	/^    size_type count(const key_type& key) const$/;"	f	class:stx::btree_multiset
+count	btree_set.h	/^    size_type count(const key_type& key) const$/;"	f	class:stx::btree_set
+currnode	btree.h	/^        const typename btree::leaf_node * currnode;$/;"	m	class:stx::btree::const_iterator
+currnode	btree.h	/^        const typename btree::leaf_node * currnode;$/;"	m	class:stx::btree::const_reverse_iterator
+currnode	btree.h	/^        typename btree::leaf_node * currnode;$/;"	m	class:stx::btree::iterator
+currnode	btree.h	/^        typename btree::leaf_node * currnode;$/;"	m	class:stx::btree::reverse_iterator
+currslot	btree.h	/^        unsigned short currslot;$/;"	m	class:stx::btree::const_iterator
+currslot	btree.h	/^        unsigned short currslot;$/;"	m	class:stx::btree::const_reverse_iterator
+currslot	btree.h	/^        unsigned short currslot;$/;"	m	class:stx::btree::iterator
+currslot	btree.h	/^        unsigned short currslot;$/;"	m	class:stx::btree::reverse_iterator
+data	btree.h	/^        inline const data_type & data() const$/;"	f	class:stx::btree::const_iterator
+data	btree.h	/^        inline const data_type & data() const$/;"	f	class:stx::btree::const_reverse_iterator
+data	btree.h	/^        inline data_type & data() const$/;"	f	class:stx::btree::iterator
+data	btree.h	/^        inline data_type & data() const$/;"	f	class:stx::btree::reverse_iterator
+data	ttree.h	/^    ElementData data[pageSize]; \/\/ Item data array.$/;"	m	struct:tagTTREENODE
+data_copy	btree.h	/^    static OutputIterator data_copy(InputIterator first, InputIterator last,$/;"	f	class:stx::btree
+data_copy_backward	btree.h	/^    static OutputIterator data_copy_backward(InputIterator first, InputIterator last,$/;"	f	class:stx::btree
+data_type	btree.h	/^        typedef typename btree::data_type data_type;$/;"	t	class:stx::btree::const_iterator
+data_type	btree.h	/^        typedef typename btree::data_type data_type;$/;"	t	class:stx::btree::const_reverse_iterator
+data_type	btree.h	/^        typedef typename btree::data_type data_type;$/;"	t	class:stx::btree::iterator
+data_type	btree.h	/^        typedef typename btree::data_type data_type;$/;"	t	class:stx::btree::reverse_iterator
+data_type	btree.h	/^    typedef _Data data_type;$/;"	t	class:stx::btree
+data_type	btree_map.h	/^    typedef _Data data_type;$/;"	t	class:stx::btree_map
+data_type	btree_multimap.h	/^    typedef _Data data_type;$/;"	t	class:stx::btree_multimap
+data_type	btree_multiset.h	/^    typedef struct empty_struct data_type;$/;"	t	class:stx::btree_multiset	typeref:struct:stx::btree_multiset::empty_struct
+data_type	btree_set.h	/^    typedef struct empty_struct data_type;$/;"	t	class:stx::btree_set	typeref:struct:stx::btree_set::empty_struct
+data_type_size	btree.h	/^        unsigned short data_type_size;$/;"	m	struct:stx::btree::dump_header
+debug	btree.h	/^    static const bool debug = false;$/;"	m	class:stx::btree_default_map_traits
+debug	btree.h	/^    static const bool debug = false;$/;"	m	class:stx::btree_default_set_traits
+debug	btree.h	/^    static const bool debug = traits::debug;$/;"	m	class:stx::btree
+debug	btree_map.h	/^    static const bool debug = btree_impl::debug;$/;"	m	class:stx::btree_map
+debug	btree_multimap.h	/^    static const bool debug = btree_impl::debug;$/;"	m	class:stx::btree_multimap
+debug	btree_multiset.h	/^    static const bool debug = btree_impl::debug;$/;"	m	class:stx::btree_multiset
+debug	btree_set.h	/^    static const bool debug = btree_impl::debug;$/;"	m	class:stx::btree_set
+difference_type	btree.h	/^        typedef ptrdiff_t difference_type;$/;"	t	class:stx::btree::const_iterator
+difference_type	btree.h	/^        typedef ptrdiff_t difference_type;$/;"	t	class:stx::btree::const_reverse_iterator
+difference_type	btree.h	/^        typedef ptrdiff_t difference_type;$/;"	t	class:stx::btree::iterator
+difference_type	btree.h	/^        typedef ptrdiff_t difference_type;$/;"	t	class:stx::btree::reverse_iterator
+dump	btree.h	/^    void dump(std::ostream& os) const$/;"	f	class:stx::btree
+dump	btree_map.h	/^    void dump(std::ostream& os) const$/;"	f	class:stx::btree_map
+dump	btree_multimap.h	/^    void dump(std::ostream& os) const$/;"	f	class:stx::btree_multimap
+dump	btree_multiset.h	/^    void dump(std::ostream& os) const$/;"	f	class:stx::btree_multiset
+dump	btree_set.h	/^    void dump(std::ostream& os) const$/;"	f	class:stx::btree_set
+dump_header	btree.h	/^    struct dump_header$/;"	s	class:stx::btree
+dump_node	btree.h	/^    void dump_node(std::ostream& os, const node* n) const$/;"	f	class:stx::btree
+empty	LinkedQueue.h	/^bool linkedQueue<T>::empty() const$/;"	f	class:linkedQueue
+empty	btree.h	/^    inline bool empty() const$/;"	f	class:stx::btree
+empty	btree_map.h	/^    inline bool empty() const$/;"	f	class:stx::btree_map
+empty	btree_multimap.h	/^    inline bool empty() const$/;"	f	class:stx::btree_multimap
+empty	btree_multiset.h	/^    inline bool empty() const$/;"	f	class:stx::btree_multiset
+empty	btree_set.h	/^    inline bool empty() const$/;"	f	class:stx::btree_set
+empty_struct	btree_multiset.h	/^    struct empty_struct$/;"	s	class:stx::btree_multiset
+empty_struct	btree_set.h	/^    struct empty_struct$/;"	s	class:stx::btree_set
+end	btree.h	/^    inline const_iterator end() const$/;"	f	class:stx::btree
+end	btree.h	/^    inline iterator end()$/;"	f	class:stx::btree
+end	btree_map.h	/^    inline const_iterator end() const$/;"	f	class:stx::btree_map
+end	btree_map.h	/^    inline iterator end()$/;"	f	class:stx::btree_map
+end	btree_multimap.h	/^    inline const_iterator end() const$/;"	f	class:stx::btree_multimap
+end	btree_multimap.h	/^    inline iterator end()$/;"	f	class:stx::btree_multimap
+end	btree_multiset.h	/^    inline const_iterator end() const$/;"	f	class:stx::btree_multiset
+end	btree_multiset.h	/^    inline iterator end()$/;"	f	class:stx::btree_multiset
+end	btree_set.h	/^    inline const_iterator end() const$/;"	f	class:stx::btree_set
+end	btree_set.h	/^    inline iterator end()$/;"	f	class:stx::btree_set
+equal_range	btree.h	/^    inline std::pair<const_iterator, const_iterator> equal_range(const key_type& key) const$/;"	f	class:stx::btree
+equal_range	btree.h	/^    inline std::pair<iterator, iterator> equal_range(const key_type& key)$/;"	f	class:stx::btree
+equal_range	btree_map.h	/^    inline std::pair<const_iterator, const_iterator> equal_range(const key_type& key) const$/;"	f	class:stx::btree_map
+equal_range	btree_map.h	/^    inline std::pair<iterator, iterator> equal_range(const key_type& key)$/;"	f	class:stx::btree_map
+equal_range	btree_multimap.h	/^    inline std::pair<const_iterator, const_iterator> equal_range(const key_type& key) const$/;"	f	class:stx::btree_multimap
+equal_range	btree_multimap.h	/^    inline std::pair<iterator, iterator> equal_range(const key_type& key)$/;"	f	class:stx::btree_multimap
+equal_range	btree_multiset.h	/^    inline std::pair<const_iterator, const_iterator> equal_range(const key_type& key) const$/;"	f	class:stx::btree_multiset
+equal_range	btree_multiset.h	/^    inline std::pair<iterator, iterator> equal_range(const key_type& key)$/;"	f	class:stx::btree_multiset
+equal_range	btree_set.h	/^    inline std::pair<const_iterator, const_iterator> equal_range(const key_type& key) const$/;"	f	class:stx::btree_set
+equal_range	btree_set.h	/^    inline std::pair<iterator, iterator> equal_range(const key_type& key)$/;"	f	class:stx::btree_set
+erase	btree.h	/^    size_type erase(const key_type& key)$/;"	f	class:stx::btree
+erase	btree.h	/^    void erase(iterator \/* first *\/, iterator \/* last *\/)$/;"	f	class:stx::btree
+erase	btree.h	/^    void erase(iterator iter)$/;"	f	class:stx::btree
+erase	btree_map.h	/^    size_type erase(const key_type& key)$/;"	f	class:stx::btree_map
+erase	btree_map.h	/^    void erase(iterator \/* first *\/, iterator \/* last *\/)$/;"	f	class:stx::btree_map
+erase	btree_map.h	/^    void erase(iterator iter)$/;"	f	class:stx::btree_map
+erase	btree_multimap.h	/^    size_type erase(const key_type& key)$/;"	f	class:stx::btree_multimap
+erase	btree_multimap.h	/^    void erase(iterator \/* first *\/, iterator \/* last *\/)$/;"	f	class:stx::btree_multimap
+erase	btree_multimap.h	/^    void erase(iterator iter)$/;"	f	class:stx::btree_multimap
+erase	btree_multiset.h	/^    size_type erase(const key_type& key)$/;"	f	class:stx::btree_multiset
+erase	btree_multiset.h	/^    void erase(iterator \/* first *\/, iterator \/* last *\/)$/;"	f	class:stx::btree_multiset
+erase	btree_multiset.h	/^    void erase(iterator iter)$/;"	f	class:stx::btree_multiset
+erase	btree_set.h	/^    size_type erase(const key_type& key)$/;"	f	class:stx::btree_set
+erase	btree_set.h	/^    void erase(iterator \/* first *\/, iterator \/* last *\/)$/;"	f	class:stx::btree_set
+erase	btree_set.h	/^    void erase(iterator iter)$/;"	f	class:stx::btree_set
+erase_iter_descend	btree.h	/^    result_t erase_iter_descend(const iterator& iter,$/;"	f	class:stx::btree
+erase_one	btree.h	/^    bool erase_one(const key_type& key)$/;"	f	class:stx::btree
+erase_one	btree_map.h	/^    bool erase_one(const key_type& key)$/;"	f	class:stx::btree_map
+erase_one	btree_multimap.h	/^    bool erase_one(const key_type& key)$/;"	f	class:stx::btree_multimap
+erase_one	btree_multiset.h	/^    bool erase_one(const key_type& key)$/;"	f	class:stx::btree_multiset
+erase_one	btree_set.h	/^    bool erase_one(const key_type& key)$/;"	f	class:stx::btree_set
+erase_one_descend	btree.h	/^    result_t erase_one_descend(const key_type& key,$/;"	f	class:stx::btree
+exists	btree.h	/^    bool exists(const key_type& key) const$/;"	f	class:stx::btree
+exists	btree_map.h	/^    bool exists(const key_type& key) const$/;"	f	class:stx::btree_map
+exists	btree_multimap.h	/^    bool exists(const key_type& key) const$/;"	f	class:stx::btree_multimap
+exists	btree_multiset.h	/^    bool exists(const key_type& key) const$/;"	f	class:stx::btree_multiset
+exists	btree_set.h	/^    bool exists(const key_type& key) const$/;"	f	class:stx::btree_set
+fill	btree.h	/^        inline void    fill()$/;"	f	struct:stx::btree::dump_header
+find	btree.h	/^    const_iterator find(const key_type& key) const$/;"	f	class:stx::btree
+find	btree.h	/^    iterator find(const key_type& key)$/;"	f	class:stx::btree
+find	btree_map.h	/^    const_iterator find(const key_type& key) const$/;"	f	class:stx::btree_map
+find	btree_map.h	/^    iterator find(const key_type& key)$/;"	f	class:stx::btree_map
+find	btree_multimap.h	/^    const_iterator find(const key_type& key) const$/;"	f	class:stx::btree_multimap
+find	btree_multimap.h	/^    iterator find(const key_type& key)$/;"	f	class:stx::btree_multimap
+find	btree_multiset.h	/^    const_iterator find(const key_type& key) const$/;"	f	class:stx::btree_multiset
+find	btree_multiset.h	/^    iterator find(const key_type& key)$/;"	f	class:stx::btree_multiset
+find	btree_set.h	/^    const_iterator find(const key_type& key) const$/;"	f	class:stx::btree_set
+find	btree_set.h	/^    iterator find(const key_type& key)$/;"	f	class:stx::btree_set
+find_lower	btree.h	/^    inline int find_lower(const node_type* n, const key_type& key) const$/;"	f	class:stx::btree
+find_upper	btree.h	/^    inline int find_upper(const node_type* n, const key_type& key) const$/;"	f	class:stx::btree
+flags	btree.h	/^        result_flags_t flags;$/;"	m	struct:stx::btree::result_t
+free_node	btree.h	/^    inline void free_node(node* n)$/;"	f	class:stx::btree
+front	LinkedQueue.h	/^T& linkedQueue<T>::front()$/;"	f	class:linkedQueue
+front	LinkedQueue.h	/^const T& linkedQueue<T>::front() const$/;"	f	class:linkedQueue
+getNode	LinkedQueue.h	/^node<T> *linkedQueue<T>::getNode(const T& item)$/;"	f	class:linkedQueue
+get_allocator	btree.h	/^    allocator_type get_allocator() const$/;"	f	class:stx::btree
+get_allocator	btree_map.h	/^    allocator_type get_allocator() const$/;"	f	class:stx::btree_map
+get_allocator	btree_multimap.h	/^    allocator_type get_allocator() const$/;"	f	class:stx::btree_multimap
+get_allocator	btree_multiset.h	/^    allocator_type get_allocator() const$/;"	f	class:stx::btree_multiset
+get_allocator	btree_set.h	/^    allocator_type get_allocator() const$/;"	f	class:stx::btree_set
+get_stats	btree.h	/^    inline const struct tree_stats & get_stats() const$/;"	f	class:stx::btree
+get_stats	btree_map.h	/^    inline const tree_stats & get_stats() const$/;"	f	class:stx::btree_map
+get_stats	btree_multimap.h	/^    inline const tree_stats & get_stats() const$/;"	f	class:stx::btree_multimap
+get_stats	btree_multiset.h	/^    inline const tree_stats & get_stats() const$/;"	f	class:stx::btree_multiset
+get_stats	btree_set.h	/^    inline const tree_stats & get_stats() const$/;"	f	class:stx::btree_set
+has	btree.h	/^        inline bool    has(result_flags_t f) const$/;"	f	struct:stx::btree::result_t
+inner_node	btree.h	/^        inline inner_node(const node& top)$/;"	f	struct:stx::btree::inner_node
+inner_node	btree.h	/^        inline inner_node(const unsigned short l)$/;"	f	struct:stx::btree::inner_node
+inner_node	btree.h	/^    struct inner_node : public node$/;"	s	class:stx::btree
+inner_node_allocator	btree.h	/^    typename inner_node::alloc_type inner_node_allocator()$/;"	f	class:stx::btree
+innernodes	btree.h	/^        size_type                   innernodes;$/;"	m	struct:stx::btree::tree_stats
+innerslotmax	btree.h	/^    static const unsigned short innerslotmax = traits::innerslots;$/;"	m	class:stx::btree
+innerslotmax	btree_map.h	/^    static const unsigned short innerslotmax = btree_impl::innerslotmax;$/;"	m	class:stx::btree_map
+innerslotmax	btree_multimap.h	/^    static const unsigned short innerslotmax = btree_impl::innerslotmax;$/;"	m	class:stx::btree_multimap
+innerslotmax	btree_multiset.h	/^    static const unsigned short innerslotmax = btree_impl::innerslotmax;$/;"	m	class:stx::btree_multiset
+innerslotmax	btree_set.h	/^    static const unsigned short innerslotmax = btree_impl::innerslotmax;$/;"	m	class:stx::btree_set
+innerslots	btree.h	/^        static const unsigned short innerslots = self_type::innerslotmax;$/;"	m	struct:stx::btree::tree_stats
+innerslots	btree.h	/^        unsigned short innerslots;$/;"	m	struct:stx::btree::dump_header
+innerslots	btree.h	/^    static const int innerslots = BTREE_MAX(8, 256 \/ (sizeof(_Key) + sizeof(void*)));$/;"	m	class:stx::btree_default_map_traits
+innerslots	btree.h	/^    static const int innerslots = BTREE_MAX(8, 256 \/ (sizeof(_Key) + sizeof(void*)));$/;"	m	class:stx::btree_default_set_traits
+insert	btree.h	/^    inline iterator insert(iterator \/* hint *\/, const pair_type& x)$/;"	f	class:stx::btree
+insert	btree.h	/^    inline std::pair<iterator, bool> insert(const key_type& key, const data_type& data)$/;"	f	class:stx::btree
+insert	btree.h	/^    inline std::pair<iterator, bool> insert(const pair_type& x)$/;"	f	class:stx::btree
+insert	btree.h	/^    inline void insert(InputIterator first, InputIterator last)$/;"	f	class:stx::btree
+insert	btree_map.h	/^    inline iterator insert(iterator hint, const value_type& x)$/;"	f	class:stx::btree_map
+insert	btree_map.h	/^    inline std::pair<iterator, bool> insert(const key_type& key, const data_type& data)$/;"	f	class:stx::btree_map
+insert	btree_map.h	/^    inline std::pair<iterator, bool> insert(const value_type& x)$/;"	f	class:stx::btree_map
+insert	btree_map.h	/^    inline void insert(InputIterator first, InputIterator last)$/;"	f	class:stx::btree_map
+insert	btree_multimap.h	/^    inline iterator insert(const key_type& key, const data_type& data)$/;"	f	class:stx::btree_multimap
+insert	btree_multimap.h	/^    inline iterator insert(const value_type& x)$/;"	f	class:stx::btree_multimap
+insert	btree_multimap.h	/^    inline iterator insert(iterator hint, const value_type& x)$/;"	f	class:stx::btree_multimap
+insert	btree_multimap.h	/^    inline void insert(InputIterator first, InputIterator last)$/;"	f	class:stx::btree_multimap
+insert	btree_multiset.h	/^    inline iterator insert(const key_type& x)$/;"	f	class:stx::btree_multiset
+insert	btree_multiset.h	/^    inline iterator insert(iterator hint, const key_type& x)$/;"	f	class:stx::btree_multiset
+insert	btree_multiset.h	/^    inline void insert(InputIterator first, InputIterator last)$/;"	f	class:stx::btree_multiset
+insert	btree_set.h	/^    inline iterator insert(iterator hint, const key_type& x)$/;"	f	class:stx::btree_set
+insert	btree_set.h	/^    inline std::pair<iterator, bool> insert(const key_type& x)$/;"	f	class:stx::btree_set
+insert	btree_set.h	/^    inline void insert(InputIterator first, InputIterator last)$/;"	f	class:stx::btree_set
+insert2	btree.h	/^    inline iterator insert2(iterator \/* hint *\/, const key_type& key, const data_type& data)$/;"	f	class:stx::btree
+insert2	btree.h	/^    inline std::pair<iterator, bool> insert2(const key_type& key, const data_type& data)$/;"	f	class:stx::btree
+insert2	btree_map.h	/^    inline iterator insert2(iterator hint, const key_type& key, const data_type& data)$/;"	f	class:stx::btree_map
+insert2	btree_map.h	/^    inline std::pair<iterator, bool> insert2(const key_type& key, const data_type& data)$/;"	f	class:stx::btree_map
+insert2	btree_multimap.h	/^    inline iterator insert2(const key_type& key, const data_type& data)$/;"	f	class:stx::btree_multimap
+insert2	btree_multimap.h	/^    inline iterator insert2(iterator hint, const key_type& key, const data_type& data)$/;"	f	class:stx::btree_multimap
+insert_descend	btree.h	/^    std::pair<iterator, bool> insert_descend(node* n,$/;"	f	class:stx::btree
+insert_start	btree.h	/^    std::pair<iterator, bool> insert_start(const key_type& key, const data_type& value)$/;"	f	class:stx::btree
+isfew	btree.h	/^        inline bool isfew() const$/;"	f	struct:stx::btree::inner_node
+isfew	btree.h	/^        inline bool isfew() const$/;"	f	struct:stx::btree::leaf_node
+isfull	btree.h	/^        inline bool isfull() const$/;"	f	struct:stx::btree::inner_node
+isfull	btree.h	/^        inline bool isfull() const$/;"	f	struct:stx::btree::leaf_node
+isleafnode	btree.h	/^        inline bool    isleafnode() const$/;"	f	struct:stx::btree::node
+isunderflow	btree.h	/^        inline bool isunderflow() const$/;"	f	struct:stx::btree::inner_node
+isunderflow	btree.h	/^        inline bool isunderflow() const$/;"	f	struct:stx::btree::leaf_node
+item	ttree.h	/^    ElementType item[pageSize]; \/\/ Item key array.$/;"	m	struct:tagTTREENODE
+itemcount	btree.h	/^        size_type                   itemcount;$/;"	m	struct:stx::btree::tree_stats
+itemcount	btree.h	/^        size_type      itemcount;$/;"	m	struct:stx::btree::dump_header
+iterator	btree.h	/^        inline iterator()$/;"	f	class:stx::btree::iterator
+iterator	btree.h	/^        inline iterator(const reverse_iterator& it) \/\/ NOLINT$/;"	f	class:stx::btree::iterator
+iterator	btree.h	/^        inline iterator(typename btree::leaf_node* l, unsigned short s)$/;"	f	class:stx::btree::iterator
+iterator	btree.h	/^    class iterator$/;"	c	class:stx::btree
+iterator	btree_map.h	/^    typedef typename btree_impl::iterator iterator;$/;"	t	class:stx::btree_map
+iterator	btree_multimap.h	/^    typedef typename btree_impl::iterator iterator;$/;"	t	class:stx::btree_multimap
+iterator	btree_multiset.h	/^    typedef typename btree_impl::iterator iterator;$/;"	t	class:stx::btree_multiset
+iterator	btree_set.h	/^    typedef typename btree_impl::iterator iterator;$/;"	t	class:stx::btree_set
+iterator_category	btree.h	/^        typedef std::bidirectional_iterator_tag iterator_category;$/;"	t	class:stx::btree::const_iterator
+iterator_category	btree.h	/^        typedef std::bidirectional_iterator_tag iterator_category;$/;"	t	class:stx::btree::const_reverse_iterator
+iterator_category	btree.h	/^        typedef std::bidirectional_iterator_tag iterator_category;$/;"	t	class:stx::btree::iterator
+iterator_category	btree.h	/^        typedef std::bidirectional_iterator_tag iterator_category;$/;"	t	class:stx::btree::reverse_iterator
+key	btree.h	/^        inline const key_type & key() const$/;"	f	class:stx::btree::const_iterator
+key	btree.h	/^        inline const key_type & key() const$/;"	f	class:stx::btree::const_reverse_iterator
+key	btree.h	/^        inline const key_type & key() const$/;"	f	class:stx::btree::iterator
+key	btree.h	/^        inline const key_type & key() const$/;"	f	class:stx::btree::reverse_iterator
+key_comp	btree.h	/^        key_compare key_comp;$/;"	m	class:stx::btree::value_compare
+key_comp	btree.h	/^    inline key_compare key_comp() const$/;"	f	class:stx::btree
+key_comp	btree_map.h	/^    inline key_compare key_comp() const$/;"	f	class:stx::btree_map
+key_comp	btree_multimap.h	/^    inline key_compare key_comp() const$/;"	f	class:stx::btree_multimap
+key_comp	btree_multiset.h	/^    inline key_compare key_comp() const$/;"	f	class:stx::btree_multiset
+key_comp	btree_set.h	/^    inline key_compare key_comp() const$/;"	f	class:stx::btree_set
+key_compare	btree.h	/^    typedef _Compare key_compare;$/;"	t	class:stx::btree
+key_compare	btree_map.h	/^    typedef _Compare key_compare;$/;"	t	class:stx::btree_map
+key_compare	btree_multimap.h	/^    typedef _Compare key_compare;$/;"	t	class:stx::btree_multimap
+key_compare	btree_multiset.h	/^    typedef _Compare key_compare;$/;"	t	class:stx::btree_multiset
+key_compare	btree_set.h	/^    typedef _Compare key_compare;$/;"	t	class:stx::btree_set
+key_equal	btree.h	/^    inline bool key_equal(const key_type& a, const key_type& b) const$/;"	f	class:stx::btree
+key_greater	btree.h	/^    inline bool key_greater(const key_type& a, const key_type& b) const$/;"	f	class:stx::btree
+key_greaterequal	btree.h	/^    inline bool key_greaterequal(const key_type& a, const key_type b) const$/;"	f	class:stx::btree
+key_less	btree.h	/^    inline bool key_less(const key_type& a, const key_type b) const$/;"	f	class:stx::btree
+key_lessequal	btree.h	/^    inline bool key_lessequal(const key_type& a, const key_type b) const$/;"	f	class:stx::btree
+key_type	btree.h	/^        typedef typename btree::key_type key_type;$/;"	t	class:stx::btree::const_iterator
+key_type	btree.h	/^        typedef typename btree::key_type key_type;$/;"	t	class:stx::btree::const_reverse_iterator
+key_type	btree.h	/^        typedef typename btree::key_type key_type;$/;"	t	class:stx::btree::iterator
+key_type	btree.h	/^        typedef typename btree::key_type key_type;$/;"	t	class:stx::btree::reverse_iterator
+key_type	btree.h	/^    typedef _Key key_type;$/;"	t	class:stx::btree
+key_type	btree_map.h	/^    typedef _Key key_type;$/;"	t	class:stx::btree_map
+key_type	btree_multimap.h	/^    typedef _Key key_type;$/;"	t	class:stx::btree_multimap
+key_type	btree_multiset.h	/^    typedef _Key key_type;$/;"	t	class:stx::btree_multiset
+key_type	btree_set.h	/^    typedef _Key key_type;$/;"	t	class:stx::btree_set
+key_type_size	btree.h	/^        unsigned short key_type_size;$/;"	m	struct:stx::btree::dump_header
+keycompare	Ttree.cpp	/^int CTtree::keycompare(ElementType key1, ElementType key2)$/;"	f	class:CTtree
+keycompare	ttree.h	/^   int keycompare(ElementType key1, ElementType key2)$/;"	f	class:CTtree
+lastkey	btree.h	/^        key_type       lastkey;$/;"	m	struct:stx::btree::result_t
+leaf_node	btree.h	/^        inline leaf_node()$/;"	f	struct:stx::btree::leaf_node
+leaf_node	btree.h	/^        inline leaf_node(const node& top)$/;"	f	struct:stx::btree::leaf_node
+leaf_node	btree.h	/^    struct leaf_node : public node$/;"	s	class:stx::btree
+leaf_node_allocator	btree.h	/^    typename leaf_node::alloc_type leaf_node_allocator()$/;"	f	class:stx::btree
+leafslotmax	btree.h	/^    static const unsigned short leafslotmax = traits::leafslots;$/;"	m	class:stx::btree
+leafslotmax	btree_map.h	/^    static const unsigned short leafslotmax = btree_impl::leafslotmax;$/;"	m	class:stx::btree_map
+leafslotmax	btree_multimap.h	/^    static const unsigned short leafslotmax = btree_impl::leafslotmax;$/;"	m	class:stx::btree_multimap
+leafslotmax	btree_multiset.h	/^    static const unsigned short leafslotmax = btree_impl::leafslotmax;$/;"	m	class:stx::btree_multiset
+leafslotmax	btree_set.h	/^    static const unsigned short leafslotmax = btree_impl::leafslotmax;$/;"	m	class:stx::btree_set
+leafslots	btree.h	/^        static const unsigned short leafslots = self_type::leafslotmax;$/;"	m	struct:stx::btree::tree_stats
+leafslots	btree.h	/^        unsigned short leafslots;$/;"	m	struct:stx::btree::dump_header
+leafslots	btree.h	/^    static const int leafslots = BTREE_MAX(8, 256 \/ (sizeof(_Key) + sizeof(_Data)));$/;"	m	class:stx::btree_default_map_traits
+leafslots	btree.h	/^    static const int leafslots = BTREE_MAX(8, 256 \/ (sizeof(_Key)));$/;"	m	class:stx::btree_default_set_traits
+leaves	btree.h	/^        size_type                   leaves;$/;"	m	struct:stx::btree::tree_stats
+left	ttree.h	/^    tagTTREENODE *left;         \/\/ Left child pointer.$/;"	m	struct:tagTTREENODE
+level	btree.h	/^        unsigned short level;$/;"	m	struct:stx::btree::node
+linkedQueue	LinkedQueue.h	/^class linkedQueue$/;"	c
+linkedQueue	LinkedQueue.h	/^linkedQueue<T>::linkedQueue(): qfront(NULL), qback(NULL), qsize(0)$/;"	f	class:linkedQueue
+linkedQueue	LinkedQueue.h	/^linkedQueue<T>::linkedQueue(const linkedQueue<T>& obj)$/;"	f	class:linkedQueue
+lower_bound	btree.h	/^    const_iterator lower_bound(const key_type& key) const$/;"	f	class:stx::btree
+lower_bound	btree.h	/^    iterator lower_bound(const key_type& key)$/;"	f	class:stx::btree
+lower_bound	btree_map.h	/^    const_iterator lower_bound(const key_type& key) const$/;"	f	class:stx::btree_map
+lower_bound	btree_map.h	/^    iterator lower_bound(const key_type& key)$/;"	f	class:stx::btree_map
+lower_bound	btree_multimap.h	/^    const_iterator lower_bound(const key_type& key) const$/;"	f	class:stx::btree_multimap
+lower_bound	btree_multimap.h	/^    iterator lower_bound(const key_type& key)$/;"	f	class:stx::btree_multimap
+lower_bound	btree_multiset.h	/^    const_iterator lower_bound(const key_type& key) const$/;"	f	class:stx::btree_multiset
+lower_bound	btree_multiset.h	/^    iterator lower_bound(const key_type& key)$/;"	f	class:stx::btree_multiset
+lower_bound	btree_set.h	/^    const_iterator lower_bound(const key_type& key) const$/;"	f	class:stx::btree_set
+lower_bound	btree_set.h	/^    iterator lower_bound(const key_type& key)$/;"	f	class:stx::btree_set
+m_allocator	btree.h	/^    allocator_type m_allocator;$/;"	m	class:stx::btree
+m_headleaf	btree.h	/^    leaf_node* m_headleaf;$/;"	m	class:stx::btree
+m_key_less	btree.h	/^    key_compare m_key_less;$/;"	m	class:stx::btree
+m_nSize	ttree.h	/^    int         m_nSize;$/;"	m	class:CTtree
+m_root	btree.h	/^    node* m_root;$/;"	m	class:stx::btree
+m_stats	btree.h	/^    tree_stats m_stats;$/;"	m	class:stx::btree
+m_tailleaf	btree.h	/^    leaf_node* m_tailleaf;$/;"	m	class:stx::btree
+main	Ttree_test.cpp	/^int main( void )$/;"	f
+max_size	btree.h	/^    inline size_type max_size() const$/;"	f	class:stx::btree
+max_size	btree_map.h	/^    inline size_type max_size() const$/;"	f	class:stx::btree_map
+max_size	btree_multimap.h	/^    inline size_type max_size() const$/;"	f	class:stx::btree_multimap
+max_size	btree_multiset.h	/^    inline size_type max_size() const$/;"	f	class:stx::btree_multiset
+max_size	btree_set.h	/^    inline size_type max_size() const$/;"	f	class:stx::btree_set
+merge_inner	btree.h	/^    static result_t merge_inner(inner_node* left, inner_node* right, inner_node* parent, unsigned int parentslot)$/;"	f	class:stx::btree
+merge_leaves	btree.h	/^    result_t merge_leaves(leaf_node* left, leaf_node* right, inner_node* parent)$/;"	f	class:stx::btree
+minItems	ttree.h	/^   minItems = pageSize - 2 \/\/ minimal number of items in internal node$/;"	e	enum:__anon1
+mininnerslots	btree.h	/^    static const unsigned short mininnerslots = (innerslotmax \/ 2);$/;"	m	class:stx::btree
+mininnerslots	btree_map.h	/^    static const unsigned short mininnerslots = btree_impl::mininnerslots;$/;"	m	class:stx::btree_map
+mininnerslots	btree_multimap.h	/^    static const unsigned short mininnerslots = btree_impl::mininnerslots;$/;"	m	class:stx::btree_multimap
+mininnerslots	btree_multiset.h	/^    static const unsigned short mininnerslots = btree_impl::mininnerslots;$/;"	m	class:stx::btree_multiset
+mininnerslots	btree_set.h	/^    static const unsigned short mininnerslots = btree_impl::mininnerslots;$/;"	m	class:stx::btree_set
+minleafslots	btree.h	/^    static const unsigned short minleafslots = (leafslotmax \/ 2);$/;"	m	class:stx::btree
+minleafslots	btree_map.h	/^    static const unsigned short minleafslots = btree_impl::minleafslots;$/;"	m	class:stx::btree_map
+minleafslots	btree_multimap.h	/^    static const unsigned short minleafslots = btree_impl::minleafslots;$/;"	m	class:stx::btree_multimap
+minleafslots	btree_multiset.h	/^    static const unsigned short minleafslots = btree_impl::minleafslots;$/;"	m	class:stx::btree_multiset
+minleafslots	btree_set.h	/^    static const unsigned short minleafslots = btree_impl::minleafslots;$/;"	m	class:stx::btree_set
+nItems	ttree.h	/^    unsigned short int nItems;  \/\/ Internal node items.$/;"	m	struct:tagTTREENODE
+next	Node.h	/^  node<T> *next;    \/\/ next node in the list$/;"	m	class:node
+nextleaf	btree.h	/^        leaf_node * nextleaf;$/;"	m	struct:stx::btree::leaf_node
+node	Node.h	/^  node() : next(NULL)$/;"	f	class:node
+node	Node.h	/^  node(const T& item, node<T> *nextNode = NULL) :$/;"	f	class:node
+node	Node.h	/^class node$/;"	c
+node	btree.h	/^        inline node(const unsigned short l, const unsigned short s = 0)$/;"	f	struct:stx::btree::node
+node	btree.h	/^    struct node$/;"	s	class:stx::btree
+nodeValue	Node.h	/^  T nodeValue;      \/\/ data held by the node$/;"	m	class:node
+nodes	btree.h	/^        inline size_type            nodes() const$/;"	f	struct:stx::btree::tree_stats
+operator !=	btree.h	/^        inline bool operator != (const const_iterator& x) const$/;"	f	class:stx::btree::const_iterator
+operator !=	btree.h	/^        inline bool operator != (const const_reverse_iterator& x) const$/;"	f	class:stx::btree::const_reverse_iterator
+operator !=	btree.h	/^        inline bool operator != (const iterator& x) const$/;"	f	class:stx::btree::iterator
+operator !=	btree.h	/^        inline bool operator != (const reverse_iterator& x) const$/;"	f	class:stx::btree::reverse_iterator
+operator !=	btree.h	/^    inline bool operator != (const self_type& other) const$/;"	f	class:stx::btree
+operator !=	btree_map.h	/^    inline bool operator != (const self_type& other) const$/;"	f	class:stx::btree_map
+operator !=	btree_multimap.h	/^    inline bool operator != (const self_type& other) const$/;"	f	class:stx::btree_multimap
+operator !=	btree_multiset.h	/^    inline bool operator != (const self_type& other) const$/;"	f	class:stx::btree_multiset
+operator !=	btree_set.h	/^    inline bool operator != (const self_type& other) const$/;"	f	class:stx::btree_set
+operator ()	btree.h	/^        inline bool operator () (const value_type& x, const value_type& y) const$/;"	f	class:stx::btree::value_compare
+operator ()	btree.h	/^        inline value_type operator () (const pair_type& p) const$/;"	f	struct:stx::btree::btree_pair_to_value
+operator ()	btree.h	/^        inline value_type operator () (pair_type& p) const$/;"	f	struct:stx::btree::btree_pair_to_value
+operator *	btree.h	/^        inline reference operator * () const$/;"	f	class:stx::btree::const_iterator
+operator *	btree.h	/^        inline reference operator * () const$/;"	f	class:stx::btree::const_reverse_iterator
+operator *	btree.h	/^        inline reference operator * () const$/;"	f	class:stx::btree::iterator
+operator *	btree.h	/^        inline reference operator * () const$/;"	f	class:stx::btree::reverse_iterator
+operator ++	btree.h	/^        inline const_iterator operator ++ (int)$/;"	f	class:stx::btree::const_iterator
+operator ++	btree.h	/^        inline const_iterator& operator ++ ()$/;"	f	class:stx::btree::const_iterator
+operator ++	btree.h	/^        inline const_reverse_iterator operator ++ (int)$/;"	f	class:stx::btree::const_reverse_iterator
+operator ++	btree.h	/^        inline const_reverse_iterator& operator ++ ()$/;"	f	class:stx::btree::const_reverse_iterator
+operator ++	btree.h	/^        inline iterator operator ++ (int)$/;"	f	class:stx::btree::iterator
+operator ++	btree.h	/^        inline iterator& operator ++ ()$/;"	f	class:stx::btree::iterator
+operator ++	btree.h	/^        inline reverse_iterator operator ++ (int)$/;"	f	class:stx::btree::reverse_iterator
+operator ++	btree.h	/^        inline reverse_iterator& operator ++ ()$/;"	f	class:stx::btree::reverse_iterator
+operator --	btree.h	/^        inline const_iterator operator -- (int)$/;"	f	class:stx::btree::const_iterator
+operator --	btree.h	/^        inline const_iterator& operator -- ()$/;"	f	class:stx::btree::const_iterator
+operator --	btree.h	/^        inline const_reverse_iterator operator -- (int)$/;"	f	class:stx::btree::const_reverse_iterator
+operator --	btree.h	/^        inline const_reverse_iterator& operator -- ()$/;"	f	class:stx::btree::const_reverse_iterator
+operator --	btree.h	/^        inline iterator operator -- (int)$/;"	f	class:stx::btree::iterator
+operator --	btree.h	/^        inline iterator& operator -- ()$/;"	f	class:stx::btree::iterator
+operator --	btree.h	/^        inline reverse_iterator operator -- (int)$/;"	f	class:stx::btree::reverse_iterator
+operator --	btree.h	/^        inline reverse_iterator& operator -- ()$/;"	f	class:stx::btree::reverse_iterator
+operator ->	btree.h	/^        inline pointer operator -> () const$/;"	f	class:stx::btree::const_iterator
+operator ->	btree.h	/^        inline pointer operator -> () const$/;"	f	class:stx::btree::const_reverse_iterator
+operator ->	btree.h	/^        inline pointer operator -> () const$/;"	f	class:stx::btree::iterator
+operator ->	btree.h	/^        inline pointer operator -> () const$/;"	f	class:stx::btree::reverse_iterator
+operator <	btree.h	/^    inline bool operator < (const self_type& other) const$/;"	f	class:stx::btree
+operator <	btree_map.h	/^    inline bool operator < (const self_type& other) const$/;"	f	class:stx::btree_map
+operator <	btree_multimap.h	/^    inline bool operator < (const self_type& other) const$/;"	f	class:stx::btree_multimap
+operator <	btree_multiset.h	/^    inline bool operator < (const self_type& other) const$/;"	f	class:stx::btree_multiset
+operator <	btree_set.h	/^    inline bool operator < (const self_type& other) const$/;"	f	class:stx::btree_set
+operator <=	btree.h	/^    inline bool operator <= (const self_type& other) const$/;"	f	class:stx::btree
+operator <=	btree_map.h	/^    inline bool operator <= (const self_type& other) const$/;"	f	class:stx::btree_map
+operator <=	btree_multimap.h	/^    inline bool operator <= (const self_type& other) const$/;"	f	class:stx::btree_multimap
+operator <=	btree_multiset.h	/^    inline bool operator <= (const self_type& other) const$/;"	f	class:stx::btree_multiset
+operator <=	btree_set.h	/^    inline bool operator <= (const self_type& other) const$/;"	f	class:stx::btree_set
+operator =	LinkedQueue.h	/^linkedQueue<T>& linkedQueue<T>::operator= (const linkedQueue<T>& rhs)$/;"	f	class:linkedQueue
+operator =	btree.h	/^    inline self_type& operator = (const self_type& other)$/;"	f	class:stx::btree
+operator =	btree_map.h	/^    inline self_type& operator = (const self_type& other)$/;"	f	class:stx::btree_map
+operator =	btree_multimap.h	/^    inline self_type& operator = (const self_type& other)$/;"	f	class:stx::btree_multimap
+operator =	btree_multiset.h	/^    inline self_type& operator = (const self_type& other)$/;"	f	class:stx::btree_multiset
+operator =	btree_set.h	/^    inline self_type& operator = (const self_type& other)$/;"	f	class:stx::btree_set
+operator ==	btree.h	/^        inline bool operator == (const const_iterator& x) const$/;"	f	class:stx::btree::const_iterator
+operator ==	btree.h	/^        inline bool operator == (const const_reverse_iterator& x) const$/;"	f	class:stx::btree::const_reverse_iterator
+operator ==	btree.h	/^        inline bool operator == (const iterator& x) const$/;"	f	class:stx::btree::iterator
+operator ==	btree.h	/^        inline bool operator == (const reverse_iterator& x) const$/;"	f	class:stx::btree::reverse_iterator
+operator ==	btree.h	/^    inline bool operator == (const self_type& other) const$/;"	f	class:stx::btree
+operator ==	btree_map.h	/^    inline bool operator == (const self_type& other) const$/;"	f	class:stx::btree_map
+operator ==	btree_multimap.h	/^    inline bool operator == (const self_type& other) const$/;"	f	class:stx::btree_multimap
+operator ==	btree_multiset.h	/^    inline bool operator == (const self_type& other) const$/;"	f	class:stx::btree_multiset
+operator ==	btree_set.h	/^    inline bool operator == (const self_type& other) const$/;"	f	class:stx::btree_set
+operator >	btree.h	/^    inline bool operator > (const self_type& other) const$/;"	f	class:stx::btree
+operator >	btree_map.h	/^    inline bool operator > (const self_type& other) const$/;"	f	class:stx::btree_map
+operator >	btree_multimap.h	/^    inline bool operator > (const self_type& other) const$/;"	f	class:stx::btree_multimap
+operator >	btree_multiset.h	/^    inline bool operator > (const self_type& other) const$/;"	f	class:stx::btree_multiset
+operator >	btree_set.h	/^    inline bool operator > (const self_type& other) const$/;"	f	class:stx::btree_set
+operator >=	btree.h	/^    inline bool operator >= (const self_type& other) const$/;"	f	class:stx::btree
+operator >=	btree_map.h	/^    inline bool operator >= (const self_type& other) const$/;"	f	class:stx::btree_map
+operator >=	btree_multimap.h	/^    inline bool operator >= (const self_type& other) const$/;"	f	class:stx::btree_multimap
+operator >=	btree_multiset.h	/^    inline bool operator >= (const self_type& other) const$/;"	f	class:stx::btree_multiset
+operator >=	btree_set.h	/^    inline bool operator >= (const self_type& other) const$/;"	f	class:stx::btree_set
+operator []	btree_map.h	/^    inline data_type& operator [] (const key_type& key)$/;"	f	class:stx::btree_map
+operator |=	btree.h	/^        inline result_t& operator |= (const result_t& other)$/;"	f	struct:stx::btree::result_t
+pageSize	ttree.h	/^   pageSize = 125,$/;"	e	enum:__anon1
+pair_to_value_type	btree.h	/^    typedef btree_pair_to_value<value_type, pair_type> pair_to_value_type;$/;"	t	class:stx::btree
+pair_type	btree.h	/^        typedef typename btree::pair_type pair_type;$/;"	t	class:stx::btree::const_iterator
+pair_type	btree.h	/^        typedef typename btree::pair_type pair_type;$/;"	t	class:stx::btree::const_reverse_iterator
+pair_type	btree.h	/^        typedef typename btree::pair_type pair_type;$/;"	t	class:stx::btree::iterator
+pair_type	btree.h	/^        typedef typename btree::pair_type pair_type;$/;"	t	class:stx::btree::reverse_iterator
+pair_type	btree.h	/^    typedef std::pair<key_type, data_type> pair_type;$/;"	t	class:stx::btree
+pointer	btree.h	/^        typedef const value_type* pointer;$/;"	t	class:stx::btree::const_iterator
+pointer	btree.h	/^        typedef const value_type* pointer;$/;"	t	class:stx::btree::const_reverse_iterator
+pointer	btree.h	/^        typedef value_type* pointer;$/;"	t	class:stx::btree::iterator
+pointer	btree.h	/^        typedef value_type* pointer;$/;"	t	class:stx::btree::reverse_iterator
+pop	LinkedQueue.h	/^void linkedQueue<T>::pop()$/;"	f	class:linkedQueue
+prevleaf	btree.h	/^        leaf_node * prevleaf;$/;"	m	struct:stx::btree::leaf_node
+print	btree.h	/^    void print(std::ostream& os) const$/;"	f	class:stx::btree
+print	btree_map.h	/^    void print(std::ostream& os) const$/;"	f	class:stx::btree_map
+print	btree_multimap.h	/^    void print(std::ostream& os) const$/;"	f	class:stx::btree_multimap
+print	btree_multiset.h	/^    void print(std::ostream& os) const$/;"	f	class:stx::btree_multiset
+print	btree_set.h	/^    void print(std::ostream& os) const$/;"	f	class:stx::btree_set
+print_leaves	btree.h	/^    void print_leaves(std::ostream& os) const$/;"	f	class:stx::btree
+print_leaves	btree_map.h	/^    void print_leaves(std::ostream& os) const$/;"	f	class:stx::btree_map
+print_leaves	btree_multimap.h	/^    void print_leaves(std::ostream& os) const$/;"	f	class:stx::btree_multimap
+print_leaves	btree_multiset.h	/^    void print_leaves(std::ostream& os) const$/;"	f	class:stx::btree_multiset
+print_leaves	btree_set.h	/^    void print_leaves(std::ostream& os) const$/;"	f	class:stx::btree_set
+print_node	btree.h	/^    static void print_node(std::ostream& os, const node* node, unsigned int depth = 0, bool recursive = false)$/;"	f	class:stx::btree
+push	LinkedQueue.h	/^void linkedQueue<T>::push(const T& item)$/;"	f	class:linkedQueue
+qback	LinkedQueue.h	/^    node<T> *qfront, *qback;$/;"	m	class:linkedQueue
+qfront	LinkedQueue.h	/^    node<T> *qfront, *qback;$/;"	m	class:linkedQueue
+qsize	LinkedQueue.h	/^    int qsize;$/;"	m	class:linkedQueue
+rbegin	btree.h	/^    inline const_reverse_iterator rbegin() const$/;"	f	class:stx::btree
+rbegin	btree.h	/^    inline reverse_iterator rbegin()$/;"	f	class:stx::btree
+rbegin	btree_map.h	/^    inline const_reverse_iterator rbegin() const$/;"	f	class:stx::btree_map
+rbegin	btree_map.h	/^    inline reverse_iterator rbegin()$/;"	f	class:stx::btree_map
+rbegin	btree_multimap.h	/^    inline const_reverse_iterator rbegin() const$/;"	f	class:stx::btree_multimap
+rbegin	btree_multimap.h	/^    inline reverse_iterator rbegin()$/;"	f	class:stx::btree_multimap
+rbegin	btree_multiset.h	/^    inline const_reverse_iterator rbegin() const$/;"	f	class:stx::btree_multiset
+rbegin	btree_multiset.h	/^    inline reverse_iterator rbegin()$/;"	f	class:stx::btree_multiset
+rbegin	btree_set.h	/^    inline const_reverse_iterator rbegin() const$/;"	f	class:stx::btree_set
+rbegin	btree_set.h	/^    inline reverse_iterator rbegin()$/;"	f	class:stx::btree_set
+reference	btree.h	/^        typedef const value_type& reference;$/;"	t	class:stx::btree::const_iterator
+reference	btree.h	/^        typedef const value_type& reference;$/;"	t	class:stx::btree::const_reverse_iterator
+reference	btree.h	/^        typedef value_type& reference;$/;"	t	class:stx::btree::iterator
+reference	btree.h	/^        typedef value_type& reference;$/;"	t	class:stx::btree::reverse_iterator
+remove	Ttree.cpp	/^int CTtree::remove(TTREENODE *&pNode, ElementType key)$/;"	f	class:CTtree
+remove	ttree.h	/^    int remove(TTREENODE *&pNode, ElementType key)$/;"	f	class:CTtree
+rend	btree.h	/^    inline const_reverse_iterator rend() const$/;"	f	class:stx::btree
+rend	btree.h	/^    inline reverse_iterator rend()$/;"	f	class:stx::btree
+rend	btree_map.h	/^    inline const_reverse_iterator rend() const$/;"	f	class:stx::btree_map
+rend	btree_map.h	/^    inline reverse_iterator rend()$/;"	f	class:stx::btree_map
+rend	btree_multimap.h	/^    inline const_reverse_iterator rend() const$/;"	f	class:stx::btree_multimap
+rend	btree_multimap.h	/^    inline reverse_iterator rend()$/;"	f	class:stx::btree_multimap
+rend	btree_multiset.h	/^    inline const_reverse_iterator rend() const$/;"	f	class:stx::btree_multiset
+rend	btree_multiset.h	/^    inline reverse_iterator rend()$/;"	f	class:stx::btree_multiset
+rend	btree_set.h	/^    inline const_reverse_iterator rend() const$/;"	f	class:stx::btree_set
+rend	btree_set.h	/^    inline reverse_iterator rend()$/;"	f	class:stx::btree_set
+restore	btree.h	/^    bool restore(std::istream& is)$/;"	f	class:stx::btree
+restore	btree_map.h	/^    bool restore(std::istream& is)$/;"	f	class:stx::btree_map
+restore	btree_multimap.h	/^    bool restore(std::istream& is)$/;"	f	class:stx::btree_multimap
+restore	btree_multiset.h	/^    bool restore(std::istream& is)$/;"	f	class:stx::btree_multiset
+restore	btree_set.h	/^    bool restore(std::istream& is)$/;"	f	class:stx::btree_set
+restore_node	btree.h	/^    node * restore_node(std::istream& is)$/;"	f	class:stx::btree
+result_flags_t	btree.h	/^    enum result_flags_t$/;"	g	class:stx::btree
+result_t	btree.h	/^        inline explicit result_t(result_flags_t f = btree_ok)$/;"	f	struct:stx::btree::result_t
+result_t	btree.h	/^        inline result_t(result_flags_t f, const key_type& k)$/;"	f	struct:stx::btree::result_t
+result_t	btree.h	/^    struct result_t$/;"	s	class:stx::btree
+reverse_iterator	btree.h	/^        inline reverse_iterator()$/;"	f	class:stx::btree::reverse_iterator
+reverse_iterator	btree.h	/^        inline reverse_iterator(const iterator& it) \/\/ NOLINT$/;"	f	class:stx::btree::reverse_iterator
+reverse_iterator	btree.h	/^        inline reverse_iterator(typename btree::leaf_node* l, unsigned short s)$/;"	f	class:stx::btree::reverse_iterator
+reverse_iterator	btree.h	/^    class reverse_iterator$/;"	c	class:stx::btree
+reverse_iterator	btree_map.h	/^    typedef typename btree_impl::reverse_iterator reverse_iterator;$/;"	t	class:stx::btree_map
+reverse_iterator	btree_multimap.h	/^    typedef typename btree_impl::reverse_iterator reverse_iterator;$/;"	t	class:stx::btree_multimap
+reverse_iterator	btree_multiset.h	/^    typedef typename btree_impl::reverse_iterator reverse_iterator;$/;"	t	class:stx::btree_multiset
+reverse_iterator	btree_set.h	/^    typedef typename btree_impl::reverse_iterator reverse_iterator;$/;"	t	class:stx::btree_set
+right	ttree.h	/^    tagTTREENODE *right;        \/\/ Right child pointer.$/;"	m	struct:tagTTREENODE
+root	ttree.h	/^    TTREENODE   *root;$/;"	m	class:CTtree
+same	btree.h	/^        inline bool same(const struct dump_header& o) const$/;"	f	struct:stx::btree::dump_header
+self_type	btree.h	/^                  traits, allow_duplicates, allocator_type, used_as_set> self_type;$/;"	t	class:stx::btree
+self_type	btree_map.h	/^    typedef btree_map<key_type, data_type, key_compare, traits, allocator_type> self_type;$/;"	t	class:stx::btree_map
+self_type	btree_multimap.h	/^    typedef btree_multimap<key_type, data_type, key_compare, traits, allocator_type> self_type;$/;"	t	class:stx::btree_multimap
+self_type	btree_multiset.h	/^    typedef btree_multiset<key_type, key_compare, traits, allocator_type> self_type;$/;"	t	class:stx::btree_multiset
+self_type	btree_set.h	/^    typedef btree_set<key_type, key_compare, traits, allocator_type> self_type;$/;"	t	class:stx::btree_set
+selfverify	btree.h	/^    static const bool selfverify = false;$/;"	m	class:stx::btree_default_map_traits
+selfverify	btree.h	/^    static const bool selfverify = false;$/;"	m	class:stx::btree_default_set_traits
+selfverify	btree.h	/^    static const bool selfverify = traits::selfverify;$/;"	m	class:stx::btree
+selfverify	btree_map.h	/^    static const bool selfverify = btree_impl::selfverify;$/;"	m	class:stx::btree_map
+selfverify	btree_multimap.h	/^    static const bool selfverify = btree_impl::selfverify;$/;"	m	class:stx::btree_multimap
+selfverify	btree_multiset.h	/^    static const bool selfverify = btree_impl::selfverify;$/;"	m	class:stx::btree_multiset
+selfverify	btree_set.h	/^    static const bool selfverify = btree_impl::selfverify;$/;"	m	class:stx::btree_set
+set_slot	btree.h	/^        inline void set_slot(unsigned short slot, const key_type& key)$/;"	f	struct:stx::btree::leaf_node
+set_slot	btree.h	/^        inline void set_slot(unsigned short slot, const pair_type& value)$/;"	f	struct:stx::btree::leaf_node
+shift_left_inner	btree.h	/^    static void shift_left_inner(inner_node* left, inner_node* right, inner_node* parent, unsigned int parentslot)$/;"	f	class:stx::btree
+shift_left_leaf	btree.h	/^    static result_t shift_left_leaf(leaf_node* left, leaf_node* right, inner_node* parent, unsigned int parentslot)$/;"	f	class:stx::btree
+shift_right_inner	btree.h	/^    static void shift_right_inner(inner_node* left, inner_node* right, inner_node* parent, unsigned int parentslot)$/;"	f	class:stx::btree
+shift_right_leaf	btree.h	/^    static void shift_right_leaf(leaf_node* left, leaf_node* right, inner_node* parent, unsigned int parentslot)$/;"	f	class:stx::btree
+signature	btree.h	/^        char           signature[12];$/;"	m	struct:stx::btree::dump_header
+size	LinkedQueue.h	/^int linkedQueue<T>::size() const$/;"	f	class:linkedQueue
+size	btree.h	/^    inline size_type size() const$/;"	f	class:stx::btree
+size	btree_map.h	/^    inline size_type size() const$/;"	f	class:stx::btree_map
+size	btree_multimap.h	/^    inline size_type size() const$/;"	f	class:stx::btree_multimap
+size	btree_multiset.h	/^    inline size_type size() const$/;"	f	class:stx::btree_multiset
+size	btree_set.h	/^    inline size_type size() const$/;"	f	class:stx::btree_set
+size_type	btree.h	/^    typedef size_t size_type;$/;"	t	class:stx::btree
+size_type	btree_map.h	/^    typedef typename btree_impl::size_type size_type;$/;"	t	class:stx::btree_map
+size_type	btree_multimap.h	/^    typedef typename btree_impl::size_type size_type;$/;"	t	class:stx::btree_multimap
+size_type	btree_multiset.h	/^    typedef typename btree_impl::size_type size_type;$/;"	t	class:stx::btree_multiset
+size_type	btree_set.h	/^    typedef typename btree_impl::size_type size_type;$/;"	t	class:stx::btree_set
+slotdata	btree.h	/^        data_type slotdata[used_as_set ? 1 : leafslotmax];$/;"	m	struct:stx::btree::leaf_node
+slotkey	btree.h	/^        key_type  slotkey[leafslotmax];$/;"	m	struct:stx::btree::leaf_node
+slotkey	btree.h	/^        key_type slotkey[innerslotmax];$/;"	m	struct:stx::btree::inner_node
+slotuse	btree.h	/^        unsigned short slotuse;$/;"	m	struct:stx::btree::node
+split_inner_node	btree.h	/^    void split_inner_node(inner_node* inner, key_type* _newkey, node** _newinner, unsigned int addslot)$/;"	f	class:stx::btree
+split_leaf_node	btree.h	/^    void split_leaf_node(leaf_node* leaf, key_type* _newkey, node** _newleaf)$/;"	f	class:stx::btree
+stx	btree.h	/^namespace stx {$/;"	n
+stx	btree_map.h	/^namespace stx {$/;"	n
+stx	btree_multimap.h	/^namespace stx {$/;"	n
+stx	btree_multiset.h	/^namespace stx {$/;"	n
+stx	btree_set.h	/^namespace stx {$/;"	n
+swap	btree.h	/^    void swap(self_type& from)$/;"	f	class:stx::btree
+swap	btree_map.h	/^    void swap(self_type& from)$/;"	f	class:stx::btree_map
+swap	btree_multimap.h	/^    void swap(self_type& from)$/;"	f	class:stx::btree_multimap
+swap	btree_multiset.h	/^    void swap(self_type& from)$/;"	f	class:stx::btree_multiset
+swap	btree_set.h	/^    void swap(self_type& from)$/;"	f	class:stx::btree_set
+tagTTREENODE	ttree.h	/^typedef struct tagTTREENODE$/;"	s
+temp_value	btree.h	/^        mutable value_type temp_value;$/;"	m	class:stx::btree::const_iterator
+temp_value	btree.h	/^        mutable value_type temp_value;$/;"	m	class:stx::btree::const_reverse_iterator
+temp_value	btree.h	/^        mutable value_type temp_value;$/;"	m	class:stx::btree::iterator
+temp_value	btree.h	/^        mutable value_type temp_value;$/;"	m	class:stx::btree::reverse_iterator
+traits	btree.h	/^    typedef _Traits traits;$/;"	t	class:stx::btree
+traits	btree_map.h	/^    typedef _Traits traits;$/;"	t	class:stx::btree_map
+traits	btree_multimap.h	/^    typedef _Traits traits;$/;"	t	class:stx::btree_multimap
+traits	btree_multiset.h	/^    typedef _Traits traits;$/;"	t	class:stx::btree_multiset
+traits	btree_set.h	/^    typedef _Traits traits;$/;"	t	class:stx::btree_set
+tree	btree_map.h	/^    btree_impl tree;$/;"	m	class:stx::btree_map
+tree	btree_multimap.h	/^    btree_impl tree;$/;"	m	class:stx::btree_multimap
+tree	btree_multiset.h	/^    btree_impl tree;$/;"	m	class:stx::btree_multiset
+tree	btree_set.h	/^    btree_impl tree;$/;"	m	class:stx::btree_set
+tree_stats	btree.h	/^        inline tree_stats()$/;"	f	struct:stx::btree::tree_stats
+tree_stats	btree.h	/^    struct tree_stats$/;"	s	class:stx::btree
+tree_stats	btree_map.h	/^    typedef typename btree_impl::tree_stats tree_stats;$/;"	t	class:stx::btree_map
+tree_stats	btree_multimap.h	/^    typedef typename btree_impl::tree_stats tree_stats;$/;"	t	class:stx::btree_multimap
+tree_stats	btree_multiset.h	/^    typedef typename btree_impl::tree_stats tree_stats;$/;"	t	class:stx::btree_multiset
+tree_stats	btree_set.h	/^    typedef typename btree_impl::tree_stats tree_stats;$/;"	t	class:stx::btree_set
+upper_bound	btree.h	/^    const_iterator upper_bound(const key_type& key) const$/;"	f	class:stx::btree
+upper_bound	btree.h	/^    iterator upper_bound(const key_type& key)$/;"	f	class:stx::btree
+upper_bound	btree_map.h	/^    const_iterator upper_bound(const key_type& key) const$/;"	f	class:stx::btree_map
+upper_bound	btree_map.h	/^    iterator upper_bound(const key_type& key)$/;"	f	class:stx::btree_map
+upper_bound	btree_multimap.h	/^    const_iterator upper_bound(const key_type& key) const$/;"	f	class:stx::btree_multimap
+upper_bound	btree_multimap.h	/^    iterator upper_bound(const key_type& key)$/;"	f	class:stx::btree_multimap
+upper_bound	btree_multiset.h	/^    const_iterator upper_bound(const key_type& key) const$/;"	f	class:stx::btree_multiset
+upper_bound	btree_multiset.h	/^    iterator upper_bound(const key_type& key)$/;"	f	class:stx::btree_multiset
+upper_bound	btree_set.h	/^    const_iterator upper_bound(const key_type& key) const$/;"	f	class:stx::btree_set
+upper_bound	btree_set.h	/^    iterator upper_bound(const key_type& key)$/;"	f	class:stx::btree_set
+used_as_set	btree.h	/^    static const bool used_as_set = _UsedAsSet;$/;"	m	class:stx::btree
+value_comp	btree.h	/^    inline value_compare value_comp() const$/;"	f	class:stx::btree
+value_comp	btree_map.h	/^    inline value_compare value_comp() const$/;"	f	class:stx::btree_map
+value_comp	btree_multimap.h	/^    inline value_compare value_comp() const$/;"	f	class:stx::btree_multimap
+value_comp	btree_multiset.h	/^    inline value_compare value_comp() const$/;"	f	class:stx::btree_multiset
+value_comp	btree_set.h	/^    inline value_compare value_comp() const$/;"	f	class:stx::btree_set
+value_compare	btree.h	/^        inline explicit value_compare(key_compare kc)$/;"	f	class:stx::btree::value_compare
+value_compare	btree.h	/^    class value_compare$/;"	c	class:stx::btree
+value_compare	btree_map.h	/^    typedef typename btree_impl::value_compare value_compare;$/;"	t	class:stx::btree_map
+value_compare	btree_multimap.h	/^    typedef typename btree_impl::value_compare value_compare;$/;"	t	class:stx::btree_multimap
+value_compare	btree_multiset.h	/^    typedef typename btree_impl::value_compare value_compare;$/;"	t	class:stx::btree_multiset
+value_compare	btree_set.h	/^    typedef typename btree_impl::value_compare value_compare;$/;"	t	class:stx::btree_set
+value_type	btree.h	/^        typedef typename btree::value_type value_type;$/;"	t	class:stx::btree::const_iterator
+value_type	btree.h	/^        typedef typename btree::value_type value_type;$/;"	t	class:stx::btree::const_reverse_iterator
+value_type	btree.h	/^        typedef typename btree::value_type value_type;$/;"	t	class:stx::btree::iterator
+value_type	btree.h	/^        typedef typename btree::value_type value_type;$/;"	t	class:stx::btree::reverse_iterator
+value_type	btree.h	/^    typedef _Value value_type;$/;"	t	class:stx::btree
+value_type	btree_map.h	/^    typedef std::pair<key_type, data_type> value_type;$/;"	t	class:stx::btree_map
+value_type	btree_multimap.h	/^    typedef std::pair<key_type, data_type> value_type;$/;"	t	class:stx::btree_multimap
+value_type	btree_multiset.h	/^    typedef key_type value_type;$/;"	t	class:stx::btree_multiset
+value_type	btree_set.h	/^    typedef key_type value_type;$/;"	t	class:stx::btree_set
+verify	btree.h	/^    void verify() const$/;"	f	class:stx::btree
+verify	btree_map.h	/^    void verify() const$/;"	f	class:stx::btree_map
+verify	btree_multimap.h	/^    void verify() const$/;"	f	class:stx::btree_multimap
+verify	btree_multiset.h	/^    void verify() const$/;"	f	class:stx::btree_multiset
+verify	btree_set.h	/^    void verify() const$/;"	f	class:stx::btree_set
+verify_leaflinks	btree.h	/^    void verify_leaflinks() const$/;"	f	class:stx::btree
+verify_node	btree.h	/^    void verify_node(const node* n, key_type* minkey, key_type* maxkey, tree_stats& vstats) const$/;"	f	class:stx::btree
+version	btree.h	/^        unsigned short version;$/;"	m	struct:stx::btree::dump_header
+~CTtree	Ttree.cpp	/^CTtree::~CTtree()$/;"	f	class:CTtree
+~CTtree	ttree.h	/^	~CTtree()$/;"	f	class:CTtree
+~btree	btree.h	/^    inline ~btree()$/;"	f	class:stx::btree
+~btree_map	btree_map.h	/^    inline ~btree_map()$/;"	f	class:stx::btree_map
+~btree_multimap	btree_multimap.h	/^    inline ~btree_multimap()$/;"	f	class:stx::btree_multimap
+~btree_multiset	btree_multiset.h	/^    inline ~btree_multiset()$/;"	f	class:stx::btree_multiset
+~btree_set	btree_set.h	/^    inline ~btree_set()$/;"	f	class:stx::btree_set
+~linkedQueue	LinkedQueue.h	/^linkedQueue<T>::~linkedQueue()$/;"	f	class:linkedQueue

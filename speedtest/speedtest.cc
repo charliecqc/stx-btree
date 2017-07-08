@@ -36,11 +36,13 @@
 #include <ext/hash_map>
 #include <tr1/unordered_map>
 #include <stx/btree_multimap.h>
+#include <stx/ttree.h>
 
 // *** Settings
 
 /// starting number of items to insert
-static const unsigned int minitems = 125;
+//static const unsigned int minitems = 125;
+static const unsigned int minitems = 1;
 
 /// maximum number of items to insert
 static const unsigned int maxitems = 1024000 * 64;
@@ -367,11 +369,11 @@ void TestFactory_Set<TestClass>::call_testrunner(
     std::ostream& os, unsigned int items)
 {
     os << items << " " << std::flush;
-
+#if 0
     testrunner_loop<StdSet>(os, items);
     testrunner_loop<HashSet>(os, items);
     testrunner_loop<UnorderedSet>(os, items);
-
+#endif
 #if 1
     btree_range<BtreeSet, min_nodeslots, max_nodeslots>()(os, items);
 #else

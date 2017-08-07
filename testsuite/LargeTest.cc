@@ -25,9 +25,10 @@
 #include <set>
 
 #include "tpunit.h"
-
+#if 0
 struct LargeTest : public tpunit::TestFixture
 {
+#if 1
     LargeTest() : tpunit::TestFixture(
                       TEST(LargeTest::test_320_mod_1000),
                       TEST(LargeTest::test_320_mod_10000),
@@ -39,7 +40,7 @@ struct LargeTest : public tpunit::TestFixture
                       TEST(LargeTest::test_sequence)
                       )
     { }
-
+#endif
     template <typename KeyType>
     struct traits_nodebug : stx::btree_default_set_traits<KeyType>
     {
@@ -241,5 +242,6 @@ struct LargeTest : public tpunit::TestFixture
         ASSERT(set.empty());
     }
 } _LargeTest;
+#endif
 
 /******************************************************************************/

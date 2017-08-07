@@ -23,7 +23,7 @@
 #include <cstdlib>
 
 #include "tpunit.h"
-
+#if 0
 struct StructureTest : public tpunit::TestFixture
 {
     StructureTest() : tpunit::TestFixture(
@@ -100,5 +100,5 @@ inline std::ostream& operator << (std::ostream& o,
 {
     return o << t.a;
 }
-
+#endif
 /******************************************************************************/

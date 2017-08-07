@@ -23,7 +23,7 @@
 #include <cstdlib>
 
 #include "tpunit.h"
-
+#if 0
 struct RelationTest : public tpunit::TestFixture
 {
     RelationTest() : tpunit::TestFixture(
@@ -85,5 +85,5 @@ struct RelationTest : public tpunit::TestFixture
         ASSERT(bt1 == bt4);
     }
 } _RelationTest;
-
+#endif
 /******************************************************************************/

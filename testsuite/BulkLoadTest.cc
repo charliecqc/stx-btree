@@ -26,7 +26,7 @@
 #include <vector>
 
 #include "tpunit.h"
-
+#if 0
 struct BulkLoadTest : public tpunit::TestFixture
 {
     BulkLoadTest() : tpunit::TestFixture(
@@ -118,5 +118,5 @@ struct BulkLoadTest : public tpunit::TestFixture
         test_map_instance(117649, 100000);
     }
 } _BulkLoadTest;
-
+#endif
 /******************************************************************************/

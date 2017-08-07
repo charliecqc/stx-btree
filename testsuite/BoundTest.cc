@@ -24,7 +24,7 @@
 #include <set>
 
 #include "tpunit.h"
-
+#if 0
 struct BoundTest : public tpunit::TestFixture
 {
     BoundTest() : tpunit::TestFixture(
@@ -180,5 +180,5 @@ struct BoundTest : public tpunit::TestFixture
         test_multi(320, 1000);
     }
 } _BoundTest;
-
+#endif
 /******************************************************************************/

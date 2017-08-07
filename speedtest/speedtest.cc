@@ -36,16 +36,21 @@
 #include <ext/hash_map>
 #include <tr1/unordered_map>
 #include <stx/btree_multimap.h>
+//charlie
 #include <stx/ttree.h>
+#include <stx/ttree_set.h>
+#include <stx/ttree_multimap.h>
 
 // *** Settings
 
 /// starting number of items to insert
-//static const unsigned int minitems = 125;
-static const unsigned int minitems = 1;
+static const unsigned int minitems = 512000;
+//static const unsigned int minitems = 1024000 * 64;
+//static const unsigned int minitems = 1;
 
 /// maximum number of items to insert
 static const unsigned int maxitems = 1024000 * 64;
+//static const unsigned int maxitems = 512000;
 
 static const int randseed = 34234235;
 
@@ -91,8 +96,7 @@ public:
         srand(randseed);
         for (unsigned int i = 0; i < items; i++)
             set.insert(rand());
-
-        assert(set.size() == items);
+		 assert(set.size() == items);
     }
 };
 
@@ -178,6 +182,15 @@ public:
         { }
     };
 
+	//charlie Test the T tree
+	class TtreeSet : public TestClass<stx::ttree_set<unsigned int, std::less<unsigned int> > >
+	{
+	public:
+		explicit TtreeSet(unsigned int  n)
+			: TestClass<
+			  stx::ttree_set<unsigned int, std::less<unsigned int > > >(n)
+		{}
+	};
     /// Run tests on all set types
     void call_testrunner(std::ostream& os, unsigned int items);
 };
@@ -193,7 +206,7 @@ public:
 
     void run(unsigned int items)
     {
-        MapType map;
+        MapType map; //map is StdMap, HashMap...
 
         srand(randseed);
         for (unsigned int i = 0; i < items; i++) {
@@ -250,15 +263,17 @@ public:
             unsigned int r = rand();
             map.insert(std::make_pair(r, r));
         }
-
-        assert(map.size() == items);
+		cout << "charlie tree with " << items << " has been built " << endl;
+    //    assert(map.size() == items);
     }
 
     void run(unsigned int items)
     {
         srand(randseed);
+	//	cout << " charlie start find " << endl;
         for (unsigned int i = 0; i < items; i++)
             map.find(rand());
+	//	cout << " charlie end find " << endl;
     }
 };
 
@@ -271,8 +286,7 @@ public:
     typedef TestClass<std::multimap<unsigned int, unsigned int> > StdMap;
 
     /// Test the multimap hash from gcc's STL extensions
-    typedef TestClass<__gnu_cxx::hash_multimap<
-                          unsigned int, unsigned int> > HashMap;
+    typedef TestClass<__gnu_cxx::hash_multimap<unsigned int, unsigned int> > HashMap;
 
     /// Test the unordered_map from STL TR1
     typedef TestClass<std::tr1::unordered_multimap<
@@ -294,6 +308,14 @@ public:
                                       btree_traits_speed<Slots, Slots> > >(n)
         { }
     };
+	class TtreeMap: public TestClass<stx::ttree_multimap<unsigned int, unsigned int, std::less<unsigned int> > >
+	{
+	public:
+		explicit TtreeMap(unsigned int n)
+			:TestClass<
+			 stx::ttree_multimap<unsigned int, unsigned int, std::less<unsigned int > > >(n)
+		{}
+	};
 
     /// Run tests on all map types
     void call_testrunner(std::ostream& os, unsigned int items);
@@ -314,9 +336,11 @@ void testrunner_loop(std::ostream& os, unsigned int items)
     {
         runs = 0;                  // count repetition of timed tests
 
-        {
+
+        {	//TestClass is STdMap, HashMap, Unordered Map, B+Map
             TestClass test(items); // initialize test structures
 
+		//	cout << " charlie before timestamp() " << endl;
             ts1 = timestamp();
 
             for (unsigned int totaltests = 0;
@@ -329,13 +353,14 @@ void testrunner_loop(std::ostream& os, unsigned int items)
             ts2 = timestamp();
         }
 
-        std::cerr << "Insert " << items << " repeat " << (repeatuntil / items)
-                  << " time " << (ts2 - ts1) << "\n";
+		
 
         // discard and repeat if test took less than one second.
         if ((ts2 - ts1) < 1.0) repeatuntil *= 2;
     }
     while ((ts2 - ts1) < 1.0); // NOLINT
+	std::cerr << "do " << items << " repeat " << (repeatuntil / items)
+                  << " time " << (ts2 - ts1) << "\n";
 
     os << std::fixed << std::setprecision(10)
        << ((ts2 - ts1) / runs) << " " << std::flush;
@@ -369,14 +394,20 @@ void TestFactory_Set<TestClass>::call_testrunner(
     std::ostream& os, unsigned int items)
 {
     os << items << " " << std::flush;
-#if 0
+	cout << "TestFactory_Set call_testrunner: items is " << items << endl;
+#if 1
+	cout << "StdSet " << endl;
     testrunner_loop<StdSet>(os, items);
+	cout << "HashSet " << endl;
     testrunner_loop<HashSet>(os, items);
+	cout << "UnorderedSet " << endl;
     testrunner_loop<UnorderedSet>(os, items);
 #endif
+	cout << "TTreeSet " << endl;
+	testrunner_loop<TtreeSet>(os, items);
 #if 1
-    btree_range<BtreeSet, min_nodeslots, max_nodeslots>()(os, items);
-#else
+	cout << "BtreeSet " << endl;
+   // btree_range<BtreeSet, min_nodeslots, max_nodeslots>()(os, items);
     // just pick a few node sizes for quicker tests
     testrunner_loop<BtreeSet<4> >(os, items);
     for (int i = 6; i < 8; i += 2) os << "0 ";
@@ -401,13 +432,22 @@ void TestFactory_Map<TestClass>::call_testrunner(
     std::ostream& os, unsigned int items)
 {
     os << items << " " << std::flush;
-
-    testrunner_loop<StdMap>(os, items);
-    testrunner_loop<HashMap>(os, items);
-    testrunner_loop<UnorderedMap>(os, items);
-
 #if 1
-    btree_range<BtreeMap, min_nodeslots, max_nodeslots>()(os, items);
+	cout << " StdMap " << endl;
+    testrunner_loop<StdMap>(os, items);
+#endif
+#if 0
+	cout << " HashMap " << endl;
+    testrunner_loop<HashMap>(os, items);
+	cout << " Unordered " << endl;
+    testrunner_loop<UnorderedMap>(os, items);
+#endif
+	cout << " BtreeMap " <<endl;
+    testrunner_loop<BtreeMap<64> >(os, items);
+	cout << " TtreeMap " <<endl;
+	testrunner_loop<TtreeMap>(os, items);
+#if 1
+  //  btree_range<BtreeMap, min_nodeslots, max_nodeslots>()(os, items);
 #else
     // just pick a few node sizes for quicker tests
     testrunner_loop<BtreeMap<4> >(os, items);
@@ -431,6 +471,7 @@ void TestFactory_Map<TestClass>::call_testrunner(
 /// Speed test them!
 int main()
 {
+#if 0 
     {   // Set - speed test only insertion
         std::ofstream os("speed-set-insert.txt");
 
@@ -442,7 +483,8 @@ int main()
             TestFactory_Set<Test_Set_Insert>().call_testrunner(os, items);
         }
     }
-
+#endif
+#if 0
     {   // Set - speed test insert, find and delete
         std::ofstream os("speed-set-all.txt");
 
@@ -454,7 +496,8 @@ int main()
             TestFactory_Set<Test_Set_InsertFindDelete>().call_testrunner(os, items);
         }
     }
-
+#endif
+#if 0
     {   // Set - speed test find only
         std::ofstream os("speed-set-find.txt");
 
@@ -466,7 +509,8 @@ int main()
             TestFactory_Set<Test_Set_Find>().call_testrunner(os, items);
         }
     }
-
+#endif
+#if 1
     {   // Map - speed test only insertion
         std::ofstream os("speed-map-insert.txt");
 
@@ -478,19 +522,21 @@ int main()
             TestFactory_Map<Test_Map_Insert>().call_testrunner(os, items);
         }
     }
-
+#endif
+#if 0
     {   // Map - speed test insert, find and delete
         std::ofstream os("speed-map-all.txt");
 
         repeatuntil = minitems;
-
-        for (unsigned int items = minitems; items <= maxitems; items *= 2)
+		//minitems = 512000
+        for (unsigned int items =  minitems; items <= maxitems; items *= 2)
         {
             std::cerr << "map: insert, find, delete " << items << "\n";
             TestFactory_Map<Test_Map_InsertFindDelete>().call_testrunner(os, items);
         }
     }
-
+#endif
+#if 0
     {   // Map - speed test find only
         std::ofstream os("speed-map-find.txt");
 
@@ -502,7 +548,7 @@ int main()
             TestFactory_Map<Test_Map_Find>().call_testrunner(os, items);
         }
     }
-
+#endif
     return 0;
 }
 

@@ -21,6 +21,8 @@
 #include <stx/btree_multiset.h>
 #include <stx/btree_multimap.h>
 #include <stx/btree_map.h>
+#include <stx/ttree.h>
+#include <stx/ttree_set.h>
 
 #include <cstdlib>
 #include <inttypes.h>
@@ -30,6 +32,7 @@
 template <int Slots>
 struct SimpleTest : public tpunit::TestFixture
 {
+#if 0
     SimpleTest() : tpunit::TestFixture(
                        TEST(SimpleTest::test_empty),
                        TEST(SimpleTest::test_set_insert_erase_3200),
@@ -40,6 +43,8 @@ struct SimpleTest : public tpunit::TestFixture
                        TEST(SimpleTest::test_set_100000_uint64),
                        TEST(SimpleTest::test_multiset_100000_uint32)
                        )
+#endif
+	SimpleTest() : tpunit::TestFixture(TEST(SimpleTest::test_empty))
     { }
 
     template <typename KeyType>
@@ -54,6 +59,7 @@ struct SimpleTest : public tpunit::TestFixture
 
     void test_empty()
     {
+#if 0
         typedef stx::btree_multiset<unsigned int,
                                     std::less<unsigned int>, traits_nodebug<unsigned int> > btree_type;
 
@@ -63,6 +69,9 @@ struct SimpleTest : public tpunit::TestFixture
         ASSERT(bt.erase(42) == false);
 
         ASSERT(bt == bt2);
+#endif
+		stx::CTtree tree;
+		tree.Insert(0,1);
     }
 
     void test_set_insert_erase_3200()
@@ -238,7 +247,9 @@ struct SimpleTest : public tpunit::TestFixture
 };
 
 // test binary search on different slot sizes
+#if 1
 struct SimpleTest<8> _SimpleTest8;
+#else
 struct SimpleTest<9> _SimpleTest9;
 struct SimpleTest<10> _SimpleTest10;
 struct SimpleTest<11> _SimpleTest11;
@@ -260,5 +271,6 @@ struct SimpleTest<64> _SimpleTest64;
 struct SimpleTest<65> _SimpleTest65;
 struct SimpleTest<101> _SimpleTest101;
 struct SimpleTest<203> _SimpleTest203;
+#endif
 
 /******************************************************************************/

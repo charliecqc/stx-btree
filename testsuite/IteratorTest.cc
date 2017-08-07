@@ -27,7 +27,7 @@
 #include <vector>
 
 #include "tpunit.h"
-
+#if 0
 struct IteratorTest : public tpunit::TestFixture
 {
     IteratorTest() : tpunit::TestFixture(
@@ -836,5 +836,6 @@ struct IteratorTest : public tpunit::TestFixture
         ASSERT(map.size() == 0);
     }
 } _IteratorTest;
+#endif
 
 /******************************************************************************/

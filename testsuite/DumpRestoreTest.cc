@@ -25,7 +25,7 @@
 #include <iostream>
 
 #include "tpunit.h"
-
+#if 0
 struct DumpRestoreTest : public tpunit::TestFixture
 {
     DumpRestoreTest() : tpunit::TestFixture(
@@ -100,5 +100,5 @@ struct DumpRestoreTest : public tpunit::TestFixture
         }
     }
 } _DumpRestoreTest;
-
+#endif
 /******************************************************************************/

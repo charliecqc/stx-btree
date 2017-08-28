@@ -34,7 +34,7 @@ using namespace std;
 namespace stx {
 	enum
 	{
-		pageSize = 64,
+		pageSize = 6,
 		minItems = pageSize - 2 // minimal number of items in internal node
 	};
 
@@ -72,7 +72,9 @@ namespace stx {
 
 			// Constructor.
 			CTtree(): root(NULL), m_nSize(0)
-		{}
+		{
+			cout << "size of TTREENODE is " << sizeof(tagTTREENODE )  << endl;
+		}
 
 			// Destructor.
 			//  virtual ~CTtree();
@@ -452,10 +454,12 @@ namespace stx {
 					{
 						if (pLeftId->bf < 0)
 						{
+//add by charlie for testing
 							pNode = SingleRotateLeft(pNode); // single LL turn
 						}
 						else
 						{
+//add by charlie for testing
 							pNode = DoubleRotateLeft(pNode); // double LR turn
 						}
 						return false;
@@ -508,10 +512,12 @@ namespace stx {
 					{
 						if (pRightId->bf > 0)
 						{
+//add by charlie for testing
 							pNode = SingleRotateRight(pNode); // single RR turn
 						}
 						else
 						{
+//add by charlie for testing
 							pNode = DoubleRotateRight(pNode); // double RL turn
 						}
 						return false;

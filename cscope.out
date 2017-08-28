@@ -1,4 +1,4 @@
-cscope 15 /home/dcslab/charlie/stx-btree               0000414978
+cscope 15 /home/dcslab/charlie/stx-btree               0000396174
 	@include/stx/LinkedQueue.h
 
 1 #i‚de‡
@@ -833,3010 +833,6 @@ NULL
 	}
 }
 
-	@include/stx/Ttree.cpp
-
-26 
-	~"Tåì.h
-"
-
-27 
-	~<m©h.h
->
-
-28 
-	~<Æg‹ôhm
->
-
-29 
-	~<as£π.h
->
-
-30 
-	~"LökedQueue.h
-"
-
-31 
-	~<°dio.h
->
-
-32 
-	~<io°ªam
->
-
-33 
-	~<c°rög
->
-
-34 
-usög
- 
-«me•a˚
- 
-	g°d
-;
-
-36 
-TTREENODE
-* 
-	$FödMö
-(
-TTREENODE
- *
-pNode
-)
-
-38 i‡(
-pNode
- !
-NULL
-)
-
-40 i‡(
-pNode
-->
-À·
- =
-NULL
-)
-
-42  
-pNode
-;
-
-46  
-	`FödMö
-(
-pNode
-->
-À·
-);
-
-49  
-NULL
-;
-
-50 
-	}
-}
-
-52 
-TTREENODE
-* 
-	$FödMax
-(
-TTREENODE
- *
-pNode
-)
-
-54 i‡(
-pNode
- !
-NULL
-)
-
-56 i‡(
-pNode
-->
-right
- =
-NULL
-)
-
-58  
-pNode
-;
-
-62  
-	`FödMax
-(
-pNode
-->
-right
-);
-
-65  
-NULL
-;
-
-66 
-	}
-}
-
-68 
-	gCTåì
-::
-	$CTåì
-()
-
-70 
-roŸ
- = 
-NULL
-;
-
-71 
-m_nSize
- = 0;
-
-72 
-	}
-}
-
-74 
-	gCTåì
-::~
-	$CTåì
-()
-
-76 
-	`CÀ¨
-();
-
-77 
-roŸ
- = 
-NULL
-;
-
-78 
-m_nSize
- = 0;
-
-79 
-	}
-}
-
-81 
-	gCTåì
-::
-	$GëNodeSize
-()
-
-83  
-m_nSize
-;
-
-84 
-	}
-}
-
-86 
-EÀmítD©a
- 
-	gCTåì
-::
-	$Föd
-(
-EÀmítTy≥
- 
-key
-)
-
-88 
-TTREENODE
- *
-pNode
- = 
-roŸ
-;
-
-89 
-pNode
- !
-NULL
-)
-
-91 
-n
- = 
-pNode
-->
-nIãms
-;
-
-92 
-EÀmítTy≥
- 
-keymö
- = 
-pNode
-->
-ôem
-[0];
-
-93 
-EÀmítTy≥
- 
-keymax
- = 
-pNode
-->
-ôem
-[
-n
- > 0 ?Ç - 1 : 0];
-
-94 
-nDiff1
- = 
-	`keycom∑ª
-(
-key
-, 
-keymö
-);
-
-95 
-nDiff2
- = 
-	`keycom∑ª
-(
-key
-, 
-keymax
-);
-
-96 i‡(
-nDiff1
- >0 && 
-nDiff2
- <= 0)
-
-98 
-l
- = 0, 
-r
- = 
-n
--1;
-
-100 
-l
- <
-r
-)
-
-102 
-i
- = (
-l
- + 
-r
-) >> 1;
-
-103 
-EÀmítTy≥
- 
-ôemkey
- = 
-pNode
-->
-ôem
-[
-i
-];
-
-104 
-nDiff
- = 
-	`keycom∑ª
-(
-key
-, 
-ôemkey
-);
-
-105 i‡(
-nDiff
- == 0)
-
-107  
-pNode
-->
-d©a
-[
-i
-];
-
-109 i‡(
-nDiff
- > 0)
-
-111 
-l
- = 
-i
- + 1;
-
-115 
-r
- = 
-i
- - 1;
-
-120 i‡(
-nDiff1
- < 0)
-
-122 
-pNode
- =ÖNode->
-À·
-;
-
-124 i‡(
-nDiff2
- > 0)
-
-126 
-pNode
- =ÖNode->
-right
-;
-
-130 
-	}
-}
-
-132 
-	gCTåì
-::
-	$BÆ™˚Fa˘‹
-(
-TTREENODE
- *
-pNode
-) const
-
-134 
-l
-, 
-r
-;
-
-135 
-TTREENODE
- *
-p1
-, *
-p2
-;
-
-136 
-l
- = 
-r
- = 0;
-
-137 
-p1
- = 
-p2
- = 
-pNode
-;
-
-138 i‡(
-p1
- !
-NULL
-)
-
-140 
-p1
-->
-À·
- !
-NULL
-)
-
-142 
-p1
- =Ö1->
-À·
-;
-
-143 
-l
-++;
-
-146 i‡(
-p2
- !
-NULL
-)
-
-148 
-p2
-->
-right
- !
-NULL
-)
-
-150 
-p2
- =Ö2->
-right
-;
-
-151 
-r
-++;
-
-154  (
-r
- - 
-l
-);
-
-155 
-	}
-}
-
-157 
-	gCTåì
-::
-	$Dïth
-()
-
-159 
-l
-, 
-r
-;
-
-160 
-TTREENODE
- *
-p1
-, *
-p2
-;
-
-161 
-l
- = 
-r
- = 0;
-
-162 
-p1
- = 
-p2
- = 
-roŸ
-;
-
-163 i‡(
-p1
- !
-NULL
-)
-
-165 
-p1
-->
-À·
- !
-NULL
-)
-
-167 
-p1
- =Ö1->
-À·
-;
-
-168 
-l
-++;
-
-171 i‡(
-p2
- !
-NULL
-)
-
-173 
-p2
-->
-right
- !
-NULL
-)
-
-175 
-p2
- =Ö2->
-right
-;
-
-176 
-r
-++;
-
-179  
-	`max
-(
-l
-, 
-r
-);
-
-180 
-	}
-}
-
-182 c⁄° 
-TTREENODE
- *
-	gCTåì
-::
-	$GëMöNode
-()
-
-184  
-	`FödMö
-(
-roŸ
-);
-
-185 
-	}
-}
-
-187 c⁄° 
-TTREENODE
- *
-	gCTåì
-::
-	$GëMaxNode
-()
-
-189  
-	`FödMax
-(
-roŸ
-);
-
-190 
-	}
-}
-
-192 
-	gCTåì
-::
-	$Max
-–
-a
-, 
-b
- ) const
-
-194  (
-a
- > 
-b
- ?á : b);
-
-195 
-	}
-}
-
-201 
-TTREENODE
- *
-	gCTåì
-::
-	$SögÀRŸ©eLe·
-(
-TTREENODE
- *
-pNode
-)
-
-203 
-TTREENODE
- *
-K
- = 
-pNode
-->
-À·
-;
-
-204 
-pNode
-->
-À·
- = 
-K
-->
-right
-;
-
-205 
-K
-->
-right
- = 
-pNode
-;
-
-208 
-pNode
-->
-bf
- = 
-	`BÆ™˚Fa˘‹
-(pNode);
-
-209 
-K
-->
-bf
- = 
-	`BÆ™˚Fa˘‹
-(K);
-
-211  
-K
-;
-
-212 
-	}
-}
-
-218 
-TTREENODE
- *
-	gCTåì
-::
-	$SögÀRŸ©eRight
-(
-TTREENODE
- *
-pNode
-)
-
-220 
-TTREENODE
- *
-K
- = 
-pNode
-->
-right
-;
-
-221 
-pNode
-->
-right
- = 
-K
-->
-À·
-;
-
-222 
-K
-->
-À·
- = 
-pNode
-;
-
-225 
-pNode
-->
-bf
- = 
-	`BÆ™˚Fa˘‹
-(pNode);
-
-226 
-K
-->
-bf
- = 
-	`BÆ™˚Fa˘‹
-(K);
-
-228  
-K
-;
-
-229 
-	}
-}
-
-235 
-TTREENODE
- *
-	gCTåì
-::
-	$DoubÀRŸ©eLe·
-(
-TTREENODE
- *
-pNode
-)
-
-237 
-pNode
-->
-À·
- = 
-	`SögÀRŸ©eRight
-(pNode->left);
-
-240 
-pNode
-->
-bf
- = 
-	`BÆ™˚Fa˘‹
-(pNode);
-
-242  
-	`SögÀRŸ©eLe·
-(
-pNode
-);
-
-243 
-	}
-}
-
-249 
-TTREENODE
- *
-	gCTåì
-::
-	$DoubÀRŸ©eRight
-(
-TTREENODE
- *
-pNode
-)
-
-251 
-pNode
-->
-right
- = 
-	`SögÀRŸ©eLe·
-(pNode->right);
-
-254 
-pNode
-->
-bf
- = 
-	`BÆ™˚Fa˘‹
-(pNode);
-
-256  
-	`SögÀRŸ©eRight
-(
-pNode
-);
-
-257 
-	}
-}
-
-259 
-	gCTåì
-::
-	$In£π
-(
-EÀmítTy≥
- 
-key
-, 
-EÀmítD©a
- 
-d©a
-)
-
-261 i‡(
-roŸ
- =
-NULL
-)
-
-263 
-roŸ
- = 
-	`MÆlocNode
-();
-
-264 
-roŸ
-->
-ôem
-[0] = 
-key
-;
-
-265 
-roŸ
-->
-d©a
-[0] = data;
-
-266 
-roŸ
-->
-nIãms
- = 1;
-
-267 
-roŸ
-->
-À·
- = 
-NULL
-;
-
-268 
-roŸ
-->
-right
- = 
-NULL
-;
-
-272 
-TTREENODE
- *
-pNode
- = 
-roŸ
-;
-
-273 
-boﬁ
- 
-bRë
- = 
-	`_ö£π
-(
-pNode
-, 
-key
-, 
-d©a
-);
-
-274 i‡(
-pNode
- !
-roŸ
-)
-
-276 
-roŸ
- = 
-pNode
-;
-
-279 
-	}
-}
-
-281 
-	gCTåì
-::
-	$FªeNode
-(
-TTREENODE
- *
-pNode
-)
-
-283 i‡(
-pNode
-)
-
-285 
-dñëe
- 
-pNode
-;
-
-286 
-pNode
- = 
-NULL
-;
-
-288 
-	}
-}
-
-290 
-TTREENODE
- *
-	gCTåì
-::
-	$MÆlocNode
-()
-
-292 
-TTREENODE
- *
-pNode
- = 
-√w
- TTREENODE;
-
-293 
-	`mem£t
-(
-pNode
-, 0, (
-TTREENODE
-));
-
-294 
-m_nSize
-++;
-
-296  (
-pNode
-);
-
-297 
-	}
-}
-
-299 
-boﬁ
- 
-	gCTåì
-::
-	$_ö£π
-(
-TTREENODE
- *&
-pNode
-, 
-EÀmítTy≥
- 
-key
-, 
-EÀmítD©a
- 
-d©a
-)
-
-301 
-n
- = 
-pNode
-->
-nIãms
-;
-
-302 
-EÀmítTy≥
- 
-keymö
- = 
-pNode
-->
-ôem
-[0];
-
-303 
-EÀmítTy≥
- 
-keymax
- = 
-pNode
-->
-ôem
-[
-n
- > 0 ?Ç - 1 : 0];
-
-304 
-nDiff
- = 
-	`keycom∑ª
-(
-key
-, 
-keymö
-);
-
-305 i‡(
-nDiff
- <= 0)
-
-307 
-TTREENODE
- *
-pLe·Id
- = 
-pNode
-->
-À·
-;
-
-308 i‡((
-pLe·Id
- =0 || 
-nDiff
- =0 ) && 
-pNode
-->
-nIãms
- !
-∑geSize
-)
-
-310 
-i
- = 
-n
-; i > 0; i--)
-
-312 
-pNode
-->
-ôem
-[
-i
-] =ÖNode->item[i-1];
-
-313 
-pNode
-->
-d©a
-[
-i
-] =ÖNode->data[i-1];
-
-315 
-pNode
-->
-ôem
-[0] = 
-key
-;
-
-316 
-pNode
-->
-d©a
-[0] = data;
-
-317 
-pNode
-->
-nIãms
- += 1;
-
-318  
-Ál£
-;
-
-320 i‡(
-pLe·Id
- == 0)
-
-322 
-pLe·Id
- = 
-	`MÆlocNode
-();
-
-323 
-pLe·Id
-->
-ôem
-[0] = 
-key
-;
-
-324 
-pLe·Id
-->
-d©a
-[0] = data;
-
-325 
-pLe·Id
-->
-nIãms
- += 1;
-
-326 
-pNode
-->
-À·
- = 
-pLe·Id
-;
-
-330 
-TTREENODE
- *
-pChûdId
- = 
-pLe·Id
-;
-
-331 
-boﬁ
- 
-bGrow
- = 
-	`_ö£π
-(
-pChûdId
-, 
-key
-, 
-d©a
-);
-
-332 i‡(
-pChûdId
- !
-pLe·Id
-)
-
-334 
-pNode
-->
-À·
- = 
-pLe·Id
- = 
-pChûdId
-;
-
-336 i‡(!
-bGrow
-)
-
-338  
-Ál£
-;
-
-341 i‡(
-pNode
-->
-bf
- > 0)
-
-343 
-pNode
-->
-bf
- = 0;
-
-344  
-Ál£
-;
-
-346 i‡(
-pNode
-->
-bf
- == 0)
-
-348 
-pNode
-->
-bf
- = -1;
-
-349  
-åue
-;
-
-353 i‡(
-pLe·Id
-->
-bf
- < 0)
-
-355 
-pNode
- = 
-	`SögÀRŸ©eLe·
-(pNode);
-
-359 
-pNode
- = 
-	`DoubÀRŸ©eLe·
-(pNode);
-
-361  
-Ál£
-;
-
-365 
-nDiff
- = 
-	`keycom∑ª
-(
-key
-, 
-keymax
-);
-
-366 i‡(
-nDiff
- >= 0)
-
-368 
-TTREENODE
- *
-pRightId
- = 
-pNode
-->
-right
-;
-
-369 i‡((
-pRightId
- =0 || 
-nDiff
- =0 ) && 
-pNode
-->
-nIãms
- !
-∑geSize
-)
-
-371 
-pNode
-->
-ôem
-[
-n
-] = 
-key
-;
-
-372 
-pNode
-->
-d©a
-[
-n
-] = data;
-
-373 
-pNode
-->
-nIãms
- += 1;
-
-374  
-Ál£
-;
-
-376 i‡(
-pRightId
- == 0)
-
-378 
-pRightId
- = 
-	`MÆlocNode
-();
-
-379 
-pRightId
-->
-ôem
-[0] = 
-key
-;
-
-380 
-pRightId
-->
-d©a
-[0] = data;
-
-381 
-pRightId
-->
-nIãms
- += 1;
-
-382 
-pNode
-->
-right
- = 
-pRightId
-;
-
-386 
-TTREENODE
- *
-pChûdId
- = 
-pRightId
-;
-
-387 
-boﬁ
- 
-bGrow
- = 
-	`_ö£π
-(
-pChûdId
-, 
-key
-, 
-d©a
-);
-
-388 i‡(
-pChûdId
- !
-pRightId
-)
-
-390 
-pNode
-->
-right
- = 
-pRightId
- = 
-pChûdId
-;
-
-392 i‡(!
-bGrow
-)
-
-394  
-Ál£
-;
-
-397 i‡(
-pNode
-->
-bf
- < 0)
-
-399 
-pNode
-->
-bf
- = 0;
-
-400  
-Ál£
-;
-
-402 i‡(
-pNode
-->
-bf
- == 0)
-
-404 
-pNode
-->
-bf
- = 1;
-
-405  
-åue
-;
-
-409 i‡(
-pRightId
-->
-bf
- > 0)
-
-411 
-pNode
- = 
-	`SögÀRŸ©eRight
-(pNode);
-
-415 
-pNode
- = 
-	`DoubÀRŸ©eRight
-(pNode);
-
-417  
-Ál£
-;
-
-422 
-l
- = 1, 
-r
- = 
-n
--1;
-
-423 
-l
- < 
-r
-)
-
-425 
-i
- = (
-l
- + 
-r
-) >> 1;
-
-426 
-EÀmítTy≥
- 
-ôemkey
- = 
-pNode
-->
-ôem
-[
-i
-];
-
-427 
-nDiff
- = 
-	`keycom∑ª
-(
-key
-, 
-ôemkey
-);
-
-428 i‡(
-nDiff
- > 0)
-
-430 
-l
- = 
-i
- + 1;
-
-434 
-r
- = 
-i
-;
-
-435 i‡(
-nDiff
- == 0)
-
-443 i‡(
-n
- !
-∑geSize
-)
-
-445 
-i
- = 
-n
-; i > 
-r
-; i--)
-
-447 
-pNode
-->
-ôem
-[
-i
-] =ÖNode->item[i-1];
-
-449 
-pNode
-->
-ôem
-[
-r
-] = 
-key
-;
-
-450 
-pNode
-->
-nIãms
- += 1;
-
-451  
-Ál£
-;
-
-455 
-EÀmítTy≥
- 
-ªö£πId
-;
-
-456 
-EÀmítD©a
- 
-ªö£πD©a
-;
-
-458 i‡(
-pNode
-->
-bf
- >= 0)
-
-463 
-ªö£πId
- = 
-pNode
-->
-ôem
-[0];
-
-464 
-ªö£πD©a
- = 
-pNode
-->
-d©a
-[0];
-
-465 
-i
- = 1; i < 
-r
-; i++)
-
-467 
-pNode
-->
-ôem
-[
-i
--1] =ÖNode->item[i];
-
-468 
-pNode
-->
-d©a
-[
-i
--1] =ÖNode->data[i];
-
-470 
-pNode
-->
-ôem
-[
-r
--1] = 
-key
-;
-
-471 
-pNode
-->
-d©a
-[
-r
--1] = data;
-
-473  
-	`_ö£π
-(
-pNode
-, 
-ªö£πId
-, 
-ªö£πD©a
-);
-
-480 
-ªö£πId
- = 
-pNode
-->
-ôem
-[
-n
--1];
-
-481 
-ªö£πD©a
- = 
-pNode
-->
-d©a
-[
-n
--1];
-
-482 
-i
- = 
-n
--1; i > 
-r
-; i--)
-
-484 
-pNode
-->
-ôem
-[
-i
-] =ÖNode->item[i-1];
-
-485 
-pNode
-->
-d©a
-[
-i
-] =ÖNode->data[i-1];
-
-487 
-pNode
-->
-ôem
-[
-r
-] = 
-key
-;
-
-488 
-pNode
-->
-d©a
-[
-r
-] = data;
-
-490  
-	`_ö£π
-(
-pNode
-, 
-ªö£πId
-, 
-ªö£πD©a
-);
-
-493 
-	}
-}
-
-495 
-	gCTåì
-::
-	$CÀ¨
-()
-
-497 
-	`_ór£
-(
-roŸ
-);
-
-498 
-	}
-}
-
-500 
-	gCTåì
-::
-	$_ór£
-(
-TTREENODE
- *
-pNode
-)
-
-502 i‡(
-pNode
- =
-NULL
-)
-
-507 
-	`_ór£
-(
-pNode
-->
-À·
-);
-
-509 
-	`_ór£
-(
-pNode
-->
-right
-);
-
-511 
-	`FªeNode
-(
-pNode
-);
-
-512 
-	}
-}
-
-514 
-	gCTåì
-::
-	$Dñëe
-(
-EÀmítTy≥
- 
-key
-)
-
-516 
-TTREENODE
- *
-pNode
- = 
-roŸ
-;
-
-517 
-h
- = 
-	`ªmove
-(
-pNode
-, 
-key
-);
-
-518 
-	`as£π
-(
-h
- >= 0);
-
-519 i‡(
-pNode
- !
-roŸ
-)
-
-521 
-roŸ
- = 
-pNode
-;
-
-523 
-	}
-}
-
-525 
-	gCTåì
-::
-	$BÆ™˚Le·Bønch
-(
-TTREENODE
- *&
-pNode
-)
-
-527 i‡(
-pNode
-->
-bf
- < 0)
-
-529 
-pNode
-->
-bf
- = 0;
-
-532 i‡(
-pNode
-->
-bf
- == 0)
-
-534 
-pNode
-->
-bf
- = 1;
-
-539 
-TTREENODE
- *
-pRightId
- = 
-pNode
-->
-right
-;
-
-540 i‡(
-pRightId
-->
-bf
- >= 0)
-
-542 
-pNode
- = 
-	`SögÀRŸ©eRight
-(pNode);
-
-543 i‡(
-pRightId
-->
-bf
- == 0)
-
-545 
-pNode
-->
-bf
- = 1;
-
-546 
-pRightId
-->
-bf
- = -1;
-
-551 
-pNode
-->
-bf
- = 0;
-
-552 
-pRightId
-->
-bf
- = 0;
-
-558 
-pNode
- = 
-	`DoubÀRŸ©eRight
-(pNode);
-
-562 
-	}
-}
-
-564 
-	gCTåì
-::
-	$BÆ™˚RightBønch
-(
-TTREENODE
- *&
-pNode
-)
-
-566 i‡(
-pNode
-->
-bf
- > 0)
-
-568 
-pNode
-->
-bf
- = 0;
-
-571 i‡(
-pNode
-->
-bf
- == 0)
-
-573 
-pNode
-->
-bf
- = -1;
-
-578 
-TTREENODE
- * 
-pLe·Id
- = 
-pNode
-->
-À·
-;
-
-579 i‡(
-pLe·Id
-->
-bf
- <= 0)
-
-581 
-pNode
- = 
-	`SögÀRŸ©eLe·
-(pNode);
-
-582 i‡(
-pLe·Id
-->
-bf
- == 0)
-
-584 
-pNode
-->
-bf
- = -1;
-
-585 
-pLe·Id
-->
-bf
- = 1;
-
-590 
-pNode
-->
-bf
- = 0;
-
-591 
-pLe·Id
-->
-bf
- = 0;
-
-597 
-pNode
- = 
-	`DoubÀRŸ©eLe·
-(pNode);
-
-602 
-	}
-}
-
-604 
-	gCTåì
-::
-	$ªmove
-(
-TTREENODE
- *&
-pNode
-, 
-EÀmítTy≥
- 
-key
-)
-
-606 
-n
- = 
-pNode
-->
-nIãms
-;
-
-607 
-EÀmítTy≥
- 
-keymö
- = 
-pNode
-->
-ôem
-[0];
-
-608 
-EÀmítTy≥
- 
-keymax
- = 
-pNode
-->
-ôem
-[
-n
- > 0 ?Ç - 1 : 0];
-
-609 
-nDiff
- = 
-	`keycom∑ª
-(
-key
-, 
-keymö
-);
-
-610 i‡(
-nDiff
- <= 0)
-
-612 
-TTREENODE
- *
-pLe·Id
- = 
-pNode
-->
-À·
-;
-
-613 i‡(
-pLe·Id
- != 0)
-
-615 
-TTREENODE
- *
-pChûdId
- = 
-pLe·Id
-;
-
-616 
-h
- = 
-	`ªmove
-(
-pChûdId
-, 
-key
-);
-
-617 i‡(
-pChûdId
- !
-pLe·Id
-)
-
-619 
-pNode
-->
-À·
- = 
-pChûdId
-;
-
-621 i‡(
-h
- > 0)
-
-623  
-	`BÆ™˚Le·Bønch
-(
-pNode
-);
-
-625 i‡(
-h
- == 0)
-
-630 
-	`as£π
- (
-nDiff
- == 0);
-
-632 
-nDiff
- = 
-	`keycom∑ª
-(
-key
-, 
-keymax
-);
-
-633 i‡(
-nDiff
- <= 0)
-
-635 
-i
- = 0; i < 
-n
-; i++)
-
-637 i‡(
-pNode
-->
-ôem
-[
-i
-] =
-key
-)
-
-639 i‡(
-n
- == 1)
-
-641 i‡(
-pNode
-->
-right
- == 0)
-
-643 
-TTREENODE
- *
-pTempNode
- = 
-pNode
-->
-À·
-;
-
-644 
-	`FªeNode
-(
-pNode
-);
-
-645 
-pNode
- = 
-pTempNode
-;
-
-648 i‡(
-pNode
-->
-À·
- == 0)
-
-650 
-TTREENODE
- *
-pTempNode
- = 
-pNode
-->
-right
-;
-
-651 
-	`FªeNode
-(
-pNode
-);
-
-652 
-pNode
- = 
-pTempNode
-;
-
-656 
-TTREENODE
- *
-pLe·Id
- = 
-pNode
-->
-À·
-, *
-pRightId
- =ÖNode->
-right
-;
-
-657 i‡(
-n
- <
-möIãms
-)
-
-659 i‡(
-pLe·Id
- !0 && 
-pNode
-->
-bf
- <= 0)
-
-661 
-pLe·Id
-->
-right
- != 0)
-
-663 
-pLe·Id
- =ÖLe·Id->
-right
-;
-
-665 --
-i
- >= 0)
-
-667 
-pNode
-->
-ôem
-[
-i
-+1] =ÖNode->item[i];
-
-668 
-pNode
-->
-d©a
-[
-i
-+1] =ÖNode->data[i];
-
-670 
-pNode
-->
-ôem
-[0] = 
-pLe·Id
-->ôem[pLe·Id->
-nIãms
--1];
-
-671 
-pNode
-->
-d©a
-[0] = 
-pLe·Id
-->d©a[pLe·Id->
-nIãms
--1];
-
-672 
-key
- = 
-pNode
-->
-ôem
-[0];
-
-673 
-TTREENODE
- *
-pChûdId
- = 
-pLe·Id
-;
-
-674 
-h
- = 
-	`ªmove
-(
-pChûdId
-, 
-pNode
-->
-ôem
-[0]);
-
-675 i‡(
-pChûdId
- !
-pLe·Id
-)
-
-677 
-pNode
-->
-À·
- = 
-pChûdId
-;
-
-679 i‡(
-h
- > 0)
-
-681 
-h
- = 
-	`BÆ™˚Le·Bønch
-(
-pNode
-);
-
-683  
-h
-;
-
-685 i‡(
-pNode
-->
-right
- != 0)
-
-687 
-pRightId
-->
-À·
- != 0)
-
-689 
-pRightId
- =ÖRightId->
-À·
-;
-
-691 ++
-i
- < 
-n
-)
-
-693 
-pNode
-->
-ôem
-[
-i
--1] =ÖNode->item[i];
-
-694 
-pNode
-->
-d©a
-[
-i
--1] =ÖNode->data[i];
-
-696 
-pNode
-->
-ôem
-[
-n
--1] = 
-pRightId
-->item[0];
-
-697 
-pNode
-->
-d©a
-[
-n
--1] = 
-pRightId
-->data[0];
-
-698 
-key
- = 
-pNode
-->
-ôem
-[
-n
--1];
-
-700 
-TTREENODE
- *
-pChûdId
- = 
-pRightId
-;
-
-701 
-h
- = 
-	`ªmove
-(
-pChûdId
-, 
-key
-);
-
-702 i‡(
-pChûdId
- !
-pRightId
-)
-
-704 
-pNode
-->
-right
- = 
-pChûdId
-;
-
-706 i‡(
-h
- > 0)
-
-708 
-h
- = 
-	`BÆ™˚RightBønch
-(
-pNode
-);
-
-710  
-h
-;
-
-713 ++
-i
- < 
-n
-)
-
-715 
-pNode
-->
-ôem
-[
-i
--1] =ÖNode->item[i];
-
-716 
-pNode
-->
-d©a
-[
-i
--1] =ÖNode->data[i];
-
-718 
-pNode
-->
-nIãms
- -= 1;
-
-723 
-TTREENODE
- *
-pRightId
- = 
-pNode
-->
-right
-;
-
-724 i‡(
-pRightId
- != 0)
-
-726 
-TTREENODE
- *
-pChûdId
- = 
-pRightId
-;
-
-727 
-h
- = 
-	`ªmove
-(
-pChûdId
-, 
-key
-);
-
-728 i‡(
-pChûdId
- !
-pRightId
-)
-
-730 
-pNode
-->
-right
- = 
-pChûdId
-;
-
-732 i‡(
-h
- > 0)
-
-734  
-	`BÆ™˚RightBønch
-(
-pNode
-);
-
-738  
-h
-;
-
-742 
-	}
-}
-
-744 
-boﬁ
- 
-	gCTåì
-::
-	$IsEm±y
-( ) const
-
-746  
-roŸ
- =
-NULL
-;
-
-747 
-	}
-}
-
-749 
-	gCTåì
-::
-	$keycom∑ª
-(
-EÀmítTy≥
- 
-key1
-, EÀmítTy≥ 
-key2
-)
-
-751 
-p
- = 
-key1
-;
-
-752 
-q
- = 
-key2
-;
-
-753  
-p
- < 
-q
- ? -1 :Ö == q ? 0 : 1;
-
-754 
-	}
-}
-
-756 
-	gCTåì
-::
-	$Tøvî£Tªe
-(
-Tøvî£Ordî
- 
-‹dî
-)
-
-758 
-‹dî
-)
-
-760 
-PªOrdî
-:
-
-761 
-	`PªOrdîTøvî£
-(
-roŸ
-);
-
-763 
-InOrdî
-:
-
-764 
-	`InOrdîTøvî£
-(
-roŸ
-);
-
-766 
-Po°Ordî
-:
-
-767 
-	`Po°OrdîTøvî£
-(
-roŸ
-);
-
-769 
-LevñOrdî
-:
-
-770 
-	`LevñOrdîTøvî£
-(
-roŸ
-);
-
-773 
-	}
-}
-
-775 
-	gCTåì
-::
-	$InOrdîTøvî£
-(
-TTREENODE
- *
-pNode
-) const
-
-777 i‡(
-pNode
- !
-NULL
-)
-
-779 
-	`InOrdîTøvî£
-(
-pNode
-->
-À·
-);
-
-780 
-nSize
- = 
-pNode
-->
-nIãms
-;
-
-781 
-i
- = 0; i < 
-nSize
-; i++)
-
-783 
-	`¥ötf
-("%02d ", 
-pNode
-->
-ôem
-[
-i
-]);
-
-785 
-	`InOrdîTøvî£
-(
-pNode
-->
-right
-);
-
-787 
-	}
-}
-
-789 
-	gCTåì
-::
-	$Po°OrdîTøvî£
-(
-TTREENODE
- *
-pNode
-) const
-
-791 i‡(
-pNode
- !
-NULL
-)
-
-793 
-	`Po°OrdîTøvî£
-(
-pNode
-->
-À·
-);
-
-794 
-	`Po°OrdîTøvî£
-(
-pNode
-->
-right
-);
-
-795 
-nSize
- = 
-pNode
-->
-nIãms
-;
-
-796 
-i
- = 0; i < 
-nSize
-; i++)
-
-798 
-	`¥ötf
-("%02d ", 
-pNode
-->
-ôem
-[
-i
-]);
-
-801 
-	}
-}
-
-803 
-	gCTåì
-::
-	$PªOrdîTøvî£
-(
-TTREENODE
- *
-pNode
-) const
-
-805 i‡(
-pNode
- !
-NULL
-)
-
-807 
-nSize
- = 
-pNode
-->
-nIãms
-;
-
-808 
-i
- = 0; i < 
-nSize
-; i++)
-
-810 
-	`¥ötf
-("%02d ", 
-pNode
-->
-ôem
-[
-i
-]);
-
-812 
-	`PªOrdîTøvî£
-(
-pNode
-->
-À·
-);
-
-813 
-	`PªOrdîTøvî£
-(
-pNode
-->
-right
-);
-
-815 
-	}
-}
-
-818 
-	gCTåì
-::
-	$LevñOrdîTøvî£
-(
-TTREENODE
- *
-pNode
-) const
-
-820 i‡(
-pNode
- =
-NULL
-)
-
-826 
-lökedQueue
-<
-TTREENODE
- *> 
-q
-;
-
-827 
-TTREENODE
- *
-p
-;
-
-830 
-q
-.
-	`push
-(
-pNode
-);
-
-832 !
-q
-.
-	`em±y
-())
-
-835 
-p
- = (
-TTREENODE
- *)
-q
-.
-	`‰⁄t
-();
-
-836 
-q
-.
-	`p›
-();
-
-838 
-nSize
- = 
-p
-->
-nIãms
-;
-
-839 
-i
- = 0; i < 
-nSize
-; i++)
-
-841 
-	`¥ötf
-("%02d ", 
-p
-->
-ôem
-[
-i
-]);
-
-844 i‡(
-p
-->
-À·
- !
-NULL
-)
-
-846 
-q
-.
-	`push
-(
-p
-->
-À·
-);
-
-849 i‡(
-p
-->
-right
- !
-NULL
-)
-
-851 
-q
-.
-	`push
-(
-p
-->
-right
-);
-
-853 
-	`¥ötf
-("/n");
-
-855 
-n
- = 0;
-
-856 
-	}
-}
-
 	@include/stx/Ttree_test.cpp
 
 1 
@@ -3966,6 +962,164 @@ d©akey
 24 
 	}
 }
+
+	@include/stx/avltree.h
+
+1 #i‚de‡
+_AVLTREE_H_
+
+
+2 
+	#_AVLTREE_H_
+
+
+	)
+
+4 
+	~<°rög.h
+>
+
+5 
+	~<°dio.h
+>
+
+6 
+	~<Æg‹ôhm
+>
+
+7 
+	~<fun˘i⁄Æ
+>
+
+8 
+	~<i°ªam
+>
+
+9 
+	~<o°ªam
+>
+
+10 
+	~<mem‹y
+>
+
+11 
+	~<c°ddef
+>
+
+12 
+	~<ˇs£π
+>
+
+14 
+	#AVL_MAX
+(
+a
+, 
+b
+Ë(◊Ë< (b)? (bË: (a))
+
+	)
+
+16 
+usög
+ 
+«me•a˚
+ 
+	g°d
+;
+
+17 
+«me•a˚
+ 
+	g°x
+{
+
+21 
+	gãm∂©e
+ <
+ty≥«me
+ 
+	g_Key
+>
+
+22 ˛as†
+	cav…ªe_deÁu…_£t_åaôs
+
+
+24 
+	gpublic
+:
+
+31 
+ãm∂©e
+ <
+ty≥«me
+ 
+_Key
+,Åy≥«mê
+	g_VÆue
+>
+
+32 ˛as†
+	cav…ªe
+
+
+34 
+	gpublic
+:
+
+37 
+_Key
+ 
+	tkey_ty≥
+;
+
+40 
+_VÆue
+ 
+	tvÆue_ty≥
+;
+
+43 
+	gpublic
+:
+
+44 
+av…ªe
+<
+	tkey_ty≥
+, 
+	tvÆue_ty≥
+> 
+	t£lf_ty≥
+;
+
+46 
+size_t
+ 
+	tsize_ty≥
+;
+
+48 
+	g°d
+::
+	t∑ú
+<
+	tkey_ty≥
+, 
+	tvÆue_ty≥
+> 
+	t∑ú_ty≥
+;
+
+49 
+	g¥iv©e
+:
+
+51 
+	snode
+
 
 	@include/stx/btree.h
 
@@ -23603,6 +20757,666 @@ is
 is
 );
 
+	@include/stx/skiplist.h
+
+1 #i‚de‡
+STX_SKIPLIST_HEADER
+
+
+2 
+	#STX_SKIPLIST_HEADER
+
+
+	)
+
+3 
+	~<Æg‹ôhm
+>
+
+4 
+	~<fun˘i⁄Æ
+>
+
+5 
+	~<i°ªam
+>
+
+6 
+	~<o°ªam
+>
+
+7 
+	~<mem‹y
+>
+
+8 
+	~<°dlib.h
+>
+
+10 
+	#MAX_LEVELS
+ 24
+
+	)
+
+11 
+	#TAG_VALUE
+(
+v
+, 
+èg
+Ë((vË|Åag)
+
+	)
+
+12 
+	#IS_TAGGED
+(
+v
+, 
+èg
+Ë((vË&Åag)
+
+	)
+
+13 
+	#STRIP_TAG
+(
+v
+, 
+èg
+Ë((vË& ~èg)
+
+	)
+
+15 
+size_t
+ 
+	tm¨kabÀ_t
+;
+
+18 
+	#MARK_NODE
+(
+x
+Ë
+	`TAG_VALUE
+((
+m¨kabÀ_t
+)(x), 0x1)
+
+	)
+
+19 
+	#HAS_MARK
+(
+x
+Ë(
+	`IS_TAGGED
+((x), 0x1Ë=0x1)
+
+	)
+
+20 
+	#GET_NODE
+(
+x
+Ë((
+node_t
+ *)(x))
+
+	)
+
+21 
+	#STRIP_MARK
+(
+x
+Ë((
+node_t
+ *)
+	`STRIP_TAG
+((x), 0x1))
+
+	)
+
+23 
+	eu∆ök
+ {
+
+24 
+	mFORCE_UNLINK
+,
+
+25 
+	mASSIST_UNLINK
+,
+
+26 
+	mDONT_UNLINL
+
+
+29 
+«me•a˚
+ 
+	g°x
+ {
+
+30 
+	gãm∂©e
+ <
+ty≥«me
+ 
+	g_Key
+,Åy≥«mê
+	g_VÆue
+>
+
+31 ˛as†
+	cskùli°
+
+
+33 
+	gpublic
+:
+
+35 
+_Key
+ 
+	tkey_ty≥
+;
+
+37 
+_VÆue
+ 
+	tvÆue_ty≥
+;
+
+39 (*
+	gcmp_func_t
+) (*, );
+
+41 * (*
+	t˛⁄e_fun_t
+)(*);
+
+43 
+uöt32_t
+ (*
+	thash_fun_t
+) (*);
+
+45 
+	sd©©y≥
+ {
+
+46 
+cmp_func_t
+ 
+	gcmp
+;
+
+47 
+hash_fun_t
+ 
+	ghash
+;
+
+48 
+˛⁄e_fun_t
+ 
+	g˛⁄e
+;
+
+49 }
+	td©©y≥_t
+;
+
+51 
+	gpublic
+:
+
+53 
+skùli°
+<
+	tkey_ty≥
+, 
+	tvÆue_ty≥
+> 
+	t£lf_ty≥
+;
+
+56 
+size_t
+ 
+	tsize_ty≥
+;
+
+58 
+	g°d
+::
+	t∑ú
+<
+	tkey_ty≥
+, 
+	tvÆue_ty≥
+> 
+	t∑ú_ty≥
+;
+
+60 
+	g¥iv©e
+:
+
+61 c⁄° 
+ønd£ed
+ = 34234235;
+
+65 
+	g¥iv©e
+:
+
+66 
+	snode
+ {
+
+67 
+key_ty≥
+ 
+key
+;
+
+68 
+vÆue_ty≥
+ 
+	gvÆ
+;
+
+69 
+	gnum_Àvñs
+;
+
+70 
+m¨kabÀ_t
+ 
+	g√xt
+[1];
+
+71 } 
+	tnode_t
+;
+
+73 
+	s¶_ôî
+ {
+
+74 
+node_t
+ *
+	g√xt
+;
+
+77 
+	s¶
+ {
+
+78 
+node_t
+ *
+	ghód
+;
+
+79 c⁄° 
+d©©y≥_t
+ *
+	gty≥
+;
+
+80 
+	ghigh_w©î
+;
+
+83 
+	g¥iv©e
+:
+
+84 
+øndom_Àvñs
+ (
+skùli°_t
+ *
+¶
+) {
+
+85 
+§™d
+(
+ønd£ed
+);
+
+86 
+uöt64_t
+ 
+	gr
+ = 
+ønd
+();
+
+87 
+	gz
+ = 
+__buûdö_˘x
+(
+r
+);
+
+88 
+	gÀvñs
+ = ()(
+z
+ / 1.5);
+
+89 if(
+	gÀvñs
+ == 0)
+
+91 if(
+	gÀvñs
+ > 
+	g¶
+->
+	ghigh_w©î
+) {
+
+92 
+	gÀvñs
+ = 
+SYNC_ADD
+(&
+¶
+->
+high_w©î
+ + 1);
+
+96 
+node_t
+ *
+node_Æloc
+(
+num_Àvñs
+, 
+key_ty≥
+ 
+key
+, 
+vÆue_ty≥
+ 
+vÆ
+) {
+
+97 
+as£π
+(
+num_Àvñs
+ >0 &&Çum_Àvñ†<
+MAX_LEVELS
+)
+
+98 
+size_t
+ 
+sz
+ = (
+node_t
+Ë+ (
+num_Àvñs
+ - 1) * (node_t *);
+
+99 
+node_t
+ *
+	gôem
+ = (node_à*)
+mÆloc
+(
+sz
+);
+
+100 
+mem£t
+(
+ôem
+, 0, 
+size
+);
+
+101 
+	gôem
+->
+	gkey
+ = 
+key
+;
+
+102 
+	gôem
+->
+	gvÆ
+ = 
+vÆ
+;
+
+103 
+	gôem
+->
+	gnum_Àvñs
+ = 
+num_Àvñs
+;
+
+104 #ifde‡
+DEBUG
+
+
+105 
+	gcout
+ << "s2Çode_Ælo¯:ÇewÇodê" << 
+	gôem
+ << 
+	gnum_Àvñs
+ << "Àvñs" << 
+	gídl
+;
+
+107  
+	gôem
+;
+
+110 
+skùli°_t
+ *
+¶_Æloc
+ (c⁄° 
+d©©y≥_t
+ *
+ty≥
+) {
+
+111 
+skùli°_t
+ *
+	g¶
+ = (skùli°_à*)
+mÆloc
+((skiplist_t));
+
+112 
+	g¶
+->
+	gty≥
+ = 
+ty≥
+;
+
+113 
+	g¶
+->
+	ghigh_w©î
+ = 1;
+
+114 
+	g¶
+->
+	ghód
+ = 
+node_Æloc
+(
+MAX_LEVELS
+, 0, 0);
+
+115 
+mem£t
+(
+¶
+->
+hód
+->
+√xt
+, 0, 
+MAX_LEVELS
+ * (
+skùli°_t
+ *));
+
+116  
+	g¶
+;
+
+119 
+¶_‰ì
+ (
+skùli°_t
+ *
+¶
+) {
+
+120 
+node_t
+ *
+	gôem
+ = 
+GET_NODE
+(
+¶
+->
+hód
+->
+√xt
+[0]);
+
+121 
+	gôem
+) {
+
+122 if(!
+HAS_MARK
+(
+ôem
+->
+√xt
+[0])) {
+
+123 
+	gcou¡
+++;
+
+125 
+	gôem
+ = 
+STRIP_MARK
+(
+ôem
+->
+√xt
+[0]);
+
+127  
+	gcou¡
+;
+
+130 
+node_t
+ *
+föd_¥eds
+“ode_à**
+¥eds
+,Çode_à**
+succs
+, 
+n
+, 
+skùli°_t
+ *
+¶
+, 
+key_ty≥
+ 
+key
+, 
+u∆ök_u∆ök
+) {
+
+131 
+node_t
+ *
+	g¥ed
+ = 
+¶
+->
+hód
+;
+
+132 
+node_t
+ *
+	gôem
+ = 
+NULL
+;
+
+133 #ifde‡
+DEBUG
+
+
+134 
+	gcout
+ << "s2 föd_¥eds: sórchögf‹ key " << 
+	gkey
+ << " i¿skùli° (hód i†" << 
+	g¥ed
+ << " )"<<
+	gídl
+;
+
+136 
+	gÀvñ
+ = 
+¶
+->
+high_w©î
+ - 1;Üevel >= 0; --level) {
+
+137 
+m¨kabÀ_t
+ 
+	g√xt
+ = 
+¥ed
+->
+√xt
+[
+Àvñ
+];
+
 	@include/stx/ttree.h
 
 26 #i‚de‡
@@ -23643,7 +21457,7 @@ usög
 
 37 
 	g∑geSize
- = 5,
+ = 6,
 
 38 
 	gmöIãms
@@ -23773,37 +21587,45 @@ NULL
 m_nSize
 (0)
 
-79 ~
+76 
+	gcout
+ << "sizêo‡TTREENODE i†" << (
+	gègTTREENODE
+ ) << 
+	gídl
+;
+
+81 ~
 CTåì
 ()
 
-81 
+83 
 CÀ¨
 ();
 
-82 
+84 
 	groŸ
  = 
 NULL
 ;
 
-83 
+85 
 	gm_nSize
 = 0;
 
-85 
+87 
 	gpublic
 :
 
-86 ˛as†
+88 ˛as†
 	côî©‹
 
 
-90 
+92 
 	gpublic
 :
 
-93 
+95 
 In£π
 (
 EÀmítTy≥
@@ -23815,19 +21637,19 @@ EÀmítD©a
 d©a
 )
 
-95 i‡(
+97 i‡(
 	groŸ
  =
 NULL
 )
 
-97 
+99 
 roŸ
  = 
 MÆlocNode
 ();
 
-98 
+100 
 	groŸ
 ->
 	gôem
@@ -23835,7 +21657,7 @@ MÆlocNode
 key
 ;
 
-99 
+101 
 	groŸ
 ->
 	gd©a
@@ -23843,13 +21665,13 @@ key
 d©a
 ;
 
-100 
+102 
 	groŸ
 ->
 	gnIãms
  = 1;
 
-101 
+103 
 	groŸ
 ->
 	gÀ·
@@ -23857,7 +21679,7 @@ d©a
 NULL
 ;
 
-102 
+104 
 	groŸ
 ->
 	gright
@@ -23865,7 +21687,7 @@ NULL
 NULL
 ;
 
-106 
+108 
 TTREENODE
  *
 	gpNode
@@ -23873,7 +21695,7 @@ TTREENODE
 roŸ
 ;
 
-107 
+109 
 boﬁ
  
 	gbRë
@@ -23887,19 +21709,19 @@ key
 d©a
 );
 
-108 i‡(
+110 i‡(
 	gpNode
  !
 roŸ
 )
 
-110 
+112 
 roŸ
  = 
 pNode
 ;
 
-116 
+118 
 Dñëe
 (
 EÀmítTy≥
@@ -23907,7 +21729,7 @@ EÀmítTy≥
 key
 )
 
-118 
+120 
 TTREENODE
  *
 	gpNode
@@ -23915,7 +21737,7 @@ TTREENODE
 roŸ
 ;
 
-119 
+121 
 	gh
  = 
 ªmove
@@ -23925,25 +21747,25 @@ pNode
 key
 );
 
-120 
+122 
 as£π
 (
 h
  >= 0);
 
-121 i‡(
+123 i‡(
 	gpNode
  !
 roŸ
 )
 
-123 
+125 
 roŸ
  = 
 pNode
 ;
 
-128 
+130 
 EÀmítD©a
  
 Föd
@@ -23953,7 +21775,7 @@ EÀmítTy≥
 key
 )
 
-130 
+132 
 TTREENODE
  *
 	gpNode
@@ -23961,13 +21783,13 @@ TTREENODE
 roŸ
 ;
 
-131 
+133 
 	gpNode
  !
 NULL
 )
 
-133 
+135 
 n
  = 
 pNode
@@ -23975,7 +21797,7 @@ pNode
 nIãms
 ;
 
-134 
+136 
 EÀmítTy≥
  
 	gkeymö
@@ -23985,7 +21807,7 @@ pNode
 ôem
 [0];
 
-135 
+137 
 EÀmítTy≥
  
 	gkeymax
@@ -23997,7 +21819,7 @@ pNode
 n
  > 0 ?Ç - 1 : 0];
 
-136 
+138 
 	gnDiff1
  = 
 keycom∑ª
@@ -24007,7 +21829,7 @@ key
 keymö
 );
 
-137 
+139 
 	gnDiff2
  = 
 keycom∑ª
@@ -24017,13 +21839,13 @@ key
 keymax
 );
 
-138 i‡(
+140 i‡(
 	gnDiff1
  >0 && 
 nDiff2
  <= 0)
 
-140 
+142 
 l
  = 0, 
 	gr
@@ -24031,13 +21853,13 @@ l
 n
 -1;
 
-142 
+144 
 	gl
  <
 r
 )
 
-144 
+146 
 i
  = (
 l
@@ -24045,7 +21867,7 @@ l
 r
 ) >> 1;
 
-145 
+147 
 EÀmítTy≥
  
 	gôemkey
@@ -24057,7 +21879,7 @@ pNode
 i
 ];
 
-146 
+148 
 	gnDiff
  = 
 keycom∑ª
@@ -24067,11 +21889,11 @@ key
 ôemkey
 );
 
-147 i‡(
+149 i‡(
 	gnDiff
  == 0)
 
-149  
+151  
 pNode
 ->
 d©a
@@ -24079,27 +21901,27 @@ d©a
 i
 ];
 
-151 i‡(
+153 i‡(
 	gnDiff
  > 0)
 
-153 
+155 
 	gl
  = 
 i
  + 1;
 
-157 
+159 
 	gr
  = 
 i
  - 1;
 
-162 i‡(
+164 i‡(
 	gnDiff1
  < 0)
 
-164 
+166 
 	gpNode
  = 
 pNode
@@ -24107,11 +21929,11 @@ pNode
 À·
 ;
 
-166 i‡(
+168 i‡(
 	gnDiff2
  > 0)
 
-168 
+170 
 	gpNode
  = 
 pNode
@@ -24119,7 +21941,7 @@ pNode
 right
 ;
 
-175 
+177 
 Tøvî£Tªe
 (
 Tøvî£Ordî
@@ -24127,69 +21949,69 @@ Tøvî£Ordî
 ‹dî
 )
 
-177 
+179 
 	g‹dî
 )
 
-179 
+181 
 	gPªOrdî
 :
 
-180 
+182 
 PªOrdîTøvî£
 (
 roŸ
 );
 
-182 
+184 
 	gInOrdî
 :
 
-183 
+185 
 InOrdîTøvî£
 (
 roŸ
 );
 
-185 
+187 
 	gPo°Ordî
 :
 
-186 
+188 
 Po°OrdîTøvî£
 (
 roŸ
 );
 
-188 
+190 
 	gLevñOrdî
 :
 
-189 
+191 
 LevñOrdîTøvî£
 (
 roŸ
 );
 
-195 
+197 
 GëNodeSize
 ()
 
-197  
+199  
 	gm_nSize
 ;
 
-201 
+203 
 Dïth
 ()
 
-203 
+205 
 	gl
 , 
 	gr
 ;
 
-204 
+206 
 TTREENODE
  *
 	gp1
@@ -24197,13 +22019,13 @@ TTREENODE
 	gp2
 ;
 
-205 
+207 
 	gl
  = 
 r
  = 0;
 
-206 
+208 
 	gp1
  = 
 p2
@@ -24211,13 +22033,13 @@ p2
 roŸ
 ;
 
-207 i‡(
+209 i‡(
 	gp1
  !
 NULL
 )
 
-209 
+211 
 p1
 ->
 À·
@@ -24225,23 +22047,23 @@ p1
 NULL
 )
 
-211 
+213 
 p1
  =Ö1->
 À·
 ;
 
-212 
+214 
 	gl
 ++;
 
-215 i‡(
+217 i‡(
 	gp2
  !
 NULL
 )
 
-217 
+219 
 p2
 ->
 right
@@ -24249,17 +22071,17 @@ right
 NULL
 )
 
-219 
+221 
 p2
  =Ö2->
 right
 ;
 
-220 
+222 
 	gr
 ++;
 
-223  
+225  
 Max
 (
 l
@@ -24267,7 +22089,7 @@ l
 r
 );
 
-226 
+228 
 TTREENODE
 * 
 FödMö
@@ -24275,13 +22097,13 @@ FödMö
 pNode
 )
 
-228 if(
+230 if(
 	gpNode
  !
 NULL
 ) {
 
-229 if(
+231 if(
 pNode
 ->
 À·
@@ -24289,11 +22111,11 @@ pNode
 NULL
 ) {
 
-230  
+232  
 pNode
 ;
 
-232  
+234  
 FödMö
 (
 pNode
@@ -24301,11 +22123,11 @@ pNode
 À·
 );
 
-235  
+237  
 	gNULL
 ;
 
-238 
+240 
 TTREENODE
 * 
 FödMax
@@ -24313,13 +22135,13 @@ FödMax
 pNode
 )
 
-240 if(
+242 if(
 	gpNode
  !
 NULL
 ) {
 
-241 if(
+243 if(
 pNode
 ->
 right
@@ -24327,11 +22149,11 @@ right
 NULL
 ) {
 
-242  
+244  
 pNode
 ;
 
-244  
+246  
 FödMax
 (
 pNode
@@ -24339,35 +22161,35 @@ pNode
 À·
 );
 
-247  
+249  
 	gNULL
 ;
 
-251 c⁄° 
+253 c⁄° 
 TTREENODE
  *
 GëMöNode
 ()
 
-253  
+255  
 FödMö
 (
 roŸ
 );
 
-257 c⁄° 
+259 c⁄° 
 TTREENODE
  *
 GëMaxNode
 ()
 
-259  
+261  
 FödMax
 (
 roŸ
 );
 
-265 
+267 
 keycom∑ª
 (
 EÀmítTy≥
@@ -24377,19 +22199,19 @@ key1
 key2
 )
 
-267 
+269 
 	gp
  = 
 key1
 ;
 
-268 
+270 
 	gq
  = 
 key2
 ;
 
-269  
+271  
 	gp
  < 
 	gq
@@ -24399,33 +22221,33 @@ p
 q
  ? 0 : 1;
 
-273 
+275 
 CÀ¨
 ()
 
-275 
+277 
 _ór£
 (
 roŸ
 );
 
-279 
+281 
 boﬁ
  
 IsEm±y
 ( ) const
 
-281  
+283  
 	groŸ
  =
 NULL
 ;
 
-285 
+287 
 	g¥iv©e
 :
 
-288 
+290 
 PªOrdîTøvî£
 (
 TTREENODE
@@ -24433,13 +22255,13 @@ TTREENODE
 pNode
 ) const
 
-290 i‡(
+292 i‡(
 pNode
  !
 NULL
 )
 
-292 
+294 
 nSize
  = 
 pNode
@@ -24447,75 +22269,13 @@ pNode
 nIãms
 ;
 
-293 
+295 
 	gi
  = 0; i < 
 	gnSize
 ; i++)
-
-295 
-¥ötf
-("%02d ", 
-pNode
-->
-ôem
-[
-i
-]);
 
 297 
-PªOrdîTøvî£
-(
-pNode
-->
-À·
-);
-
-298 
-PªOrdîTøvî£
-(
-pNode
-->
-right
-);
-
-303 
-InOrdîTøvî£
-(
-TTREENODE
- *
-pNode
-) const
-
-305 i‡(
-	gpNode
- !
-NULL
-)
-
-307 
-InOrdîTøvî£
-(
-pNode
-->
-À·
-);
-
-308 
-	gnSize
- = 
-pNode
-->
-nIãms
-;
-
-309 
-	gi
- = 0; i < 
-	gnSize
-; i++)
-
-311 
 ¥ötf
 ("%02d ", 
 pNode
@@ -24524,60 +22284,60 @@ pNode
 [
 i
 ]);
+
+299 
+PªOrdîTøvî£
+(
+pNode
+->
+À·
+);
+
+300 
+PªOrdîTøvî£
+(
+pNode
+->
+right
+);
+
+305 
+InOrdîTøvî£
+(
+TTREENODE
+ *
+pNode
+) const
+
+307 i‡(
+	gpNode
+ !
+NULL
+)
+
+309 
+InOrdîTøvî£
+(
+pNode
+->
+À·
+);
+
+310 
+	gnSize
+ = 
+pNode
+->
+nIãms
+;
+
+311 
+	gi
+ = 0; i < 
+	gnSize
+; i++)
 
 313 
-InOrdîTøvî£
-(
-pNode
-->
-right
-);
-
-318 
-Po°OrdîTøvî£
-(
-TTREENODE
- *
-pNode
-) const
-
-320 i‡(
-	gpNode
- !
-NULL
-)
-
-322 
-Po°OrdîTøvî£
-(
-pNode
-->
-À·
-);
-
-323 
-Po°OrdîTøvî£
-(
-pNode
-->
-right
-);
-
-324 
-	gnSize
- = 
-pNode
-->
-nIãms
-;
-
-325 
-	gi
- = 0; i < 
-	gnSize
-; i++)
-
-327 
 ¥ötf
 ("%02d ", 
 pNode
@@ -24587,7 +22347,69 @@ pNode
 i
 ]);
 
-333 
+315 
+InOrdîTøvî£
+(
+pNode
+->
+right
+);
+
+320 
+Po°OrdîTøvî£
+(
+TTREENODE
+ *
+pNode
+) const
+
+322 i‡(
+	gpNode
+ !
+NULL
+)
+
+324 
+Po°OrdîTøvî£
+(
+pNode
+->
+À·
+);
+
+325 
+Po°OrdîTøvî£
+(
+pNode
+->
+right
+);
+
+326 
+	gnSize
+ = 
+pNode
+->
+nIãms
+;
+
+327 
+	gi
+ = 0; i < 
+	gnSize
+; i++)
+
+329 
+¥ötf
+("%02d ", 
+pNode
+->
+ôem
+[
+i
+]);
+
+335 
 LevñOrdîTøvî£
 (
 TTREENODE
@@ -24595,13 +22417,13 @@ TTREENODE
 pNode
 ) const
 
-335 i‡(
+337 i‡(
 	gpNode
  =
 NULL
 )
 
-341 
+343 
 	glökedQueue
 <
 	gTTREENODE
@@ -24609,13 +22431,13 @@ NULL
 	gq
 ;
 
-342 
+344 
 TTREENODE
  *
 	gp
 ;
 
-345 
+347 
 	gq
 .
 push
@@ -24623,13 +22445,13 @@ push
 pNode
 );
 
-347 !
+349 !
 	gq
 .
 em±y
 ())
 
-350 
+352 
 	gp
  = (
 TTREENODE
@@ -24639,13 +22461,13 @@ q
 ‰⁄t
 ();
 
-351 
+353 
 	gq
 .
 p›
 ();
 
-353 
+355 
 	gnSize
  = 
 p
@@ -24653,13 +22475,13 @@ p
 nIãms
 ;
 
-354 
+356 
 	gi
  = 0; i < 
 	gnSize
 ; i++)
 
-356 
+358 
 ¥ötf
 ("%02d ", 
 p
@@ -24669,7 +22491,7 @@ p
 i
 ]);
 
-359 i‡(
+361 i‡(
 	gp
 ->
 	gÀ·
@@ -24677,7 +22499,7 @@ i
 NULL
 )
 
-361 
+363 
 q
 .
 push
@@ -24687,7 +22509,7 @@ p
 À·
 );
 
-364 i‡(
+366 i‡(
 	gp
 ->
 	gright
@@ -24695,7 +22517,7 @@ p
 NULL
 )
 
-366 
+368 
 q
 .
 push
@@ -24705,21 +22527,21 @@ p
 right
 );
 
-368 
+370 
 ¥ötf
 ("/n");
 
-372 
+374 
 	g¥iv©e
 :
 
-375 
+377 
 TTREENODE
  *
 MÆlocNode
 ()
 
-377 
+379 
 TTREENODE
  *
 pNode
@@ -24727,7 +22549,7 @@ pNode
 √w
  TTREENODE;
 
-378 
+380 
 mem£t
 (
 pNode
@@ -24735,15 +22557,15 @@ pNode
 TTREENODE
 ));
 
-379 
+381 
 	gm_nSize
 ++;
 
-380  (
+382  (
 	gpNode
 );
 
-384 
+386 
 FªeNode
 (
 TTREENODE
@@ -24751,23 +22573,23 @@ TTREENODE
 pNode
 )
 
-386 i‡(
+388 i‡(
 	gpNode
 )
 
-388 
+390 
 dñëe
  
 	gpNode
 ;
 
-389 
+391 
 	gpNode
  = 
 NULL
 ;
 
-394 
+396 
 Max
 (
 a
@@ -24775,7 +22597,7 @@ a
 b
 ) const
 
-396 –
+398 –
 	ga
  > 
 	gb
@@ -24783,7 +22605,7 @@ b
 b
 );
 
-399 
+401 
 boﬁ
  
 _ö£π
@@ -24801,7 +22623,7 @@ EÀmítD©a
 d©a
 )
 
-401 
+403 
 	gn
  = 
 pNode
@@ -24809,7 +22631,7 @@ pNode
 nIãms
 ;
 
-402 
+404 
 EÀmítTy≥
  
 	gkeymö
@@ -24819,7 +22641,7 @@ pNode
 ôem
 [0];
 
-403 
+405 
 EÀmítTy≥
  
 	gkeymax
@@ -24831,7 +22653,7 @@ pNode
 n
  > 0 ?Ç - 1 : 0];
 
-404 
+406 
 	gnDiff
  = 
 keycom∑ª
@@ -24841,11 +22663,11 @@ key
 keymö
 );
 
-405 i‡(
+407 i‡(
 	gnDiff
  <= 0)
 
-407 
+409 
 TTREENODE
  *
 pLe·Id
@@ -24855,7 +22677,7 @@ pNode
 À·
 ;
 
-408 i‡((
+410 i‡((
 	gpLe·Id
  =0 || 
 nDiff
@@ -24867,7 +22689,7 @@ nIãms
 ∑geSize
 )
 
-410 
+412 
 i
  = 
 n
@@ -24875,7 +22697,7 @@ n
 	gi
  > 0; i--)
 
-412 
+414 
 	gpNode
 ->
 	gôem
@@ -24887,7 +22709,7 @@ pNode
 ôem
 [i-1];
 
-413 
+415 
 	gpNode
 ->
 	gd©a
@@ -24899,7 +22721,7 @@ pNode
 d©a
 [i-1];
 
-415 
+417 
 	gpNode
 ->
 	gôem
@@ -24907,7 +22729,7 @@ d©a
 key
 ;
 
-416 
+418 
 	gpNode
 ->
 	gd©a
@@ -24915,27 +22737,27 @@ key
 d©a
 ;
 
-417 
+419 
 	gpNode
 ->
 	gnIãms
  += 1;
 
-418  
+420  
 	gÁl£
 ;
 
-420 i‡(
+422 i‡(
 	gpLe·Id
  == 0)
 
-422 
+424 
 pLe·Id
  = 
 MÆlocNode
 ();
 
-423 
+425 
 	gpLe·Id
 ->
 	gôem
@@ -24943,7 +22765,7 @@ MÆlocNode
 key
 ;
 
-424 
+426 
 	gpLe·Id
 ->
 	gd©a
@@ -24951,13 +22773,13 @@ key
 d©a
 ;
 
-425 
+427 
 	gpLe·Id
 ->
 	gnIãms
  += 1;
 
-426 
+428 
 	gpNode
 ->
 	gÀ·
@@ -24965,7 +22787,7 @@ d©a
 pLe·Id
 ;
 
-430 
+432 
 TTREENODE
  *
 	gpChûdId
@@ -24973,7 +22795,7 @@ TTREENODE
 pLe·Id
 ;
 
-431 
+433 
 boﬁ
  
 	gbGrow
@@ -24987,13 +22809,13 @@ key
 d©a
 );
 
-432 i‡(
+434 i‡(
 	gpChûdId
  !
 pLe·Id
 )
 
-434 
+436 
 pNode
 ->
 À·
@@ -25003,53 +22825,53 @@ pLe·Id
 pChûdId
 ;
 
-436 i‡(!
+438 i‡(!
 	gbGrow
 )
 
-438  
+440  
 	gÁl£
 ;
 
-441 i‡(
+443 i‡(
 	gpNode
 ->
 	gbf
  > 0)
 
-443 
+445 
 	gpNode
 ->
 	gbf
  = 0;
 
-444  
+446  
 	gÁl£
 ;
 
-446 i‡(
+448 i‡(
 	gpNode
 ->
 	gbf
  == 0)
 
-448 
+450 
 pNode
 ->
 bf
  = -1;
 
-449  
+451  
 	gåue
 ;
 
-453 i‡(
+455 i‡(
 	gpLe·Id
 ->
 	gbf
  < 0)
 
-455 
+458 
 	gpNode
  = 
 SögÀRŸ©eLe·
@@ -25057,7 +22879,7 @@ SögÀRŸ©eLe·
 pNode
 );
 
-459 
+463 
 	gpNode
  = 
 DoubÀRŸ©eLe·
@@ -25065,11 +22887,11 @@ DoubÀRŸ©eLe·
 pNode
 );
 
-461  
+465  
 	gÁl£
 ;
 
-465 
+469 
 	gnDiff
  = 
 keycom∑ª
@@ -25079,11 +22901,11 @@ key
 keymax
 );
 
-466 i‡(
+470 i‡(
 	gnDiff
  >= 0)
 
-468 
+472 
 TTREENODE
  *
 pRightId
@@ -25093,7 +22915,7 @@ pNode
 right
 ;
 
-469 i‡((
+473 i‡((
 	gpRightId
  =0 || 
 nDiff
@@ -25105,7 +22927,7 @@ nIãms
 ∑geSize
 )
 
-471 
+475 
 pNode
 ->
 ôem
@@ -25115,7 +22937,7 @@ n
 key
 ;
 
-472 
+476 
 	gpNode
 ->
 	gd©a
@@ -25125,27 +22947,27 @@ n
 d©a
 ;
 
-473 
+477 
 	gpNode
 ->
 	gnIãms
  += 1;
 
-474  
+478  
 	gÁl£
 ;
 
-476 i‡(
+480 i‡(
 	gpRightId
  == 0)
 
-478 
+482 
 pRightId
  = 
 MÆlocNode
 ();
 
-479 
+483 
 	gpRightId
 ->
 	gôem
@@ -25153,7 +22975,7 @@ MÆlocNode
 key
 ;
 
-480 
+484 
 	gpRightId
 ->
 	gd©a
@@ -25161,13 +22983,13 @@ key
 d©a
 ;
 
-481 
+485 
 	gpRightId
 ->
 	gnIãms
  += 1;
 
-482 
+486 
 	gpNode
 ->
 	gright
@@ -25175,7 +22997,7 @@ d©a
 pRightId
 ;
 
-486 
+490 
 TTREENODE
  *
 	gpChûdId
@@ -25183,7 +23005,7 @@ TTREENODE
 pRightId
 ;
 
-487 
+491 
 boﬁ
  
 	gbGrow
@@ -25197,13 +23019,13 @@ key
 d©a
 );
 
-488 i‡(
+492 i‡(
 	gpChûdId
  !
 pRightId
 )
 
-490 
+494 
 pNode
 ->
 right
@@ -25213,53 +23035,53 @@ pRightId
 pChûdId
 ;
 
-492 i‡(!
+496 i‡(!
 	gbGrow
 )
 
-494  
+498  
 	gÁl£
 ;
 
-497 i‡(
+501 i‡(
 	gpNode
 ->
 	gbf
  < 0)
 
-499 
+503 
 	gpNode
 ->
 	gbf
  = 0;
 
-500  
+504  
 	gÁl£
 ;
 
-502 i‡(
+506 i‡(
 	gpNode
 ->
 	gbf
  == 0)
 
-504 
+508 
 pNode
 ->
 bf
  = 1;
 
-505  
+509  
 	gåue
 ;
 
-509 i‡(
+513 i‡(
 	gpRightId
 ->
 	gbf
  > 0)
 
-511 
+516 
 	gpNode
  = 
 SögÀRŸ©eRight
@@ -25267,7 +23089,7 @@ SögÀRŸ©eRight
 pNode
 );
 
-515 
+521 
 	gpNode
  = 
 DoubÀRŸ©eRight
@@ -25275,11 +23097,11 @@ DoubÀRŸ©eRight
 pNode
 );
 
-517  
+523  
 	gÁl£
 ;
 
-522 
+528 
 	gl
  = 1, 
 	gr
@@ -25287,13 +23109,13 @@ pNode
 n
 -1;
 
-523 
+529 
 	gl
  < 
 	gr
 )
 
-525 
+531 
 	gi
  = (
 l
@@ -25301,7 +23123,7 @@ l
 r
 ) >> 1;
 
-526 
+532 
 EÀmítTy≥
  
 	gôemkey
@@ -25313,7 +23135,7 @@ pNode
 i
 ];
 
-527 
+533 
 	gnDiff
  = 
 keycom∑ª
@@ -25323,33 +23145,33 @@ key
 ôemkey
 );
 
-528 i‡(
+534 i‡(
 	gnDiff
  > 0)
 
-530 
+536 
 	gl
  = 
 i
  + 1;
 
-534 
+540 
 	gr
  = 
 i
 ;
 
-535 i‡(
+541 i‡(
 	gnDiff
  == 0)
 
-543 i‡(
+549 i‡(
 	gn
  !
 ∑geSize
 )
 
-545 
+551 
 i
  = 
 n
@@ -25359,7 +23181,7 @@ n
 	gr
 ; i--)
 
-547 
+553 
 	gpNode
 ->
 	gôem
@@ -25371,7 +23193,7 @@ pNode
 ôem
 [i-1];
 
-549 
+555 
 	gpNode
 ->
 	gôem
@@ -25381,35 +23203,35 @@ r
 key
 ;
 
-550 
+556 
 	gpNode
 ->
 	gnIãms
  += 1;
 
-551  
+557  
 	gÁl£
 ;
 
-555 
+561 
 EÀmítTy≥
  
 	gªö£πId
 ;
 
-556 
+562 
 EÀmítD©a
  
 	gªö£πD©a
 ;
 
-558 i‡(
+564 i‡(
 	gpNode
 ->
 	gbf
  >= 0)
 
-563 
+569 
 ªö£πId
  = 
 pNode
@@ -25417,7 +23239,7 @@ pNode
 ôem
 [0];
 
-564 
+570 
 	gªö£πD©a
  = 
 pNode
@@ -25425,13 +23247,13 @@ pNode
 d©a
 [0];
 
-565 
+571 
 	gi
  = 1; i < 
 	gr
 ; i++)
 
-567 
+573 
 	gpNode
 ->
 	gôem
@@ -25443,7 +23265,7 @@ pNode
 ôem
 [i];
 
-568 
+574 
 	gpNode
 ->
 	gd©a
@@ -25455,7 +23277,7 @@ pNode
 d©a
 [i];
 
-570 
+576 
 	gpNode
 ->
 	gôem
@@ -25465,7 +23287,7 @@ r
 key
 ;
 
-571 
+577 
 	gpNode
 ->
 	gd©a
@@ -25475,7 +23297,7 @@ r
 d©a
 ;
 
-573  
+579  
 _ö£π
 (
 pNode
@@ -25485,7 +23307,7 @@ pNode
 ªö£πD©a
 );
 
-580 
+586 
 	gªö£πId
  = 
 pNode
@@ -25495,7 +23317,7 @@ pNode
 n
 -1];
 
-581 
+587 
 	gªö£πD©a
  = 
 pNode
@@ -25505,7 +23327,7 @@ d©a
 n
 -1];
 
-582 
+588 
 	gi
  = 
 n
@@ -25513,7 +23335,7 @@ n
 	gr
 ; i--)
 
-584 
+590 
 	gpNode
 ->
 	gôem
@@ -25525,7 +23347,7 @@ pNode
 ôem
 [i-1];
 
-585 
+591 
 	gpNode
 ->
 	gd©a
@@ -25537,7 +23359,7 @@ pNode
 d©a
 [i-1];
 
-587 
+593 
 	gpNode
 ->
 	gôem
@@ -25547,7 +23369,7 @@ r
 key
 ;
 
-588 
+594 
 	gpNode
 ->
 	gd©a
@@ -25557,7 +23379,7 @@ r
 d©a
 ;
 
-590  
+596  
 _ö£π
 (
 pNode
@@ -25567,7 +23389,7 @@ pNode
 ªö£πD©a
 );
 
-595 
+601 
 ªmove
 (
 TTREENODE
@@ -25579,7 +23401,7 @@ EÀmítTy≥
 key
 )
 
-597 
+603 
 	gn
  = 
 pNode
@@ -25587,7 +23409,7 @@ pNode
 nIãms
 ;
 
-598 
+604 
 EÀmítTy≥
  
 	gkeymö
@@ -25597,7 +23419,7 @@ pNode
 ôem
 [0];
 
-599 
+605 
 EÀmítTy≥
  
 	gkeymax
@@ -25609,7 +23431,7 @@ pNode
 n
  > 0 ?Ç - 1 : 0];
 
-600 
+606 
 	gnDiff
  = 
 keycom∑ª
@@ -25619,11 +23441,11 @@ key
 keymö
 );
 
-601 i‡(
+607 i‡(
 	gnDiff
  <= 0)
 
-603 
+609 
 TTREENODE
  *
 pLe·Id
@@ -25633,11 +23455,11 @@ pNode
 À·
 ;
 
-604 i‡(
+610 i‡(
 	gpLe·Id
  != 0)
 
-606 
+612 
 TTREENODE
  *
 pChûdId
@@ -25645,7 +23467,7 @@ pChûdId
 pLe·Id
 ;
 
-607 
+613 
 	gh
  = 
 ªmove
@@ -25655,13 +23477,13 @@ pChûdId
 key
 );
 
-608 i‡(
+614 i‡(
 	gpChûdId
  !
 pLe·Id
 )
 
-610 
+616 
 pNode
 ->
 À·
@@ -25669,27 +23491,27 @@ pNode
 pChûdId
 ;
 
-612 i‡(
+618 i‡(
 	gh
  > 0)
 
-614  
+620  
 BÆ™˚Le·Bønch
 (
 pNode
 );
 
-616 i‡(
+622 i‡(
 	gh
  == 0)
 
-621 
+627 
 as£π
  (
 nDiff
  == 0);
 
-623 
+629 
 	gnDiff
  = 
 keycom∑ª
@@ -25699,11 +23521,11 @@ key
 keymax
 );
 
-624 i‡(
+630 i‡(
 	gnDiff
  <= 0)
 
-626 
+632 
 i
  = 0; 
 	gi
@@ -25711,7 +23533,7 @@ i
 	gn
 ; i++)
 
-628 i‡(
+634 i‡(
 	gpNode
 ->
 	gôem
@@ -25721,17 +23543,17 @@ i
 key
 )
 
-630 i‡(
+636 i‡(
 n
  == 1)
 
-632 i‡(
+638 i‡(
 pNode
 ->
 right
  == 0)
 
-634 
+640 
 TTREENODE
  *
 pTempNode
@@ -25741,25 +23563,25 @@ pNode
 À·
 ;
 
-635 
+641 
 FªeNode
 (
 pNode
 );
 
-636 
+642 
 	gpNode
  = 
 pTempNode
 ;
 
-639 i‡(
+645 i‡(
 	gpNode
 ->
 	gÀ·
  == 0)
 
-641 
+647 
 TTREENODE
  *
 pTempNode
@@ -25769,19 +23591,19 @@ pNode
 right
 ;
 
-642 
+648 
 FªeNode
 (
 pNode
 );
 
-643 
+649 
 	gpNode
  = 
 pTempNode
 ;
 
-647 
+653 
 TTREENODE
  *
 	gpLe·Id
@@ -25795,13 +23617,13 @@ pNode
 right
 ;
 
-648 i‡(
+654 i‡(
 	gn
  <
 möIãms
 )
 
-650 i‡(
+656 i‡(
 pLe·Id
  !0 && 
 pNode
@@ -25809,23 +23631,23 @@ pNode
 bf
  <= 0)
 
-652 
+658 
 pLe·Id
 ->
 right
  != 0)
 
-654 
+660 
 pLe·Id
  =ÖLe·Id->
 right
 ;
 
-656 --
+662 --
 	gi
  >= 0)
 
-658 
+664 
 pNode
 ->
 ôem
@@ -25833,7 +23655,7 @@ pNode
 i
 +1] =ÖNode->item[i];
 
-659 
+665 
 	gpNode
 ->
 	gd©a
@@ -25845,7 +23667,7 @@ pNode
 d©a
 [i];
 
-661 
+667 
 	gpNode
 ->
 	gôem
@@ -25857,7 +23679,7 @@ pLe·Id
 nIãms
 -1];
 
-662 
+668 
 	gpNode
 ->
 	gd©a
@@ -25869,7 +23691,7 @@ d©a
 nIãms
 -1];
 
-663 
+669 
 	gkey
  = 
 pNode
@@ -25877,7 +23699,7 @@ pNode
 ôem
 [0];
 
-664 
+670 
 TTREENODE
  *
 	gpChûdId
@@ -25885,7 +23707,7 @@ TTREENODE
 pLe·Id
 ;
 
-665 
+671 
 	gh
  = 
 ªmove
@@ -25897,13 +23719,13 @@ pNode
 ôem
 [0]);
 
-666 i‡(
+672 i‡(
 	gpChûdId
  !
 pLe·Id
 )
 
-668 
+674 
 pNode
 ->
 À·
@@ -25911,11 +23733,11 @@ pNode
 pChûdId
 ;
 
-670 i‡(
+676 i‡(
 	gh
  > 0)
 
-672 
+678 
 	gh
  = 
 BÆ™˚Le·Bønch
@@ -25923,35 +23745,35 @@ BÆ™˚Le·Bønch
 pNode
 );
 
-674  
+680  
 	gh
 ;
 
-676 i‡(
+682 i‡(
 	gpNode
 ->
 	gright
  != 0)
 
-678 
+684 
 pRightId
 ->
 À·
  != 0)
 
-680 
+686 
 pRightId
  =ÖRightId->
 À·
 ;
 
-682 ++
+688 ++
 	gi
  < 
 	gn
 )
 
-684 
+690 
 	gpNode
 ->
 	gôem
@@ -25963,7 +23785,7 @@ pNode
 ôem
 [i];
 
-685 
+691 
 	gpNode
 ->
 	gd©a
@@ -25975,7 +23797,7 @@ pNode
 d©a
 [i];
 
-687 
+693 
 	gpNode
 ->
 	gôem
@@ -25987,7 +23809,7 @@ pRightId
 ôem
 [0];
 
-688 
+694 
 	gpNode
 ->
 	gd©a
@@ -25999,7 +23821,7 @@ pRightId
 d©a
 [0];
 
-689 
+695 
 	gkey
  = 
 pNode
@@ -26009,7 +23831,7 @@ pNode
 n
 -1];
 
-691 
+697 
 TTREENODE
  *
 	gpChûdId
@@ -26017,7 +23839,7 @@ TTREENODE
 pRightId
 ;
 
-692 
+698 
 	gh
  = 
 ªmove
@@ -26027,13 +23849,13 @@ pChûdId
 key
 );
 
-693 i‡(
+699 i‡(
 	gpChûdId
  !
 pRightId
 )
 
-695 
+701 
 pNode
 ->
 right
@@ -26041,11 +23863,11 @@ right
 pChûdId
 ;
 
-697 i‡(
+703 i‡(
 	gh
  > 0)
 
-699 
+705 
 	gh
  = 
 BÆ™˚RightBønch
@@ -26053,17 +23875,17 @@ BÆ™˚RightBønch
 pNode
 );
 
-701  
+707  
 	gh
 ;
 
-704 ++
+710 ++
 	gi
  < 
 	gn
 )
 
-706 
+712 
 	gpNode
 ->
 	gôem
@@ -26075,7 +23897,7 @@ pNode
 ôem
 [i];
 
-707 
+713 
 	gpNode
 ->
 	gd©a
@@ -26087,13 +23909,13 @@ pNode
 d©a
 [i];
 
-709 
+715 
 	gpNode
 ->
 	gnIãms
  -= 1;
 
-714 
+720 
 TTREENODE
  *
 	gpRightId
@@ -26103,11 +23925,11 @@ pNode
 right
 ;
 
-715 i‡(
+721 i‡(
 	gpRightId
  != 0)
 
-717 
+723 
 TTREENODE
  *
 pChûdId
@@ -26115,7 +23937,7 @@ pChûdId
 pRightId
 ;
 
-718 
+724 
 	gh
  = 
 ªmove
@@ -26125,13 +23947,13 @@ pChûdId
 key
 );
 
-719 i‡(
+725 i‡(
 	gpChûdId
  !
 pRightId
 )
 
-721 
+727 
 pNode
 ->
 right
@@ -26139,21 +23961,21 @@ right
 pChûdId
 ;
 
-723 i‡(
+729 i‡(
 	gh
  > 0)
 
-725  
+731  
 BÆ™˚RightBønch
 (
 pNode
 );
 
-729  
+735  
 	gh
 ;
 
-735 
+741 
 _ór£
 (
 TTREENODE
@@ -26161,13 +23983,13 @@ TTREENODE
 pNode
 )
 
-737 i‡(
+743 i‡(
 	gpNode
  =
 NULL
 )
 
-742 
+748 
 _ór£
 (
 pNode
@@ -26175,7 +23997,7 @@ pNode
 À·
 );
 
-744 
+750 
 _ór£
 (
 pNode
@@ -26183,17 +24005,17 @@ pNode
 right
 );
 
-746 
+752 
 FªeNode
 (
 pNode
 );
 
-750 
+756 
 	g¥iv©e
 :
 
-753 
+759 
 BÆ™˚Fa˘‹
 (
 TTREENODE
@@ -26201,13 +24023,13 @@ TTREENODE
 pNode
 ) const
 
-755 
+761 
 l
 , 
 	gr
 ;
 
-756 
+762 
 TTREENODE
  *
 	gp1
@@ -26215,13 +24037,13 @@ TTREENODE
 	gp2
 ;
 
-757 
+763 
 	gl
  = 
 r
  = 0;
 
-758 
+764 
 	gp1
  = 
 p2
@@ -26229,13 +24051,13 @@ p2
 pNode
 ;
 
-759 i‡(
+765 i‡(
 	gp1
  !
 NULL
 )
 
-761 
+767 
 p1
 ->
 À·
@@ -26243,23 +24065,23 @@ p1
 NULL
 )
 
-763 
+769 
 p1
  =Ö1->
 À·
 ;
 
-764 
+770 
 	gl
 ++;
 
-767 i‡(
+773 i‡(
 	gp2
  !
 NULL
 )
 
-769 
+775 
 p2
 ->
 right
@@ -26267,23 +24089,23 @@ right
 NULL
 )
 
-771 
+777 
 p2
  =Ö2->
 right
 ;
 
-772 
+778 
 	gr
 ++;
 
-775  (
+781  (
 	gr
  - 
 	gl
 );
 
-779 
+785 
 TTREENODE
  *
 SögÀRŸ©eLe·
@@ -26291,7 +24113,7 @@ SögÀRŸ©eLe·
 pNode
 )
 
-781 
+787 
 TTREENODE
  *
 	gK
@@ -26301,7 +24123,7 @@ pNode
 À·
 ;
 
-782 
+788 
 	gpNode
 ->
 	gÀ·
@@ -26311,7 +24133,7 @@ K
 right
 ;
 
-783 
+789 
 	gK
 ->
 	gright
@@ -26319,7 +24141,7 @@ right
 pNode
 ;
 
-786 
+792 
 	gpNode
 ->
 	gbf
@@ -26329,7 +24151,7 @@ BÆ™˚Fa˘‹
 pNode
 );
 
-787 
+793 
 	gK
 ->
 	gbf
@@ -26339,11 +24161,11 @@ BÆ™˚Fa˘‹
 K
 );
 
-789  
+795  
 	gK
 ;
 
-793 
+799 
 TTREENODE
  *
 SögÀRŸ©eRight
@@ -26351,7 +24173,7 @@ SögÀRŸ©eRight
 pNode
 )
 
-795 
+801 
 TTREENODE
  *
 	gK
@@ -26361,7 +24183,7 @@ pNode
 right
 ;
 
-796 
+802 
 	gpNode
 ->
 	gright
@@ -26371,7 +24193,7 @@ K
 À·
 ;
 
-797 
+803 
 	gK
 ->
 	gÀ·
@@ -26379,7 +24201,7 @@ K
 pNode
 ;
 
-800 
+806 
 	gpNode
 ->
 	gbf
@@ -26389,7 +24211,7 @@ BÆ™˚Fa˘‹
 pNode
 );
 
-801 
+807 
 	gK
 ->
 	gbf
@@ -26399,11 +24221,11 @@ BÆ™˚Fa˘‹
 K
 );
 
-803  
+809  
 	gK
 ;
 
-807 
+813 
 TTREENODE
  *
 DoubÀRŸ©eLe·
@@ -26411,7 +24233,7 @@ DoubÀRŸ©eLe·
 pNode
 )
 
-809 
+815 
 	gpNode
 ->
 	gÀ·
@@ -26423,7 +24245,7 @@ pNode
 À·
 );
 
-812 
+818 
 	gpNode
 ->
 	gbf
@@ -26433,13 +24255,13 @@ BÆ™˚Fa˘‹
 pNode
 );
 
-814  
+820  
 SögÀRŸ©eLe·
 (
 pNode
 );
 
-818 
+824 
 TTREENODE
  *
 DoubÀRŸ©eRight
@@ -26447,7 +24269,7 @@ DoubÀRŸ©eRight
 pNode
 )
 
-820 
+826 
 	gpNode
 ->
 	gright
@@ -26459,7 +24281,7 @@ pNode
 right
 );
 
-823 
+829 
 	gpNode
 ->
 	gbf
@@ -26469,13 +24291,13 @@ BÆ™˚Fa˘‹
 pNode
 );
 
-825  
+831  
 SögÀRŸ©eRight
 (
 pNode
 );
 
-829 
+835 
 BÆ™˚RightBønch
 (
 TTREENODE
@@ -26483,31 +24305,31 @@ TTREENODE
 pNode
 )
 
-831 i‡(
+837 i‡(
 	gpNode
 ->
 	gbf
  > 0)
 
-833 
+839 
 	gpNode
 ->
 	gbf
  = 0;
 
-836 i‡(
+842 i‡(
 	gpNode
 ->
 	gbf
  == 0)
 
-838 
+844 
 pNode
 ->
 bf
  = -1;
 
-843 
+849 
 TTREENODE
  * 
 	gpLe·Id
@@ -26517,49 +24339,49 @@ pNode
 À·
 ;
 
-844 i‡(
+850 i‡(
 	gpLe·Id
 ->
 	gbf
  <= 0)
 
-846 
+852 
 pNode
  = 
 SögÀRŸ©eLe·
 (pNode);
 
-847 i‡(
+853 i‡(
 	gpLe·Id
 ->
 	gbf
  == 0)
 
-849 
+855 
 pNode
 ->
 bf
  = -1;
 
-850 
+856 
 	gpLe·Id
 ->
 	gbf
  = 1;
 
-855 
+861 
 	gpNode
 ->
 	gbf
  = 0;
 
-856 
+862 
 	gpLe·Id
 ->
 	gbf
  = 0;
 
-862 
+868 
 	gpNode
  = 
 DoubÀRŸ©eLe·
@@ -26567,7 +24389,7 @@ DoubÀRŸ©eLe·
 pNode
 );
 
-870 
+876 
 BÆ™˚Le·Bønch
 (
 TTREENODE
@@ -26575,31 +24397,31 @@ TTREENODE
 pNode
 )
 
-872 i‡(
+878 i‡(
 	gpNode
 ->
 	gbf
  < 0)
 
-874 
+880 
 	gpNode
 ->
 	gbf
  = 0;
 
-877 i‡(
+883 i‡(
 	gpNode
 ->
 	gbf
  == 0)
 
-879 
+885 
 pNode
 ->
 bf
  = 1;
 
-884 
+890 
 TTREENODE
  *
 	gpRightId
@@ -26609,49 +24431,49 @@ pNode
 right
 ;
 
-885 i‡(
+891 i‡(
 	gpRightId
 ->
 	gbf
  >= 0)
 
-887 
+893 
 pNode
  = 
 SögÀRŸ©eRight
 (pNode);
 
-888 i‡(
+894 i‡(
 	gpRightId
 ->
 	gbf
  == 0)
 
-890 
+896 
 pNode
 ->
 bf
  = 1;
 
-891 
+897 
 	gpRightId
 ->
 	gbf
  = -1;
 
-896 
+902 
 	gpNode
 ->
 	gbf
  = 0;
 
-897 
+903 
 	gpRightId
 ->
 	gbf
  = 0;
 
-903 
+909 
 	gpNode
  = 
 DoubÀRŸ©eRight
@@ -26659,28 +24481,28 @@ DoubÀRŸ©eRight
 pNode
 );
 
-910 
+916 
 	g¥Ÿe˘ed
 :
 
-913 
+919 
 TTREENODE
  *
 roŸ
 ;
 
-916 
+922 
 	gm_nSize
 ;
 
 	@include/stx/ttree_multimap.h
 
 1 #i‚de‡
-STX_STX_TTREE_SET_H_HEADER
+STX_STX_TTREE_MULTIMAP_H_HEADER
 
 
 2 
-	#STX_STX_TTREE_SET_H_HEADER
+	#STX_STX_TTREE_MULTIMAP_H_HEADER
 
 
 	)
@@ -26788,8 +24610,10 @@ em±y_°ru˘
 ;
 
 30 
-key_ty≥
- 
+	g°d
+::
+	t∑ú
+<, > 
 	tvÆue_ty≥
 ;
 
@@ -26857,16 +24681,52 @@ vÆue
 
 46 
 ölöe
+ 
+ö£π
+(c⁄° 
+vÆue_ty≥
+& 
+x
+)
+
+48  
+ö£π
+(
+x
+.
+fú°
+,x.
+£c⁄d
+);
+
+51 
+ölöe
  
 föd
 (
 x
 ){
 
-47  
+52  
 	gåì
 .
 Föd
+(
+x
+);
+
+55 
+ölöe
+ 
+îa£
+(
+x
+){
+
+56 
+	gåì
+.
+Dñëe
 (
 x
 );
@@ -30077,39 +27937,43 @@ os
 	~<°x/âªe_mu…im≠.h
 >
 
-47 c⁄° 
-	gmöôems
- = 512000;
+43 
+	~<uni°d.h
+>
 
-51 c⁄° 
+49 c⁄° 
+	gmöôems
+ = 1024000 * 64;
+
+53 c⁄° 
 	gmaxôems
  = 1024000 * 64;
 
-53 c⁄° 
+56 c⁄° 
 	gønd£ed
  = 34234235;
 
-56 c⁄° 
+59 c⁄° 
 	gmö_node¶Ÿs
  = 4;
 
-57 c⁄° 
+60 c⁄° 
 	gmax_node¶Ÿs
  = 256;
 
-60 
+63 
 ölöe
  
 	$time°amp
 ()
 
-62 
+65 
 timevÆ
  
 tv
 ;
 
-63 
+66 
 	`gëtimeofday
 (&
 tv
@@ -30117,7 +27981,7 @@ tv
 NULL
 );
 
-64  
+67  
 tv
 .
 tv_£c
@@ -30125,11 +27989,11 @@ tv_£c
 tv_u£c
  * 0.000001;
 
-65 
+68 
 	}
 }
 
-68 
+71 
 	gãm∂©e
  <
 	g_ö√r¶Ÿs
@@ -30137,7 +28001,7 @@ tv_u£c
 	g_Àaf¶Ÿs
 >
 
-69 
+72 
 ˛ass
  
 	gbåì_åaôs_•ìd
@@ -30147,11 +28011,11 @@ tv_u£c
 båì_deÁu…_£t_åaôs
 <>
 
-71 
+74 
 public
 :
 
-72 c⁄° 
+75 c⁄° 
 boﬁ
  
 £lfvîify
@@ -30159,7 +28023,7 @@ boﬁ
 Ál£
 ;
 
-73 c⁄° 
+76 c⁄° 
 boﬁ
  
 	gdebug
@@ -30167,25 +28031,25 @@ boﬁ
 Ál£
 ;
 
-75 c⁄° 
+78 c⁄° 
 	gÀaf¶Ÿs
  = 
 _ö√r¶Ÿs
 ;
 
-76 c⁄° 
+79 c⁄° 
 	gö√r¶Ÿs
  = 
 _Àaf¶Ÿs
 ;
 
-78 c⁄° 
+81 c⁄° 
 size_t
  
 	gbö£¨ch_thªshﬁd
  = 256 * 1024 * 1024;
 
-84 
+87 
 	gãm∂©e
  <
 ty≥«me
@@ -30193,45 +28057,45 @@ ty≥«me
 	gSëTy≥
 >
 
-85 ˛as†
+88 ˛as†
 	cTe°_Së_In£π
 
 
-87 
+90 
 	mpublic
 :
 
-88 
+91 
 ex∂icô
  
 	$Te°_Së_In£π
 () { }
 
-90 
+93 
 	$run
 (
 ôems
 )
 
-92 
+95 
 SëTy≥
  
 £t
 ;
 
-94 
+97 
 	`§™d
 (
 ønd£ed
 );
 
-95 
+98 
 i
  = 0; i < 
 ôems
 ; i++)
 
-96 
+99 
 £t
 .
 	`ö£π
@@ -30239,7 +28103,7 @@ i
 	`ønd
 ());
 
-97 
+100 
 	`as£π
 (
 £t
@@ -30249,11 +28113,11 @@ i
 ôems
 );
 
-98 
+101 
 	}
 }
 
-102 
+105 
 	gãm∂©e
  <
 ty≥«me
@@ -30261,45 +28125,45 @@ ty≥«me
 	gSëTy≥
 >
 
-103 ˛as†
+106 ˛as†
 	cTe°_Së_In£πFödDñëe
 
 
-105 
+108 
 	mpublic
 :
 
-106 
+109 
 ex∂icô
  
 	$Te°_Së_In£πFödDñëe
 () { }
 
-108 
+111 
 	$run
 (
 ôems
 )
 
-110 
+113 
 SëTy≥
  
 £t
 ;
 
-112 
+115 
 	`§™d
 (
 ønd£ed
 );
 
-113 
+116 
 i
  = 0; i < 
 ôems
 ; i++)
 
-114 
+117 
 £t
 .
 	`ö£π
@@ -30307,7 +28171,7 @@ i
 	`ønd
 ());
 
-116 
+119 
 	`as£π
 (
 £t
@@ -30317,19 +28181,19 @@ i
 ôems
 );
 
-118 
+121 
 	`§™d
 (
 ønd£ed
 );
 
-119 
+122 
 i
  = 0; i < 
 ôems
 ; i++)
 
-120 
+123 
 £t
 .
 	`föd
@@ -30337,19 +28201,19 @@ i
 	`ønd
 ());
 
-122 
+125 
 	`§™d
 (
 ønd£ed
 );
 
-123 
+126 
 i
  = 0; i < 
 ôems
 ; i++)
 
-124 
+127 
 £t
 .
 	`îa£
@@ -30359,7 +28223,7 @@ i
 	`ønd
 ()));
 
-126 
+129 
 	`as£π
 (
 £t
@@ -30367,11 +28231,11 @@ i
 	`em±y
 ());
 
-127 
+130 
 	}
 }
 
-131 
+134 
 	gãm∂©e
  <
 ty≥«me
@@ -30379,21 +28243,21 @@ ty≥«me
 	gSëTy≥
 >
 
-132 ˛as†
+135 ˛as†
 	cTe°_Së_Föd
 
 
-134 
+137 
 	mpublic
 :
 
-135 
+138 
 SëTy≥
  
 £t
 ;
 
-137 
+140 
 ex∂icô
  
 	$Te°_Së_Föd
@@ -30401,19 +28265,19 @@ ex∂icô
 ôems
 )
 
-139 
+142 
 	`§™d
 (
 ønd£ed
 );
 
-140 
+143 
 i
  = 0; i < 
 ôems
 ; i++)
 
-141 
+144 
 £t
 .
 	`ö£π
@@ -30421,7 +28285,7 @@ i
 	`ønd
 ());
 
-143 
+146 
 	`as£π
 (
 £t
@@ -30431,25 +28295,25 @@ i
 ôems
 );
 
-146 
+149 
 	$run
 (
 ôems
 )
 
-148 
+151 
 	`§™d
 (
 ønd£ed
 );
 
-149 
+152 
 i
  = 0; i < 
 ôems
 ; i++)
 
-150 
+153 
 £t
 .
 	`föd
@@ -30457,11 +28321,11 @@ i
 	`ønd
 ());
 
-151 
+154 
 	}
 }
 
-155 
+158 
 	gãm∂©e
  <ãm∂©ê<
 ty≥«me
@@ -30473,15 +28337,15 @@ ty≥«me
 	gTe°Cœss
 >
 
-156 ˛as†
+159 ˛as†
 	cTe°Fa˘‹y_Së
 
 
-158 
+161 
 	mpublic
 :
 
-160 
+163 
 Te°Cœss
 <
 	t°d
@@ -30491,7 +28355,7 @@ Te°Cœss
 	tStdSë
 ;
 
-163 
+166 
 	mTe°Cœss
 <
 	t__gnu_cxx
@@ -30501,7 +28365,7 @@ Te°Cœss
 	tHashSë
 ;
 
-166 
+169 
 	mTe°Cœss
 <
 	t°d
@@ -30513,25 +28377,25 @@ Te°Cœss
 	tUn‹dîedSë
 ;
 
-169 
+172 
 	mãm∂©e
  <
 	mSlŸs
 >
 
-170 
+173 
 ˛ass
  
 	mBåìSë
 
 
-171 : 
+174 : 
 public
  
 Te°Cœss
 <
 
-172 
+175 
 °x
 ::
 båì_mu…i£t
@@ -30541,17 +28405,17 @@ båì_mu…i£t
 Àss
 <>,
 
-173 
+176 
 	mbåì_åaôs_•ìd
 <
 	mSlŸs
 , Slots> > >
 
-175 
+178 
 	mpublic
 :
 
-176 
+179 
 ex∂icô
  
 BåìSë
@@ -30559,11 +28423,11 @@ BåìSë
 n
 )
 
-177 : 
+180 : 
 Te°Cœss
 <
 
-178 
+181 
 °x
 ::
 båì_mu…i£t
@@ -30573,7 +28437,7 @@ båì_mu…i£t
 Àss
 <>,
 
-179 
+182 
 	mbåì_åaôs_•ìd
 <
 	mSlŸs
@@ -30581,7 +28445,7 @@ båì_mu…i£t
 	mn
 )
 
-184 
+187 
 ˛ass
  
 	gTåìSë
@@ -30599,11 +28463,11 @@ Te°Cœss
 Àss
 <> > >
 
-186 
+189 
 public
 :
 
-187 
+190 
 ex∂icô
  
 TåìSë
@@ -30611,11 +28475,11 @@ TåìSë
 n
 )
 
-188 : 
+191 : 
 Te°Cœss
 <
 
-189 
+192 
 °x
 ::
 âªe_£t
@@ -30627,7 +28491,7 @@ Te°Cœss
 n
 )
 
-193 
+196 
 ˇŒ_ã°ru¬î
 (
 °d
@@ -30639,7 +28503,7 @@ os
 ôems
 );
 
-199 
+202 
 	gãm∂©e
  <
 ty≥«me
@@ -30647,51 +28511,51 @@ ty≥«me
 	gM≠Ty≥
 >
 
-200 ˛as†
+203 ˛as†
 	cTe°_M≠_In£π
 
 
-202 
+205 
 	mpublic
 :
 
-203 
+206 
 ex∂icô
  
 	$Te°_M≠_In£π
 () { }
 
-205 
+208 
 	$run
 (
 ôems
 )
 
-207 
+210 
 M≠Ty≥
  
 m≠
 ;
 
-209 
+212 
 	`§™d
 (
 ønd£ed
 );
 
-210 
+213 
 i
  = 0; i < 
 ôems
 ; i++) {
 
-211 
+214 
 r
  = 
 	`ønd
 ();
 
-212 
+215 
 m≠
 .
 	`ö£π
@@ -30703,7 +28567,7 @@ m≠
 r
 ,Ñ));
 
-215 
+218 
 	`as£π
 (
 m≠
@@ -30713,11 +28577,11 @@ m≠
 ôems
 );
 
-216 
+219 
 	}
 }
 
-220 
+223 
 	gãm∂©e
  <
 ty≥«me
@@ -30725,51 +28589,51 @@ ty≥«me
 	gM≠Ty≥
 >
 
-221 ˛as†
+224 ˛as†
 	cTe°_M≠_In£πFödDñëe
 
 
-223 
+226 
 	mpublic
 :
 
-224 
+227 
 ex∂icô
  
 	$Te°_M≠_In£πFödDñëe
 () { }
 
-226 
+229 
 	$run
 (
 ôems
 )
 
-228 
+231 
 M≠Ty≥
  
 m≠
 ;
 
-230 
+233 
 	`§™d
 (
 ønd£ed
 );
 
-231 
+234 
 i
  = 0; i < 
 ôems
 ; i++) {
 
-232 
+235 
 r
  = 
 	`ønd
 ();
 
-233 
+236 
 m≠
 .
 	`ö£π
@@ -30781,7 +28645,7 @@ m≠
 r
 ,Ñ));
 
-236 
+239 
 	`as£π
 (
 m≠
@@ -30791,19 +28655,19 @@ m≠
 ôems
 );
 
-238 
+241 
 	`§™d
 (
 ønd£ed
 );
 
-239 
+242 
 i
  = 0; i < 
 ôems
 ; i++)
 
-240 
+243 
 m≠
 .
 	`föd
@@ -30811,19 +28675,19 @@ m≠
 	`ønd
 ());
 
-242 
+245 
 	`§™d
 (
 ønd£ed
 );
 
-243 
+246 
 i
  = 0; i < 
 ôems
 ; i++)
 
-244 
+247 
 m≠
 .
 	`îa£
@@ -30833,7 +28697,7 @@ m≠
 	`ønd
 ()));
 
-246 
+249 
 	`as£π
 (
 m≠
@@ -30841,11 +28705,11 @@ m≠
 	`em±y
 ());
 
-247 
+250 
 	}
 }
 
-251 
+254 
 	gãm∂©e
  <
 ty≥«me
@@ -30853,21 +28717,21 @@ ty≥«me
 	gM≠Ty≥
 >
 
-252 ˛as†
+255 ˛as†
 	cTe°_M≠_Föd
 
 
-254 
+257 
 	mpublic
 :
 
-255 
+258 
 M≠Ty≥
  
 m≠
 ;
 
-257 
+260 
 ex∂icô
  
 	$Te°_M≠_Föd
@@ -30875,25 +28739,25 @@ ex∂icô
 ôems
 )
 
-259 
+262 
 	`§™d
 (
 ønd£ed
 );
 
-260 
+263 
 i
  = 0; i < 
 ôems
 ; i++) {
 
-261 
+264 
 r
  = 
 	`ønd
 ();
 
-262 
+265 
 m≠
 .
 	`ö£π
@@ -30905,35 +28769,37 @@ m≠
 r
 ,Ñ));
 
-265 
-	`as£π
-(
-m≠
-.
-	`size
-(Ë=
+267 
+cout
+ << "ch¨lõÅªêwôh " << 
 ôems
-);
+ << " ha†bì¿buûà" << 
+ídl
+;
 
-268 
+268 
+	`¶ìp
+(5);
+
+272 
 	$run
 (
 ôems
 )
 
-270 
+274 
 	`§™d
 (
 ønd£ed
 );
 
-271 
+276 
 i
  = 0; i < 
 ôems
 ; i++)
 
-272 
+277 
 m≠
 .
 	`föd
@@ -30941,11 +28807,11 @@ m≠
 	`ønd
 ());
 
-273 
+279 
 	}
 }
 
-277 
+283 
 	gãm∂©e
  <ãm∂©ê<
 ty≥«me
@@ -30957,15 +28823,15 @@ ty≥«me
 	gTe°Cœss
 >
 
-278 ˛as†
+284 ˛as†
 	cTe°Fa˘‹y_M≠
 
 
-280 
+286 
 	mpublic
 :
 
-282 
+288 
 Te°Cœss
 <
 	t°d
@@ -30975,7 +28841,7 @@ Te°Cœss
 	tStdM≠
 ;
 
-285 
+291 
 	mTe°Cœss
 <
 	t__gnu_cxx
@@ -30985,7 +28851,7 @@ Te°Cœss
 	tHashM≠
 ;
 
-288 
+294 
 	mTe°Cœss
 <
 	t°d
@@ -30995,51 +28861,51 @@ Te°Cœss
 	tun‹dîed_mu…im≠
 <
 
-289 , > > 
+295 , > > 
 	tUn‹dîedM≠
 ;
 
-292 
+298 
 	mãm∂©e
  <
 	mSlŸs
 >
 
-293 
+299 
 ˛ass
  
 	mBåìM≠
 
 
-294 : 
+300 : 
 public
  
 Te°Cœss
 <
 
-295 
+301 
 °x
 ::
 båì_mu…im≠
 <, ,
 
-296 
+302 
 	m°d
 ::
 Àss
 <>,
 
-297 
+303 
 	mbåì_åaôs_•ìd
 <
 	mSlŸs
 , Slots> > >
 
-299 
+305 
 	mpublic
 :
 
-300 
+306 
 ex∂icô
  
 BåìM≠
@@ -31047,23 +28913,23 @@ BåìM≠
 n
 )
 
-301 : 
+307 : 
 Te°Cœss
 <
 
-302 
+308 
 °x
 ::
 båì_mu…im≠
 <, ,
 
-303 
+309 
 	m°d
 ::
 Àss
 <>,
 
-304 
+310 
 	mbåì_åaôs_•ìd
 <
 	mSlŸs
@@ -31071,7 +28937,7 @@ båì_mu…im≠
 	mn
 )
 
-307 
+313 
 ˛ass
  
 	gTåìM≠
@@ -31083,17 +28949,17 @@ Te°Cœss
 °x
 ::
 âªe_mu…im≠
-<, 
+<, , 
 	g°d
 ::
 Àss
 <> > >
 
-309 
+315 
 public
 :
 
-310 
+316 
 ex∂icô
  
 TåìM≠
@@ -31101,15 +28967,15 @@ TåìM≠
 n
 )
 
-311 :
+317 :
 Te°Cœss
 <
 
-312 
+318 
 °x
 ::
 âªe_mu…im≠
-<, 
+<, , 
 	g°d
 ::
 Àss
@@ -31117,7 +28983,7 @@ Te°Cœss
 n
 )
 
-317 
+323 
 ˇŒ_ã°ru¬î
 (
 °d
@@ -31129,11 +28995,11 @@ os
 ôems
 );
 
-322 
+328 
 	gª≥©u¡û
 ;
 
-325 
+331 
 	gãm∂©e
  <
 ty≥«me
@@ -31141,7 +29007,7 @@ ty≥«me
 	gTe°Cœss
 >
 
-326 
+332 
 	$ã°ru¬î_lo›
 (
 °d
@@ -31153,21 +29019,21 @@ os
 ôems
 )
 
-328 
+334 
 runs
  = 0;
 
-329 
+335 
 ts1
 , 
 ts2
 ;
 
-333 
+339 
 runs
  = 0;
 
-336 
+343 
 Te°Cœss
  
 	`ã°
@@ -31175,17 +29041,17 @@ Te°Cœss
 ôems
 );
 
-338 
+346 
 ts1
  = 
 	`time°amp
 ();
 
-340 
+348 
 tŸÆã°s
  = 0;
 
-341 
+349 
 tŸÆã°s
  <
 ª≥©u¡û
@@ -31193,7 +29059,7 @@ tŸÆã°s
 ôems
 )
 
-343 
+351 
 ã°
 .
 	`run
@@ -31201,17 +29067,17 @@ tŸÆã°s
 ôems
 );
 
-344 ++
+352 ++
 runs
 ;
 
-347 
+355 
 ts2
  = 
 	`time°amp
 ();
 
-353 i‡((
+361 i‡((
 ts2
  - 
 ts1
@@ -31219,29 +29085,29 @@ ts1
 ª≥©u¡û
  *= 2;
 
-355 (
+363 (
 ts2
  - 
 ts1
 ) < 1.0);
 
-356 
+364 
 °d
 ::
 ˚º
- << "In£π " << 
+ << "dÿ" << 
 ôems
  << "Ñïóà" << (
 ª≥©u¡û
  / items)
 
-357 << "Åimê" << (
+365 << "Åimê" << (
 ts2
  - 
 ts1
 ) << "\n";
 
-359 
+367 
 os
  << 
 °d
@@ -31251,7 +29117,7 @@ fixed
 	`£çªcisi⁄
 (10)
 
-360 << ((
+368 << ((
 ts2
  - 
 ts1
@@ -31263,11 +29129,11 @@ runs
 Êush
 ;
 
-361 
+369 
 	}
 }
 
-365 
+373 
 	gãm∂©e
  <ãm∂©ê<
 	gSlŸs
@@ -31281,15 +29147,15 @@ runs
 	gHigh
 >
 
-366 ˛as†
+374 ˛as†
 	cbåì_ønge
 
 
-368 
+376 
 	mpublic
 :
 
-369 
+377 
 	$›î©‹
  (Ë(
 °d
@@ -31301,7 +29167,7 @@ os
 ôems
 )
 
-371 
+379 
 ã°ru¬î_lo›
 <
 fun˘i⁄Æ
@@ -31313,7 +29179,7 @@ os
 ôems
 );
 
-372 
+380 
 båì_ønge
 <
 fun˘i⁄Æ
@@ -31327,11 +29193,11 @@ os
 ôems
 );
 
-374 
+382 
 	}
 };
 
-376 
+384 
 	gãm∂©e
  <ãm∂©ê<
 	gSlŸs
@@ -31343,7 +29209,7 @@ os
 	gLow
 >
 
-377 
+385 
 ˛ass
  
 	gbåì_ønge
@@ -31353,11 +29219,11 @@ os
 	gLow
 , Low>
 
-379 
+387 
 	gpublic
 :
 
-380 
+388 
 ›î©‹
  (Ë(
 °d
@@ -31369,7 +29235,7 @@ os
 	gôems
 )
 
-382 
+390 
 	gã°ru¬î_lo›
 <
 	gfun˘i⁄Æ
@@ -31381,7 +29247,7 @@ os
 	gôems
 );
 
-386 
+394 
 	gãm∂©e
  <ãm∂©ê<
 ty≥«me
@@ -31393,7 +29259,7 @@ ty≥«me
 	gTe°Cœss
 >
 
-387 
+395 
 	gTe°Fa˘‹y_Së
 <
 	gTe°Cœss
@@ -31401,7 +29267,7 @@ ty≥«me
 	$ˇŒ_ã°ru¬î
 (
 
-388 
+396 
 °d
 ::
 o°ªam
@@ -31411,7 +29277,7 @@ os
 ôems
 )
 
-390 
+398 
 os
  << 
 ôems
@@ -31421,7 +29287,7 @@ os
 Êush
 ;
 
-391 
+399 
 cout
  << "Te°Fa˘‹y_Së cÆl_ã°ru¬î: iãm†i†" << 
 ôems
@@ -31429,13 +29295,13 @@ cout
 ídl
 ;
 
-393 
+401 
 cout
  << "StdSë " << 
 ídl
 ;
 
-394 
+402 
 ã°ru¬î_lo›
 <
 StdSë
@@ -31445,13 +29311,13 @@ os
 ôems
 );
 
-395 
+403 
 cout
  << "HashSë " << 
 ídl
 ;
 
-396 
+404 
 ã°ru¬î_lo›
 <
 HashSë
@@ -31461,13 +29327,13 @@ os
 ôems
 );
 
-397 
+405 
 cout
  << "Un‹dîedSë " << 
 ídl
 ;
 
-398 
+406 
 ã°ru¬î_lo›
 <
 Un‹dîedSë
@@ -31477,13 +29343,13 @@ os
 ôems
 );
 
-400 
+408 
 cout
  << "TTªeSë " << 
 ídl
 ;
 
-401 
+409 
 ã°ru¬î_lo›
 <
 TåìSë
@@ -31493,13 +29359,13 @@ os
 ôems
 );
 
-403 
+411 
 cout
  << "BåìSë " << 
 ídl
 ;
 
-406 
+414 
 ã°ru¬î_lo›
 <
 BåìSë
@@ -31509,13 +29375,13 @@ os
 ôems
 );
 
-407 
+415 
 i
  = 6; i < 8; i +2Ë
 os
  << "0 ";
 
-408 
+416 
 ã°ru¬î_lo›
 <
 BåìSë
@@ -31525,13 +29391,13 @@ os
 ôems
 );
 
-409 
+417 
 i
  = 10; i < 16; i +2Ë
 os
  << "0 ";
 
-410 
+418 
 ã°ru¬î_lo›
 <
 BåìSë
@@ -31541,13 +29407,13 @@ os
 ôems
 );
 
-411 
+419 
 i
  = 18; i < 32; i +2Ë
 os
  << "0 ";
 
-412 
+420 
 ã°ru¬î_lo›
 <
 BåìSë
@@ -31557,13 +29423,13 @@ os
 ôems
 );
 
-413 
+421 
 i
  = 34; i < 64; i +2Ë
 os
  << "0 ";
 
-414 
+422 
 ã°ru¬î_lo›
 <
 BåìSë
@@ -31573,13 +29439,13 @@ os
 ôems
 );
 
-415 
+423 
 i
  = 66; i < 128; i +2Ë
 os
  << "0 ";
 
-416 
+424 
 ã°ru¬î_lo›
 <
 BåìSë
@@ -31589,13 +29455,13 @@ os
 ôems
 );
 
-417 
+425 
 i
  = 130; i < 256; i +2Ë
 os
  << "0 ";
 
-418 
+426 
 ã°ru¬î_lo›
 <
 BåìSë
@@ -31605,7 +29471,7 @@ os
 ôems
 );
 
-421 
+429 
 os
  << "\n" << 
 °d
@@ -31613,11 +29479,11 @@ os
 Êush
 ;
 
-422 
+430 
 	}
 }
 
-424 
+432 
 	gãm∂©e
  <ãm∂©ê<
 ty≥«me
@@ -31629,7 +29495,7 @@ ty≥«me
 	gTe°Cœss
 >
 
-425 
+433 
 	gTe°Fa˘‹y_M≠
 <
 	gTe°Cœss
@@ -31637,7 +29503,7 @@ ty≥«me
 	$ˇŒ_ã°ru¬î
 (
 
-426 
+434 
 °d
 ::
 o°ªam
@@ -31647,7 +29513,7 @@ os
 ôems
 )
 
-428 
+436 
 os
  << 
 ôems
@@ -31657,13 +29523,13 @@ os
 Êush
 ;
 
-429 
+438 
 cout
  << " StdM≠ " << 
 ídl
 ;
 
-430 
+439 
 ã°ru¬î_lo›
 <
 StdM≠
@@ -31673,13 +29539,13 @@ os
 ôems
 );
 
-431 
+442 
 cout
  << " HashM≠ " << 
 ídl
 ;
 
-432 
+443 
 ã°ru¬î_lo›
 <
 HashM≠
@@ -31689,13 +29555,13 @@ os
 ôems
 );
 
-433 
+446 
 cout
  << " Un‹dîed " << 
 ídl
 ;
 
-434 
+447 
 ã°ru¬î_lo›
 <
 Un‹dîedM≠
@@ -31705,23 +29571,39 @@ os
 ôems
 );
 
-435 
-ã°ru¬î_lo›
-<
-TåìM≠
-<4>>(
-os
-, 
-ôems
-);
-
-436 
+450 
 cout
  << " BåìM≠ " <<
 ídl
 ;
 
-442 
+451 
+ã°ru¬î_lo›
+<
+BåìM≠
+<4096> >(
+os
+, 
+ôems
+);
+
+454 
+cout
+ << " TåìM≠ " <<
+ídl
+;
+
+455 
+ã°ru¬î_lo›
+<
+TåìM≠
+>(
+os
+, 
+ôems
+);
+
+461 
 ã°ru¬î_lo›
 <
 BåìM≠
@@ -31731,13 +29613,13 @@ os
 ôems
 );
 
-443 
+462 
 i
  = 6; i < 8; i +2Ë
 os
  << "0 ";
 
-444 
+463 
 ã°ru¬î_lo›
 <
 BåìM≠
@@ -31747,13 +29629,13 @@ os
 ôems
 );
 
-445 
+464 
 i
  = 10; i < 16; i +2Ë
 os
  << "0 ";
 
-446 
+465 
 ã°ru¬î_lo›
 <
 BåìM≠
@@ -31763,13 +29645,13 @@ os
 ôems
 );
 
-447 
+466 
 i
  = 18; i < 32; i +2Ë
 os
  << "0 ";
 
-448 
+467 
 ã°ru¬î_lo›
 <
 BåìM≠
@@ -31779,13 +29661,13 @@ os
 ôems
 );
 
-449 
+468 
 i
  = 34; i < 64; i +2Ë
 os
  << "0 ";
 
-450 
+469 
 ã°ru¬î_lo›
 <
 BåìM≠
@@ -31795,13 +29677,13 @@ os
 ôems
 );
 
-451 
+470 
 i
  = 66; i < 128; i +2Ë
 os
  << "0 ";
 
-452 
+471 
 ã°ru¬î_lo›
 <
 BåìM≠
@@ -31811,13 +29693,13 @@ os
 ôems
 );
 
-453 
+472 
 i
  = 130; i < 256; i +2Ë
 os
  << "0 ";
 
-454 
+473 
 ã°ru¬î_lo›
 <
 BåìM≠
@@ -31827,7 +29709,7 @@ os
 ôems
 );
 
-457 
+476 
 os
  << "\n" << 
 °d
@@ -31835,15 +29717,15 @@ os
 Êush
 ;
 
-458 
+477 
 	}
 }
 
-461 
+480 
 	$maö
 ()
 
-465 
+484 
 °d
 ::
 of°ªam
@@ -31851,13 +29733,13 @@ of°ªam
 	`os
 ("speed-set-insert.txt");
 
-467 
+486 
 ª≥©u¡û
  = 
 möôems
 ;
 
-469 
+488 
 ôems
  = 
 möôems
@@ -31865,7 +29747,7 @@ möôems
 maxôems
 ; items *= 2)
 
-471 
+490 
 °d
 ::
 ˚º
@@ -31873,7 +29755,7 @@ maxôems
 ôems
  << "\n";
 
-472 
+491 
 Te°Fa˘‹y_Së
 <
 Te°_Së_In£π
@@ -31885,7 +29767,7 @@ os
 ôems
 );
 
-478 
+497 
 °d
 ::
 of°ªam
@@ -31893,13 +29775,13 @@ of°ªam
 	`os
 ("speed-set-all.txt");
 
-480 
+499 
 ª≥©u¡û
  = 
 möôems
 ;
 
-482 
+501 
 ôems
  = 
 möôems
@@ -31907,7 +29789,7 @@ möôems
 maxôems
 ; items *= 2)
 
-484 
+503 
 °d
 ::
 ˚º
@@ -31915,7 +29797,7 @@ maxôems
 ôems
  << "\n";
 
-485 
+504 
 Te°Fa˘‹y_Së
 <
 Te°_Së_In£πFödDñëe
@@ -31927,7 +29809,7 @@ os
 ôems
 );
 
-491 
+510 
 °d
 ::
 of°ªam
@@ -31935,13 +29817,13 @@ of°ªam
 	`os
 ("speed-set-find.txt");
 
-493 
+512 
 ª≥©u¡û
  = 
 möôems
 ;
 
-495 
+514 
 ôems
  = 
 möôems
@@ -31949,7 +29831,7 @@ möôems
 maxôems
 ; items *= 2)
 
-497 
+516 
 °d
 ::
 ˚º
@@ -31957,7 +29839,7 @@ maxôems
 ôems
  << "\n";
 
-498 
+517 
 Te°Fa˘‹y_Së
 <
 Te°_Së_Föd
@@ -31969,7 +29851,7 @@ os
 ôems
 );
 
-504 
+523 
 °d
 ::
 of°ªam
@@ -31977,13 +29859,13 @@ of°ªam
 	`os
 ("speed-map-insert.txt");
 
-506 
+525 
 ª≥©u¡û
  = 
 möôems
 ;
 
-508 
+527 
 ôems
  = 
 möôems
@@ -31991,7 +29873,7 @@ möôems
 maxôems
 ; items *= 2)
 
-510 
+529 
 °d
 ::
 ˚º
@@ -31999,7 +29881,7 @@ maxôems
 ôems
  << "\n";
 
-511 
+530 
 Te°Fa˘‹y_M≠
 <
 Te°_M≠_In£π
@@ -32011,7 +29893,7 @@ os
 ôems
 );
 
-517 
+536 
 °d
 ::
 of°ªam
@@ -32019,13 +29901,13 @@ of°ªam
 	`os
 ("speed-map-all.txt");
 
-519 
+538 
 ª≥©u¡û
  = 
 möôems
 ;
 
-521 
+540 
 ôems
  = 
 möôems
@@ -32033,7 +29915,7 @@ möôems
 maxôems
 ; items *= 2)
 
-523 
+542 
 °d
 ::
 ˚º
@@ -32041,7 +29923,7 @@ maxôems
 ôems
  << "\n";
 
-524 
+543 
 Te°Fa˘‹y_M≠
 <
 Te°_M≠_In£πFödDñëe
@@ -32053,7 +29935,7 @@ os
 ôems
 );
 
-530 
+549 
 °d
 ::
 of°ªam
@@ -32061,13 +29943,13 @@ of°ªam
 	`os
 ("speed-map-find.txt");
 
-532 
+551 
 ª≥©u¡û
  = 
 möôems
 ;
 
-534 
+553 
 ôems
  = 
 möôems
@@ -32075,7 +29957,7 @@ möôems
 maxôems
 ; items *= 2)
 
-536 
+555 
 °d
 ::
 ˚º
@@ -32083,7 +29965,7 @@ maxôems
 ôems
  << "\n";
 
-537 
+556 
 Te°Fa˘‹y_M≠
 <
 Te°_M≠_Föd
@@ -32095,7 +29977,7 @@ os
 ôems
 );
 
-542 
+561 
 	}
 }
 
@@ -54695,1708 +52577,6 @@ __loˇÀ_t
 __END_DECLS
 
 
-	@/usr/include/math.h
-
-23 #i‚def 
-_MATH_H
-
-
-24 
-	#_MATH_H
- 1
-
-	)
-
-26 
-	~<„©uªs.h
->
-
-28 
-	g__BEGIN_DECLS
-
-
-32 
-	~<bôs/huge_vÆ.h
->
-
-33 #ifde‡
-__USE_ISOC99
-
-
-34 
-	~<bôs/huge_vÆf.h
->
-
-35 
-	~<bôs/huge_vÆl.h
->
-
-38 
-	~<bôs/öf.h
->
-
-41 
-	~<bôs/«n.h
->
-
-45 
-	~<bôs/m©hdef.h
->
-
-52 
-	#__MATHCALL
-(
-fun˘i⁄
-,
-suffix
-, 
-¨gs
-) \
-
-53 
-	`__MATHDECL
- (
-_MdoubÀ_
-,
-fun˘i⁄
-,
-suffix
-, 
-¨gs
-)
-
-	)
-
-54 
-	#__MATHDECL
-(
-ty≥
-, 
-fun˘i⁄
-,
-suffix
-, 
-¨gs
-) \
-
-55 
-	`__MATHDECL_1
-(
-ty≥
-, 
-fun˘i⁄
-,
-suffix
-, 
-¨gs
-); \
-
-56 
-	`__MATHDECL_1
-(
-ty≥
-, 
-	`__CONCAT
-(
-__
-,
-fun˘i⁄
-),
-suffix
-, 
-¨gs
-)
-
-	)
-
-57 
-	#__MATHCALLX
-(
-fun˘i⁄
-,
-suffix
-, 
-¨gs
-, 
-©åib
-) \
-
-58 
-	`__MATHDECLX
- (
-_MdoubÀ_
-,
-fun˘i⁄
-,
-suffix
-, 
-¨gs
-, 
-©åib
-)
-
-	)
-
-59 
-	#__MATHDECLX
-(
-ty≥
-, 
-fun˘i⁄
-,
-suffix
-, 
-¨gs
-, 
-©åib
-) \
-
-60 
-	`__MATHDECL_1
-(
-ty≥
-, 
-fun˘i⁄
-,
-suffix
-, 
-¨gs
-Ë
-	`__©åibuã__
- (
-©åib
-); \
-
-61 
-	`__MATHDECL_1
-(
-ty≥
-, 
-	`__CONCAT
-(
-__
-,
-fun˘i⁄
-),
-suffix
-, 
-¨gs
-Ë
-	`__©åibuã__
- (
-©åib
-)
-
-	)
-
-62 
-	#__MATHDECL_1
-(
-ty≥
-, 
-fun˘i⁄
-,
-suffix
-, 
-¨gs
-) \
-
-63 
-ty≥
- 
-	`__MATH_PRECNAME
-(
-fun˘i⁄
-,
-suffix
-Ë
-¨gs
- 
-__THROW
-
-
-	)
-
-65 
-	#_MdoubÀ_
- 
-
-	)
-
-66 
-	#__MATH_PRECNAME
-(
-«me
-,
-r
-Ë
-	`__CONCAT
-“ame,r)
-
-	)
-
-67 
-	#_MdoubÀ_BEGIN_NAMESPACE
- 
-__BEGIN_NAMESPACE_STD
-
-
-	)
-
-68 
-	#_MdoubÀ_END_NAMESPACE
- 
-__END_NAMESPACE_STD
-
-
-	)
-
-69 
-	~<bôs/m©hˇŒs.h
->
-
-70 #unde‡
-_MdoubÀ_
-
-
-71 #unde‡
-_MdoubÀ_BEGIN_NAMESPACE
-
-
-72 #unde‡
-_MdoubÀ_END_NAMESPACE
-
-
-73 #unde‡
-__MATH_PRECNAME
-
-
-75 #i‡
-deföed
- 
-__USE_MISC
- || deföed 
-__USE_ISOC99
-
-
-81 #i‚de‡
-_MÊﬂt_
-
-
-82 
-	#_MÊﬂt_
- 
-
-	)
-
-84 
-	#_MdoubÀ_
- 
-_MÊﬂt_
-
-
-	)
-
-85 
-	#__MATH_PRECNAME
-(
-«me
-,
-r
-Ë«me##
-f
-##
-	)
-r
-
-86 
-	#_MdoubÀ_BEGIN_NAMESPACE
- 
-__BEGIN_NAMESPACE_C99
-
-
-	)
-
-87 
-	#_MdoubÀ_END_NAMESPACE
- 
-__END_NAMESPACE_C99
-
-
-	)
-
-88 
-	~<bôs/m©hˇŒs.h
->
-
-89 #unde‡
-_MdoubÀ_
-
-
-90 #unde‡
-_MdoubÀ_BEGIN_NAMESPACE
-
-
-91 #unde‡
-_MdoubÀ_END_NAMESPACE
-
-
-92 #unde‡
-__MATH_PRECNAME
-
-
-94 #i‡!(
-deföed
- 
-__NO_LONG_DOUBLE_MATH
- && deföed 
-_LIBC
-) \
-
-95 || 
-deföed
- 
-__LDBL_COMPAT
-
-
-96 #ifde‡
-__LDBL_COMPAT
-
-
-98 #ifde‡
-__USE_ISOC99
-
-
-99 
-	$__∆dbl_√xâow¨df
- (
-__x
-, 
-__y
-)
-
-100 
-__THROW
- 
-	`__©åibuã__
- ((
-__c⁄°__
-));
-
-101 #ifde‡
-__REDIRECT_NTH
-
-
-102 
-	`__REDIRECT_NTH
- (
-√xâow¨df
-, (
-__x
-, 
-__y
-),
-
-103 
-__∆dbl_√xâow¨df
-)
-
-104 
-	`__©åibuã__
- ((
-__c⁄°__
-));
-
-105 
-	`__REDIRECT_NTH
- (
-√xâow¨d
-, (
-__x
-, 
-__y
-),
-
-106 
-√xè·î
-Ë
-	`__©åibuã__
- ((
-__c⁄°__
-));
-
-107 
-	`__REDIRECT_NTH
- (
-√xâow¨dl
-,
-
-108 (
-__x
-, 
-__y
-),
-
-109 
-√xè·î
-Ë
-	`__©åibuã__
- ((
-__c⁄°__
-));
-
-113 #unde‡
-__MATHDECL_1
-
-
-114 
-	#__MATHDECL_2
-(
-ty≥
-, 
-fun˘i⁄
-,
-suffix
-, 
-¨gs
-, 
-Æüs
-) \
-
-115 
-ty≥
- 
-	`__REDIRECT_NTH
-(
-	`__MATH_PRECNAME
-(
-fun˘i⁄
-,
-suffix
-), \
-
-116 
-¨gs
-, 
-Æüs
-)
-
-	)
-
-117 
-	#__MATHDECL_1
-(
-ty≥
-, 
-fun˘i⁄
-,
-suffix
-, 
-¨gs
-) \
-
-118 
-	`__MATHDECL_2
-(
-ty≥
-, 
-fun˘i⁄
-,
-suffix
-, 
-¨gs
-, 
-	`__CONCAT
-(fun˘i⁄,suffix))
-
-	)
-
-124 #i‚de‡
-_Ml⁄g_doubÀ_
-
-
-125 
-	#_Ml⁄g_doubÀ_
- 
-
-	)
-
-127 
-	#_MdoubÀ_
- 
-_Ml⁄g_doubÀ_
-
-
-	)
-
-128 
-	#__MATH_PRECNAME
-(
-«me
-,
-r
-Ë«me##
-l
-##
-	)
-r
-
-129 
-	#_MdoubÀ_BEGIN_NAMESPACE
- 
-__BEGIN_NAMESPACE_C99
-
-
-	)
-
-130 
-	#_MdoubÀ_END_NAMESPACE
- 
-__END_NAMESPACE_C99
-
-
-	)
-
-131 
-	#__MATH_DECLARE_LDOUBLE
- 1
-
-	)
-
-132 
-	~<bôs/m©hˇŒs.h
->
-
-133 #unde‡
-_MdoubÀ_
-
-
-134 #unde‡
-_MdoubÀ_BEGIN_NAMESPACE
-
-
-135 #unde‡
-_MdoubÀ_END_NAMESPACE
-
-
-136 #unde‡
-__MATH_PRECNAME
-
-
-141 #unde‡
-__MATHDECL_1
-
-
-142 #unde‡
-__MATHDECL
-
-
-143 #unde‡
-__MATHCALL
-
-
-146 #i‡
-deföed
- 
-__USE_MISC
- || deföed 
-__USE_XOPEN
-
-
-148 
-signgam
-;
-
-153 #ifde‡
-__USE_ISOC99
-
-
-191 
-FP_NAN
- =
-
-192 
-	#FP_NAN
- 0
-
-	)
-
-193 
-FP_NAN
-,
-
-194 
-FP_INFINITE
- =
-
-195 
-	#FP_INFINITE
- 1
-
-	)
-
-196 
-FP_INFINITE
-,
-
-197 
-FP_ZERO
- =
-
-198 
-	#FP_ZERO
- 2
-
-	)
-
-199 
-FP_ZERO
-,
-
-200 
-FP_SUBNORMAL
- =
-
-201 
-	#FP_SUBNORMAL
- 3
-
-	)
-
-202 
-FP_SUBNORMAL
-,
-
-203 
-FP_NORMAL
- =
-
-204 
-	#FP_NORMAL
- 4
-
-	)
-
-205 
-FP_NORMAL
-
-
-209 #ifde‡
-__NO_LONG_DOUBLE_MATH
-
-
-210 
-	#Â˛assify
-(
-x
-) \
-
-211 ( (
-x
-Ë= (Ë? 
-	`__Â˛assifyf
- (xË: 
-	`__Â˛assify
- (x))
-
-	)
-
-213 
-	#Â˛assify
-(
-x
-) \
-
-214 ( (
-x
-) ==  () \
-
-215 ? 
-	`__Â˛assifyf
- (
-x
-) \
-
-216 :  (
-x
-) ==  () \
-
-217 ? 
-	`__Â˛assify
- (
-x
-Ë: 
-	`__Â˛assifyl
- (x))
-
-	)
-
-221 #ifde‡
-__NO_LONG_DOUBLE_MATH
-
-
-222 
-	#signbô
-(
-x
-) \
-
-223 ( (
-x
-Ë= (Ë? 
-	`__signbôf
- (xË: 
-	`__signbô
- (x))
-
-	)
-
-225 
-	#signbô
-(
-x
-) \
-
-226 ( (
-x
-) ==  () \
-
-227 ? 
-	`__signbôf
- (
-x
-) \
-
-228 :  (
-x
-) ==  () \
-
-229 ? 
-	`__signbô
- (
-x
-Ë: 
-	`__signbôl
- (x))
-
-	)
-
-233 #ifde‡
-__NO_LONG_DOUBLE_MATH
-
-
-234 
-	#isföôe
-(
-x
-) \
-
-235 ( (
-x
-Ë= (Ë? 
-	`__föôef
- (xË: 
-	`__föôe
- (x))
-
-	)
-
-237 
-	#isföôe
-(
-x
-) \
-
-238 ( (
-x
-) ==  () \
-
-239 ? 
-	`__föôef
- (
-x
-) \
-
-240 :  (
-x
-) ==  () \
-
-241 ? 
-	`__föôe
- (
-x
-Ë: 
-	`__föôñ
- (x))
-
-	)
-
-245 
-	#i¢‹mÆ
-(
-x
-Ë(
-	`Â˛assify
- (xË=
-FP_NORMAL
-)
-
-	)
-
-249 #ifde‡
-__NO_LONG_DOUBLE_MATH
-
-
-250 
-	#i¢™
-(
-x
-) \
-
-251 ( (
-x
-Ë= (Ë? 
-	`__i¢™f
- (xË: 
-	`__i¢™
- (x))
-
-	)
-
-253 
-	#i¢™
-(
-x
-) \
-
-254 ( (
-x
-) ==  () \
-
-255 ? 
-	`__i¢™f
- (
-x
-) \
-
-256 :  (
-x
-) ==  () \
-
-257 ? 
-	`__i¢™
- (
-x
-Ë: 
-	`__i¢™l
- (x))
-
-	)
-
-261 #ifde‡
-__NO_LONG_DOUBLE_MATH
-
-
-262 
-	#isöf
-(
-x
-) \
-
-263 ( (
-x
-Ë= (Ë? 
-	`__isöff
- (xË: 
-	`__isöf
- (x))
-
-	)
-
-265 
-	#isöf
-(
-x
-) \
-
-266 ( (
-x
-) ==  () \
-
-267 ? 
-	`__isöff
- (
-x
-) \
-
-268 :  (
-x
-) ==  () \
-
-269 ? 
-	`__isöf
- (
-x
-Ë: 
-	`__isöÊ
- (x))
-
-	)
-
-273 
-	#MATH_ERRNO
- 1
-
-	)
-
-274 
-	#MATH_ERREXCEPT
- 2
-
-	)
-
-279 #i‚de‡
-__FAST_MATH__
-
-
-280 
-	#m©h_îrh™dlög
- (
-MATH_ERRNO
- | 
-MATH_ERREXCEPT
-)
-
-	)
-
-285 #ifde‡
-__USE_GNU
-
-
-287 #ifde‡
-__NO_LONG_DOUBLE_MATH
-
-
-288 
-	#issig«lög
-(
-x
-) \
-
-289 ( (
-x
-Ë= (Ë? 
-	`__issig«lögf
- (xË: 
-	`__issig«lög
- (x))
-
-	)
-
-291 
-	#issig«lög
-(
-x
-) \
-
-292 ( (
-x
-) ==  () \
-
-293 ? 
-	`__issig«lögf
- (
-x
-) \
-
-294 :  (
-x
-) ==  () \
-
-295 ? 
-	`__issig«lög
- (
-x
-Ë: 
-	`__issig«lögl
- (x))
-
-	)
-
-299 #ifdef 
-__USE_MISC
-
-
-303 
-_IEEE_
- = -1,
-
-304 
-_SVID_
-,
-
-305 
-_XOPEN_
-,
-
-306 
-_POSIX_
-,
-
-307 
-_ISOC_
-
-
-308 } 
-	t_LIB_VERSION_TYPE
-;
-
-313 
-_LIB_VERSION_TYPE
- 
-_LIB_VERSION
-;
-
-317 #ifde‡
-__USE_SVID
-
-
-323 #ifde‡
-__˝lu•lus
-
-
-324 
-__ex˚±i⁄
-
-
-326 
-ex˚±i⁄
-
-
-329 
-ty≥
-;
-
-330 *
-«me
-;
-
-331 
-¨g1
-;
-
-332 
-¨g2
-;
-
-333 
-ªtvÆ
-;
-
-334 
-	}
-};
-
-336 #ifde‡
-__˝lu•lus
-
-
-337 
-	$m©hîr
- (
-__ex˚±i⁄
- *
-__exc
-Ë
-	`throw
- ();
-
-339 
-	`m©hîr
- (
-ex˚±i⁄
- *
-__exc
-);
-
-342 
-	#X_TLOSS
- 1.41484755040568800000e+16
-
-	)
-
-345 
-	#DOMAIN
- 1
-
-	)
-
-346 
-	#SING
- 2
-
-	)
-
-347 
-	#OVERFLOW
- 3
-
-	)
-
-348 
-	#UNDERFLOW
- 4
-
-	)
-
-349 
-	#TLOSS
- 5
-
-	)
-
-350 
-	#PLOSS
- 6
-
-	)
-
-353 
-	#HUGE
- 3.40282347e+38F
-
-	)
-
-357 #ifde‡
-__USE_XOPEN
-
-
-359 
-	#MAXFLOAT
- 3.40282347e+38F
-
-	)
-
-366 #i‡
-deföed
- 
-__USE_BSD
- || deföed 
-__USE_XOPEN
-
-
-367 
-	#M_E
- 2.7182818284590452354
-
-	)
-
-368 
-	#M_LOG2E
- 1.4426950408889634074
-
-	)
-
-369 
-	#M_LOG10E
- 0.43429448190325182765
-
-	)
-
-370 
-	#M_LN2
- 0.69314718055994530942
-
-	)
-
-371 
-	#M_LN10
- 2.30258509299404568402
-
-	)
-
-372 
-	#M_PI
- 3.14159265358979323846
-
-	)
-
-373 
-	#M_PI_2
- 1.57079632679489661923
-
-	)
-
-374 
-	#M_PI_4
- 0.78539816339744830962
-
-	)
-
-375 
-	#M_1_PI
- 0.31830988618379067154
-
-	)
-
-376 
-	#M_2_PI
- 0.63661977236758134308
-
-	)
-
-377 
-	#M_2_SQRTPI
- 1.12837916709551257390
-
-	)
-
-378 
-	#M_SQRT2
- 1.41421356237309504880
-
-	)
-
-379 
-	#M_SQRT1_2
- 0.70710678118654752440
-
-	)
-
-385 #ifde‡
-__USE_GNU
-
-
-386 
-	#M_El
- 2.718281828459045235360287471352662498L
-
-	)
-
-387 
-	#M_LOG2El
- 1.442695040888963407359924681001892137L
-
-	)
-
-388 
-	#M_LOG10El
- 0.434294481903251827651128918916605082L
-
-	)
-
-389 
-	#M_LN2l
- 0.693147180559945309417232121458176568L
-
-	)
-
-390 
-	#M_LN10l
- 2.302585092994045684017991454684364208L
-
-	)
-
-391 
-	#M_PIl
- 3.141592653589793238462643383279502884L
-
-	)
-
-392 
-	#M_PI_2l
- 1.570796326794896619231321691639751442L
-
-	)
-
-393 
-	#M_PI_4l
- 0.785398163397448309615660845819875721L
-
-	)
-
-394 
-	#M_1_PIl
- 0.318309886183790671537767526745028724L
-
-	)
-
-395 
-	#M_2_PIl
- 0.636619772367581343075535053490057448L
-
-	)
-
-396 
-	#M_2_SQRTPIl
- 1.128379167095512573896158903121545172L
-
-	)
-
-397 
-	#M_SQRT2l
- 1.414213562373095048801688724209698079L
-
-	)
-
-398 
-	#M_SQRT1_2l
- 0.707106781186547524400844362104849039L
-
-	)
-
-405 #i‡
-deföed
- 
-__STRICT_ANSI__
- && !deföed 
-__NO_MATH_INLINES
-
-
-406 
-	#__NO_MATH_INLINES
- 1
-
-	)
-
-409 #i‡
-deföed
- 
-__USE_ISOC99
- && 
-	`__GNUC_PREREQ
-(2,97)
-
-416 
-	#isgª©î
-(
-x
-, 
-y
-Ë
-	`__buûtö_isgª©î
-(x, y)
-
-	)
-
-417 
-	#isgª©îequÆ
-(
-x
-, 
-y
-Ë
-	`__buûtö_isgª©îequÆ
-(x, y)
-
-	)
-
-418 
-	#i¶ess
-(
-x
-, 
-y
-Ë
-	`__buûtö_i¶ess
-(x, y)
-
-	)
-
-419 
-	#i¶es£quÆ
-(
-x
-, 
-y
-Ë
-	`__buûtö_i¶es£quÆ
-(x, y)
-
-	)
-
-420 
-	#i¶essgª©î
-(
-x
-, 
-y
-Ë
-	`__buûtö_i¶essgª©î
-(x, y)
-
-	)
-
-421 
-	#isun‹dîed
-(
-u
-, 
-v
-Ë
-	`__buûtö_isun‹dîed
-(u, v)
-
-	)
-
-425 #ifde‡
-__USE_EXTERN_INLINES
-
-
-426 
-	~<bôs/m©hölöe.h
->
-
-431 #i‡
-deföed
- 
-__FINITE_MATH_ONLY__
- && __FINITE_MATH_ONLY__ > 0
-
-432 
-	~<bôs/m©h-föôe.h
->
-
-435 #ifde‡
-__USE_ISOC99
-
-
-439 #i‚de‡
-isgª©î
-
-
-440 
-	#isgª©î
-(
-x
-, 
-y
-) \
-
-441 (
-__exãnsi⁄__
- \
-
-442 ({ 
-	`__ty≥of__
-(
-x
-Ë
-__x
- = (x); __ty≥of__(
-y
-Ë
-__y
- = (y); \
-
-443 !
-	`isun‹dîed
- (
-__x
-, 
-__y
-Ë&& __x > __y; 
-	}
-}))
-
-	)
-
-447 #i‚de‡
-isgª©îequÆ
-
-
-448 
-	#isgª©îequÆ
-(
-x
-, 
-y
-) \
-
-449 (
-__exãnsi⁄__
- \
-
-450 ({ 
-	`__ty≥of__
-(
-x
-Ë
-__x
- = (x); __ty≥of__(
-y
-Ë
-__y
- = (y); \
-
-451 !
-	`isun‹dîed
- (
-__x
-, 
-__y
-Ë&& __x >__y; }))
-
-	)
-
-455 #i‚de‡
-i¶ess
-
-
-456 
-	#i¶ess
-(
-x
-, 
-y
-) \
-
-457 (
-__exãnsi⁄__
- \
-
-458 ({ 
-	`__ty≥of__
-(
-x
-Ë
-__x
- = (x); __ty≥of__(
-y
-Ë
-__y
- = (y); \
-
-459 !
-	`isun‹dîed
- (
-__x
-, 
-__y
-Ë&& __x < __y; }))
-
-	)
-
-463 #i‚de‡
-i¶es£quÆ
-
-
-464 
-	#i¶es£quÆ
-(
-x
-, 
-y
-) \
-
-465 (
-__exãnsi⁄__
- \
-
-466 ({ 
-	`__ty≥of__
-(
-x
-Ë
-__x
- = (x); __ty≥of__(
-y
-Ë
-__y
- = (y); \
-
-467 !
-	`isun‹dîed
- (
-__x
-, 
-__y
-Ë&& __x <__y; }))
-
-	)
-
-471 #i‚de‡
-i¶essgª©î
-
-
-472 
-	#i¶essgª©î
-(
-x
-, 
-y
-) \
-
-473 (
-__exãnsi⁄__
- \
-
-474 ({ 
-	`__ty≥of__
-(
-x
-Ë
-__x
- = (x); __ty≥of__(
-y
-Ë
-__y
- = (y); \
-
-475 !
-	`isun‹dîed
- (
-__x
-, 
-__y
-Ë&& (__x < __y || __y < __x); }))
-
-	)
-
-479 #i‚de‡
-isun‹dîed
-
-
-480 
-	#isun‹dîed
-(
-u
-, 
-v
-) \
-
-481 (
-__exãnsi⁄__
- \
-
-482 ({ 
-	`__ty≥of__
-(
-u
-Ë
-__u
- = (u); __ty≥of__(
-v
-Ë
-__v
- = (v); \
-
-483 
-	`Â˛assify
- (
-__u
-Ë=
-FP_NAN
- || fp˛assify (
-__v
-Ë=FP_NAN; }))
-
-	)
-
-488 
-	g__END_DECLS
-
-
 	@/usr/include/stdio.h
 
 23 #i‚de‡
@@ -78829,16 +75009,17 @@ __END_DECLS
 1
 /usr/include
 57
-1350
+1353
 include/stx/LinkedQueue.h
 include/stx/Node.h
-include/stx/Ttree.cpp
 include/stx/Ttree_test.cpp
+include/stx/avltree.h
 include/stx/btree.h
 include/stx/btree_map.h
 include/stx/btree_multimap.h
 include/stx/btree_multiset.h
 include/stx/btree_set.h
+include/stx/skiplist.h
 include/stx/ttree.h
 include/stx/ttree_multimap.h
 include/stx/ttree_set.h
@@ -78869,7 +75050,6 @@ wxbtreedemo/WTreeDrawing.h
 /usr/include/dlfcn.h
 /usr/include/inttypes.h
 /usr/include/locale.h
-/usr/include/math.h
 /usr/include/stdio.h
 /usr/include/stdlib.h
 /usr/include/string.h

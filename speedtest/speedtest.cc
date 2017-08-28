@@ -40,12 +40,13 @@
 #include <stx/ttree.h>
 #include <stx/ttree_set.h>
 #include <stx/ttree_multimap.h>
+#include <unistd.h>
 
 // *** Settings
 
 /// starting number of items to insert
-static const unsigned int minitems = 512000;
-//static const unsigned int minitems = 1024000 * 64;
+//static const unsigned int minitems = 512;
+static const unsigned int minitems = 1024000 * 64;
 //static const unsigned int minitems = 1;
 
 /// maximum number of items to insert
@@ -264,6 +265,7 @@ public:
             map.insert(std::make_pair(r, r));
         }
 		cout << "charlie tree with " << items << " has been built " << endl;
+		sleep(5);
     //    assert(map.size() == items);
     }
 
@@ -432,20 +434,26 @@ void TestFactory_Map<TestClass>::call_testrunner(
     std::ostream& os, unsigned int items)
 {
     os << items << " " << std::flush;
-#if 1
+#if 0
 	cout << " StdMap " << endl;
     testrunner_loop<StdMap>(os, items);
 #endif
 #if 0
 	cout << " HashMap " << endl;
     testrunner_loop<HashMap>(os, items);
+#endif
+#if 0
 	cout << " Unordered " << endl;
     testrunner_loop<UnorderedMap>(os, items);
 #endif
+#if 0
 	cout << " BtreeMap " <<endl;
-    testrunner_loop<BtreeMap<64> >(os, items);
+    testrunner_loop<BtreeMap<4096> >(os, items);
+#endif
+#if 1
 	cout << " TtreeMap " <<endl;
 	testrunner_loop<TtreeMap>(os, items);
+#endif
 #if 1
   //  btree_range<BtreeMap, min_nodeslots, max_nodeslots>()(os, items);
 #else
@@ -510,7 +518,7 @@ int main()
         }
     }
 #endif
-#if 1
+#if 0
     {   // Map - speed test only insertion
         std::ofstream os("speed-map-insert.txt");
 
@@ -536,7 +544,7 @@ int main()
         }
     }
 #endif
-#if 0
+#if 1
     {   // Map - speed test find only
         std::ofstream os("speed-map-find.txt");
 

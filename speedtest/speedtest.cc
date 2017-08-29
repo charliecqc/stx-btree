@@ -38,6 +38,7 @@
 #include <stx/btree_multimap.h>
 //charlie
 #include <stx/ttree.h>
+#include <stx/skiplist.h>
 #include <stx/ttree_set.h>
 #include <stx/ttree_multimap.h>
 #include <unistd.h>

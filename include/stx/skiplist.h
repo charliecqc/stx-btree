@@ -15,7 +15,6 @@
 #define CAS_EXPECT_DOES_NOT_EXIST (0)
 #define CAS_EXPECT_EXISTS		(-1)
 #define	CAS_EXPECT_WHATEVER		(-2)
-
 #define SYNC_SWAP(addr, x)		__sync_lock_test_and_set(addr, x)
 #define SYNC_CAS(addr, old, x)	__sync_val_compare_and_swap(addr, old, x)
 #define SYNC_ADD(addr, n)		__sync_add_and_fetch(addr, n)
@@ -50,11 +49,11 @@ namespace stx {
 
 				typedef _Value value_type;
 
-				typedef int (*cmp_func_t) (void *, void );
+				typedef int (*cmp_func_t) (void *, void *);
 
-				typedef void *	(*clone_fun_t)(void *);
+				typedef void * (*clone_fun_t) (void *);
 
-				typedef uint32_t (*hash_fun_t) (void *);
+				typedef int64_t (*hash_fun_t) (void *);
 
 				typedef struct datatype {
 					cmp_func_t cmp;
@@ -66,7 +65,7 @@ namespace stx {
 				/// Typedef of our own type
 				typedef skiplist<key_type, value_type> self_type;
 
-				/// Size type used to count keys
+				/// Size type usedjkj to count keys
 				typedef size_t size_type;
 
 				typedef std::pair<key_type, value_type> pair_type;
@@ -86,24 +85,24 @@ namespace stx {
 
 				struct sl_iter {
 					node_t *next;
-				}
+				};
 
-				struct sl {
+				typedef struct sl {
 					node_t *head;
 					const datatype_t *type;
 					int high_water;	//max historic number of levels
-				}
+				} skiplist_t;
 
 			private:
 				int random_levels (skiplist_t *sl) {
 					srand(randseed);	
-					uint64_t r = rand();
-					int z = __buildin_ctx(r);
+					unsigned long long r = rand();
+					int z = __buildin_ctz(r);
 					int levels = (int)(z / 1.5);
 					if(levels == 0)
 						return 1;
 					if(levels > sl->high_water) {
-						levels = SYNC_ADD(&sl->high_water + 1); // in case of unusual large level
+						levels = SYNC_ADD(&sl->high_water, 1); // in case of unusual large level
 					}
 				}
 
@@ -141,7 +140,7 @@ namespace stx {
 					return count;
 				}
 
-				node_t *find_preds(node_t **preds, node_t **succs, int n, skiplist_t *sl, key_type key, enum unlink_unlink) {
+				node_t *find_preds(node_t **preds, node_t **succs, int n, skiplist_t *sl, key_type key, enum unlink unlink) {
 					node_t *pred = sl->head;
 					node_t *item = NULL;
 #ifdef DEBUG
@@ -365,11 +364,173 @@ namespace stx {
 				return sl_cas(sl, key, expectation, new_val) //tail call
 			}
 #ifdef DEBUG
-			cout << "s3 sl_cas: successfully inserted a new i"
+			cout << "s3 sl_cas: successfully inserted a new item" << new_item << " at the bottom level" << endl;
 #endif
+			for(int level = 1; level < new_item->num_levels; ++level) {
+#ifdef DEBUG
+				cout << "s3 sl_cas: inserting the new item " << new_item << " at level " << level << endl;
+#endif
+				do {
+					node_t * pred = preds[level];
+#ifdef DEBUG
+					markable_t other = SYNC_CAS(&pred->next[level], (markable_t)nexts[level], (markable_t)new_item);
+					if(other == (markable_t)nexts[level])
+						break;
+					cout << "s3 sl_cas: lost a race, failed to change pred's link. expected " << nexts[level] << " found " << other << endl;
+#endif
+					find_preds(preds, nexts, new_item->num_levels, sl, key, ASSIST_UNLINK);
+
+					for(int i = level; i < new_item->num_levels; ++i) {
+						markable_t old_next = new_item->next[i];
+						if((markable_t)nexts[i] == old_next)
+							continue;
+						
+						///update <new_items>'s inconsistent next pointer before trying again. Use a CAS so if 
+						//another thread is trying to remove the new item concurrently we do not stop on the mark
+						//it places on the item 
+#ifdef DEBUG
+						cout << "s3 sl_cas: attempting to update the new item's link from " << old_next << " to " << nexts[i] << endl;
+#endif
+						other = SYNC_CAS(&new_item->next[i], old_next, (markable_t)nexts[i]);
+						//If another thread is removing this item we can stop linking it into to skiplist
+						if(HAS_MARK(other)) {
+							find_preds(NULL, NULL, 0, sl, key, FORCE_UNLINK);
+							return NULL;
+						}
+					}
+				}while(1);
+			}
+
+			// INn case another thread was in the process of remoiiving the <new_item> while we were added it. we 
+			// have to make sure it is completely unlinked before we return. We might have lost a race and inserte
+			// the new item at some level after the other thrad thought it was fully removed. That is a problem 
+			// because oince a thread thinks it completely unlinks a node it queues it to be freed
+			if(HAS_MARK(new_iteme->next[new_item->num_levels-1])) {
+				find_preds(NULL, NULL, 0 , sl, key, FORCE_UNLINK);
+			}
+			return NULL;
 		}
 
-	}
+		// Mark <item > at each level of <sl> from the top down. If multiple threads try to concurrently remove 
+		// the same item only one of them should succeed. Marking the bottom level established which of them succe
+		// ed.
+		value_type sl_remove (skiplist_t *sl, key_type key) {
+#ifdef DEBUG
+			cout << "s1 sl_remove: removing item with key " << key << " from skiplist " << sl << endl;
+#endif
+			node_t *preds[MAX_LEVELS];
+			node_t *item = find_preds(preds, NULL, sl->high_water, sl, key, ASSIST_UNLINK);
+			if(item == NULL {
+#ifdef DEBUG
+				cout << "s3 sl_remove: remove failed, an item with a matching key does not exist in the skiplist" << endl;
+#endif
+				return NULL
+			}
+
+			// Mark <item> at each level of <sl> from the top down. if multiple threads try to concurrently remove
+			// the same item only one of them should succeed. Marking the bottom level establishes which of 
+			// them succeeds.
+			markable_t old_next = 0;
+			for (int level = item->num_levels - 1; level >= 0; --level) {
+				markable_t next;
+				old_next = item->next[level];
+				do {
+#ifdef DEBUG
+					cout << "s3 sl_remove: marking item at level " << level << "next " << old_next << endl;
+#endif
+					next = old_next;
+					old_next = SYNC_CAS(&item->next[level], next, MARK_NODE((node_t *)next));
+					if(HAS_MARK(old_next)) {
+#ifdef DEBUG
+						cout << " s2 sl_remove: " << item << " is already marked for remove by another thread next " << old_next << endl;
+#endif
+						if(level == 0)
+							return NULL;
+						break;
+					}
+				}while(next != old_next);
+			}
+
+			//Atomically swap out the item's value in case another thread is updating the item while we are 
+			//removing it. This establishes which operation occurs first logically, the update or the remove.
+			value_type val = SYNC_SWAP(&item->val, NULL);
+#ifdef DEBUG
+			cout << " sw sl_remove: replaced item " << item << " 's value whit NULL " << endl;
+#endif
+			//unlink the item
+			find_preds(NULL, NULL, 0, sl, key, FORCE_UNLINK);
+
+			//free the node
+			if(sl->key_type !=NULL) {
+				free((void *)item->key);	
+			}
+			free(item);
+
+			return val;
+		}
+
+		sl_iter * sl_iter_begin(skiplist_t *sl, key_type key) {
+			sl_iter *iter = (sl_iter *)malloc(sizeof(sl_ite));
+			if(key != NULL) {
+				find_preds(NULL, &iter->next, 1, sl, key DONT_UNLINK);
+			}else {
+				iter->next = GET_NODE(sl->head->next[0]);
+			}
+			return iter;
+		}
+
+		value_type sl_iter_next(sl_iter *iter, key_type * key_ptr) {
+			node_t *item = iter->next;
+			while ( item != NULL && HAS_MARK(item->next[0])) {
+				item = STRIP_MARK(item->next[0]);
+			}
+			if(item == NULL) {
+				iter->next = NULL;
+				return NULL;
+			}
+
+			iter->next = STRIP_MARK(item->next[0]);
+			if ( key_ptr != NULL) {
+				*key_ptr = item->key;
+			}
+			return item->val;
+		}
+
+		void sl_iter_free ( sl_iter *iter) {
+			free(iter);
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	};
 }
 #endif
 

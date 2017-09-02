@@ -41,17 +41,21 @@
 #include <stx/skiplist.h>
 #include <stx/ttree_set.h>
 #include <stx/ttree_multimap.h>
+#include <stx/skiplist.h>
+#include <stx/skiplist_multimap.h>
 #include <unistd.h>
 
 // *** Settings
 
 /// starting number of items to insert
+static const unsigned int minitems = 16;
+//static const unsigned int minitems = 1024000 * 64;
 //static const unsigned int minitems = 512;
-static const unsigned int minitems = 1024000 * 64;
 //static const unsigned int minitems = 1;
 
 /// maximum number of items to insert
-static const unsigned int maxitems = 1024000 * 64;
+//static const unsigned int maxitems = 1024000 * 64;
+static const unsigned int maxitems = 16;
 //static const unsigned int maxitems = 512000;
 
 static const int randseed = 34234235;
@@ -210,9 +214,9 @@ public:
     {
         MapType map; //map is StdMap, HashMap...
 
-        srand(randseed);
+		srand(randseed);
         for (unsigned int i = 0; i < items; i++) {
-            unsigned int r = rand();
+            unsigned int r = rand() ;
             map.insert(std::make_pair(r, r));
         }
 
@@ -317,6 +321,15 @@ public:
 		explicit TtreeMap(unsigned int n)
 			:TestClass<
 			 stx::ttree_multimap<unsigned int, unsigned int, std::less<unsigned int > > >(n)
+		{}
+	};
+
+	class SkiplistMap: public TestClass<stx::skiplist_multimap<unsigned long long , unsigned long long , std::less<unsigned long long> > >
+	{
+	public:
+		explicit SkiplistMap(unsigned int n)
+			:TestClass<
+			 stx::skiplist_multimap<unsigned long long, unsigned long long, std::less<unsigned long long > > >(n)
 		{}
 	};
 
@@ -452,6 +465,10 @@ void TestFactory_Map<TestClass>::call_testrunner(
     testrunner_loop<BtreeMap<4096> >(os, items);
 #endif
 #if 1
+	cout << "SkiplistMap" << endl;
+	testrunner_loop<SkiplistMap>(os, items);
+#endif
+#if 0
 	cout << " TtreeMap " <<endl;
 	testrunner_loop<TtreeMap>(os, items);
 #endif
@@ -519,7 +536,7 @@ int main()
         }
     }
 #endif
-#if 0
+#if 1
     {   // Map - speed test only insertion
         std::ofstream os("speed-map-insert.txt");
 
@@ -545,7 +562,7 @@ int main()
         }
     }
 #endif
-#if 1
+#if 0
     {   // Map - speed test find only
         std::ofstream os("speed-map-find.txt");
 

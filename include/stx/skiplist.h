@@ -47,9 +47,10 @@ namespace stx {
 		{
 			static const bool selfverify = false;
 			static const bool debug = false;
+			static const int leafslots = 256;
 		};
 
-	template <typename _Key,  typename _Value>	
+	template <typename _Key,  typename _Value, typename _Traits = skiplist_default_set_traits<_Key> >	
 		class skiplist
 		{
 			public:
@@ -57,6 +58,8 @@ namespace stx {
 				typedef _Key key_type;
 
 				typedef _Value value_type;
+
+				typedef _Traits traits;
 
 				typedef int (*cmp_func_t) (void *, void *);
 
@@ -72,12 +75,16 @@ namespace stx {
 
 			public:
 				/// Typedef of our own type
-				typedef skiplist<key_type, value_type> self_type;
+				typedef skiplist<key_type, value_type, traits> self_type;
 
 				/// Size type usedjkj to count keys
 				typedef size_t size_type;
 
 				typedef std::pair<key_type, value_type> pair_type;
+			public:
+
+				///Base Skiplist parameter: The numener of key/value slots in each leaf
+				static const unsigned short leafslotmax = traits::leafslots;
 
 			private:
 				static const int rs = 12345678;
@@ -99,6 +106,32 @@ namespace stx {
 					const datatype_t *type;
 					int high_water;	//max historic number of levels
 				} skiplist_t ;
+
+				typedef struct leaf {
+					///Double linked list pointers to traverse the leaves
+					struct leaf *prevleaf;	
+					///Double linked list pointers to traverse the leaves
+					struct leaf *nextleaf;
+					///array of key
+					key_type slotkey[leafslotmax];
+					///array of data
+					value_type slotdata[leafslotmax];
+					///current count of used key
+					const unsigned short slotused;
+
+					///set variable to initial values
+					inline leaf()
+						: slotused(0), prevleaf(NULL),nextleaf(NULL)
+					{}
+
+					///True if the node's slots are full
+					inline bool isfull() const
+					{
+						return (slotused == leafslotmax);
+					}
+
+				}leaf_t;
+
 
 			public:
 				int random_levels (skiplist_t *sl) {

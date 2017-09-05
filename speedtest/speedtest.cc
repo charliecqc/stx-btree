@@ -86,6 +86,13 @@ public:
     static const size_t binsearch_threshold = 256 * 1024 * 1024; // never
 };
 
+template <int _leafslots>
+class skiplist_traits_speed : stx::skiplist_default_set_traits<unsigned int>
+{
+public:
+	static const int leafslots = _leafslots;
+};
+
 // -----------------------------------------------------------------------------
 
 /// Test a generic set type with insertions
@@ -323,14 +330,18 @@ public:
 			 stx::ttree_multimap<unsigned int, unsigned int, std::less<unsigned int > > >(n)
 		{}
 	};
-
-	class SkiplistMap: public TestClass<stx::skiplist_multimap<unsigned long long , unsigned long long , std::less<unsigned long long> > >
+	template <int Slots>
+	class SkiplistMap
+		: public TestClass<
+			stx::skiplist_multimap<unsigned long long , unsigned long long , std::less<unsigned long long>,
+								 skiplist_traits_speed<Slots> > >
 	{
 	public:
 		explicit SkiplistMap(unsigned int n)
 			:TestClass<
-			 stx::skiplist_multimap<unsigned long long, unsigned long long, std::less<unsigned long long > > >(n)
-		{}
+				stx::skiplist_multimap<unsigned long long, unsigned long long, std::less<unsigned long long>,
+				skiplist_traits_speed<Slots> > >(n)
+		{ }
 	};
 
     /// Run tests on all map types
@@ -466,7 +477,7 @@ void TestFactory_Map<TestClass>::call_testrunner(
 #endif
 #if 1
 	cout << "SkiplistMap" << endl;
-	testrunner_loop<SkiplistMap>(os, items);
+	testrunner_loop<SkiplistMap<64> >(os, items);
 #endif
 #if 0
 	cout << " TtreeMap " <<endl;

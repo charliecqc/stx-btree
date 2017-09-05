@@ -26,7 +26,7 @@ public:
 
 	typedef skiplist_multimap<key_type, value_type, key_compare, traits, allocator_type> self_type;
 
-	typedef stx::skiplist<key_type, value_type> skiplist_impl;
+	typedef stx::skiplist<key_type, value_type, traits> skiplist_impl;
 
 	typedef typename skiplist_impl::sl_iter iterator;
 

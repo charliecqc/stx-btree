@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <immintrin.h>
 #define DEBUG
-#define DEBUG_CLONE
+//#define DEBUG_CLONE
 
 
 #define EXPECT_TRUE(x)	__builtin_expect(!!(x), 1)
@@ -90,11 +90,38 @@ namespace stx {
 				static const int rs = 12345678;
 
 			public:
+				typedef struct leaf {
+					///Double linked list pointers to traverse the leaves
+					struct leaf *prevleaf;	
+					///Double linked list pointers to traverse the leaves
+					struct leaf *nextleaf;
+					///array of key
+					key_type slotkey[leafslotmax];
+					///array of data
+					value_type slotvalue[leafslotmax];
+					///current count of used key
+
+					int slotused;
+
+					///set variable to initial values
+					inline leaf()
+						: slotused(-1), prevleaf(NULL),nextleaf(NULL)
+					{}
+
+					///True if the node's slots are full
+					inline bool isfull() const
+					{
+						return (slotused == leafslotmax - 1);
+					}
+
+				}leaf_t;
+
 				typedef struct node {
 					key_type key;
 					value_type val;
 					unsigned num_levels;
 					markable_t next[1];
+					leaf_t *leaf_ptr;
 				} node_t;
 
 				struct sl_iter {
@@ -107,56 +134,47 @@ namespace stx {
 					int high_water;	//max historic number of levels
 				} skiplist_t ;
 
-				typedef struct leaf {
-					///Double linked list pointers to traverse the leaves
-					struct leaf *prevleaf;	
-					///Double linked list pointers to traverse the leaves
-					struct leaf *nextleaf;
-					///array of key
-					key_type slotkey[leafslotmax];
-					///array of data
-					value_type slotdata[leafslotmax];
-					///current count of used key
-					const unsigned short slotused;
-
-					///set variable to initial values
-					inline leaf()
-						: slotused(0), prevleaf(NULL),nextleaf(NULL)
-					{}
-
-					///True if the node's slots are full
-					inline bool isfull() const
-					{
-						return (slotused == leafslotmax);
-					}
-
-				}leaf_t;
-
-
 			public:
 				int random_levels (skiplist_t *sl) {
 					unsigned int r = rand();
-			//		int z = __buildin_ctz(r);
+					//		int z = __buildin_ctz(r);
 					int levels = ffs(r);
-				//	int levels = (int)(z / 1.5);
-			//		int levels = r % MAX_LEVELS;
+					//	int levels = (int)(z / 1.5);
+					//		int levels = r % MAX_LEVELS;
 					levels = levels / 1.5;
 					if(levels == 0)
 						return 1;
 					if(levels > sl->high_water) {
 						levels = SYNC_ADD(&sl->high_water, 1); // in case of unusual large level
+#ifdef DEBUG
+						cout << " s2 random_levels: increased high water mark to " << sl->high_water << endl;
+#endif
 					}
+					if(levels > MAX_LEVELS)
+					{levels = MAX_LEVELS;}
 					return levels;
+				}
+
+				// Allocate a new leaf node
+				leaf_t *leaf_alloc() {
+					size_t sz = sizeof(leaf_t);		
+					leaf_t *item = static_cast<leaf_t *>(malloc(sz));
+					memset(item, 0, sz);
+					item->prevleaf = NULL;
+					item->nextleaf = NULL;
+					item->slotused = -1;
+					return item;
 				}
 
 				node_t *node_alloc(int num_levels, key_type key, value_type val) {
 					assert(num_levels >= 0 && num_levels <= MAX_LEVELS);
 					size_t sz = sizeof(node_t) + (num_levels - 1) * sizeof(node_t *);
-					node_t *item = static_cast<node_t *>(malloc(sz)); //use new memory allocator later
+					node_t *item = static_cast<node_t *>(malloc(sz)); //todo use new memory allocator later
 					memset(item, 0, sz);
 					item->key = key;
 					item->val = val;
 					item->num_levels = num_levels;
+					item->leaf_ptr = NULL;
 #ifdef DEBUG 
 					cout << "s2 node_alloc : new node " << item << " "<< num_levels << " levels" << endl;
 #endif
@@ -183,7 +201,7 @@ namespace stx {
 					}
 					return count;
 				}
-
+				//find the preds and succss of new node. n is the random level of the new node
 				node_t *find_preds(node_t **preds, node_t **succs, int n, skiplist_t *sl, key_type key, enum unlink unlink) {
 					node_t *pred = sl->head;
 					node_t *item = NULL;
@@ -192,9 +210,11 @@ namespace stx {
 					cout << "s2 find_preds: searching for key " << key << " in skiplist (head is " << pred << " )"<<endl;
 #endif
 					for(int level = sl->high_water - 1; level >= 0; --level) {
+				//		cout << "start at level: " << level << endl;
 						markable_t next = pred->next[level];
-						if(next == 0 && level >= n) 
+						if(next == 0 && level >= n) {
 							continue;	
+						}
 #ifdef DEBUG
 						cout << "s3 find_preds: traversing level " << level << " starting at " << pred <<endl;
 #endif
@@ -202,8 +222,10 @@ namespace stx {
 #ifdef DEBUG
 							cout << "s2 find_preds: pred " << pred << " is marked for removal (next  " << next << " ), retry "<<endl;
 #endif
+							cout << " hit a return " << endl;
 							return find_preds(preds, succs, n, sl, key, unlink);
 						}
+
 						item = GET_NODE(next);
 						while (item != NULL) {
 							next = item->next[level];
@@ -217,8 +239,10 @@ namespace stx {
 
 									//skip over logically removed items
 									item = STRIP_MARK(next);
-									if(EXPECT_FALSE(item == NULL))
+									if(EXPECT_FALSE(item == NULL)) {
+										cout << " hit a break " << endl;
 										break;
+									}
 									next = item->next[level];
 								}else {
 									// Unlink logically removed items
@@ -233,317 +257,466 @@ namespace stx {
 #ifdef DEBUG
 										cout << "s3 find_preds: lost race to unlink item pred " << pred << " 's link changed to " << other << endl;
 #endif
-										if(HAS_MARK(other))
+										if(HAS_MARK(other)) {
+											cout << " hit a return " << endl;
 											return find_preds(preds, succs, n, sl, key, unlink); //retry
+										}
 										item = GET_NODE(other);
 									}
 									next = (item != NULL) ? item->next[level] : 0;
 								}
 							}
 
-						if (EXPECT_FALSE(item == NULL)) {
+							if (EXPECT_FALSE(item == NULL)) {
 #ifdef DEBUG
-							cout << "s3 find_preds: past the last item in the skiplist " << endl;
+								cout << "s3 find_preds: past the last item in the skiplist " << endl;
+								cout << " hit a break " << endl;
 #endif
-							break;	
+								break;	
+							}
+#ifdef DEBUG
+							cout << "s4 find_preds: visiting item " << item << " next is  " << next << endl;
+							cout << "s4 find_preds: key " << STRIP_MARK(item->key) << " val " << item->val << endl;
+#endif
+							if(EXPECT_TRUE(sl->type) == 0) {
+								d = item->key - key;
+							}else {
+								d = sl->type->cmp(reinterpret_cast<void *>(item->key), reinterpret_cast<void *>(key));
+							}
+
+							if(d > 0) {
+							//	cout << " hit a break due to d > 0 " << endl; 
+								break;
+							}
+							if (d == 0 && unlink != FORCE_UNLINK) {
+							//	cout << " hit a break due to d == 0 " << endl; 
+								break;
+							}
+
+							pred = item;
+							item = GET_NODE(next);
 						}
 #ifdef DEBUG
-						cout << "s4 find_preds: visiting item " << item << " next is  " << next << endl;
-						cout << "s4 find_preds: key " << STRIP_MARK(item->key) << " val " << item->val << endl;
+						cout << "s3 find_preds: found pred " << pred << " next " << next << " level " << level << endl;
 #endif
-						if(EXPECT_TRUE(sl->type) == 0) {
-							d = item->key - key;
+						if(level < n) {
+							if(preds != NULL) {
+								preds[level] = pred;
+							}
+							if(succs != NULL) {
+								succs[level] = item;
+							}
+						}
+#ifdef DEBUG
+						cout << "  end with level: " << level << endl;
+#endif
+					}
+
+#ifdef DEBUG
+					cout << "out of the loop " << endl;
+#endif
+					if (d == 0) {
+#ifdef DEBUG
+						cout << "s2 find_preds: found matching item " << item << " in skiplist, pred is " << pred << endl;
+#endif
+						return item;
+					}
+#ifdef DEBUG
+					cout << "s2 find_preds: found proper place for key " << key << " in skiplist, pred is " << pred << " returning null " << endl;
+#endif
+					return NULL;
+
+				}
+
+				value_type sl_lookup(skiplist_t *sl, key_type key) {
+#ifdef DEBUG
+					cout << "s1 sl_lookup: searching for key " << key << " in skiplist " << sl << endl;
+#endif
+					node_t *item = find_preds(NULL, NULL, 0, sl, key, DONT_UNLINK);
+
+					// if we found an <item> matching the <key> return its value
+					if(item != NULL) {
+						value_type val = item->val;
+						if(val != NULL) {
+#ifdef DEBUG
+							cout << "s1 sl_lookup: found item " << item << " val " <<item->val <<endl;
+#endif
+							return val;
+						}
+					}
+#ifdef DEBUG
+					cout << "s1 sl_lookup: no item in the skiplist matched the key " << endl; 
+#endif
+					return NULL;
+				}
+
+				key_type sl_min_key (skiplist_t *sl) {
+					node_t *item = GET_NODE(sl->head->next[0]);
+					while(item != NULL) {
+						markable_t next = item->next[0];
+						if(!HAS_MARK(next))
+							return item->key;
+						item = STRIP_MARK(next);
+					}
+					return NULL;
+				}
+
+				value_type update_item(node_t *item, value_type expectation, value_type new_val) {
+					value_type old_val = item->val;
+					// if the item's value is NULL it means another thread removed the node out from under us
+					if(EXPECT_FALSE(old_val == 0)) {
+#ifdef DEBUG
+						cout << "s2 update_item: lost a race to another thread removing the item, retry " << endl;
+#endif
+						return 0; //retry
+					}
+
+					if(EXPECT_FALSE(expectation == CAS_EXPECT_DOES_NOT_EXIST)) {
+#ifdef DEBUG
+						cout << "s1 update_item: the expectation was not met; the skiplist was not changed "<<endl;
+#endif
+						return old_val;
+					}
+					// Use a CAS and not a SWAP. If the CAS fails it means another thread removed the node or updated its 
+					// value. If another thread removed the node but it is not unlinked yet and we used a SWAP, we could 
+					// replace DOES_NOT_EXIST with our value. Then another thread that is updating the value could think 
+					// it succeeded and return return out value even though it should return DOES_NOT_EXIST
+					if(old_val == SYNC_CAS(&item->val, old_val, new_val)) {
+#ifdef DEBUG
+						cout << "s1 update_item: the CAS succeeded.updated the value of the item "<<endl;
+#endif
+						return old_val; //success
+					}
+#ifdef DEBUG
+					cout << "s2 update_item: lost a race. the CAS failed. another thread chhhhanged the item's value'"<<endl;
+#endif
+					return update_item(item, expectation, new_val); //tail call
+				}
+				//new version of insert. nodes in skiplist are used as indexing node, data will be stored separtely in data nodes. 
+				value_type sl_insert(skiplist_t *sl, key_type key, value_type expectation, value_type new_val) {
+#ifdef DEBUG
+					cout << " s1 sl_insert: key   " << key << " skiplist " << sl << endl;
+					cout << " s1 sl_insert:expectation " << expectation << " new value " << new_val << endl;
+#endif
+					node_t *preds[MAX_LEVELS];
+					node_t *nexts[MAX_LEVELS];
+					node_t *new_item = NULL;
+					int n = random_levels(sl);
+					node_t *old_item = find_preds(preds, nexts, n, sl, key, ASSIST_UNLINK);
+
+					//If there is already an item in the skiplist that matched the key just update its value
+					if(old_item != NULL) {
+						value_type ret_val = update_item(old_item, expectation, new_val);
+						if(ret_val != 0)
+							return ret_val;
+
+						//If we lose a race with a thread removing the item we tried to update then we haveto retty
+						return sl_insert(sl, key, expectation, new_val); //tail call
+					}
+					//it old_item == NULL, check whether nexts[0] exists. next[0] is the lower_bound of key
+					if(EXPECT_FALSE(expectation != CAS_EXPECT_DOES_NOT_EXIST && expectation != CAS_EXPECT_WHATEVER)) {
+#ifdef DEBUG
+						cout << " s1 sl_insert: the expectation was not met, the skiplist was not changed " << endl;
+#endif
+						return 0;
+					}
+
+					if(nexts[0]) {
+#ifdef DEBUG_CLONE
+						cout << " s3 sl_insert: index node exists" << nexts[0]  << " key is " << nexts[0]->key << endl;
+#endif
+						leaf_t *leaf = nexts[0]->leaf_ptr;
+						markable_t index = SYNC_ADD(&leaf->slotused,1);
+						if(index != leafslotmax - 1) {
+							leaf->slotkey[index] = key;
+							leaf->slotvalue[index] = new_val;
 						}else {
-							d = sl->type->cmp(reinterpret_cast<void *>(item->key), reinterpret_cast<void *>(key));
+							//split
+						}
+					} else {
+						//Create a new index node and insert it into the skiplist
+#ifdef DEBUG_CLONE
+						cout << " s3 sl_insert: attempting to insert a new item between " << preds[0] << " and " << nexts[0]  << endl;
+#endif
+						//nexts is null and need allocate new leaf node and index node
+						//Allocate a new leaf node. Right now i just allocate the leaf when is is necessary. 
+						//todo: leaf pool
+						leaf_t *leaf = leaf_alloc();
+						//Use SYNC_CAS to implemente concurrent array access
+						//if leaf->slotused == index ---> no other threads access it concurrently.
+						markable_t index = SYNC_ADD(&leaf->slotused, 1);	
+						if(index != leafslotmax - 1) {
+							leaf->slotkey[index] = key;
+							leaf->slotvalue[index] = new_val;
+						}else { //not possible?
+
+						}
+						//allocate a new skiplist node
+						key_type new_key = sl->type == NULL ? key : reinterpret_cast<key_type>(sl->type->clone(reinterpret_cast<void *>(key)));
+						new_item = node_alloc(n, new_key, new_val);
+
+						//set the leaf into new_item
+						new_item->leaf_ptr = leaf;
+
+						//Set <new_item> into <sl> from the bottom level up. After <>;
+						markable_t next = new_item->next[0] = reinterpret_cast<markable_t>(nexts[0]);
+						for(int level = 1; level < new_item->num_levels;  ++level) {
+							new_item->next[level] = reinterpret_cast<markable_t>(nexts[level]);	
+						}
+						//Link <new）item> into <sl> from the bottom level up. After <new_item> is insert into the bottom level			   //it is officially part of the skiplist 
+						node_t *pred = preds[0];
+						markable_t other = SYNC_CAS(&pred->next[0], next, reinterpret_cast<markable_t>(new_item));
+						if(other != next) {
+#ifdef DEBUG
+							cout <<"s3 sl_insert: failed to change pred's link: expected " << next << " found " << other << endl;
+#endif
+							//Lost a race to another thread modifying the skiplist. Free the new item we allocated and retry
+							if(sl->type != NULL) {
+								free(reinterpret_cast<void *>(new_key));
+							}
+							free(new_item);
+							return sl_insert(sl, key, expectation, new_val); //tail call
+						}
+#ifdef DEBUG
+						cout << "s3 sl_insert: successfully inserted a new item " << new_item << " at the bottom level " << endl;
+#endif
+						for(int level = 1; level < new_item->num_levels; ++level) {
+#ifdef DEBUG
+							cout << "s3 sl_insert: inserting the new item " << new_item << " at level " << level << endl;
+#endif
+							do {
+								node_t * pred = preds[level];
+								markable_t other = SYNC_CAS(&pred->next[level], (markable_t)nexts[level], (markable_t)new_item);
+								if(other == (markable_t)nexts[level])
+									break;
+#ifdef DEBUG
+								cout << "s3 sl_insert: lost a race, failed to change pred's link. expected " << nexts[level] << " found " << other << endl;
+#endif
+								find_preds(preds, nexts, new_item->num_levels, sl, key, ASSIST_UNLINK);
+
+								for(int i = level; i < new_item->num_levels; ++i) {
+									markable_t old_next = new_item->next[i];
+									if(reinterpret_cast<markable_t>(nexts[i]) == old_next)
+										continue;
+
+									///update <new_items>'s inconsistent next pointer before trying again. Use a CAS so if 
+									//another thread is trying to remove the new item concurrently we do not stop on the mark
+									//it places on the item 
+#ifdef DEBUG
+									cout << "s3 sl_insert: attempting to update the new item's link from " << old_next << " to " << nexts[i] << endl;
+#endif
+									other = SYNC_CAS(&new_item->next[i], old_next, reinterpret_cast<markable_t>(nexts[i]));
+									//If another thread is removing this item we can stop linking it into to skiplist
+									if(HAS_MARK(other)) {
+										find_preds(NULL, NULL, 0, sl, key, FORCE_UNLINK);
+										return 0;
+									}
+								}
+							}while(1);
 						}
 
-						if(d > 0)
-							break;
-						if (d == 0 && unlink != FORCE_UNLINK)
-							break;
+						// INn case another thread was in the process of remoiiving the <new_item> while we were added it. we 
+						// have to make sure it is completely unlinked before we return. We might have lost a race and inserte
+						// the new item at some level after the other thrad thought it was fully removed. That is a problem 
+						// because oince a thread thinks it completely unlinks a node it queues it to be freed
+						if(HAS_MARK(new_item->next[new_item->num_levels-1])) {
+							find_preds(NULL, NULL, 0 , sl, key, FORCE_UNLINK);
+						}
+					} //else of nexts[0] does not exist
+					return 0;
+				}
 
-						pred = item;
-						item = GET_NODE(next);
+				value_type sl_cas(skiplist_t *sl, key_type key, value_type expectation, value_type new_val) {
+#ifdef DEBUG
+				//	cout << " s1 sl_cas: key   " << key << " skiplist " << sl << endl;
+			//		cout << " s1 sl_cas:expectation " << expectation << " new value " << new_val << endl;
+#endif
+					node_t *preds[MAX_LEVELS];
+					node_t *nexts[MAX_LEVELS];
+					node_t *new_item = NULL;
+					int n = random_levels(sl);
+					node_t *old_item = find_preds(preds, nexts, n, sl, key, ASSIST_UNLINK);
+
+					//If there is already an item in the skiplist that matched the key just update its value
+					if(old_item != NULL) {
+						value_type ret_val = update_item(old_item, expectation, new_val);
+						if(ret_val != 0)
+							return ret_val;
+
+						//If we lose a race with a thread removing the item we tried to update then we haveto retty
+						return sl_cas(sl, key, expectation, new_val); //tail call
+					}
+					//it old_item == NULL, preds[0]
+					if(EXPECT_FALSE(expectation != CAS_EXPECT_DOES_NOT_EXIST && expectation != CAS_EXPECT_WHATEVER)) {
+#ifdef DEBUG
+//						cout << " s1 sl_cas: the expectation was not met, the skiplist was not changed " << endl;
+#endif
+						return 0;
+					}
+					//Create a new node and insert it into the skiplist
+#ifdef DEBUG
+//					cout << " s3 sl_cas: attempting to insert a new item between " << preds[0] << " and " << nexts[0]  << " with  " << n << " levels "<<endl;
+#endif
+					//allocate a new skiplist node
+					key_type new_key = sl->type == NULL ? key : reinterpret_cast<key_type>(sl->type->clone(reinterpret_cast<void *>(key)));
+					new_item = node_alloc(n, new_key, new_val);
+
+					//Set <new_item> into <sl> from the bottom level up. After <>;
+					markable_t next = new_item->next[0] = reinterpret_cast<markable_t>(nexts[0]);
+					for(int level = 1; level < new_item->num_levels;  ++level) {
+						new_item->next[level] = reinterpret_cast<markable_t>(nexts[level]);	
+					}
+					//Link <new）item> into <sl> from the bottom level up. After <new_item> is insert into the bottom level			   //it is officially part of the skiplist 
+					node_t *pred = preds[0];
+					markable_t other = SYNC_CAS(&pred->next[0], next, reinterpret_cast<markable_t>(new_item));
+					if(other != next) {
+#ifdef DEBUG
+//						cout <<"s3 sl_cas: failed to change pred's link: expected " << next << " found " << other << endl;
+#endif
+						//Lost a race to another thread modifying the skiplist. Free the new item we allocated and retry
+						if(sl->type != NULL) {
+							free(reinterpret_cast<void *>(new_key));
+						}
+						free(new_item);
+						return sl_cas(sl, key, expectation, new_val); //tail call
 					}
 #ifdef DEBUG
-					cout << "s3 find_preds: found pred " << pred << " next " << next << endl;
+//					cout << "s3 sl_cas: successfully inserted a new item " << new_item << " at the bottom level " << endl;
 #endif
-					if(level < n) {
-						if(preds != NULL) {
-							preds[level] = pred;
-						}
-						if(succs != NULL) {
-							succs[level] = item;
-						}
+					for(int level = 1; level < new_item->num_levels; ++level) {
+#ifdef DEBUG
+//						cout << "s3 sl_cas: inserting the new item " << new_item << " at level " << level << endl;
+#endif
+						do {
+							node_t * pred = preds[level];
+
+							markable_t other = SYNC_CAS(&pred->next[level], (markable_t)nexts[level], (markable_t)new_item);
+							if(other == (markable_t)nexts[level])
+								break;
+#ifdef DEBUG
+//							cout << "s3 sl_cas: lost a race, failed to change pred's link. expected " << nexts[level] << " found " << other << endl;
+#endif
+							find_preds(preds, nexts, new_item->num_levels, sl, key, ASSIST_UNLINK);
+
+							for(int i = level; i < new_item->num_levels; ++i) {
+								markable_t old_next = new_item->next[i];
+								if(reinterpret_cast<markable_t>(nexts[i]) == old_next)
+									continue;
+
+								///update <new_items>'s inconsistent next pointer before trying again. Use a CAS so if 
+								//another thread is trying to remove the new item concurrently we do not stop on the mark
+								//it places on the item 
+#ifdef DEBUG
+//								cout << "s3 sl_cas: attempting to update the new item's link from " << old_next << " to " << nexts[i] << endl;
+#endif
+								other = SYNC_CAS(&new_item->next[i], old_next, reinterpret_cast<markable_t>(nexts[i]));
+								//If another thread is removing this item we can stop linking it into to skiplist
+								if(HAS_MARK(other)) {
+									find_preds(NULL, NULL, 0, sl, key, FORCE_UNLINK);
+									return 0;
+								}
+							}
+						}while(1);
 					}
+
+					// In case another thread was in the process of remoiiving the <new_item> while we were added it. we 
+					// have to make sure it is completely unlinked before we return. We might have lost a race and inserte
+					// the new item at some level after the other thrad thought it was fully removed. That is a problem 
+					// because oince a thread thinks it completely unlinks a node it queues it to be freed
+					if(HAS_MARK(new_item->next[new_item->num_levels-1])) {
+						find_preds(NULL, NULL, 0 , sl, key, FORCE_UNLINK);
+					}
+					return 0;
 				}
-				if (d == 0) {
-#ifdef DEBUG
-					cout << "s2 find_preds: found matching item " << item << " in skiplist, pred is " << pred << endl;
-#endif
-					return item;
-				}
-#ifdef DEBUG
-				cout << "s2 find_preds: found proper place for key " << key << " in skiplist, pred is " << pred << " returning null " << endl;
-#endif
-				return NULL;
 
-		}
-
-		value_type sl_lookup(skiplist_t *sl, key_type key) {
+				// Mark <item > at each level of <sl> from the top down. If multiple threads try to concurrently remove 
+				// the same item only one of them should succeed. Marking the bottom level established which of them succe
+				// ed.
+				value_type sl_remove (skiplist_t *sl, key_type key) {
 #ifdef DEBUG
-			cout << "s1 sl_lookup: searching for key " << key << " in skiplist " << sl << endl;
+					cout << "s1 sl_remove: removing item with key " << key << " from skiplist " << sl << endl;
 #endif
-			node_t *item = find_preds(NULL, NULL, 0, sl, key, DONT_UNLINK);
-
-			// if we found an <item> matching the <key> return its value
-			if(item != NULL) {
-				value_type val = item->val;
-				if(val != NULL) {
+					node_t *preds[MAX_LEVELS];
+					node_t *item = find_preds(preds, NULL, sl->high_water, sl, key, ASSIST_UNLINK);
+					if(item == NULL) {
 #ifdef DEBUG
-					cout << "s1 sl_lookup: found item " << item << " val " <<item->val <<endl;
+						cout << "s3 sl_remove: remove failed, an item with a matching key does not exist in the skiplist" << endl;
 #endif
+						return NULL;
+					}
+
+					// Mark <item> at each level of <sl> from the top down. if multiple threads try to concurrently remove
+					// the same item only one of them should succeed. Marking the bottom level establishes which of 
+					// them succeeds.
+					markable_t old_next = 0;
+					for (int level = item->num_levels - 1; level >= 0; --level) {
+						markable_t next;
+						old_next = item->next[level];
+						do {
+#ifdef DEBUG
+							cout << "s3 sl_remove: marking item at level " << level << "next " << old_next << endl;
+#endif
+							next = old_next;
+							old_next = SYNC_CAS(&item->next[level], next, MARK_NODE(static_cast<node_t *>(next)));
+							if(HAS_MARK(old_next)) {
+#ifdef DEBUG
+								cout << " s2 sl_remove: " << item << " is already marked for remove by another thread next " << old_next << endl;
+#endif
+								if(level == 0)
+									return NULL;
+								break;
+							}
+						}while(next != old_next);
+					}
+
+					//Atomically swap out the item's value in case another thread is updating the item while we are 
+					//removing it. This establishes which operation occurs first logically, the update or the remove.
+					value_type val = SYNC_SWAP(&item->val, NULL);
+#ifdef DEBUG
+					cout << " sw sl_remove: replaced item " << item << " 's value whit NULL " << endl;
+#endif
+					//unlink the item
+					find_preds(NULL, NULL, 0, sl, key, FORCE_UNLINK);
+
+					//free the node
+					if(sl->type !=NULL) {
+						free(static_cast<void *>(item->key));	
+					}
+					free(item);
+
 					return val;
 				}
-			}
-#ifdef DEBUG
-			cout << "s1 sl_lookup: no item in the skiplist matched the key " << endl; 
-#endif
-			return NULL;
-		}
-		
-		key_type sl_min_key (skiplist_t *sl) {
-			node_t *item = GET_NODE(sl->head->next[0]);
-			while(item != NULL) {
-				markable_t next = item->next[0];
-				if(!HAS_MARK(next))
-					return item->key;
-				item = STRIP_MARK(next);
-			}
-			return NULL;
-		}
 
-		value_type update_item(node_t *item, value_type expectation, value_type new_val) {
-			value_type old_val = item->val;
-			// if the item's value is NULL it means another thread removed the node out from under us
-			if(EXPECT_FALSE(old_val == 0)) {
-#ifdef DEBUG
-				cout << "s2 update_item: lost a race to another thread removing the item, retry " << endl;
-#endif
-				return 0; //retry
-			}
-
-			if(EXPECT_FALSE(expectation == CAS_EXPECT_DOES_NOT_EXIST)) {
-#ifdef DEBUG
-				cout << "s1 update_item: the expectation was not met; the skiplist was not changed "<<endl;
-#endif
-				return old_val;
-			}
-			// Use a CAS and not a SWAP. If the CAS fails it means another thread removed the node or updated its 
-			// value. If another thread removed the node but it is not unlinked yet and we used a SWAP, we could 
-			// replace DOES_NOT_EXIST with our value. Then another thread that is updating the value could think 
-			// it succeeded and return return out value even though it should return DOES_NOT_EXIST
-			if(old_val == SYNC_CAS(&item->val, old_val, new_val)) {
-#ifdef DEBUG
-				cout << "s1 update_item: the CAS succeeded.updated the value of the item "<<endl;
-#endif
-				return old_val; //success
-			}
-#ifdef DEBUG
-			cout << "s2 update_item: lost a race. the CAS failed. another thread chhhhanged the item's value'"<<endl;
-#endif
-			return update_item(item, expectation, new_val); //tail call
-		}
-
-		value_type sl_cas(skiplist_t *sl, key_type key, value_type expectation, value_type new_val) {
-#ifdef DEBUG
-			cout << " s1 sl_cas: key   " << key << " skiplist " << sl << endl;
-			cout << " s1 sl_cas:expectation " << expectation << " new value " << new_val << endl;
-#endif
-			node_t *preds[MAX_LEVELS];
-			node_t *nexts[MAX_LEVELS];
-			node_t *new_item = NULL;
-			int n = random_levels(sl);
-			node_t *old_item = find_preds(preds, nexts, n, sl, key, ASSIST_UNLINK);
-
-			//If there is already an item in the skuolist that matched the key just update its value
-			if(old_item != NULL) {
-				value_type ret_val = update_item(old_item, expectation, new_val);
-				if(ret_val != 0)
-					return ret_val;
-
-				//If we lose a race with a thread removing the item we tried to update then we haveto retty
-				return sl_cas(sl, key, expectation, new_val); //tail call
-			}
-
-			if(EXPECT_FALSE(expectation != CAS_EXPECT_DOES_NOT_EXIST && expectation != CAS_EXPECT_WHATEVER)) {
-#ifdef DEBUG
-				cout << " s1 sl_cas: the expectation was not met, the skiplist was not changed " << endl;
-#endif
-				return 0;
-			}
-			//Create a new node and insert it into the skiplist
-#ifdef DEBUG_CLONE
-			cout << " s3 sl_cas: attempting to insert a new item between " << preds[0] << " and " << nexts[0] << endl;
-#endif
-			key_type new_key = sl->type == NULL ? key : reinterpret_cast<key_type>(sl->type->clone(reinterpret_cast<void *>(key)));
-			new_item = node_alloc(n, new_key, new_val);
-
-			//Set <new_item> into <sl> from the bottom level up. After <>;
-			markable_t next = new_item->next[0] = reinterpret_cast<markable_t>(nexts[0]);
-			for(int level = 1; level < new_item->num_levels;  ++level) {
-				new_item->next[level] = reinterpret_cast<markable_t>(nexts[level]);	
-			}
-			//Link <new）item> into <sl> from the bottom level up. After <new_item> is insert into the bottom level			   //it is officially part of the skiplist 
-			node_t *pred = preds[0];
-			markable_t other = SYNC_CAS(&pred->next[0], next, reinterpret_cast<markable_t>(new_item));
-			if(other != next) {
-#ifdef DEBUG
-				cout <<"s3 sl_cas: failed to change pred's link: expected " << next << " found " << other << endl;
-#endif
-				//Lost a race to another thread modifying the skiplist. Free the new item we allocated and retry
-				if(sl->type != NULL) {
-					free(reinterpret_cast<void *>(new_key));
+				sl_iter * sl_iter_begin(skiplist_t *sl, key_type key) {
+					sl_iter *iter = static_cast<sl_iter *>(malloc(sizeof(sl_iter)));
+					if(key != NULL) {
+						find_preds(NULL, &iter->next, 1, sl, key ,DONT_UNLINK);
+					}else {
+						iter->next = GET_NODE(sl->head->next[0]);
+					}
+					return iter;
 				}
-				free(new_item);
-				return sl_cas(sl, key, expectation, new_val); //tail call
-			}
-#ifdef DEBUG
-			cout << "s3 sl_cas: successfully inserted a new item " << new_item << " at the bottom level " << endl;
-#endif
-			for(int level = 1; level < new_item->num_levels; ++level) {
-#ifdef DEBUG
-				cout << "s3 sl_cas: inserting the new item " << new_item << " at level " << level << endl;
-#endif
-				do {
-					node_t * pred = preds[level];
-#ifdef DEBUG
-					markable_t other = SYNC_CAS(&pred->next[level], (markable_t)nexts[level], (markable_t)new_item);
-					if(other == (markable_t)nexts[level])
-						break;
-					cout << "s3 sl_cas: lost a race, failed to change pred's link. expected " << nexts[level] << " found " << other << endl;
-#endif
-					find_preds(preds, nexts, new_item->num_levels, sl, key, ASSIST_UNLINK);
 
-					for(int i = level; i < new_item->num_levels; ++i) {
-						markable_t old_next = new_item->next[i];
-						if(reinterpret_cast<markable_t>(nexts[i]) == old_next)
-							continue;
-						
-						///update <new_items>'s inconsistent next pointer before trying again. Use a CAS so if 
-						//another thread is trying to remove the new item concurrently we do not stop on the mark
-						//it places on the item 
-#ifdef DEBUG
-						cout << "s3 sl_cas: attempting to update the new item's link from " << old_next << " to " << nexts[i] << endl;
-#endif
-						other = SYNC_CAS(&new_item->next[i], old_next, reinterpret_cast<markable_t>(nexts[i]));
-						//If another thread is removing this item we can stop linking it into to skiplist
-						if(HAS_MARK(other)) {
-							find_preds(NULL, NULL, 0, sl, key, FORCE_UNLINK);
-							return 0;
-						}
+				value_type sl_iter_next(sl_iter *iter, key_type * key_ptr) {
+					node_t *item = iter->next;
+					while ( item != NULL && HAS_MARK(item->next[0])) {
+						item = STRIP_MARK(item->next[0]);
 					}
-				}while(1);
-			}
-
-			// INn case another thread was in the process of remoiiving the <new_item> while we were added it. we 
-			// have to make sure it is completely unlinked before we return. We might have lost a race and inserte
-			// the new item at some level after the other thrad thought it was fully removed. That is a problem 
-			// because oince a thread thinks it completely unlinks a node it queues it to be freed
-			if(HAS_MARK(new_item->next[new_item->num_levels-1])) {
-				find_preds(NULL, NULL, 0 , sl, key, FORCE_UNLINK);
-			}
-			return 0;
-		}
-
-		// Mark <item > at each level of <sl> from the top down. If multiple threads try to concurrently remove 
-		// the same item only one of them should succeed. Marking the bottom level established which of them succe
-		// ed.
-		value_type sl_remove (skiplist_t *sl, key_type key) {
-#ifdef DEBUG
-			cout << "s1 sl_remove: removing item with key " << key << " from skiplist " << sl << endl;
-#endif
-			node_t *preds[MAX_LEVELS];
-			node_t *item = find_preds(preds, NULL, sl->high_water, sl, key, ASSIST_UNLINK);
-			if(item == NULL) {
-#ifdef DEBUG
-				cout << "s3 sl_remove: remove failed, an item with a matching key does not exist in the skiplist" << endl;
-#endif
-				return NULL;
-			}
-
-			// Mark <item> at each level of <sl> from the top down. if multiple threads try to concurrently remove
-			// the same item only one of them should succeed. Marking the bottom level establishes which of 
-			// them succeeds.
-			markable_t old_next = 0;
-			for (int level = item->num_levels - 1; level >= 0; --level) {
-				markable_t next;
-				old_next = item->next[level];
-				do {
-#ifdef DEBUG
-					cout << "s3 sl_remove: marking item at level " << level << "next " << old_next << endl;
-#endif
-					next = old_next;
-					old_next = SYNC_CAS(&item->next[level], next, MARK_NODE(static_cast<node_t *>(next)));
-					if(HAS_MARK(old_next)) {
-#ifdef DEBUG
-						cout << " s2 sl_remove: " << item << " is already marked for remove by another thread next " << old_next << endl;
-#endif
-						if(level == 0)
-							return NULL;
-						break;
+					if(item == NULL) {
+						iter->next = NULL;
+						return NULL;
 					}
-				}while(next != old_next);
-			}
 
-			//Atomically swap out the item's value in case another thread is updating the item while we are 
-			//removing it. This establishes which operation occurs first logically, the update or the remove.
-			value_type val = SYNC_SWAP(&item->val, NULL);
-#ifdef DEBUG
-			cout << " sw sl_remove: replaced item " << item << " 's value whit NULL " << endl;
-#endif
-			//unlink the item
-			find_preds(NULL, NULL, 0, sl, key, FORCE_UNLINK);
+					iter->next = STRIP_MARK(item->next[0]);
+					if ( key_ptr != NULL) {
+						*key_ptr = item->key;
+					}
+					return item->val;
+				}
 
-			//free the node
-			if(sl->type !=NULL) {
-				free(static_cast<void *>(item->key));	
-			}
-			free(item);
-
-			return val;
-		}
-
-		sl_iter * sl_iter_begin(skiplist_t *sl, key_type key) {
-			sl_iter *iter = static_cast<sl_iter *>(malloc(sizeof(sl_iter)));
-			if(key != NULL) {
-				find_preds(NULL, &iter->next, 1, sl, key ,DONT_UNLINK);
-			}else {
-				iter->next = GET_NODE(sl->head->next[0]);
-			}
-			return iter;
-		}
-
-		value_type sl_iter_next(sl_iter *iter, key_type * key_ptr) {
-			node_t *item = iter->next;
-			while ( item != NULL && HAS_MARK(item->next[0])) {
-				item = STRIP_MARK(item->next[0]);
-			}
-			if(item == NULL) {
-				iter->next = NULL;
-				return NULL;
-			}
-
-			iter->next = STRIP_MARK(item->next[0]);
-			if ( key_ptr != NULL) {
-				*key_ptr = item->key;
-			}
-			return item->val;
-		}
-
-		void sl_iter_free ( sl_iter *iter) {
-			free(iter);
-		}
+				void sl_iter_free ( sl_iter *iter) {
+					free(iter);
+				}
 
 
 
@@ -575,7 +748,7 @@ namespace stx {
 
 
 
-	};
+		};
 }
 #endif
 

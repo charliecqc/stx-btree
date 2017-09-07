@@ -1,4 +1,4 @@
-cscope 15 /home/dcslab/charlie/stx-btree               0000408168
+cscope 15 /home/dcslab/charlie/stx-btree               0000413028
 	@include/stx/LinkedQueue.h
 
 1 #iâdeà
@@ -20797,7 +20797,19 @@ STX_SKIPLIST_HEADER
 	~<immšŒš.h
 >
 
-13 
+10 
+	#DEBUG
+
+
+	)
+
+11 
+	#DEBUG_CLONE
+
+
+	)
+
+14 
 	#EXPECT_TRUE
 (
 x
@@ -20807,7 +20819,7 @@ x
 
 	)
 
-14 
+15 
 	#EXPECT_FALSE
 (
 x
@@ -20817,25 +20829,25 @@ x
 
 	)
 
-16 
+17 
 	#CAS_EXPECT_DOES_NOT_EXIST
  (0)
 
 	)
 
-17 
+18 
 	#CAS_EXPECT_EXISTS
  (-1)
 
 	)
 
-18 
+19 
 	#CAS_EXPECT_WHATEVER
  (-2)
 
 	)
 
-19 
+20 
 	#SYNC_SWAP
 (
 addr
@@ -20847,7 +20859,7 @@ x
 
 	)
 
-20 
+21 
 	#SYNC_CAS
 (
 addr
@@ -20861,7 +20873,7 @@ x
 
 	)
 
-21 
+22 
 	#SYNC_ADD
 (
 addr
@@ -20873,7 +20885,7 @@ n
 
 	)
 
-22 
+23 
 	#SYNC_FETCH_AND_OR
  
 	`__sync_ãtch_ªd_Ü
@@ -20885,13 +20897,13 @@ x
 
 	)
 
-24 
+25 
 	#MAX_LEVELS
  24
 
 	)
 
-25 
+26 
 	#TAG_VALUE
 (
 v
@@ -20901,7 +20913,7 @@ v
 
 	)
 
-26 
+27 
 	#IS_TAGGED
 (
 v
@@ -20911,7 +20923,7 @@ v
 
 	)
 
-27 
+28 
 	#STRIP_TAG
 (
 v
@@ -20921,13 +20933,13 @@ v
 
 	)
 
-29 
+30 
 size_t
  
 	tm¬kabË_t
 ;
 
-32 
+33 
 	#MARK_NODE
 (
 x
@@ -20941,7 +20953,7 @@ m¬kabË_t
 
 	)
 
-33 
+34 
 	#HAS_MARK
 (
 x
@@ -20951,7 +20963,7 @@ x
 
 	)
 
-34 
+35 
 	#GET_NODE
 (
 x
@@ -20963,7 +20975,7 @@ node_t
 
 	)
 
-35 
+36 
 	#STRIP_MARK
 (
 x
@@ -20977,29 +20989,29 @@ node_t
 
 	)
 
-37 
+38 
 	euÆšk
  {
 
-38 
+39 
 	mFORCE_UNLINK
 ,
 
-39 
+40 
 	mASSIST_UNLINK
 ,
 
-40 
+41 
 	mDONT_UNLINK
 
 
-43 
+44 
 Çme¥aû
  
 	g¡x
  {
 
-44 
+45 
 	g‹m¶©e
  <
 ty³Çme
@@ -21007,11 +21019,11 @@ ty³Çme
 	g_Key
 >
 
-45 şas 
+46 şas 
 	cskli¡_deçuÉ_£t_Œa™s
 
 
-47 cÚ¡ 
+48 cÚ¡ 
 boŞ
  
 	g£lfv”ify
@@ -21019,7 +21031,7 @@ boŞ
 çl£
 ;
 
-48 cÚ¡ 
+49 cÚ¡ 
 boŞ
  
 	gdebug
@@ -21027,7 +21039,11 @@ boŞ
 çl£
 ;
 
-51 
+50 cÚ¡ 
+	gËaf¦Ùs
+ = 256;
+
+53 
 	g‹m¶©e
  <
 ty³Çme
@@ -21035,89 +21051,103 @@ ty³Çme
 	g_Key
 ,y³Çm
 	g_V®ue
->
+,y³Çm
+	g_T¿™s
+ = 
+skli¡_deçuÉ_£t_Œa™s
+<
+_Key
+> >
 
-52 şas 
+54 şas 
 	cskli¡
 
 
-54 
-	gpublic
+56 
+public
 :
 
-56 
+58 
 _Key
  
 	tkey_ty³
 ;
 
-58 
+60 
 _V®ue
  
 	tv®ue_ty³
 ;
 
-60 (*
+62 
+_T¿™s
+ 
+	tŒa™s
+;
+
+64 (*
 	gcmp_func_t
 ) (*, *);
 
-62 * (*
+66 * (*
 	tşÚe_fun_t
 ) (*);
 
-64 
+68 
 št64_t
  (*
 	thash_fun_t
 ) (*);
 
-66 
+70 
 	sd©©y³
  {
 
-67 
+71 
 cmp_func_t
  
 	gcmp
 ;
 
-68 
+72 
 hash_fun_t
  
 	ghash
 ;
 
-69 
+73 
 şÚe_fun_t
  
 	gşÚe
 ;
 
-70 }
+74 }
 	td©©y³_t
 ;
 
-72 
+76 
 	gpublic
 :
 
-74 
+78 
 skli¡
 <
 	tkey_ty³
 , 
 	tv®ue_ty³
+, 
+	tŒa™s
 > 
 	t£lf_ty³
 ;
 
-77 
+81 
 size_t
  
 	tsize_ty³
 ;
 
-79 
+83 
 	g¡d
 ::
 	t·œ
@@ -21129,87 +21159,175 @@ size_t
 	t·œ_ty³
 ;
 
-81 
-	g´iv©e
-:
-
-82 cÚ¡ 
-¿nd£ed
- = 34234235;
-
 84 
 	gpublic
 :
 
-85 
+87 cÚ¡ 
+Ëaf¦Ùmax
+ = 
+Œa™s
+::
+Ëaf¦Ùs
+;
+
+89 
+	g´iv©e
+:
+
+90 cÚ¡ 
+rs
+ = 12345678;
+
+92 
+	gpublic
+:
+
+93 
+	sËaf
+ {
+
+95 
+Ëaf
+ *
+´evËaf
+;
+
+97 
+Ëaf
+ *
+	gÃx—f
+;
+
+99 
+key_ty³
+ 
+	g¦Ùkey
+[
+Ëaf¦Ùmax
+];
+
+101 
+v®ue_ty³
+ 
+	g¦Ùv®ue
+[
+Ëaf¦Ùmax
+];
+
+104 
+	g¦Ùu£d
+;
+
+107 
+šlše
+ 
+Ëaf
+()
+
+108 : 
+¦Ùu£d
+(-1), 
+´evËaf
+(
+NULL
+),
+Ãx—f
+(NULL)
+
+112 
+šlše
+ 
+boŞ
+ 
+isfuÎ
+() const
+
+114  (
+	g¦Ùu£d
+ =ğ
+Ëaf¦Ùmax
+);
+
+117 }
+	tËaf_t
+;
+
+119 
 	snode
  {
 
-86 
+120 
 key_ty³
  
-key
+	gkey
 ;
 
-87 
+121 
 v®ue_ty³
  
 	gv®
 ;
 
-88 
+122 
 	gnum_Ëv–s
 ;
 
-89 
+123 
 m¬kabË_t
  
 	gÃxt
 [1];
 
-90 } 
+124 
+Ëaf_t
+ *
+	gËaf_±r
+;
+
+125 } 
 	tnode_t
 ;
 
-92 
+127 
 	s¦_™”
  {
 
-93 
+128 
 node_t
  *
 	gÃxt
 ;
 
-96 
+131 
 	s¦
  {
 
-97 
+132 
 node_t
  *
 	gh—d
 ;
 
-98 cÚ¡ 
+133 cÚ¡ 
 d©©y³_t
  *
 	gty³
 ;
 
-99 
+134 
 	ghigh_w©”
 ;
 
-100 } 
+135 } 
 	tskli¡_t
  ;
 
-102 
+137 
 	gpublic
 :
 
-103 
+138 
 ¿ndom_Ëv–s
  (
 skli¡_t
@@ -21217,37 +21335,31 @@ skli¡_t
 ¦
 ) {
 
-104 
-¤ªd
-(
-¿nd£ed
-);
-
-105 
-	gr
+139 
+r
  = 
 ¿nd
 ();
 
-107 
-	gz
+141 
+	gËv–s
  = 
 ffs
 (
 r
 );
 
-108 
+144 
 	gËv–s
- = ()(
-z
- / 1.5);
+ = 
+Ëv–s
+ / 1.5;
 
-109 if(
+145 if(
 	gËv–s
  == 0)
 
-111 if(
+147 if(
 	gËv–s
  > 
 	g¦
@@ -21255,7 +21367,7 @@ z
 	ghigh_w©”
 ) {
 
-112 
+148 
 	gËv–s
  = 
 SYNC_ADD
@@ -21265,7 +21377,71 @@ SYNC_ADD
 high_w©”
 , 1);
 
-116 
+150  
+	gËv–s
+;
+
+153 
+Ëaf_t
+ *
+Ëaf_®loc
+() {
+
+154 
+size_t
+ 
+	gsz
+ = (
+Ëaf_t
+);
+
+155 
+Ëaf_t
+ *
+	g™em
+ = 
+¡©ic_ÿ¡
+<Ëaf_ˆ*>(
+m®loc
+(
+sz
+));
+
+156 
+mem£t
+(
+™em
+, 0, 
+sz
+);
+
+157 
+	g™em
+->
+	g´evËaf
+ = 
+NULL
+;
+
+158 
+	g™em
+->
+	gÃx—f
+ = 
+NULL
+;
+
+159 
+	g™em
+->
+	g¦Ùu£d
+ = -1;
+
+160  
+	g™em
+;
+
+163 
 node_t
  *
 node_®loc
@@ -21281,7 +21457,7 @@ v®ue_ty³
 v®
 ) {
 
-117 
+164 
 as£¹
 (
 num_Ëv–s
@@ -21289,7 +21465,7 @@ num_Ëv–s
 MAX_LEVELS
 );
 
-118 
+165 
 size_t
  
 	gsz
@@ -21299,7 +21475,7 @@ node_t
 num_Ëv–s
  - 1) * (node_t *);
 
-119 
+166 
 node_t
  *
 	g™em
@@ -21311,7 +21487,7 @@ m®loc
 sz
 ));
 
-120 
+167 
 mem£t
 (
 ™em
@@ -21319,7 +21495,7 @@ mem£t
 sz
 );
 
-121 
+168 
 	g™em
 ->
 	gkey
@@ -21327,7 +21503,7 @@ sz
 key
 ;
 
-122 
+169 
 	g™em
 ->
 	gv®
@@ -21335,7 +21511,7 @@ key
 v®
 ;
 
-123 
+170 
 	g™em
 ->
 	gnum_Ëv–s
@@ -21343,25 +21519,25 @@ v®
 num_Ëv–s
 ;
 
-124 #ifdeà
+171 #ifdeà
 DEBUG
 
 
-125 
+172 
 	gcout
  << "s2‚ode_®loø:‚ew‚od" << 
 	g™em
- << 
+ << " "<< 
 	gnum_Ëv–s
- << "Ëv–s" << 
+ << "†ev–s" << 
 	g’dl
 ;
 
-127  
+174  
 	g™em
 ;
 
-130 
+177 
 skli¡_t
  *
 ¦_®loc
@@ -21371,7 +21547,7 @@ d©©y³_t
 ty³
 ) {
 
-131 
+178 
 skli¡_t
  *
 	g¦
@@ -21381,7 +21557,7 @@ skli¡_t
 m®loc
 ((skiplist_t)));
 
-132 
+179 
 	g¦
 ->
 	gty³
@@ -21389,13 +21565,13 @@ m®loc
 ty³
 ;
 
-133 
+180 
 	g¦
 ->
 	ghigh_w©”
  = 1;
 
-134 
+181 
 	g¦
 ->
 	gh—d
@@ -21405,7 +21581,7 @@ node_®loc
 MAX_LEVELS
 , 0, 0);
 
-135 
+182 
 mem£t
 (
 ¦
@@ -21419,11 +21595,11 @@ MAX_LEVELS
 skli¡_t
  *));
 
-136  
+183  
 	g¦
 ;
 
-139 
+186 
 ¦_ä“
  (
 skli¡_t
@@ -21431,13 +21607,13 @@ skli¡_t
 ¦
 ) {
 
-140 
+187 
 size_t
  
 	gcouÁ
  = 0;
 
-141 
+188 
 node_t
  *
 	g™em
@@ -21451,11 +21627,11 @@ h—d
 Ãxt
 [0]);
 
-142 
+189 
 	g™em
 ) {
 
-143 if(!
+190 if(!
 HAS_MARK
 (
 ™em
@@ -21463,11 +21639,11 @@ HAS_MARK
 Ãxt
 [0])) {
 
-144 
+191 
 	gcouÁ
 ++;
 
-146 
+193 
 	g™em
  = 
 STRIP_MARK
@@ -21477,11 +21653,11 @@ STRIP_MARK
 Ãxt
 [0]);
 
-148  
+195  
 	gcouÁ
 ;
 
-151 
+198 
 node_t
  *
 fšd_´eds
@@ -21503,7 +21679,7 @@ key
 uÆšk
  unlink) {
 
-152 
+199 
 node_t
  *
 	g´ed
@@ -21513,7 +21689,7 @@ node_t
 h—d
 ;
 
-153 
+200 
 node_t
  *
 	g™em
@@ -21521,17 +21697,17 @@ node_t
 NULL
 ;
 
-154 
+201 
 	gd
  = 0;
 
-155 #ifdeà
+202 #ifdeà
 DEBUG
 
 
-156 
+203 
 	gcout
- << "s2 fšd_´eds: s—rchšgfÜ key " << 
+ << "s2 fšd_´eds: s—rchšg fÜ key " << 
 	gkey
  << " iÀskli¡ (h—d i " << 
 	g´ed
@@ -21539,7 +21715,7 @@ DEBUG
 	g’dl
 ;
 
-158 
+205 
 	gËv–
  = 
 ¦
@@ -21547,7 +21723,7 @@ DEBUG
 high_w©”
  - 1;†evel >= 0; --level) {
 
-159 
+206 
 m¬kabË_t
  
 	gÃxt
@@ -21559,7 +21735,7 @@ m¬kabË_t
 Ëv–
 ];
 
-160 if(
+207 if(
 	gÃxt
  =ğ0 && 
 Ëv–
@@ -21567,11 +21743,11 @@ m¬kabË_t
 n
 )
 
-162 #ifdeà
+209 #ifdeà
 DEBUG
 
 
-163 
+210 
 	gcout
  << "s3 fšd_´eds:¿v”sšg†ev– " << 
 	gËv–
@@ -21581,7 +21757,7 @@ DEBUG
 	g’dl
 ;
 
-165 if(
+212 if(
 EXPECT_FALSE
 (
 HAS_MARK
@@ -21589,11 +21765,11 @@ HAS_MARK
 Ãxt
 ))) {
 
-166 #ifdeà
+213 #ifdeà
 DEBUG
 
 
-167 
+214 
 	gcout
  << "s2 fšd_´eds:…»d " << 
 	g´ed
@@ -21603,7 +21779,7 @@ DEBUG
 	g’dl
 ;
 
-169  
+216  
 fšd_´eds
 (
 ´eds
@@ -21619,7 +21795,7 @@ key
 uÆšk
 );
 
-171 
+218 
 	g™em
  = 
 GET_NODE
@@ -21627,13 +21803,13 @@ GET_NODE
 Ãxt
 );
 
-172 
+219 
 	g™em
  !ğ
 NULL
 ) {
 
-173 
+220 
 Ãxt
  = 
 ™em
@@ -21641,7 +21817,7 @@ NULL
 Ëv–
 ];
 
-176 
+223 
 EXPECT_FALSE
 (
 HAS_MARK
@@ -21649,11 +21825,11 @@ HAS_MARK
 Ãxt
 ))) {
 
-177 #ifdeà
+224 #ifdeà
 DEBUG
 
 
-178 
+225 
 	gcout
  << "s3 fšd_´eds: found m¬ked i‹m " <<
 	g™em
@@ -21663,13 +21839,13 @@ DEBUG
 	g’dl
 ;
 
-180 ià(
+227 ià(
 	guÆšk
  =ğ
 DONT_UNLINK
 ) {
 
-183 
+230 
 ™em
  = 
 STRIP_MARK
@@ -21677,7 +21853,7 @@ STRIP_MARK
 Ãxt
 );
 
-184 if(
+231 if(
 EXPECT_FALSE
 (
 ™em
@@ -21685,7 +21861,7 @@ EXPECT_FALSE
 NULL
 ))
 
-186 
+233 
 	gÃxt
  = 
 ™em
@@ -21695,7 +21871,7 @@ NULL
 Ëv–
 ];
 
-189 
+236 
 m¬kabË_t
  
 	gÙh”
@@ -21715,7 +21891,7 @@ SYNC_CAS
 STRIP_MARK
 (next));
 
-190 if(
+237 if(
 	gÙh”
  =ğ
 »š‹½»t_ÿ¡
@@ -21725,11 +21901,11 @@ m¬kabË_t
 ™em
 )) {
 
-191 #ifdeà
+238 #ifdeà
 DEBUG
 
 
-192 
+239 
 cout
  << "s3 fšd_´eds: uÆšked i‹m from…»d " << 
 ´ed
@@ -21737,7 +21913,7 @@ cout
 ’dl
 ;
 
-194 
+241 
 	g™em
  = 
 STRIP_MARK
@@ -21745,11 +21921,11 @@ STRIP_MARK
 Ãxt
 );
 
-197 #ifdeà
+244 #ifdeà
 DEBUG
 
 
-198 
+245 
 	gcout
  << "s3 fšd_´eds:†o¡„aûØuÆšk i‹m…»d " << 
 	g´ed
@@ -21759,13 +21935,13 @@ DEBUG
 	g’dl
 ;
 
-200 if(
+247 if(
 HAS_MARK
 (
 Ùh”
 ))
 
-201  
+248  
 fšd_´eds
 (
 ´eds
@@ -21781,7 +21957,7 @@ key
 uÆšk
 );
 
-202 
+249 
 	g™em
  = 
 GET_NODE
@@ -21789,7 +21965,7 @@ GET_NODE
 Ùh”
 );
 
-204 
+251 
 	gÃxt
  = (
 ™em
@@ -21801,7 +21977,7 @@ NULL
 Ëv–
 ] : 0;
 
-208 ià(
+255 ià(
 EXPECT_FALSE
 (
 ™em
@@ -21809,21 +21985,21 @@ EXPECT_FALSE
 NULL
 )) {
 
-209 #ifdeà
+256 #ifdeà
 DEBUG
 
 
-210 
+257 
 cout
  << "s3 fšd_´eds:…a¡hÏ¡ i‹m iÀthskli¡ " << 
 ’dl
 ;
 
-214 #ifdeà
+261 #ifdeà
 DEBUG
 
 
-215 
+262 
 	gcout
  << "s4 fšd_´eds: vis™šg i‹m " << 
 	g™em
@@ -21833,7 +22009,7 @@ DEBUG
 	g’dl
 ;
 
-216 
+263 
 	gcout
  << "s4 fšd_´eds: key " << 
 STRIP_MARK
@@ -21849,7 +22025,7 @@ key
 	g’dl
 ;
 
-218 if(
+265 if(
 EXPECT_TRUE
 (
 ¦
@@ -21857,7 +22033,7 @@ EXPECT_TRUE
 ty³
 ) == 0) {
 
-219 
+266 
 d
  = 
 ™em
@@ -21865,7 +22041,7 @@ d
 key
  - key;
 
-221 
+268 
 	gd
  = 
 ¦
@@ -21881,11 +22057,11 @@ cmp
 key
 ),„einterpret_cast<*>(key));
 
-224 if(
+271 if(
 	gd
  > 0)
 
-226 ià(
+273 ià(
 	gd
  =ğ0 && 
 uÆšk
@@ -21893,13 +22069,13 @@ uÆšk
 FORCE_UNLINK
 )
 
-229 
+276 
 	g´ed
  = 
 ™em
 ;
 
-230 
+277 
 	g™em
  = 
 GET_NODE
@@ -21907,11 +22083,11 @@ GET_NODE
 Ãxt
 );
 
-232 #ifdeà
+279 #ifdeà
 DEBUG
 
 
-233 
+280 
 	gcout
  << "s3 fšd_´eds: found…»d " << 
 	g´ed
@@ -21921,19 +22097,19 @@ DEBUG
 	g’dl
 ;
 
-235 if(
+282 if(
 	gËv–
  < 
 	gn
 ) {
 
-236 if(
+283 if(
 	g´eds
  !ğ
 NULL
 ) {
 
-237 
+284 
 ´eds
 [
 Ëv–
@@ -21941,13 +22117,13 @@ NULL
 ´ed
 ;
 
-239 if(
+286 if(
 	gsuccs
  !ğ
 NULL
 ) {
 
-240 
+287 
 succs
 [
 Ëv–
@@ -21955,15 +22131,15 @@ succs
 ™em
 ;
 
-244 ià(
+291 ià(
 	gd
  == 0) {
 
-245 #ifdeà
+292 #ifdeà
 DEBUG
 
 
-246 
+293 
 cout
  << "s2 fšd_´eds: found m©chšg i‹m " << 
 ™em
@@ -21973,15 +22149,15 @@ cout
 ’dl
 ;
 
-248  
+295  
 	g™em
 ;
 
-250 #ifdeà
+297 #ifdeà
 DEBUG
 
 
-251 
+298 
 	gcout
  << "s2 fšd_´eds: found…rİ”…Ïû fÜ key " << 
 	gkey
@@ -21991,11 +22167,11 @@ DEBUG
 	g’dl
 ;
 
-253  
+300  
 	gNULL
 ;
 
-257 
+304 
 v®ue_ty³
  
 ¦_lookup
@@ -22009,11 +22185,11 @@ key_ty³
 key
 ) {
 
-258 #ifdeà
+305 #ifdeà
 DEBUG
 
 
-259 
+306 
 	gcout
  << "s1 sl_lookup: s—rchšg fÜ key " << 
 	gkey
@@ -22023,7 +22199,7 @@ DEBUG
 	g’dl
 ;
 
-261 
+308 
 node_t
  *
 	g™em
@@ -22039,13 +22215,13 @@ key
 DONT_UNLINK
 );
 
-264 if(
+311 if(
 	g™em
  !ğ
 NULL
 ) {
 
-265 
+312 
 v®ue_ty³
  
 v®
@@ -22053,17 +22229,17 @@ v®
 ™em
 ->val;
 
-266 if(
+313 if(
 	gv®
  !ğ
 NULL
 ) {
 
-267 #ifdeà
+314 #ifdeà
 DEBUG
 
 
-268 
+315 
 cout
  << "s1 sl_lookup: found i‹m " << 
 ™em
@@ -22073,25 +22249,25 @@ v®
 ’dl
 ;
 
-270  
+317  
 	gv®
 ;
 
-273 #ifdeà
+320 #ifdeà
 DEBUG
 
 
-274 
+321 
 	gcout
  << "s1 sl_lookup:‚Ø™em iÀthskli¡ m©chedhkey " << 
 	g’dl
 ;
 
-276  
+323  
 	gNULL
 ;
 
-279 
+326 
 key_ty³
  
 ¦_mš_key
@@ -22101,7 +22277,7 @@ skli¡_t
 ¦
 ) {
 
-280 
+327 
 node_t
  *
 	g™em
@@ -22115,13 +22291,13 @@ h—d
 Ãxt
 [0]);
 
-281 
+328 
 	g™em
  !ğ
 NULL
 ) {
 
-282 
+329 
 m¬kabË_t
  
 Ãxt
@@ -22129,19 +22305,19 @@ m¬kabË_t
 ™em
 ->next[0];
 
-283 if(!
+330 if(!
 HAS_MARK
 (
 Ãxt
 ))
 
-284  
+331  
 	g™em
 ->
 	gkey
 ;
 
-285 
+332 
 	g™em
  = 
 STRIP_MARK
@@ -22149,11 +22325,11 @@ STRIP_MARK
 Ãxt
 );
 
-287  
+334  
 	gNULL
 ;
 
-290 
+337 
 v®ue_ty³
  
 upd©e_™em
@@ -22167,7 +22343,7 @@ ex³ù©iÚ
 Ãw_v®
 ) {
 
-291 
+338 
 v®ue_ty³
  
 	gŞd_v®
@@ -22177,23 +22353,23 @@ v®ue_ty³
 v®
 ;
 
-293 if(
+340 if(
 EXPECT_FALSE
 (
 Şd_v®
  == 0)) {
 
-294 #ifdeà
+341 #ifdeà
 DEBUG
 
 
-295 
+342 
 cout
  << "s2 upd©e_™em:†o¡‡„aûØªÙh”h»ad„emovšgh™em,„‘ry " << 
 ’dl
 ;
 
-300 if(
+347 if(
 EXPECT_FALSE
 (
 ex³ù©iÚ
@@ -22201,21 +22377,21 @@ ex³ù©iÚ
 CAS_EXPECT_DOES_NOT_EXIST
 )) {
 
-301 #ifdeà
+348 #ifdeà
 DEBUG
 
 
-302 
+349 
 cout
  << "s1 upd©e_™em:hex³ù©iÚ wa nÙ m‘;hskli¡ wa nÙ chªged "<<
 ’dl
 ;
 
-304  
+351  
 	gŞd_v®
 ;
 
-310 if(
+357 if(
 	gŞd_v®
  =ğ
 SYNC_CAS
@@ -22229,31 +22405,31 @@ v®
 Ãw_v®
 )) {
 
-311 #ifdeà
+358 #ifdeà
 DEBUG
 
 
-312 
+359 
 	gcout
  << "s1 upd©e_™em:hCAS sucûeded.upd©edhv®uoàth™em "<<
 	g’dl
 ;
 
-314  
+361  
 	gŞd_v®
 ;
 
-316 #ifdeà
+363 #ifdeà
 DEBUG
 
 
-317 
+364 
 	gcout
  << "s2 upd©e_™em:†o¡‡„aû.hCAS faed.‡nÙh”h»ad chhhhªgedh™em' v®ue'"<<
 	g’dl
 ;
 
-319  
+366  
 upd©e_™em
 (
 ™em
@@ -22263,10 +22439,10 @@ ex³ù©iÚ
 Ãw_v®
 );
 
-322 
+369 
 v®ue_ty³
  
-¦_ÿs
+¦_š£¹
 (
 skli¡_t
  *
@@ -22281,13 +22457,13 @@ ex³ù©iÚ
 Ãw_v®
 ) {
 
-323 #ifdeà
+370 #ifdeà
 DEBUG
 
 
-324 
+371 
 	gcout
- << " s1 sl_ÿs: key " << 
+ << " s1 sl_š£¹: key " << 
 	gkey
  << " skli¡ " << 
 	g¦
@@ -22295,9 +22471,9 @@ DEBUG
 	g’dl
 ;
 
-325 
+372 
 	gcout
- << " s1 sl_ÿs:ex³ù©iÚ " << 
+ << " s1 sl_š£¹:ex³ù©iÚ " << 
 	gex³ù©iÚ
  << "‚ew v®u" << 
 	gÃw_v®
@@ -22305,7 +22481,7 @@ DEBUG
 	g’dl
 ;
 
-327 
+374 
 node_t
  *
 	g´eds
@@ -22313,7 +22489,7 @@ node_t
 MAX_LEVELS
 ];
 
-328 
+375 
 node_t
  *
 	gÃxts
@@ -22321,7 +22497,7 @@ node_t
 MAX_LEVELS
 ];
 
-329 
+376 
 node_t
  *
 	gÃw_™em
@@ -22329,7 +22505,7 @@ node_t
 NULL
 ;
 
-330 
+377 
 	gn
  = 
 ¿ndom_Ëv–s
@@ -22337,7 +22513,7 @@ NULL
 ¦
 );
 
-331 
+378 
 node_t
  *
 	gŞd_™em
@@ -22357,13 +22533,13 @@ key
 ASSIST_UNLINK
 );
 
-334 if(
+381 if(
 	gŞd_™em
  !ğ
 NULL
 ) {
 
-335 
+382 
 v®ue_ty³
  
 »t_v®
@@ -22377,15 +22553,15 @@ ex³ù©iÚ
 Ãw_v®
 );
 
-336 if(
+383 if(
 	g»t_v®
  != 0)
 
-337  
+384  
 »t_v®
 ;
 
-340  
+387  
 ¦_ÿs
 (
 ¦
@@ -22397,7 +22573,7 @@ ex³ù©iÚ
 Ãw_v®
 );
 
-343 if(
+390 if(
 EXPECT_FALSE
 (
 ex³ù©iÚ
@@ -22407,21 +22583,21 @@ CAS_EXPECT_DOES_NOT_EXIST
 CAS_EXPECT_WHATEVER
 )) {
 
-344 #ifdeà
+391 #ifdeà
 DEBUG
 
 
-345 
+392 
 cout
  << " s1 sl_ÿs:hex³ù©iÚ wa nÙ m‘,hskli¡ wa nÙ chªged " << 
 ’dl
 ;
 
-350 #ifdeà
-DEBUG
+397 #ifdeà
+DEBUG_CLONE
 
 
-351 
+398 
 	gcout
  << " s3 sl_ÿs:‡‰em±šgØš£¹‡‚ew i‹m b‘w“À" << 
 	g´eds
@@ -22431,7 +22607,57 @@ DEBUG
 	g’dl
 ;
 
-353 
+403 
+Ëaf_t
+ *
+	gËaf
+ = 
+Ëaf_®loc
+();
+
+404 
+	gšdex
+ = 
+Ëaf
+->
+¦Ùu£d
+;
+
+407 
+m¬kabË_t
+ 
+	gcouÁ
+ = 
+SYNC_CAS
+(&
+Ëaf
+->
+¦Ùu£d
+, &
+šdex
+, index+1);
+
+408 
+	gËaf
+->
+	g¦Ùkey
+[
+couÁ
+] = 
+key
+;
+
+409 
+	gËaf
+->
+	g¦Ùv®ue
+[
+couÁ
+] = 
+Ãw_v®
+;
+
+412 
 key_ty³
  
 	gÃw_key
@@ -22449,7 +22675,7 @@ key
 şÚe
 (reinterpret_cast<*>(key)));
 
-354 
+413 
 	gÃw_™em
  = 
 node_®loc
@@ -22461,7 +22687,15 @@ n
 Ãw_v®
 );
 
-357 
+416 
+	gÃw_™em
+->
+	gËaf_±r
+ = 
+Ëaf
+;
+
+419 
 m¬kabË_t
  
 	gÃxt
@@ -22475,7 +22709,7 @@ m¬kabË_t
 Ãxts
 [0]);
 
-358 
+420 
 	gËv–
  = 1;†ev– < 
 	gÃw_™em
@@ -22483,7 +22717,7 @@ m¬kabË_t
 	gnum_Ëv–s
 ; ++level) {
 
-359 
+421 
 	gÃw_™em
 ->
 	gÃxt
@@ -22497,7 +22731,7 @@ m¬kabË_t
 Ãxts
 [level]);
 
-362 
+424 
 node_t
  *
 	g´ed
@@ -22505,7 +22739,7 @@ node_t
 ´eds
 [0];
 
-363 
+425 
 m¬kabË_t
  
 	gÙh”
@@ -22521,17 +22755,17 @@ SYNC_CAS
 Ãw_™em
 ));
 
-364 if(
+426 if(
 	gÙh”
  !ğ
 Ãxt
 ) {
 
-365 #ifdeà
+427 #ifdeà
 DEBUG
 
 
-366 
+428 
 cout
  <<"s3 sl_ÿs: faedØchªg´ed' lšk:ƒx³ùed " << 
 Ãxt
@@ -22541,7 +22775,7 @@ cout
 ’dl
 ;
 
-369 if(
+431 if(
 	g¦
 ->
 	gty³
@@ -22549,7 +22783,7 @@ cout
 NULL
 ) {
 
-370 
+432 
 ä“
 (
 »š‹½»t_ÿ¡
@@ -22557,13 +22791,13 @@ NULL
 Ãw_key
 ));
 
-372 
+434 
 ä“
 (
 Ãw_™em
 );
 
-373  
+435  
 ¦_ÿs
 (
 ¦
@@ -22575,19 +22809,19 @@ ex³ù©iÚ
 Ãw_v®
 );
 
-375 #ifdeà
+437 #ifdeà
 DEBUG
 
 
-376 
+438 
 	gcout
- << "s3 sl_ÿs: sucûssfuÎy in£¹ed‡‚ew i‹m" << 
+ << "s3 sl_ÿs: sucûssfuÎy in£¹ed‡‚ew i‹m " << 
 	gÃw_™em
  << "‡ˆthbÙtom†ev– " << 
 	g’dl
 ;
 
-378 
+440 
 	gËv–
  = 1;†ev– < 
 	gÃw_™em
@@ -22595,11 +22829,11 @@ DEBUG
 	gnum_Ëv–s
 ; ++level) {
 
-379 #ifdeà
+441 #ifdeà
 DEBUG
 
 
-380 
+442 
 	gcout
  << "s3 sl_ÿs: in£¹šghÃw i‹m " << 
 	gÃw_™em
@@ -22609,7 +22843,7 @@ DEBUG
 	g’dl
 ;
 
-383 
+445 
 node_t
  * 
 	g´ed
@@ -22619,11 +22853,11 @@ node_t
 Ëv–
 ];
 
-384 #ifdeà
+446 #ifdeà
 DEBUG
 
 
-385 
+447 
 m¬kabË_t
  
 	gÙh”
@@ -22641,7 +22875,7 @@ SYNC_CAS
 Ãw_™em
 );
 
-386 if(
+448 if(
 	gÙh”
  =ğ(
 m¬kabË_t
@@ -22651,7 +22885,7 @@ m¬kabË_t
 Ëv–
 ])
 
-388 
+450 
 	gcout
  << "s3 sl_ÿs:†o¡‡„aû, faedØchªg´ed' lšk.ƒx³ùed " << 
 	gÃxts
@@ -22663,7 +22897,7 @@ m¬kabË_t
 	g’dl
 ;
 
-390 
+452 
 fšd_´eds
 (
 ´eds
@@ -22681,7 +22915,7 @@ key
 ASSIST_UNLINK
 );
 
-392 
+454 
 	gi
  = 
 Ëv–
@@ -22691,7 +22925,7 @@ ASSIST_UNLINK
 	gnum_Ëv–s
 ; ++i) {
 
-393 
+455 
 m¬kabË_t
  
 	gŞd_Ãxt
@@ -22703,7 +22937,7 @@ m¬kabË_t
 i
 ];
 
-394 if(
+456 if(
 	g»š‹½»t_ÿ¡
 <
 	gm¬kabË_t
@@ -22715,11 +22949,11 @@ i
 Şd_Ãxt
 )
 
-400 #ifdeà
+462 #ifdeà
 DEBUG
 
 
-401 
+463 
 	gcout
  << "s3 sl_ÿs:‡‰em±šgØupd©thÃw i‹m' lšk from " << 
 	gŞd_Ãxt
@@ -22731,7 +22965,7 @@ i
 	g’dl
 ;
 
-403 
+465 
 	gÙh”
  = 
 SYNC_CAS
@@ -22751,13 +22985,13 @@ m¬kabË_t
 Ãxts
 [i]));
 
-405 if(
+467 if(
 HAS_MARK
 (
 Ùh”
 )) {
 
-406 
+468 
 fšd_´eds
 (
 NULL
@@ -22769,7 +23003,7 @@ key
 FORCE_UNLINK
 );
 
-417 if(
+479 if(
 HAS_MARK
 (
 Ãw_™em
@@ -22779,7 +23013,7 @@ HAS_MARK
 num_Ëv–s
 -1])) {
 
-418 
+480 
 fšd_´eds
 (
 NULL
@@ -22791,7 +23025,583 @@ key
 FORCE_UNLINK
 );
 
-426 
+485 
+v®ue_ty³
+ 
+¦_ÿs
+(
+skli¡_t
+ *
+¦
+, 
+key_ty³
+ 
+key
+, v®ue_ty³ 
+ex³ù©iÚ
+, v®ue_ty³ 
+Ãw_v®
+) {
+
+486 #ifdeà
+DEBUG
+
+
+487 
+	gcout
+ << " s1 sl_ÿs: key " << 
+	gkey
+ << " skli¡ " << 
+	g¦
+ << 
+	g’dl
+;
+
+488 
+	gcout
+ << " s1 sl_ÿs:ex³ù©iÚ " << 
+	gex³ù©iÚ
+ << "‚ew v®u" << 
+	gÃw_v®
+ << 
+	g’dl
+;
+
+490 
+node_t
+ *
+	g´eds
+[
+MAX_LEVELS
+];
+
+491 
+node_t
+ *
+	gÃxts
+[
+MAX_LEVELS
+];
+
+492 
+node_t
+ *
+	gÃw_™em
+ = 
+NULL
+;
+
+493 
+	gn
+ = 
+¿ndom_Ëv–s
+(
+¦
+);
+
+494 
+node_t
+ *
+	gŞd_™em
+ = 
+fšd_´eds
+(
+´eds
+, 
+Ãxts
+, 
+n
+, 
+¦
+, 
+key
+, 
+ASSIST_UNLINK
+);
+
+497 if(
+	gŞd_™em
+ !ğ
+NULL
+) {
+
+498 
+v®ue_ty³
+ 
+»t_v®
+ = 
+upd©e_™em
+(
+Şd_™em
+, 
+ex³ù©iÚ
+, 
+Ãw_v®
+);
+
+499 if(
+	g»t_v®
+ != 0)
+
+500  
+»t_v®
+;
+
+503  
+¦_ÿs
+(
+¦
+, 
+key
+, 
+ex³ù©iÚ
+, 
+Ãw_v®
+);
+
+506 if(
+EXPECT_FALSE
+(
+ex³ù©iÚ
+ !ğ
+CAS_EXPECT_DOES_NOT_EXIST
+ &&ƒx³ù©iÚ !ğ
+CAS_EXPECT_WHATEVER
+)) {
+
+507 #ifdeà
+DEBUG
+
+
+508 
+cout
+ << " s1 sl_ÿs:hex³ù©iÚ wa nÙ m‘,hskli¡ wa nÙ chªged " << 
+’dl
+;
+
+513 #ifdeà
+DEBUG_CLONE
+
+
+514 
+	gcout
+ << " s3 sl_ÿs:‡‰em±šgØš£¹‡‚ew i‹m b‘w“À" << 
+	g´eds
+[0] << "‡nd " << 
+	gÃxts
+[0] << 
+	g’dl
+;
+
+519 
+Ëaf_t
+ *
+	gËaf
+ = 
+Ëaf_®loc
+();
+
+522 
+m¬kabË_t
+ 
+	gcouÁ
+ = 
+SYNC_ADD
+(&
+Ëaf
+->
+¦Ùu£d
+, 1);
+
+523 
+	gËaf
+->
+	g¦Ùkey
+[
+couÁ
+] = 
+key
+;
+
+524 
+	gËaf
+->
+	g¦Ùv®ue
+[
+couÁ
+] = 
+Ãw_v®
+;
+
+527 
+key_ty³
+ 
+	gÃw_key
+ = 
+¦
+->
+ty³
+ =ğ
+NULL
+ ? 
+key
+ : 
+»š‹½»t_ÿ¡
+<key_ty³>(¦->ty³->
+şÚe
+(reinterpret_cast<*>(key)));
+
+528 
+	gÃw_™em
+ = 
+node_®loc
+(
+n
+, 
+Ãw_key
+, 
+Ãw_v®
+);
+
+531 
+	gÃw_™em
+->
+	gËaf_±r
+ = 
+Ëaf
+;
+
+534 
+m¬kabË_t
+ 
+	gÃxt
+ = 
+Ãw_™em
+->
+Ãxt
+[0] = 
+»š‹½»t_ÿ¡
+<m¬kabË_t>(
+Ãxts
+[0]);
+
+535 
+	gËv–
+ = 1;†ev– < 
+	gÃw_™em
+->
+	gnum_Ëv–s
+; ++level) {
+
+536 
+	gÃw_™em
+->
+	gÃxt
+[
+Ëv–
+] = 
+»š‹½»t_ÿ¡
+<
+m¬kabË_t
+>(
+Ãxts
+[level]);
+
+539 
+node_t
+ *
+	g´ed
+ = 
+´eds
+[0];
+
+540 
+m¬kabË_t
+ 
+	gÙh”
+ = 
+SYNC_CAS
+(&
+´ed
+->
+Ãxt
+[0],‚ext, 
+»š‹½»t_ÿ¡
+<m¬kabË_t>(
+Ãw_™em
+));
+
+541 if(
+	gÙh”
+ !ğ
+Ãxt
+) {
+
+542 #ifdeà
+DEBUG
+
+
+543 
+cout
+ <<"s3 sl_ÿs: faedØchªg´ed' lšk:ƒx³ùed " << 
+Ãxt
+ << " found " << 
+Ùh”
+ << 
+’dl
+;
+
+546 if(
+	g¦
+->
+	gty³
+ !ğ
+NULL
+) {
+
+547 
+ä“
+(
+»š‹½»t_ÿ¡
+<*>(
+Ãw_key
+));
+
+549 
+ä“
+(
+Ãw_™em
+);
+
+550  
+¦_ÿs
+(
+¦
+, 
+key
+, 
+ex³ù©iÚ
+, 
+Ãw_v®
+);
+
+552 #ifdeà
+DEBUG
+
+
+553 
+	gcout
+ << "s3 sl_ÿs: sucûssfuÎy in£¹ed‡‚ew i‹m " << 
+	gÃw_™em
+ << "‡ˆthbÙtom†ev– " << 
+	g’dl
+;
+
+555 
+	gËv–
+ = 1;†ev– < 
+	gÃw_™em
+->
+	gnum_Ëv–s
+; ++level) {
+
+556 #ifdeà
+DEBUG
+
+
+557 
+	gcout
+ << "s3 sl_ÿs: in£¹šghÃw i‹m " << 
+	gÃw_™em
+ << "‡ˆËv– " << 
+	gËv–
+ << 
+	g’dl
+;
+
+560 
+node_t
+ * 
+	g´ed
+ = 
+´eds
+[
+Ëv–
+];
+
+561 #ifdeà
+DEBUG
+
+
+562 
+m¬kabË_t
+ 
+	gÙh”
+ = 
+SYNC_CAS
+(&
+´ed
+->
+Ãxt
+[
+Ëv–
+], (m¬kabË_t)
+Ãxts
+[Ëv–], (m¬kabË_t)
+Ãw_™em
+);
+
+563 if(
+	gÙh”
+ =ğ(
+m¬kabË_t
+)
+Ãxts
+[
+Ëv–
+])
+
+565 
+	gcout
+ << "s3 sl_ÿs:†o¡‡„aû, faedØchªg´ed' lšk.ƒx³ùed " << 
+	gÃxts
+[
+Ëv–
+] << " found " << 
+	gÙh”
+ << 
+	g’dl
+;
+
+567 
+fšd_´eds
+(
+´eds
+, 
+Ãxts
+, 
+Ãw_™em
+->
+num_Ëv–s
+, 
+¦
+, 
+key
+, 
+ASSIST_UNLINK
+);
+
+569 
+	gi
+ = 
+Ëv–
+; i < 
+	gÃw_™em
+->
+	gnum_Ëv–s
+; ++i) {
+
+570 
+m¬kabË_t
+ 
+	gŞd_Ãxt
+ = 
+Ãw_™em
+->
+Ãxt
+[
+i
+];
+
+571 if(
+	g»š‹½»t_ÿ¡
+<
+	gm¬kabË_t
+>(
+	gÃxts
+[
+i
+]è=ğ
+Şd_Ãxt
+)
+
+577 #ifdeà
+DEBUG
+
+
+578 
+	gcout
+ << "s3 sl_ÿs:‡‰em±šgØupd©thÃw i‹m' lšk from " << 
+	gŞd_Ãxt
+ << "Ø" << 
+	gÃxts
+[
+i
+] << 
+	g’dl
+;
+
+580 
+	gÙh”
+ = 
+SYNC_CAS
+(&
+Ãw_™em
+->
+Ãxt
+[
+i
+], 
+Şd_Ãxt
+, 
+»š‹½»t_ÿ¡
+<
+m¬kabË_t
+>(
+Ãxts
+[i]));
+
+582 if(
+HAS_MARK
+(
+Ùh”
+)) {
+
+583 
+fšd_´eds
+(
+NULL
+, NULL, 0, 
+¦
+, 
+key
+, 
+FORCE_UNLINK
+);
+
+594 if(
+HAS_MARK
+(
+Ãw_™em
+->
+Ãxt
+[Ãw_™em->
+num_Ëv–s
+-1])) {
+
+595 
+fšd_´eds
+(
+NULL
+, NULL, 0 , 
+¦
+, 
+key
+, 
+FORCE_UNLINK
+);
+
+603 
 v®ue_ty³
  
 ¦_»move
@@ -22805,11 +23615,11 @@ key_ty³
 key
 ) {
 
-427 #ifdeà
+604 #ifdeà
 DEBUG
 
 
-428 
+605 
 	gcout
  << "s1 sl_»move:„emovšg i‹m w™h key " << 
 	gkey
@@ -22819,7 +23629,7 @@ DEBUG
 	g’dl
 ;
 
-430 
+607 
 node_t
  *
 	g´eds
@@ -22827,7 +23637,7 @@ node_t
 MAX_LEVELS
 ];
 
-431 
+608 
 node_t
  *
 	g™em
@@ -22847,33 +23657,33 @@ key
 ASSIST_UNLINK
 );
 
-432 if(
+609 if(
 	g™em
  =ğ
 NULL
 ) {
 
-433 #ifdeà
+610 #ifdeà
 DEBUG
 
 
-434 
+611 
 cout
  << "s3 sl_»move:„emovçed,‡À™em w™h‡ m©chšg key dÛ nÙƒxi¡ iÀthskli¡" << 
 ’dl
 ;
 
-436  
+613  
 	gNULL
 ;
 
-442 
+619 
 m¬kabË_t
  
 	gŞd_Ãxt
  = 0;
 
-443 
+620 
 	gËv–
  = 
 ™em
@@ -22881,13 +23691,13 @@ m¬kabË_t
 num_Ëv–s
  - 1;†evel >= 0; --level) {
 
-444 
+621 
 m¬kabË_t
  
 	gÃxt
 ;
 
-445 
+622 
 	gŞd_Ãxt
  = 
 ™em
@@ -22897,11 +23707,11 @@ m¬kabË_t
 Ëv–
 ];
 
-447 #ifdeà
+624 #ifdeà
 DEBUG
 
 
-448 
+625 
 	gcout
  << "s3 sl_»move: m¬kšg i‹m‡ˆËv– " << 
 	gËv–
@@ -22911,13 +23721,13 @@ DEBUG
 	g’dl
 ;
 
-450 
+627 
 	gÃxt
  = 
 Şd_Ãxt
 ;
 
-451 
+628 
 	gŞd_Ãxt
  = 
 SYNC_CAS
@@ -22935,17 +23745,17 @@ MARK_NODE
 node_t
  *>(next)));
 
-452 if(
+629 if(
 HAS_MARK
 (
 Şd_Ãxt
 )) {
 
-453 #ifdeà
+630 #ifdeà
 DEBUG
 
 
-454 
+631 
 	gcout
  << " s2 sl_»move: " << 
 	g™em
@@ -22955,21 +23765,21 @@ DEBUG
 	g’dl
 ;
 
-456 if(
+633 if(
 	gËv–
  == 0)
 
-457  
+634  
 NULL
 ;
 
-460 }
+637 }
 	gÃxt
  !ğ
 Şd_Ãxt
 );
 
-465 
+642 
 v®ue_ty³
  
 	gv®
@@ -22983,11 +23793,11 @@ v®
 NULL
 );
 
-466 #ifdeà
+643 #ifdeà
 DEBUG
 
 
-467 
+644 
 	gcout
  << " sw sl_»move:„•Ïûd i‹m " << 
 	g™em
@@ -22995,7 +23805,7 @@ DEBUG
 	g’dl
 ;
 
-470 
+647 
 fšd_´eds
 (
 NULL
@@ -23007,7 +23817,7 @@ key
 FORCE_UNLINK
 );
 
-473 if(
+650 if(
 	g¦
 ->
 	gty³
@@ -23015,7 +23825,7 @@ FORCE_UNLINK
 NULL
 ) {
 
-474 
+651 
 ä“
 (
 ¡©ic_ÿ¡
@@ -23025,17 +23835,17 @@ NULL
 key
 ));
 
-476 
+653 
 ä“
 (
 ™em
 );
 
-478  
+655  
 	gv®
 ;
 
-481 
+658 
 ¦_™”
  * 
 ¦_™”_begš
@@ -23049,7 +23859,7 @@ key_ty³
 key
 ) {
 
-482 
+659 
 ¦_™”
  *
 	g™”
@@ -23059,13 +23869,13 @@ key
 m®loc
 ((sl_iter)));
 
-483 if(
+660 if(
 	gkey
  !ğ
 NULL
 ) {
 
-484 
+661 
 fšd_´eds
 (
 NULL
@@ -23081,7 +23891,7 @@ key
 DONT_UNLINK
 );
 
-486 
+663 
 	g™”
 ->
 	gÃxt
@@ -23095,11 +23905,11 @@ h—d
 Ãxt
 [0]);
 
-488  
+665  
 	g™”
 ;
 
-491 
+668 
 v®ue_ty³
  
 ¦_™”_Ãxt
@@ -23113,7 +23923,7 @@ key_ty³
 key_±r
 ) {
 
-492 
+669 
 node_t
  *
 	g™em
@@ -23123,7 +23933,7 @@ node_t
 Ãxt
 ;
 
-493  
+670  
 	g™em
  !ğ
 NULL
@@ -23135,7 +23945,7 @@ HAS_MARK
 Ãxt
 [0])) {
 
-494 
+671 
 ™em
  = 
 STRIP_MARK
@@ -23143,13 +23953,13 @@ STRIP_MARK
 Ãxt
 [0]);
 
-496 if(
+673 if(
 	g™em
  =ğ
 NULL
 ) {
 
-497 
+674 
 ™”
 ->
 Ãxt
@@ -23157,11 +23967,11 @@ NULL
 NULL
 ;
 
-498  
+675  
 	gNULL
 ;
 
-501 
+678 
 	g™”
 ->
 	gÃxt
@@ -23173,13 +23983,13 @@ STRIP_MARK
 Ãxt
 [0]);
 
-502 iàĞ
+679 iàĞ
 	gkey_±r
  !ğ
 NULL
 ) {
 
-503 *
+680 *
 key_±r
  = 
 ™em
@@ -23187,13 +23997,13 @@ key_±r
 key
 ;
 
-505  
+682  
 	g™em
 ->
 	gv®
 ;
 
-508 
+685 
 ¦_™”_ä“
  ( 
 ¦_™”
@@ -23201,7 +24011,7 @@ key
 ™”
 ) {
 
-509 
+686 
 ä“
 (
 ™”
@@ -23365,6 +24175,8 @@ em±y_¡ruù
 	tkey_ty³
 , 
 	tv®ue_ty³
+, 
+	tŒa™s
 > 
 	tskli¡_im¶
 ;
@@ -23379,31 +24191,55 @@ ty³Çme
 	t™”©Ü
 ;
 
-33 
+33 
 ty³Çme
  
-	gskli¡_im¶
+	tskli¡_im¶
 ::
-skli¡_t
+	tskli¡_t
  
-¦
+	t¦
 ;
 
 34 
+¦
+ * 
+	g¦i¡
+;
+
+36 
 	g´iv©e
 :
 
-35 
+37 
 skli¡_im¶
  
 li¡
 ;
 
-36 
+38 
 	gpublic
 :
 
-37 
+39 
+skli¡_muÉim­
+()
+
+41 
+¦i¡
+ = 
+li¡
+.
+¦_®loc
+(
+NULL
+);
+
+43 
+	gpublic
+:
+
+44 
 šlše
  
 v®ue_ty³
@@ -23417,19 +24253,19 @@ key
 v®ue
 )
 
-39  
+46  
 	gli¡
 .
 ¦_ÿs
-(&
-¦
+(
+¦i¡
 , 
 key
 , -2, 
 v®ue
 );
 
-42 
+49 
 šlše
  
 v®ue_ty³
@@ -23441,7 +24277,7 @@ d©a_ty³
 x
 )
 
-44  
+51  
 š£¹
 (
 x
@@ -29987,39 +30823,39 @@ os
 	~<uni¡d.h
 >
 
-52 cÚ¡ 
+51 cÚ¡ 
 	gmš™ems
- = 1024000 * 64;
+ = 16;
 
-56 cÚ¡ 
+58 cÚ¡ 
 	gmax™ems
- = 1024000 * 64;
+ = 16;
 
-59 cÚ¡ 
+61 cÚ¡ 
 	g¿nd£ed
  = 34234235;
 
-62 cÚ¡ 
+64 cÚ¡ 
 	gmš_node¦Ùs
  = 4;
 
-63 cÚ¡ 
+65 cÚ¡ 
 	gmax_node¦Ùs
  = 256;
 
-66 
+68 
 šlše
  
 	$time¡amp
 ()
 
-68 
+70 
 timev®
  
 tv
 ;
 
-69 
+71 
 	`g‘timeofday
 (&
 tv
@@ -30027,7 +30863,7 @@ tv
 NULL
 );
 
-70  
+72  
 tv
 .
 tv_£c
@@ -30035,11 +30871,11 @@ tv_£c
 tv_u£c
  * 0.000001;
 
-71 
+73 
 	}
 }
 
-74 
+76 
 	g‹m¶©e
  <
 	g_šÃr¦Ùs
@@ -30047,7 +30883,7 @@ tv_u£c
 	g_Ëaf¦Ùs
 >
 
-75 
+77 
 şass
  
 	gbŒ“_Œa™s_¥“d
@@ -30057,11 +30893,11 @@ tv_u£c
 bŒ“_deçuÉ_£t_Œa™s
 <>
 
-77 
+79 
 public
 :
 
-78 cÚ¡ 
+80 cÚ¡ 
 boŞ
  
 £lfv”ify
@@ -30069,7 +30905,7 @@ boŞ
 çl£
 ;
 
-79 cÚ¡ 
+81 cÚ¡ 
 boŞ
  
 	gdebug
@@ -30077,25 +30913,51 @@ boŞ
 çl£
 ;
 
-81 cÚ¡ 
+83 cÚ¡ 
 	gËaf¦Ùs
  = 
 _šÃr¦Ùs
 ;
 
-82 cÚ¡ 
+84 cÚ¡ 
 	gšÃr¦Ùs
  = 
 _Ëaf¦Ùs
 ;
 
-84 cÚ¡ 
+86 cÚ¡ 
 size_t
  
 	gbš£¬ch_th»shŞd
  = 256 * 1024 * 1024;
 
+89 
+	g‹m¶©e
+ <
+	g_Ëaf¦Ùs
+>
+
 90 
+şass
+ 
+	gskli¡_Œa™s_¥“d
+ : 
+¡x
+::
+skli¡_deçuÉ_£t_Œa™s
+<>
+
+92 
+public
+:
+
+93 cÚ¡ 
+Ëaf¦Ùs
+ = 
+_Ëaf¦Ùs
+;
+
+99 
 	g‹m¶©e
  <
 ty³Çme
@@ -30103,45 +30965,45 @@ ty³Çme
 	gS‘Ty³
 >
 
-91 şas 
+100 şas 
 	cTe¡_S‘_In£¹
 
 
-93 
+102 
 	mpublic
 :
 
-94 
+103 
 ex¶ic™
  
 	$Te¡_S‘_In£¹
 () { }
 
-96 
+105 
 	$run
 (
 ™ems
 )
 
-98 
+107 
 S‘Ty³
  
 £t
 ;
 
-100 
+109 
 	`¤ªd
 (
 ¿nd£ed
 );
 
-101 
+110 
 i
  = 0; i < 
 ™ems
 ; i++)
 
-102 
+111 
 £t
 .
 	`š£¹
@@ -30149,7 +31011,7 @@ i
 	`¿nd
 ());
 
-103 
+112 
 	`as£¹
 (
 £t
@@ -30159,11 +31021,11 @@ i
 ™ems
 );
 
-104 
+113 
 	}
 }
 
-108 
+117 
 	g‹m¶©e
  <
 ty³Çme
@@ -30171,45 +31033,45 @@ ty³Çme
 	gS‘Ty³
 >
 
-109 şas 
+118 şas 
 	cTe¡_S‘_In£¹FšdD–‘e
 
 
-111 
+120 
 	mpublic
 :
 
-112 
+121 
 ex¶ic™
  
 	$Te¡_S‘_In£¹FšdD–‘e
 () { }
 
-114 
+123 
 	$run
 (
 ™ems
 )
 
-116 
+125 
 S‘Ty³
  
 £t
 ;
 
-118 
+127 
 	`¤ªd
 (
 ¿nd£ed
 );
 
-119 
+128 
 i
  = 0; i < 
 ™ems
 ; i++)
 
-120 
+129 
 £t
 .
 	`š£¹
@@ -30217,7 +31079,7 @@ i
 	`¿nd
 ());
 
-122 
+131 
 	`as£¹
 (
 £t
@@ -30227,19 +31089,19 @@ i
 ™ems
 );
 
-124 
+133 
 	`¤ªd
 (
 ¿nd£ed
 );
 
-125 
+134 
 i
  = 0; i < 
 ™ems
 ; i++)
 
-126 
+135 
 £t
 .
 	`fšd
@@ -30247,19 +31109,19 @@ i
 	`¿nd
 ());
 
-128 
+137 
 	`¤ªd
 (
 ¿nd£ed
 );
 
-129 
+138 
 i
  = 0; i < 
 ™ems
 ; i++)
 
-130 
+139 
 £t
 .
 	`”a£
@@ -30269,7 +31131,7 @@ i
 	`¿nd
 ()));
 
-132 
+141 
 	`as£¹
 (
 £t
@@ -30277,11 +31139,11 @@ i
 	`em±y
 ());
 
-133 
+142 
 	}
 }
 
-137 
+146 
 	g‹m¶©e
  <
 ty³Çme
@@ -30289,60 +31151,24 @@ ty³Çme
 	gS‘Ty³
 >
 
-138 şas 
+147 şas 
 	cTe¡_S‘_Fšd
 
 
-140 
+149 
 	mpublic
 :
 
-141 
+150 
 S‘Ty³
  
 £t
 ;
 
-143 
+152 
 ex¶ic™
  
 	$Te¡_S‘_Fšd
-(
-™ems
-)
-
-145 
-	`¤ªd
-(
-¿nd£ed
-);
-
-146 
-i
- = 0; i < 
-™ems
-; i++)
-
-147 
-£t
-.
-	`š£¹
-(
-	`¿nd
-());
-
-149 
-	`as£¹
-(
-£t
-.
-	`size
-(è=ğ
-™ems
-);
-
-152 
-	$run
 (
 ™ems
 )
@@ -30362,16 +31188,52 @@ i
 156 
 £t
 .
+	`š£¹
+(
+	`¿nd
+());
+
+158 
+	`as£¹
+(
+£t
+.
+	`size
+(è=ğ
+™ems
+);
+
+161 
+	$run
+(
+™ems
+)
+
+163 
+	`¤ªd
+(
+¿nd£ed
+);
+
+164 
+i
+ = 0; i < 
+™ems
+; i++)
+
+165 
+£t
+.
 	`fšd
 (
 	`¿nd
 ());
 
-157 
+166 
 	}
 }
 
-161 
+170 
 	g‹m¶©e
  <‹m¶©<
 ty³Çme
@@ -30383,15 +31245,15 @@ ty³Çme
 	gTe¡CÏss
 >
 
-162 şas 
+171 şas 
 	cTe¡FaùÜy_S‘
 
 
-164 
+173 
 	mpublic
 :
 
-166 
+175 
 Te¡CÏss
 <
 	t¡d
@@ -30401,7 +31263,7 @@ Te¡CÏss
 	tStdS‘
 ;
 
-169 
+178 
 	mTe¡CÏss
 <
 	t__gnu_cxx
@@ -30411,7 +31273,7 @@ Te¡CÏss
 	tHashS‘
 ;
 
-172 
+181 
 	mTe¡CÏss
 <
 	t¡d
@@ -30423,25 +31285,25 @@ Te¡CÏss
 	tUnÜd”edS‘
 ;
 
-175 
+184 
 	m‹m¶©e
  <
 	mSlÙs
 >
 
-176 
+185 
 şass
  
 	mBŒ“S‘
 
 
-177 : 
+186 : 
 public
  
 Te¡CÏss
 <
 
-178 
+187 
 ¡x
 ::
 bŒ“_muÉi£t
@@ -30451,17 +31313,17 @@ bŒ“_muÉi£t
 Ëss
 <>,
 
-179 
+188 
 	mbŒ“_Œa™s_¥“d
 <
 	mSlÙs
 , Slots> > >
 
-181 
+190 
 	mpublic
 :
 
-182 
+191 
 ex¶ic™
  
 BŒ“S‘
@@ -30469,11 +31331,11 @@ BŒ“S‘
 n
 )
 
-183 : 
+192 : 
 Te¡CÏss
 <
 
-184 
+193 
 ¡x
 ::
 bŒ“_muÉi£t
@@ -30483,7 +31345,7 @@ bŒ“_muÉi£t
 Ëss
 <>,
 
-185 
+194 
 	mbŒ“_Œa™s_¥“d
 <
 	mSlÙs
@@ -30491,7 +31353,7 @@ bŒ“_muÉi£t
 	mn
 )
 
-190 
+199 
 şass
  
 	gTŒ“S‘
@@ -30509,11 +31371,11 @@ Te¡CÏss
 Ëss
 <> > >
 
-192 
+201 
 public
 :
 
-193 
+202 
 ex¶ic™
  
 TŒ“S‘
@@ -30521,11 +31383,11 @@ TŒ“S‘
 n
 )
 
-194 : 
+203 : 
 Te¡CÏss
 <
 
-195 
+204 
 ¡x
 ::
 ‰»e_£t
@@ -30537,7 +31399,7 @@ Te¡CÏss
 n
 )
 
-199 
+208 
 ÿÎ_‹¡ruÂ”
 (
 ¡d
@@ -30549,7 +31411,7 @@ os
 ™ems
 );
 
-205 
+214 
 	g‹m¶©e
  <
 ty³Çme
@@ -30557,51 +31419,51 @@ ty³Çme
 	gM­Ty³
 >
 
-206 şas 
+215 şas 
 	cTe¡_M­_In£¹
 
 
-208 
+217 
 	mpublic
 :
 
-209 
+218 
 ex¶ic™
  
 	$Te¡_M­_In£¹
 () { }
 
-211 
+220 
 	$run
 (
 ™ems
 )
 
-213 
+222 
 M­Ty³
  
 m­
 ;
 
-215 
+224 
 	`¤ªd
 (
 ¿nd£ed
 );
 
-216 
+225 
 i
  = 0; i < 
 ™ems
 ; i++) {
 
-217 
+226 
 r
  = 
 	`¿nd
-();
+() ;
 
-218 
+227 
 m­
 .
 	`š£¹
@@ -30613,7 +31475,7 @@ m­
 r
 ,„));
 
-221 
+230 
 	`as£¹
 (
 m­
@@ -30623,11 +31485,11 @@ m­
 ™ems
 );
 
-222 
+231 
 	}
 }
 
-226 
+235 
 	g‹m¶©e
  <
 ty³Çme
@@ -30635,51 +31497,51 @@ ty³Çme
 	gM­Ty³
 >
 
-227 şas 
+236 şas 
 	cTe¡_M­_In£¹FšdD–‘e
 
 
-229 
+238 
 	mpublic
 :
 
-230 
+239 
 ex¶ic™
  
 	$Te¡_M­_In£¹FšdD–‘e
 () { }
 
-232 
+241 
 	$run
 (
 ™ems
 )
 
-234 
+243 
 M­Ty³
  
 m­
 ;
 
-236 
+245 
 	`¤ªd
 (
 ¿nd£ed
 );
 
-237 
+246 
 i
  = 0; i < 
 ™ems
 ; i++) {
 
-238 
+247 
 r
  = 
 	`¿nd
 ();
 
-239 
+248 
 m­
 .
 	`š£¹
@@ -30691,7 +31553,7 @@ m­
 r
 ,„));
 
-242 
+251 
 	`as£¹
 (
 m­
@@ -30701,19 +31563,19 @@ m­
 ™ems
 );
 
-244 
+253 
 	`¤ªd
 (
 ¿nd£ed
 );
 
-245 
+254 
 i
  = 0; i < 
 ™ems
 ; i++)
 
-246 
+255 
 m­
 .
 	`fšd
@@ -30721,19 +31583,19 @@ m­
 	`¿nd
 ());
 
-248 
+257 
 	`¤ªd
 (
 ¿nd£ed
 );
 
-249 
+258 
 i
  = 0; i < 
 ™ems
 ; i++)
 
-250 
+259 
 m­
 .
 	`”a£
@@ -30743,7 +31605,7 @@ m­
 	`¿nd
 ()));
 
-252 
+261 
 	`as£¹
 (
 m­
@@ -30751,11 +31613,11 @@ m­
 	`em±y
 ());
 
-253 
+262 
 	}
 }
 
-257 
+266 
 	g‹m¶©e
  <
 ty³Çme
@@ -30763,21 +31625,21 @@ ty³Çme
 	gM­Ty³
 >
 
-258 şas 
+267 şas 
 	cTe¡_M­_Fšd
 
 
-260 
+269 
 	mpublic
 :
 
-261 
+270 
 M­Ty³
  
 m­
 ;
 
-263 
+272 
 ex¶ic™
  
 	$Te¡_M­_Fšd
@@ -30785,25 +31647,25 @@ ex¶ic™
 ™ems
 )
 
-265 
+274 
 	`¤ªd
 (
 ¿nd£ed
 );
 
-266 
+275 
 i
  = 0; i < 
 ™ems
 ; i++) {
 
-267 
+276 
 r
  = 
 	`¿nd
 ();
 
-268 
+277 
 m­
 .
 	`š£¹
@@ -30815,7 +31677,7 @@ m­
 r
 ,„));
 
-270 
+279 
 cout
  << "ch¬l›»w™h " << 
 ™ems
@@ -30823,29 +31685,29 @@ cout
 ’dl
 ;
 
-271 
+280 
 	`¦“p
 (5);
 
-275 
+284 
 	$run
 (
 ™ems
 )
 
-277 
+286 
 	`¤ªd
 (
 ¿nd£ed
 );
 
-279 
+288 
 i
  = 0; i < 
 ™ems
 ; i++)
 
-280 
+289 
 m­
 .
 	`fšd
@@ -30853,11 +31715,11 @@ m­
 	`¿nd
 ());
 
-282 
+291 
 	}
 }
 
-286 
+295 
 	g‹m¶©e
  <‹m¶©<
 ty³Çme
@@ -30869,15 +31731,15 @@ ty³Çme
 	gTe¡CÏss
 >
 
-287 şas 
+296 şas 
 	cTe¡FaùÜy_M­
 
 
-289 
+298 
 	mpublic
 :
 
-291 
+300 
 Te¡CÏss
 <
 	t¡d
@@ -30887,7 +31749,7 @@ Te¡CÏss
 	tStdM­
 ;
 
-294 
+303 
 	mTe¡CÏss
 <
 	t__gnu_cxx
@@ -30897,7 +31759,7 @@ Te¡CÏss
 	tHashM­
 ;
 
-297 
+306 
 	mTe¡CÏss
 <
 	t¡d
@@ -30907,51 +31769,51 @@ Te¡CÏss
 	tunÜd”ed_muÉim­
 <
 
-298 , > > 
+307 , > > 
 	tUnÜd”edM­
 ;
 
-301 
+310 
 	m‹m¶©e
  <
 	mSlÙs
 >
 
-302 
+311 
 şass
  
 	mBŒ“M­
 
 
-303 : 
+312 : 
 public
  
 Te¡CÏss
 <
 
-304 
+313 
 ¡x
 ::
 bŒ“_muÉim­
 <, ,
 
-305 
+314 
 	m¡d
 ::
 Ëss
 <>,
 
-306 
+315 
 	mbŒ“_Œa™s_¥“d
 <
 	mSlÙs
 , Slots> > >
 
-308 
+317 
 	mpublic
 :
 
-309 
+318 
 ex¶ic™
  
 BŒ“M­
@@ -30959,23 +31821,23 @@ BŒ“M­
 n
 )
 
-310 : 
+319 : 
 Te¡CÏss
 <
 
-311 
+320 
 ¡x
 ::
 bŒ“_muÉim­
 <, ,
 
-312 
+321 
 	m¡d
 ::
 Ëss
 <>,
 
-313 
+322 
 	mbŒ“_Œa™s_¥“d
 <
 	mSlÙs
@@ -30983,7 +31845,7 @@ bŒ“_muÉim­
 	mn
 )
 
-316 
+325 
 şass
  
 	gTŒ“M­
@@ -31001,52 +31863,6 @@ Te¡CÏss
 Ëss
 <> > >
 
-318 
-public
-:
-
-319 
-ex¶ic™
- 
-TŒ“M­
-(
-n
-)
-
-320 :
-Te¡CÏss
-<
-
-321 
-¡x
-::
-‰»e_muÉim­
-<, , 
-	g¡d
-::
-Ëss
-<> > >(
-n
-)
-
-325 
-şass
- 
-	gSkli¡M­
-: 
-public
- 
-Te¡CÏss
-<
-¡x
-::
-skli¡_muÉim­
-<, , 
-	g¡d
-::
-Ëss
-<> > >
-
 327 
 public
 :
@@ -31054,7 +31870,7 @@ public
 328 
 ex¶ic™
  
-Skli¡M­
+TŒ“M­
 (
 n
 )
@@ -31066,16 +31882,84 @@ Te¡CÏss
 330 
 ¡x
 ::
+‰»e_muÉim­
+<, , 
+	g¡d
+::
+Ëss
+<> > >(
+n
+)
+
+333 
+	g‹m¶©e
+ <
+	gSlÙs
+>
+
+334 
+şass
+ 
+	gSkli¡M­
+
+
+335 : 
+public
+ 
+Te¡CÏss
+<
+
+336 
+¡x
+::
 skli¡_muÉim­
 <, , 
 	g¡d
 ::
 Ëss
-<> > >(
+<>,
+
+337 
+	gskli¡_Œa™s_¥“d
+<
+	gSlÙs
+> > >
+
+339 
+	gpublic
+:
+
+340 
+ex¶ic™
+ 
+Skli¡M­
+(
 n
 )
 
-335 
+341 :
+Te¡CÏss
+<
+
+342 
+¡x
+::
+skli¡_muÉim­
+<, , 
+	g¡d
+::
+Ëss
+<>,
+
+343 
+	gskli¡_Œa™s_¥“d
+<
+	gSlÙs
+> > >(
+	gn
+)
+
+348 
 ÿÎ_‹¡ruÂ”
 (
 ¡d
@@ -31087,11 +31971,11 @@ os
 ™ems
 );
 
-340 
+353 
 	g»³©uÁ
 ;
 
-343 
+356 
 	g‹m¶©e
  <
 ty³Çme
@@ -31099,7 +31983,7 @@ ty³Çme
 	gTe¡CÏss
 >
 
-344 
+357 
 	$‹¡ruÂ”_loİ
 (
 ¡d
@@ -31111,21 +31995,21 @@ os
 ™ems
 )
 
-346 
+359 
 runs
  = 0;
 
-347 
+360 
 ts1
 , 
 ts2
 ;
 
-351 
+364 
 runs
  = 0;
 
-355 
+368 
 Te¡CÏss
  
 	`‹¡
@@ -31133,17 +32017,17 @@ Te¡CÏss
 ™ems
 );
 
-358 
+371 
 ts1
  = 
 	`time¡amp
 ();
 
-360 
+373 
 tÙ®‹¡s
  = 0;
 
-361 
+374 
 tÙ®‹¡s
  <ğ
 »³©uÁ
@@ -31151,7 +32035,7 @@ tÙ®‹¡s
 ™ems
 )
 
-363 
+376 
 ‹¡
 .
 	`run
@@ -31159,17 +32043,17 @@ tÙ®‹¡s
 ™ems
 );
 
-364 ++
+377 ++
 runs
 ;
 
-367 
+380 
 ts2
  = 
 	`time¡amp
 ();
 
-373 ià((
+386 ià((
 ts2
  - 
 ts1
@@ -31177,13 +32061,13 @@ ts1
 »³©uÁ
  *= 2;
 
-375 (
+388 (
 ts2
  - 
 ts1
 ) < 1.0);
 
-376 
+389 
 ¡d
 ::
 û¼
@@ -31193,13 +32077,13 @@ ts1
 »³©uÁ
  / items)
 
-377 << "im" << (
+390 << "im" << (
 ts2
  - 
 ts1
 ) << "\n";
 
-379 
+392 
 os
  << 
 ¡d
@@ -31209,7 +32093,7 @@ fixed
 	`£»cisiÚ
 (10)
 
-380 << ((
+393 << ((
 ts2
  - 
 ts1
@@ -31221,11 +32105,11 @@ runs
 æush
 ;
 
-381 
+394 
 	}
 }
 
-385 
+398 
 	g‹m¶©e
  <‹m¶©<
 	gSlÙs
@@ -31239,15 +32123,15 @@ runs
 	gHigh
 >
 
-386 şas 
+399 şas 
 	cbŒ“_¿nge
 
 
-388 
+401 
 	mpublic
 :
 
-389 
+402 
 	$İ”©Ü
  (è(
 ¡d
@@ -31259,7 +32143,7 @@ os
 ™ems
 )
 
-391 
+404 
 ‹¡ruÂ”_loİ
 <
 funùiÚ®
@@ -31271,7 +32155,7 @@ os
 ™ems
 );
 
-392 
+405 
 bŒ“_¿nge
 <
 funùiÚ®
@@ -31285,11 +32169,11 @@ os
 ™ems
 );
 
-394 
+407 
 	}
 };
 
-396 
+409 
 	g‹m¶©e
  <‹m¶©<
 	gSlÙs
@@ -31301,7 +32185,7 @@ os
 	gLow
 >
 
-397 
+410 
 şass
  
 	gbŒ“_¿nge
@@ -31311,11 +32195,11 @@ os
 	gLow
 , Low>
 
-399 
+412 
 	gpublic
 :
 
-400 
+413 
 İ”©Ü
  (è(
 ¡d
@@ -31327,7 +32211,7 @@ os
 	g™ems
 )
 
-402 
+415 
 	g‹¡ruÂ”_loİ
 <
 	gfunùiÚ®
@@ -31339,7 +32223,7 @@ os
 	g™ems
 );
 
-406 
+419 
 	g‹m¶©e
  <‹m¶©<
 ty³Çme
@@ -31351,7 +32235,7 @@ ty³Çme
 	gTe¡CÏss
 >
 
-407 
+420 
 	gTe¡FaùÜy_S‘
 <
 	gTe¡CÏss
@@ -31359,7 +32243,7 @@ ty³Çme
 	$ÿÎ_‹¡ruÂ”
 (
 
-408 
+421 
 ¡d
 ::
 o¡»am
@@ -31369,7 +32253,7 @@ os
 ™ems
 )
 
-410 
+423 
 os
  << 
 ™ems
@@ -31379,7 +32263,7 @@ os
 æush
 ;
 
-411 
+424 
 cout
  << "Te¡FaùÜy_S‘ c®l_‹¡ruÂ”: i‹m i " << 
 ™ems
@@ -31387,13 +32271,13 @@ cout
 ’dl
 ;
 
-413 
+426 
 cout
  << "StdS‘ " << 
 ’dl
 ;
 
-414 
+427 
 ‹¡ruÂ”_loİ
 <
 StdS‘
@@ -31403,13 +32287,13 @@ os
 ™ems
 );
 
-415 
+428 
 cout
  << "HashS‘ " << 
 ’dl
 ;
 
-416 
+429 
 ‹¡ruÂ”_loİ
 <
 HashS‘
@@ -31419,13 +32303,13 @@ os
 ™ems
 );
 
-417 
+430 
 cout
  << "UnÜd”edS‘ " << 
 ’dl
 ;
 
-418 
+431 
 ‹¡ruÂ”_loİ
 <
 UnÜd”edS‘
@@ -31435,13 +32319,13 @@ os
 ™ems
 );
 
-420 
+433 
 cout
  << "TT»eS‘ " << 
 ’dl
 ;
 
-421 
+434 
 ‹¡ruÂ”_loİ
 <
 TŒ“S‘
@@ -31451,13 +32335,13 @@ os
 ™ems
 );
 
-423 
+436 
 cout
  << "BŒ“S‘ " << 
 ’dl
 ;
 
-426 
+439 
 ‹¡ruÂ”_loİ
 <
 BŒ“S‘
@@ -31467,13 +32351,13 @@ os
 ™ems
 );
 
-427 
+440 
 i
  = 6; i < 8; i +ğ2è
 os
  << "0 ";
 
-428 
+441 
 ‹¡ruÂ”_loİ
 <
 BŒ“S‘
@@ -31483,13 +32367,13 @@ os
 ™ems
 );
 
-429 
+442 
 i
  = 10; i < 16; i +ğ2è
 os
  << "0 ";
 
-430 
+443 
 ‹¡ruÂ”_loİ
 <
 BŒ“S‘
@@ -31499,13 +32383,13 @@ os
 ™ems
 );
 
-431 
+444 
 i
  = 18; i < 32; i +ğ2è
 os
  << "0 ";
 
-432 
+445 
 ‹¡ruÂ”_loİ
 <
 BŒ“S‘
@@ -31515,13 +32399,13 @@ os
 ™ems
 );
 
-433 
+446 
 i
  = 34; i < 64; i +ğ2è
 os
  << "0 ";
 
-434 
+447 
 ‹¡ruÂ”_loİ
 <
 BŒ“S‘
@@ -31531,13 +32415,13 @@ os
 ™ems
 );
 
-435 
+448 
 i
  = 66; i < 128; i +ğ2è
 os
  << "0 ";
 
-436 
+449 
 ‹¡ruÂ”_loİ
 <
 BŒ“S‘
@@ -31547,13 +32431,13 @@ os
 ™ems
 );
 
-437 
+450 
 i
  = 130; i < 256; i +ğ2è
 os
  << "0 ";
 
-438 
+451 
 ‹¡ruÂ”_loİ
 <
 BŒ“S‘
@@ -31563,7 +32447,7 @@ os
 ™ems
 );
 
-441 
+454 
 os
  << "\n" << 
 ¡d
@@ -31571,11 +32455,11 @@ os
 æush
 ;
 
-442 
+455 
 	}
 }
 
-444 
+457 
 	g‹m¶©e
  <‹m¶©<
 ty³Çme
@@ -31587,7 +32471,7 @@ ty³Çme
 	gTe¡CÏss
 >
 
-445 
+458 
 	gTe¡FaùÜy_M­
 <
 	gTe¡CÏss
@@ -31595,7 +32479,7 @@ ty³Çme
 	$ÿÎ_‹¡ruÂ”
 (
 
-446 
+459 
 ¡d
 ::
 o¡»am
@@ -31605,7 +32489,7 @@ os
 ™ems
 )
 
-448 
+461 
 os
  << 
 ™ems
@@ -31615,13 +32499,13 @@ os
 æush
 ;
 
-450 
+463 
 cout
  << " StdM­ " << 
 ’dl
 ;
 
-451 
+464 
 ‹¡ruÂ”_loİ
 <
 StdM­
@@ -31631,13 +32515,13 @@ os
 ™ems
 );
 
-454 
+467 
 cout
  << " HashM­ " << 
 ’dl
 ;
 
-455 
+468 
 ‹¡ruÂ”_loİ
 <
 HashM­
@@ -31647,13 +32531,13 @@ os
 ™ems
 );
 
-458 
+471 
 cout
  << " UnÜd”ed " << 
 ’dl
 ;
 
-459 
+472 
 ‹¡ruÂ”_loİ
 <
 UnÜd”edM­
@@ -31663,13 +32547,13 @@ os
 ™ems
 );
 
-462 
+475 
 cout
  << " BŒ“M­ " <<
 ’dl
 ;
 
-463 
+476 
 ‹¡ruÂ”_loİ
 <
 BŒ“M­
@@ -31679,29 +32563,29 @@ os
 ™ems
 );
 
-466 
+479 
 cout
  << "Skli¡M­" << 
 ’dl
 ;
 
-467 
+480 
 ‹¡ruÂ”_loİ
 <
 Skli¡M­
->(
+<64> >(
 os
 , 
 ™ems
 );
 
-470 
+483 
 cout
  << " TŒ“M­ " <<
 ’dl
 ;
 
-471 
+484 
 ‹¡ruÂ”_loİ
 <
 TŒ“M­
@@ -31711,7 +32595,7 @@ os
 ™ems
 );
 
-477 
+490 
 ‹¡ruÂ”_loİ
 <
 BŒ“M­
@@ -31721,13 +32605,13 @@ os
 ™ems
 );
 
-478 
+491 
 i
  = 6; i < 8; i +ğ2è
 os
  << "0 ";
 
-479 
+492 
 ‹¡ruÂ”_loİ
 <
 BŒ“M­
@@ -31737,13 +32621,13 @@ os
 ™ems
 );
 
-480 
+493 
 i
  = 10; i < 16; i +ğ2è
 os
  << "0 ";
 
-481 
+494 
 ‹¡ruÂ”_loİ
 <
 BŒ“M­
@@ -31753,13 +32637,13 @@ os
 ™ems
 );
 
-482 
+495 
 i
  = 18; i < 32; i +ğ2è
 os
  << "0 ";
 
-483 
+496 
 ‹¡ruÂ”_loİ
 <
 BŒ“M­
@@ -31769,13 +32653,13 @@ os
 ™ems
 );
 
-484 
+497 
 i
  = 34; i < 64; i +ğ2è
 os
  << "0 ";
 
-485 
+498 
 ‹¡ruÂ”_loİ
 <
 BŒ“M­
@@ -31785,13 +32669,13 @@ os
 ™ems
 );
 
-486 
+499 
 i
  = 66; i < 128; i +ğ2è
 os
  << "0 ";
 
-487 
+500 
 ‹¡ruÂ”_loİ
 <
 BŒ“M­
@@ -31801,13 +32685,13 @@ os
 ™ems
 );
 
-488 
+501 
 i
  = 130; i < 256; i +ğ2è
 os
  << "0 ";
 
-489 
+502 
 ‹¡ruÂ”_loİ
 <
 BŒ“M­
@@ -31817,7 +32701,7 @@ os
 ™ems
 );
 
-492 
+505 
 os
  << "\n" << 
 ¡d
@@ -31825,55 +32709,13 @@ os
 æush
 ;
 
-493 
+506 
 	}
 }
 
-496 
+509 
 	$maš
 ()
-
-500 
-¡d
-::
-of¡»am
- 
-	`os
-("speed-set-insert.txt");
-
-502 
-»³©uÁ
- = 
-mš™ems
-;
-
-504 
-™ems
- = 
-mš™ems
-; i‹m <ğ
-max™ems
-; items *= 2)
-
-506 
-¡d
-::
-û¼
- << "£t: in£¹ " << 
-™ems
- << "\n";
-
-507 
-Te¡FaùÜy_S‘
-<
-Te¡_S‘_In£¹
->().
-	`ÿÎ_‹¡ruÂ”
-(
-os
-, 
-™ems
-);
 
 513 
 ¡d
@@ -31881,7 +32723,7 @@ os
 of¡»am
  
 	`os
-("speed-set-all.txt");
+("speed-set-insert.txt");
 
 515 
 »³©uÁ
@@ -31901,14 +32743,14 @@ max™ems
 ¡d
 ::
 û¼
- << "£t: in£¹, fšd, d–‘" << 
+ << "£t: in£¹ " << 
 ™ems
  << "\n";
 
 520 
 Te¡FaùÜy_S‘
 <
-Te¡_S‘_In£¹FšdD–‘e
+Te¡_S‘_In£¹
 >().
 	`ÿÎ_‹¡ruÂ”
 (
@@ -31923,7 +32765,7 @@ os
 of¡»am
  
 	`os
-("speed-set-find.txt");
+("speed-set-all.txt");
 
 528 
 »³©uÁ
@@ -31943,14 +32785,14 @@ max™ems
 ¡d
 ::
 û¼
- << "£t: fšd " << 
+ << "£t: in£¹, fšd, d–‘" << 
 ™ems
  << "\n";
 
 533 
 Te¡FaùÜy_S‘
 <
-Te¡_S‘_Fšd
+Te¡_S‘_In£¹FšdD–‘e
 >().
 	`ÿÎ_‹¡ruÂ”
 (
@@ -31965,7 +32807,7 @@ os
 of¡»am
  
 	`os
-("speed-map-insert.txt");
+("speed-set-find.txt");
 
 541 
 »³©uÁ
@@ -31985,14 +32827,14 @@ max™ems
 ¡d
 ::
 û¼
- << "m­: in£¹ " << 
+ << "£t: fšd " << 
 ™ems
  << "\n";
 
 546 
-Te¡FaùÜy_M­
+Te¡FaùÜy_S‘
 <
-Te¡_M­_In£¹
+Te¡_S‘_Fšd
 >().
 	`ÿÎ_‹¡ruÂ”
 (
@@ -32007,7 +32849,7 @@ os
 of¡»am
  
 	`os
-("speed-map-all.txt");
+("speed-map-insert.txt");
 
 554 
 »³©uÁ
@@ -32027,14 +32869,14 @@ max™ems
 ¡d
 ::
 û¼
- << "m­: in£¹, fšd, d–‘" << 
+ << "m­: in£¹ " << 
 ™ems
  << "\n";
 
 559 
 Te¡FaùÜy_M­
 <
-Te¡_M­_In£¹FšdD–‘e
+Te¡_M­_In£¹
 >().
 	`ÿÎ_‹¡ruÂ”
 (
@@ -32049,7 +32891,7 @@ os
 of¡»am
  
 	`os
-("speed-map-find.txt");
+("speed-map-all.txt");
 
 567 
 »³©uÁ
@@ -32069,11 +32911,53 @@ max™ems
 ¡d
 ::
 û¼
- << "m­: fšd " << 
+ << "m­: in£¹, fšd, d–‘" << 
 ™ems
  << "\n";
 
 572 
+Te¡FaùÜy_M­
+<
+Te¡_M­_In£¹FšdD–‘e
+>().
+	`ÿÎ_‹¡ruÂ”
+(
+os
+, 
+™ems
+);
+
+578 
+¡d
+::
+of¡»am
+ 
+	`os
+("speed-map-find.txt");
+
+580 
+»³©uÁ
+ = 
+mš™ems
+;
+
+582 
+™ems
+ = 
+mš™ems
+; i‹m <ğ
+max™ems
+; items *= 2)
+
+584 
+¡d
+::
+û¼
+ << "m­: fšd " << 
+™ems
+ << "\n";
+
+585 
 Te¡FaùÜy_M­
 <
 Te¡_M­_Fšd
@@ -32085,7 +32969,7 @@ os
 ™ems
 );
 
-577 
+590 
 	}
 }
 

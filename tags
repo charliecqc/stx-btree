@@ -135,9 +135,9 @@ BtreeMap	speedtest/speedtest.cc	/^    class BtreeMap$/;"	c	class:TestFactory_Map
 BtreeSet	speedtest/speedtest.cc	/^        explicit BtreeSet(unsigned int n)$/;"	f	class:TestFactory_Set::BtreeSet
 BtreeSet	speedtest/speedtest.cc	/^    class BtreeSet$/;"	c	class:TestFactory_Set	file:
 C	doxygen-html/jquery.js	/^(function(){var l=this,g,y=l.jQuery,p=l.$,o=l.jQuery=l.$=function(E,F){return new o.fn.init(E,F)},D=\/^[^<]*(<(.|\\s)+>)[^>]*$|^#([\\w-]+)$\/,f=\/^.[^:#\\[\\.,]*$\/;o.fn=o.prototype={init:function(E,H){E=E||document;if(E.nodeType){this[0]=E;this.length=1;this.context=E;return this}if(typeof E==="string"){var G=D.exec(E);if(G&&(G[1]||!H)){if(G[1]){E=o.clean([G[1]],H)}else{var I=document.getElementById(G[3]);if(I&&I.id!=G[3]){return o().find(E)}var F=o(I||[]);F.context=document;F.selector=E;return F}}else{return o(H).find(E)}}else{if(o.isFunction(E)){return o(document).ready(E)}}if(E.selector&&E.context){this.selector=E.selector;this.context=E.context}return this.setArray(o.isArray(E)?E:o.makeArray(E))},selector:"",jquery:"1.3.2",size:function(){return this.length},get:function(E){return E===g?Array.prototype.slice.call(this):this[E]},pushStack:function(F,H,E){var G=o(F);G.prevObject=this;G.context=this.context;if(H==="find"){G.selector=this.selector+(this.selector?" ":"")+E}else{if(H){G.selector=this.selector+"."+H+"("+E+")"}}return G},setArray:function(E){this.length=0;Array.prototype.push.apply(this,E);return this},each:function(F,E){return o.each(this,F,E)},index:function(E){return o.inArray(E&&E.jquery?E[0]:E,this)},attr:function(F,H,G){var E=F;if(typeof F==="string"){if(H===g){return this[0]&&o[G||"attr"](this[0],F)}else{E={};E[F]=H}}return this.each(function(I){for(F in E){o.attr(G?this.style:this,F,o.prop(this,E[F],G,I,F))}})},css:function(E,F){if((E=="width"||E=="height")&&parseFloat(F)<0){F=g}return this.attr(E,F,"curCSS")},text:function(F){if(typeof F!=="object"&&F!=null){return this.empty().append((this[0]&&this[0].ownerDocument||document).createTextNode(F))}var E="";o.each(F||this,function(){o.each(this.childNodes,function(){if(this.nodeType!=8){E+=this.nodeType!=1?this.nodeValue:o.fn.text([this])}})});return E},wrapAll:function(E){if(this[0]){var F=o(E,this[0].ownerDocument).clone();if(this[0].parentNode){F.insertBefore(this[0])}F.map(function(){var G=this;while(G.firstChild){G=G.firstChild}return G}).append(this)}return this},wrapInner:function(E){return this.each(function(){o(this).contents().wrapAll(E)})},wrap:function(E){return this.each(function(){o(this).wrapAll(E)})},append:function(){return this.domManip(arguments,true,function(E){if(this.nodeType==1){this.appendChild(E)}})},prepend:function(){return this.domManip(arguments,true,function(E){if(this.nodeType==1){this.insertBefore(E,this.firstChild)}})},before:function(){return this.domManip(arguments,false,function(E){this.parentNode.insertBefore(E,this)})},after:function(){return this.domManip(arguments,false,function(E){this.parentNode.insertBefore(E,this.nextSibling)})},end:function(){return this.prevObject||o([])},push:[].push,sort:[].sort,splice:[].splice,find:function(E){if(this.length===1){var F=this.pushStack([],"find",E);F.length=0;o.find(E,this[0],F);return F}else{return this.pushStack(o.unique(o.map(this,function(G){return o.find(E,G)})),"find",E)}},clone:function(G){var E=this.map(function(){if(!o.support.noCloneEvent&&!o.isXMLDoc(this)){var I=this.outerHTML;if(!I){var J=this.ownerDocument.createElement("div");J.appendChild(this.cloneNode(true));I=J.innerHTML}return o.clean([I.replace(\/ jQuery\\d+="(?:\\d+|null)"\/g,"").replace(\/^\\s*\/,"")])[0]}else{return this.cloneNode(true)}});if(G===true){var H=this.find("*").andSelf(),F=0;E.find("*").andSelf().each(function(){if(this.nodeName!==H[F].nodeName){return}var I=o.data(H[F],"events");for(var K in I){for(var J in I[K]){o.event.add(this,K,I[K][J],I[K][J].data)}}F++})}return E},filter:function(E){return this.pushStack(o.isFunction(E)&&o.grep(this,function(G,F){return E.call(G,F)})||o.multiFilter(E,o.grep(this,function(F){return F.nodeType===1})),"filter",E)},closest:function(E){var G=o.expr.match.POS.test(E)?o(E):null,F=0;return this.map(function(){var H=this;while(H&&H.ownerDocument){if(G?G.index(H)>-1:o(H).is(E)){o.data(H,"closest",F);return H}H=H.parentNode;F++}})},not:function(E){if(typeof E==="string"){if(f.test(E)){return this.pushStack(o.multiFilter(E,this,true),"not",E)}else{E=o.multiFilter(E,this)}}var F=E.length&&E[E.length-1]!==g&&!E.nodeType;return this.filter(function(){return F?o.inArray(this,E)<0:this!=E})},add:function(E){return this.pushStack(o.unique(o.merge(this.get(),typeof E==="string"?o(E):o.makeArray(E))))},is:function(E){return !!E&&o.multiFilter(E,this).length>0},hasClass:function(E){return !!E&&this.is("."+E)},val:function(K){if(K===g){var E=this[0];if(E){if(o.nodeName(E,"option")){return(E.attributes.value||{}).specified?E.value:E.text}if(o.nodeName(E,"select")){var I=E.selectedIndex,L=[],M=E.options,H=E.type=="select-one";if(I<0){return null}for(var F=H?I:0,J=H?I+1:M.length;F<J;F++){var G=M[F];if(G.selected){K=o(G).val();if(H){return K}L.push(K)}}return L}return(E.value||"").replace(\/\\r\/g,"")}return g}if(typeof K==="number"){K+=""}return this.each(function(){if(this.nodeType!=1){return}if(o.isArray(K)&&\/radio|checkbox\/.test(this.type)){this.checked=(o.inArray(this.value,K)>=0||o.inArray(this.name,K)>=0)}else{if(o.nodeName(this,"select")){var N=o.makeArray(K);o("option",this).each(function(){this.selected=(o.inArray(this.value,N)>=0||o.inArray(this.text,N)>=0)});if(!N.length){this.selectedIndex=-1}}else{this.value=K}}})},html:function(E){return E===g?(this[0]?this[0].innerHTML.replace(\/ jQuery\\d+="(?:\\d+|null)"\/g,""):null):this.empty().append(E)},replaceWith:function(E){return this.after(E).remove()},eq:function(E){return this.slice(E,+E+1)},slice:function(){return this.pushStack(Array.prototype.slice.apply(this,arguments),"slice",Array.prototype.slice.call(arguments).join(","))},map:function(E){return this.pushStack(o.map(this,function(G,F){return E.call(G,F,G)}))},andSelf:function(){return this.add(this.prevObject)},domManip:function(J,M,L){if(this[0]){var I=(this[0].ownerDocument||this[0]).createDocumentFragment(),F=o.clean(J,(this[0].ownerDocument||this[0]),I),H=I.firstChild;if(H){for(var G=0,E=this.length;G<E;G++){L.call(K(this[G],H),this.length>1||G>0?I.cloneNode(true):I)}}if(F){o.each(F,z)}}return this;function K(N,O){return M&&o.nodeName(N,"table")&&o.nodeName(O,"tr")?(N.getElementsByTagName("tbody")[0]||N.appendChild(N.ownerDocument.createElement("tbody"))):N}}};o.fn.init.prototype=o.fn;function z(E,F){if(F.src){o.ajax({url:F.src,async:false,dataType:"script"})}else{o.globalEval(F.text||F.textContent||F.innerHTML||"")}if(F.parentNode){F.parentNode.removeChild(F)}}function e(){return +new Date}o.extend=o.fn.extend=function(){var J=arguments[0]||{},H=1,I=arguments.length,E=false,G;if(typeof J==="boolean"){E=J;J=arguments[1]||{};H=2}if(typeof J!=="object"&&!o.isFunction(J)){J={}}if(I==H){J=this;--H}for(;H<I;H++){if((G=arguments[H])!=null){for(var F in G){var K=J[F],L=G[F];if(J===L){continue}if(E&&L&&typeof L==="object"&&!L.nodeType){J[F]=o.extend(E,K||(L.length!=null?[]:{}),L)}else{if(L!==g){J[F]=L}}}}}return J};var b=\/z-?index|font-?weight|opacity|zoom|line-?height\/i,q=document.defaultView||{},s=Object.prototype.toString;o.extend({noConflict:function(E){l.$=p;if(E){l.jQuery=y}return o},isFunction:function(E){return s.call(E)==="[object Function]"},isArray:function(E){return s.call(E)==="[object Array]"},isXMLDoc:function(E){return E.nodeType===9&&E.documentElement.nodeName!=="HTML"||!!E.ownerDocument&&o.isXMLDoc(E.ownerDocument)},globalEval:function(G){if(G&&\/\\S\/.test(G)){var F=document.getElementsByTagName("head")[0]||document.documentElement,E=document.createElement("script");E.type="text\/javascript";if(o.support.scriptEval){E.appendChild(document.createTextNode(G))}else{E.text=G}F.insertBefore(E,F.firstChild);F.removeChild(E)}},nodeName:function(F,E){return F.nodeName&&F.nodeName.toUpperCase()==E.toUpperCase()},each:function(G,K,F){var E,H=0,I=G.length;if(F){if(I===g){for(E in G){if(K.apply(G[E],F)===false){break}}}else{for(;H<I;){if(K.apply(G[H++],F)===false){break}}}}else{if(I===g){for(E in G){if(K.call(G[E],E,G[E])===false){break}}}else{for(var J=G[0];H<I&&K.call(J,H,J)!==false;J=G[++H]){}}}return G},prop:function(H,I,G,F,E){if(o.isFunction(I)){I=I.call(H,F)}return typeof I==="number"&&G=="curCSS"&&!b.test(E)?I+"px":I},className:{add:function(E,F){o.each((F||"").split(\/\\s+\/),function(G,H){if(E.nodeType==1&&!o.className.has(E.className,H)){E.className+=(E.className?" ":"")+H}})},remove:function(E,F){if(E.nodeType==1){E.className=F!==g?o.grep(E.className.split(\/\\s+\/),function(G){return !o.className.has(F,G)}).join(" "):""}},has:function(F,E){return F&&o.inArray(E,(F.className||F).toString().split(\/\\s+\/))>-1}},swap:function(H,G,I){var E={};for(var F in G){E[F]=H.style[F];H.style[F]=G[F]}I.call(H);for(var F in G){H.style[F]=E[F]}},css:function(H,F,J,E){if(F=="width"||F=="height"){var L,G={position:"absolute",visibility:"hidden",display:"block"},K=F=="width"?["Left","Right"]:["Top","Bottom"];function I(){L=F=="width"?H.offsetWidth:H.offsetHeight;if(E==="border"){return}o.each(K,function(){if(!E){L-=parseFloat(o.curCSS(H,"padding"+this,true))||0}if(E==="margin"){L+=parseFloat(o.curCSS(H,"margin"+this,true))||0}else{L-=parseFloat(o.curCSS(H,"border"+this+"Width",true))||0}})}if(H.offsetWidth!==0){I()}else{o.swap(H,G,I)}return Math.max(0,Math.round(L))}return o.curCSS(H,F,J)},curCSS:function(I,F,G){var L,E=I.style;if(F=="opacity"&&!o.support.opacity){L=o.attr(E,"opacity");return L==""?"1":L}if(F.match(\/float\/i)){F=w}if(!G&&E&&E[F]){L=E[F]}else{if(q.getComputedStyle){if(F.match(\/float\/i)){F="float"}F=F.replace(\/([A-Z])\/g,"-$1").toLowerCase();var M=q.getComputedStyle(I,null);if(M){L=M.getPropertyValue(F)}if(F=="opacity"&&L==""){L="1"}}else{if(I.currentStyle){var J=F.replace(\/\\-(\\w)\/g,function(N,O){return O.toUpperCase()});L=I.currentStyle[F]||I.currentStyle[J];if(!\/^\\d+(px)?$\/i.test(L)&&\/^\\d\/.test(L)){var H=E.left,K=I.runtimeStyle.left;I.runtimeStyle.left=I.currentStyle.left;E.left=L||0;L=E.pixelLeft+"px";E.left=H;I.runtimeStyle.left=K}}}}return L},clean:function(F,K,I){K=K||document;if(typeof K.createElement==="undefined"){K=K.ownerDocument||K[0]&&K[0].ownerDocument||document}if(!I&&F.length===1&&typeof F[0]==="string"){var H=\/^<(\\w+)\\s*\\\/?>$\/.exec(F[0]);if(H){return[K.createElement(H[1])]}}var G=[],E=[],L=K.createElement("div");o.each(F,function(P,S){if(typeof S==="number"){S+=""}if(!S){return}if(typeof S==="string"){S=S.replace(\/(<(\\w+)[^>]*?)\\\/>\/g,function(U,V,T){return T.match(\/^(abbr|br|col|img|input|link|meta|param|hr|area|embed)$\/i)?U:V+"><\/"+T+">"});var O=S.replace(\/^\\s+\/,"").substring(0,10).toLowerCase();var Q=!O.indexOf("<opt")&&[1,"<select multiple='multiple'>","<\/select>"]||!O.indexOf("<leg")&&[1,"<fieldset>","<\/fieldset>"]||O.match(\/^<(thead|tbody|tfoot|colg|cap)\/)&&[1,"<table>","<\/table>"]||!O.indexOf("<tr")&&[2,"<table><tbody>","<\/tbody><\/table>"]||(!O.indexOf("<td")||!O.indexOf("<th"))&&[3,"<table><tbody><tr>","<\/tr><\/tbody><\/table>"]||!O.indexOf("<col")&&[2,"<table><tbody><\/tbody><colgroup>","<\/colgroup><\/table>"]||!o.support.htmlSerialize&&[1,"div<div>","<\/div>"]||[0,"",""];L.innerHTML=Q[1]+S+Q[2];while(Q[0]--){L=L.lastChild}if(!o.support.tbody){var R=\/<tbody\/i.test(S),N=!O.indexOf("<table")&&!R?L.firstChild&&L.firstChild.childNodes:Q[1]=="<table>"&&!R?L.childNodes:[];for(var M=N.length-1;M>=0;--M){if(o.nodeName(N[M],"tbody")&&!N[M].childNodes.length){N[M].parentNode.removeChild(N[M])}}}if(!o.support.leadingWhitespace&&\/^\\s\/.test(S)){L.insertBefore(K.createTextNode(S.match(\/^\\s*\/)[0]),L.firstChild)}S=o.makeArray(L.childNodes)}if(S.nodeType){G.push(S)}else{G=o.merge(G,S)}});if(I){for(var J=0;G[J];J++){if(o.nodeName(G[J],"script")&&(!G[J].type||G[J].type.toLowerCase()==="text\/javascript")){E.push(G[J].parentNode?G[J].parentNode.removeChild(G[J]):G[J])}else{if(G[J].nodeType===1){G.splice.apply(G,[J+1,0].concat(o.makeArray(G[J].getElementsByTagName("script"))))}I.appendChild(G[J])}}return E}return G},attr:function(J,G,K){if(!J||J.nodeType==3||J.nodeType==8){return g}var H=!o.isXMLDoc(J),L=K!==g;G=H&&o.props[G]||G;if(J.tagName){var F=\/href|src|style\/.test(G);if(G=="selected"&&J.parentNode){J.parentNode.selectedIndex}if(G in J&&H&&!F){if(L){if(G=="type"&&o.nodeName(J,"input")&&J.parentNode){throw"type property can't be changed"}J[G]=K}if(o.nodeName(J,"form")&&J.getAttributeNode(G)){return J.getAttributeNode(G).nodeValue}if(G=="tabIndex"){var I=J.getAttributeNode("tabIndex");return I&&I.specified?I.value:J.nodeName.match(\/(button|input|object|select|textarea)\/i)?0:J.nodeName.match(\/^(a|area)$\/i)&&J.href?0:g}return J[G]}if(!o.support.style&&H&&G=="style"){return o.attr(J.style,"cssText",K)}if(L){J.setAttribute(G,""+K)}var E=!o.support.hrefNormalized&&H&&F?J.getAttribute(G,2):J.getAttribute(G);return E===null?g:E}if(!o.support.opacity&&G=="opacity"){if(L){J.zoom=1;J.filter=(J.filter||"").replace(\/alpha\\([^)]*\\)\/,"")+(parseInt(K)+""=="NaN"?"":"alpha(opacity="+K*100+")")}return J.filter&&J.filter.indexOf("opacity=")>=0?(parseFloat(J.filter.match(\/opacity=([^)]*)\/)[1])\/100)+"":""}G=G.replace(\/-([a-z])\/ig,function(M,N){return N.toUpperCase()});if(L){J[G]=K}return J[G]},trim:function(E){return(E||"").replace(\/^\\s+|\\s+$\/g,"")},makeArray:function(G){var E=[];if(G!=null){var F=G.length;if(F==null||typeof G==="string"||o.isFunction(G)||G.setInterval){E[0]=G}else{while(F){E[--F]=G[F]}}}return E},inArray:function(G,H){for(var E=0,F=H.length;E<F;E++){if(H[E]===G){return E}}return -1},merge:function(H,E){var F=0,G,I=H.length;if(!o.support.getAll){while((G=E[F++])!=null){if(G.nodeType!=8){H[I++]=G}}}else{while((G=E[F++])!=null){H[I++]=G}}return H},unique:function(K){var F=[],E={};try{for(var G=0,H=K.length;G<H;G++){var J=o.data(K[G]);if(!E[J]){E[J]=true;F.push(K[G])}}}catch(I){F=K}return F},grep:function(F,J,E){var G=[];for(var H=0,I=F.length;H<I;H++){if(!E!=!J(F[H],H)){G.push(F[H])}}return G},map:function(E,J){var F=[];for(var G=0,H=E.length;G<H;G++){var I=J(E[G],G);if(I!=null){F[F.length]=I}}return F.concat.apply([],F)}});var C=navigator.userAgent.toLowerCase();o.browser={version:(C.match(\/.+(?:rv|it|ra|ie)[\\\/: ]([\\d.]+)\/)||[0,"0"])[1],safari:\/webkit\/.test(C),opera:\/opera\/.test(C),msie:\/msie\/.test(C)&&!\/opera\/.test(C),mozilla:\/mozilla\/.test(C)&&!\/(compatible|webkit)\/.test(C)};o.each({parent:function(E){return E.parentNode},parents:function(E){return o.dir(E,"parentNode")},next:function(E){return o.nth(E,2,"nextSibling")},prev:function(E){return o.nth(E,2,"previousSibling")},nextAll:function(E){return o.dir(E,"nextSibling")},prevAll:function(E){return o.dir(E,"previousSibling")},siblings:function(E){return o.sibling(E.parentNode.firstChild,E)},children:function(E){return o.sibling(E.firstChild)},contents:function(E){return o.nodeName(E,"iframe")?E.contentDocument||E.contentWindow.document:o.makeArray(E.childNodes)}},function(E,F){o.fn[E]=function(G){var H=o.map(this,F);if(G&&typeof G=="string"){H=o.multiFilter(G,H)}return this.pushStack(o.unique(H),E,G)}});o.each({appendTo:"append",prependTo:"prepend",insertBefore:"before",insertAfter:"after",replaceAll:"replaceWith"},function(E,F){o.fn[E]=function(G){var J=[],L=o(G);for(var K=0,H=L.length;K<H;K++){$/;"	v
-CAS_EXPECT_DOES_NOT_EXIST	include/stx/skiplist.h	16;"	d
-CAS_EXPECT_EXISTS	include/stx/skiplist.h	17;"	d
-CAS_EXPECT_WHATEVER	include/stx/skiplist.h	18;"	d
+CAS_EXPECT_DOES_NOT_EXIST	include/stx/skiplist.h	17;"	d
+CAS_EXPECT_EXISTS	include/stx/skiplist.h	18;"	d
+CAS_EXPECT_WHATEVER	include/stx/skiplist.h	19;"	d
 CC	Makefile	/^CC = gcc$/;"	m
 CC	include/Makefile	/^CC = gcc$/;"	m
 CC	memprofile/Makefile	/^CC = gcc$/;"	m
@@ -233,6 +233,8 @@ CYGPATH_W	wxbtreedemo/Makefile	/^CYGPATH_W = echo$/;"	m
 Clear	include/stx/ttree.h	/^			void Clear()$/;"	f	class:stx::CTtree
 CloseResultsWindow	doxygen-html/search/search.js	/^  this.CloseResultsWindow = function()$/;"	m	class:SearchBox
 CloseSelectionWindow	doxygen-html/search/search.js	/^  this.CloseSelectionWindow = function()$/;"	m	class:SearchBox
+DEBUG	include/stx/skiplist.h	10;"	d
+DEBUG_CLONE	include/stx/skiplist.h	11;"	d
 DEFAULT_INCLUDES	memprofile/Makefile	/^DEFAULT_INCLUDES = -I.$/;"	m
 DEFAULT_INCLUDES	speedtest/Makefile	/^DEFAULT_INCLUDES = -I.$/;"	m
 DEFAULT_INCLUDES	testsuite/Makefile	/^DEFAULT_INCLUDES = -I.$/;"	m
@@ -321,7 +323,7 @@ EXEEXT	testsuite/Makefile	/^EXEEXT = $/;"	m
 EXEEXT	wxbtreedemo/Makefile	/^EXEEXT = $/;"	m
 EXPECT_ANY_THROW	testsuite/tpunit.h	198;"	d
 EXPECT_EQUAL	testsuite/tpunit.h	94;"	d
-EXPECT_FALSE	include/stx/skiplist.h	14;"	d
+EXPECT_FALSE	include/stx/skiplist.h	15;"	d
 EXPECT_FALSE	testsuite/tpunit.h	86;"	d
 EXPECT_FLOAT_EQUAL	testsuite/tpunit.h	156;"	d
 EXPECT_FLOAT_NEAR	testsuite/tpunit.h	164;"	d
@@ -332,7 +334,7 @@ EXPECT_LESS_THAN_EQUAL	testsuite/tpunit.h	134;"	d
 EXPECT_NOT_EQUAL	testsuite/tpunit.h	102;"	d
 EXPECT_NO_THROW	testsuite/tpunit.h	192;"	d
 EXPECT_THROW	testsuite/tpunit.h	186;"	d
-EXPECT_TRUE	include/stx/skiplist.h	13;"	d
+EXPECT_TRUE	include/stx/skiplist.h	14;"	d
 EXPECT_TRUE	testsuite/tpunit.h	78;"	d
 EXTRA_DIST	Makefile	/^EXTRA_DIST = Doxyfile \\$/;"	m
 EXTRA_DIST	include/Makefile	/^EXTRA_DIST = LICENSE_1_0.txt$/;"	m
@@ -348,7 +350,7 @@ FindChildElement	doxygen-html/search/search.js	/^    this.FindChildElement = fun
 FindMax	include/stx/ttree.h	/^			TTREENODE* FindMax(TTREENODE *pNode)$/;"	f	class:stx::CTtree
 FindMin	include/stx/ttree.h	/^			TTREENODE* FindMin(TTREENODE *pNode)$/;"	f	class:stx::CTtree
 FreeNode	include/stx/ttree.h	/^			void FreeNode(TTREENODE *pNode)$/;"	f	class:stx::CTtree
-GET_NODE	include/stx/skiplist.h	34;"	d
+GET_NODE	include/stx/skiplist.h	35;"	d
 GREP	Makefile	/^GREP = \/bin\/grep$/;"	m
 GREP	include/Makefile	/^GREP = \/bin\/grep$/;"	m
 GREP	memprofile/Makefile	/^GREP = \/bin\/grep$/;"	m
@@ -359,7 +361,7 @@ GZIP_ENV	Makefile	/^GZIP_ENV = --best$/;"	m
 GetMaxNode	include/stx/ttree.h	/^			const TTREENODE *GetMaxNode()$/;"	f	class:stx::CTtree
 GetMinNode	include/stx/ttree.h	/^			const TTREENODE *GetMinNode()$/;"	f	class:stx::CTtree
 GetNodeSize	include/stx/ttree.h	/^			int GetNodeSize()$/;"	f	class:stx::CTtree
-HAS_MARK	include/stx/skiplist.h	33;"	d
+HAS_MARK	include/stx/skiplist.h	34;"	d
 HEADERS	include/Makefile	/^HEADERS = $(nobase_include_HEADERS)$/;"	m
 HashMap	memprofile/main.cc	/^    typedef TestClass<__gnu_cxx::hash_multimap<unsigned int, unsigned int> > HashMap;$/;"	t	class:TestFactory_Map	file:
 HashMap	speedtest/speedtest.cc	/^    typedef TestClass<__gnu_cxx::hash_multimap<unsigned int, unsigned int> > HashMap;$/;"	t	class:TestFactory_Map	file:
@@ -411,7 +413,7 @@ INSTALL_STRIP_PROGRAM	memprofile/Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh
 INSTALL_STRIP_PROGRAM	speedtest/Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
 INSTALL_STRIP_PROGRAM	testsuite/Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
 INSTALL_STRIP_PROGRAM	wxbtreedemo/Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
-IS_TAGGED	include/stx/skiplist.h	26;"	d
+IS_TAGGED	include/stx/skiplist.h	27;"	d
 InOrder	include/stx/ttree.h	/^		InOrder,$/;"	e	enum:stx::TraverseOrder
 InOrderTraverse	include/stx/ttree.h	/^			void InOrderTraverse(TTREENODE *pNode) const$/;"	f	class:stx::CTtree
 Insert	include/stx/ttree.h	/^			void Insert(ElementType key, ElementData data)$/;"	f	class:stx::CTtree
@@ -459,8 +461,8 @@ MAKEINFO	memprofile/Makefile	/^MAKEINFO = ${SHELL} \/home\/dcslab\/charlie\/stx-
 MAKEINFO	speedtest/Makefile	/^MAKEINFO = ${SHELL} \/home\/dcslab\/charlie\/stx-btree\/scripts\/missing --run makeinfo$/;"	m
 MAKEINFO	testsuite/Makefile	/^MAKEINFO = ${SHELL} \/home\/dcslab\/charlie\/stx-btree\/scripts\/missing --run makeinfo$/;"	m
 MAKEINFO	wxbtreedemo/Makefile	/^MAKEINFO = ${SHELL} \/home\/dcslab\/charlie\/stx-btree\/scripts\/missing --run makeinfo$/;"	m
-MARK_NODE	include/stx/skiplist.h	32;"	d
-MAX_LEVELS	include/stx/skiplist.h	24;"	d
+MARK_NODE	include/stx/skiplist.h	33;"	d
+MAX_LEVELS	include/stx/skiplist.h	25;"	d
 MKDIR_P	Makefile	/^MKDIR_P = \/bin\/mkdir -p$/;"	m
 MKDIR_P	include/Makefile	/^MKDIR_P = \/bin\/mkdir -p$/;"	m
 MKDIR_P	memprofile/Makefile	/^MKDIR_P = \/bin\/mkdir -p$/;"	m
@@ -634,8 +636,8 @@ STRIP	memprofile/Makefile	/^STRIP = $/;"	m
 STRIP	speedtest/Makefile	/^STRIP = $/;"	m
 STRIP	testsuite/Makefile	/^STRIP = $/;"	m
 STRIP	wxbtreedemo/Makefile	/^STRIP = $/;"	m
-STRIP_MARK	include/stx/skiplist.h	35;"	d
-STRIP_TAG	include/stx/skiplist.h	27;"	d
+STRIP_MARK	include/stx/skiplist.h	36;"	d
+STRIP_TAG	include/stx/skiplist.h	28;"	d
 STX_MEMPROFILE_MALLOC_COUNT_H_HEADER	memprofile/malloc_count.h	29;"	d
 STX_MEMPROFILE_MEMPROFILE_H_HEADER	memprofile/memprofile.h	23;"	d
 STX_SKIPLIST_HEADER	include/stx/skiplist.h	2;"	d
@@ -651,10 +653,10 @@ STX_TESTSUITE_TPUNIT_H_HEADER	testsuite/tpunit.h	26;"	d
 STX_WXBTREEDEMO_WMAIN_H_HEADER	wxbtreedemo/WMain.h	22;"	d
 STX_WXBTREEDEMO_WTREEDRAWING_H_HEADER	wxbtreedemo/WTreeDrawing.h	22;"	d
 SUBDIRS	Makefile	/^SUBDIRS = . include testsuite speedtest memprofile wxbtreedemo$/;"	m
-SYNC_ADD	include/stx/skiplist.h	21;"	d
-SYNC_CAS	include/stx/skiplist.h	20;"	d
-SYNC_FETCH_AND_OR	include/stx/skiplist.h	22;"	d
-SYNC_SWAP	include/stx/skiplist.h	19;"	d
+SYNC_ADD	include/stx/skiplist.h	22;"	d
+SYNC_CAS	include/stx/skiplist.h	21;"	d
+SYNC_FETCH_AND_OR	include/stx/skiplist.h	23;"	d
+SYNC_SWAP	include/stx/skiplist.h	20;"	d
 Search	doxygen-html/search/search.js	/^    this.Search = function(search)$/;"	m	class:SearchResults
 Search	doxygen-html/search/search.js	/^  this.Search = function()$/;"	m	class:SearchBox
 SearchBox	doxygen-html/search/search.js	/^function SearchBox(name, resultsPath, inFrame, label)$/;"	c
@@ -667,13 +669,13 @@ SimpleTest	testsuite/SimpleTest.cc	/^struct SimpleTest : public tpunit::TestFixt
 SingleRotateLeft	include/stx/ttree.h	/^			TTREENODE *SingleRotateLeft(TTREENODE *pNode)$/;"	f	class:stx::CTtree
 SingleRotateRight	include/stx/ttree.h	/^			TTREENODE *SingleRotateRight(TTREENODE *pNode)$/;"	f	class:stx::CTtree
 SkiplistMap	speedtest/speedtest.cc	/^		explicit SkiplistMap(unsigned int n)$/;"	f	class:TestFactory_Map::SkiplistMap
-SkiplistMap	speedtest/speedtest.cc	/^	class SkiplistMap: public TestClass<stx::skiplist_multimap<unsigned long long , unsigned long long , std::less<unsigned long long> > >$/;"	c	class:TestFactory_Map	file:
+SkiplistMap	speedtest/speedtest.cc	/^	class SkiplistMap$/;"	c	class:TestFactory_Map	file:
 StdDeque	memprofile/main.cc	/^    typedef TestClass<std::deque<std::pair<unsigned int, unsigned int> > > StdDeque;$/;"	t	class:TestFactory_Array	file:
 StdMap	memprofile/main.cc	/^    typedef TestClass<std::multimap<unsigned int, unsigned int> > StdMap;$/;"	t	class:TestFactory_Map	file:
 StdMap	speedtest/speedtest.cc	/^    typedef TestClass<std::multimap<unsigned int, unsigned int> > StdMap;$/;"	t	class:TestFactory_Map	file:
 StdSet	speedtest/speedtest.cc	/^    typedef TestClass<std::multiset<unsigned int> > StdSet;$/;"	t	class:TestFactory_Set	file:
 StdVector	memprofile/main.cc	/^    typedef TestClass<std::vector<std::pair<unsigned int, unsigned int> > > StdVector;$/;"	t	class:TestFactory_Array	file:
-TAG_VALUE	include/stx/skiplist.h	25;"	d
+TAG_VALUE	include/stx/skiplist.h	26;"	d
 TEST	testsuite/tpunit.h	222;"	d
 TESTS	testsuite/Makefile	/^TESTS = testsuite$(EXEEXT)$/;"	m
 TEST_METHOD	testsuite/tpunit.h	/^						TEST_METHOD$/;"	e	enum:tpunit::TestFixture::method::__anon1
@@ -1677,6 +1679,7 @@ isfew	include/stx/btree.h	/^        inline bool isfew() const$/;"	f	struct:stx::
 isfew	include/stx/btree.h	/^        inline bool isfew() const$/;"	f	struct:stx::btree::leaf_node
 isfull	include/stx/btree.h	/^        inline bool isfull() const$/;"	f	struct:stx::btree::inner_node
 isfull	include/stx/btree.h	/^        inline bool isfull() const$/;"	f	struct:stx::btree::leaf_node
+isfull	include/stx/skiplist.h	/^					inline bool isfull() const$/;"	f	struct:stx::skiplist::leaf
 isleafnode	include/stx/btree.h	/^        inline bool    isleafnode() const$/;"	f	struct:stx::btree::node
 isunderflow	include/stx/btree.h	/^        inline bool isunderflow() const$/;"	f	struct:stx::btree::inner_node
 isunderflow	include/stx/btree.h	/^        inline bool isunderflow() const$/;"	f	struct:stx::btree::leaf_node
@@ -8351,19 +8354,27 @@ l03981	doxygen-html/a00026_source.html	/^<a name="l03981"><\/a>03981 } <span cla
 l03982	doxygen-html/a00026_source.html	/^<a name="l03982"><\/a>03982 $/;"	a
 l03983	doxygen-html/a00026_source.html	/^<a name="l03983"><\/a>03983 <span class="preprocessor">#endif \/\/ _STX_BTREE_H_<\/span>$/;"	a
 lastkey	include/stx/btree.h	/^        key_type       lastkey;$/;"	m	struct:stx::btree::result_t
+leaf	include/stx/skiplist.h	/^					inline leaf()$/;"	f	struct:stx::skiplist::leaf
+leaf	include/stx/skiplist.h	/^				typedef struct leaf {$/;"	s	class:stx::skiplist
+leaf_alloc	include/stx/skiplist.h	/^				leaf_t *leaf_alloc() {$/;"	f	class:stx::skiplist
 leaf_node	include/stx/btree.h	/^        inline leaf_node()$/;"	f	struct:stx::btree::leaf_node
 leaf_node	include/stx/btree.h	/^        inline leaf_node(const node& top)$/;"	f	struct:stx::btree::leaf_node
 leaf_node	include/stx/btree.h	/^    struct leaf_node : public node$/;"	s	class:stx::btree
 leaf_node_allocator	include/stx/btree.h	/^    typename leaf_node::alloc_type leaf_node_allocator()$/;"	f	class:stx::btree
+leaf_ptr	include/stx/skiplist.h	/^					leaf_t *leaf_ptr;$/;"	m	struct:stx::skiplist::node
+leaf_t	include/stx/skiplist.h	/^				}leaf_t;$/;"	t	class:stx::skiplist	typeref:struct:stx::skiplist::leaf
 leafslotmax	include/stx/btree.h	/^    static const unsigned short leafslotmax = traits::leafslots;$/;"	m	class:stx::btree
 leafslotmax	include/stx/btree_map.h	/^    static const unsigned short leafslotmax = btree_impl::leafslotmax;$/;"	m	class:stx::btree_map
 leafslotmax	include/stx/btree_multimap.h	/^    static const unsigned short leafslotmax = btree_impl::leafslotmax;$/;"	m	class:stx::btree_multimap
 leafslotmax	include/stx/btree_multiset.h	/^    static const unsigned short leafslotmax = btree_impl::leafslotmax;$/;"	m	class:stx::btree_multiset
 leafslotmax	include/stx/btree_set.h	/^    static const unsigned short leafslotmax = btree_impl::leafslotmax;$/;"	m	class:stx::btree_set
+leafslotmax	include/stx/skiplist.h	/^				static const unsigned short leafslotmax = traits::leafslots;$/;"	m	class:stx::skiplist
 leafslots	include/stx/btree.h	/^        static const unsigned short leafslots = self_type::leafslotmax;$/;"	m	struct:stx::btree::tree_stats
 leafslots	include/stx/btree.h	/^        unsigned short leafslots;$/;"	m	struct:stx::btree::dump_header
 leafslots	include/stx/btree.h	/^    static const int leafslots = BTREE_MAX(8, 256 \/ (sizeof(_Key) + sizeof(_Data)));$/;"	m	class:stx::btree_default_map_traits
 leafslots	include/stx/btree.h	/^    static const int leafslots = BTREE_MAX(8, 256 \/ (sizeof(_Key)));$/;"	m	class:stx::btree_default_set_traits
+leafslots	include/stx/skiplist.h	/^			static const int leafslots = 256;$/;"	m	class:stx::skiplist_default_set_traits
+leafslots	speedtest/speedtest.cc	/^	static const int leafslots = _leafslots;$/;"	m	class:skiplist_traits_speed	file:
 leafslots	speedtest/speedtest.cc	/^    static const int leafslots = _innerslots;$/;"	m	class:btree_traits_speed	file:
 leafslots	testsuite/SimpleTest.cc	/^        static const int  leafslots = Slots;$/;"	m	struct:SimpleTest::traits_nodebug	file:
 leafslots	wxbtreedemo/WMain.h	/^        static const int  leafslots = Slots;$/;"	m	struct:BTreeBundle::btree_traits_nodebug
@@ -8474,7 +8485,7 @@ max_size	include/stx/btree_map.h	/^    inline size_type max_size() const$/;"	f	c
 max_size	include/stx/btree_multimap.h	/^    inline size_type max_size() const$/;"	f	class:stx::btree_multimap
 max_size	include/stx/btree_multiset.h	/^    inline size_type max_size() const$/;"	f	class:stx::btree_multiset
 max_size	include/stx/btree_set.h	/^    inline size_type max_size() const$/;"	f	class:stx::btree_set
-maxitems	speedtest/speedtest.cc	/^static const unsigned int maxitems = 1024000 * 64;$/;"	v	file:
+maxitems	speedtest/speedtest.cc	/^static const unsigned int maxitems = 16;$/;"	v	file:
 memprofile_LDADD	memprofile/Makefile	/^memprofile_LDADD = $(LDADD)$/;"	m
 memprofile_OBJECTS	memprofile/Makefile	/^memprofile_OBJECTS = $(am_memprofile_OBJECTS)$/;"	m
 memprofile_SOURCES	memprofile/Makefile	/^memprofile_SOURCES = main.cc malloc_count.c malloc_count.h memprofile.h$/;"	m
@@ -8490,7 +8501,7 @@ mininnerslots	include/stx/btree_map.h	/^    static const unsigned short mininner
 mininnerslots	include/stx/btree_multimap.h	/^    static const unsigned short mininnerslots = btree_impl::mininnerslots;$/;"	m	class:stx::btree_multimap
 mininnerslots	include/stx/btree_multiset.h	/^    static const unsigned short mininnerslots = btree_impl::mininnerslots;$/;"	m	class:stx::btree_multiset
 mininnerslots	include/stx/btree_set.h	/^    static const unsigned short mininnerslots = btree_impl::mininnerslots;$/;"	m	class:stx::btree_set
-minitems	speedtest/speedtest.cc	/^static const unsigned int minitems = 1024000 * 64;$/;"	v	file:
+minitems	speedtest/speedtest.cc	/^static const unsigned int minitems = 16;$/;"	v	file:
 minleafslots	include/stx/btree.h	/^    static const unsigned short minleafslots = (leafslotmax \/ 2);$/;"	m	class:stx::btree
 minleafslots	include/stx/btree_map.h	/^    static const unsigned short minleafslots = btree_impl::minleafslots;$/;"	m	class:stx::btree_map
 minleafslots	include/stx/btree_multimap.h	/^    static const unsigned short minleafslots = btree_impl::minleafslots;$/;"	m	class:stx::btree_multimap
@@ -8527,6 +8538,7 @@ next	include/stx/Node.h	/^  node<T> *next;    \/\/ next node in the list$/;"	m	c
 next	include/stx/skiplist.h	/^					markable_t next[1];$/;"	m	struct:stx::skiplist::node
 next	include/stx/skiplist.h	/^					node_t *next;$/;"	m	struct:stx::skiplist::sl_iter
 nextleaf	include/stx/btree.h	/^        leaf_node * nextleaf;$/;"	m	struct:stx::btree::leaf_node
+nextleaf	include/stx/skiplist.h	/^					struct leaf *nextleaf;$/;"	m	struct:stx::skiplist::leaf	typeref:struct:stx::skiplist::leaf::leaf
 nobase_include_HEADERS	include/Makefile	/^nobase_include_HEADERS = \\$/;"	m
 node	include/stx/Node.h	/^  node() : next(NULL)$/;"	f	class:node
 node	include/stx/Node.h	/^  node(const T& item, node<T> *nextNode = NULL) :$/;"	f	class:node
@@ -8728,6 +8740,7 @@ prefix	speedtest/Makefile	/^prefix = \/usr\/local$/;"	m
 prefix	testsuite/Makefile	/^prefix = \/usr\/local$/;"	m
 prefix	wxbtreedemo/Makefile	/^prefix = \/usr\/local$/;"	m
 prevleaf	include/stx/btree.h	/^        leaf_node * prevleaf;$/;"	m	struct:stx::btree::leaf_node
+prevleaf	include/stx/skiplist.h	/^					struct leaf *prevleaf;	$/;"	m	struct:stx::skiplist::leaf	typeref:struct:stx::skiplist::leaf::leaf
 pri-attribs	doxygen-html/a00001.html	/^<tr><td colspan="2"><h2><a name="pri-attribs"><\/a>$/;"	a
 pri-attribs	doxygen-html/a00004.html	/^<tr><td colspan="2"><h2><a name="pri-attribs"><\/a>$/;"	a
 pri-attribs	doxygen-html/a00005.html	/^<tr><td colspan="2"><h2><a name="pri-attribs"><\/a>$/;"	a
@@ -8817,7 +8830,6 @@ qback	include/stx/LinkedQueue.h	/^    node<T> *qfront, *qback;$/;"	m	class:linke
 qfront	include/stx/LinkedQueue.h	/^    node<T> *qfront, *qback;$/;"	m	class:linkedQueue
 qsize	include/stx/LinkedQueue.h	/^    int qsize;$/;"	m	class:linkedQueue
 random_levels	include/stx/skiplist.h	/^				int random_levels (skiplist_t *sl) {$/;"	f	class:stx::skiplist
-randseed	include/stx/skiplist.h	/^				static const int randseed = 34234235;$/;"	m	class:stx::skiplist
 randseed	memprofile/main.cc	/^const int randseed = 34234235;$/;"	v
 randseed	speedtest/speedtest-tune.cc	/^static const int randseed = 34234235;$/;"	v	file:
 randseed	speedtest/speedtest.cc	/^static const int randseed = 34234235;$/;"	v	file:
@@ -8884,6 +8896,7 @@ reverse_iterator	include/stx/btree_multiset.h	/^    typedef typename btree_impl:
 reverse_iterator	include/stx/btree_set.h	/^    typedef typename btree_impl::reverse_iterator reverse_iterator;$/;"	t	class:stx::btree_set
 right	include/stx/ttree.h	/^		tagTTREENODE *right;        \/\/ Right child pointer.$/;"	m	struct:stx::tagTTREENODE
 root	include/stx/ttree.h	/^			TTREENODE   *root;$/;"	m	class:stx::CTtree
+rs	include/stx/skiplist.h	/^				static const int rs = 12345678;$/;"	m	class:stx::skiplist
 run	memprofile/main.cc	/^    void run(unsigned int items)$/;"	f	class:Test_Array_Insert
 run	memprofile/main.cc	/^    void run(unsigned int items)$/;"	f	class:Test_Map_Insert
 run	speedtest/speedtest-tune.cc	/^    void run(unsigned int insertnum)$/;"	f	class:Test_BtreeSet_Find
@@ -9000,7 +9013,7 @@ self_type	include/stx/btree_map.h	/^    typedef btree_map<key_type, data_type, k
 self_type	include/stx/btree_multimap.h	/^    typedef btree_multimap<key_type, data_type, key_compare, traits, allocator_type> self_type;$/;"	t	class:stx::btree_multimap
 self_type	include/stx/btree_multiset.h	/^    typedef btree_multiset<key_type, key_compare, traits, allocator_type> self_type;$/;"	t	class:stx::btree_multiset
 self_type	include/stx/btree_set.h	/^    typedef btree_set<key_type, key_compare, traits, allocator_type> self_type;$/;"	t	class:stx::btree_set
-self_type	include/stx/skiplist.h	/^				typedef skiplist<key_type, value_type> self_type;$/;"	t	class:stx::skiplist
+self_type	include/stx/skiplist.h	/^				typedef skiplist<key_type, value_type, traits> self_type;$/;"	t	class:stx::skiplist
 self_type	include/stx/skiplist_multimap.h	/^	typedef skiplist_multimap<key_type, value_type, key_compare, traits, allocator_type> self_type;$/;"	t	class:stx::skiplist_multimap
 self_type	include/stx/ttree_multimap.h	/^	typedef ttree_multimap<key_type, key_compare, traits, allocator_type> self_type;$/;"	t	class:stx::ttree_multimap
 self_type	include/stx/ttree_set.h	/^	typedef ttree_set<key_type, key_compare, traits, allocator_type> self_type;$/;"	t	class:stx::ttree_set
@@ -9055,25 +9068,32 @@ sizer_8_staticbox	wxbtreedemo/WMain_wxg.h	/^    wxStaticBox* sizer_8_staticbox;$
 sizer_9_staticbox	wxbtreedemo/WMain_wxg.h	/^    wxStaticBox* sizer_9_staticbox;$/;"	m	class:WMain_wxg
 skiplist	include/stx/skiplist.h	/^		class skiplist$/;"	c	namespace:stx
 skiplist_default_set_traits	include/stx/skiplist.h	/^		class skiplist_default_set_traits$/;"	c	namespace:stx
-skiplist_impl	include/stx/skiplist_multimap.h	/^	typedef stx::skiplist<key_type, value_type> skiplist_impl;$/;"	t	class:stx::skiplist_multimap
+skiplist_impl	include/stx/skiplist_multimap.h	/^	typedef stx::skiplist<key_type, value_type, traits> skiplist_impl;$/;"	t	class:stx::skiplist_multimap
+skiplist_multimap	include/stx/skiplist_multimap.h	/^		skiplist_multimap()$/;"	f	class:stx::skiplist_multimap
 skiplist_multimap	include/stx/skiplist_multimap.h	/^class skiplist_multimap$/;"	c	namespace:stx
 skiplist_t	include/stx/skiplist.h	/^				} skiplist_t ;$/;"	t	class:stx::skiplist	typeref:struct:stx::skiplist::sl
+skiplist_traits_speed	speedtest/speedtest.cc	/^class skiplist_traits_speed : stx::skiplist_default_set_traits<unsigned int>$/;"	c	file:
 sl	include/stx/skiplist.h	/^				typedef struct sl {$/;"	s	class:stx::skiplist
-sl	include/stx/skiplist_multimap.h	/^	typename skiplist_impl::skiplist_t sl;$/;"	m	class:stx::skiplist_multimap
+sl	include/stx/skiplist_multimap.h	/^	typedef typename skiplist_impl::skiplist_t sl;$/;"	t	class:stx::skiplist_multimap
 sl_alloc	include/stx/skiplist.h	/^				skiplist_t *sl_alloc (const datatype_t *type) {$/;"	f	class:stx::skiplist
-sl_cas	include/stx/skiplist.h	/^		value_type sl_cas(skiplist_t *sl, key_type key, value_type expectation, value_type new_val) {$/;"	f	class:stx::skiplist
+sl_cas	include/stx/skiplist.h	/^				value_type sl_cas(skiplist_t *sl, key_type key, value_type expectation, value_type new_val) {$/;"	f	class:stx::skiplist
 sl_free	include/stx/skiplist.h	/^				void sl_free (skiplist_t *sl) {$/;"	f	class:stx::skiplist
+sl_insert	include/stx/skiplist.h	/^				value_type sl_insert(skiplist_t *sl, key_type key, value_type expectation, value_type new_val) {$/;"	f	class:stx::skiplist
 sl_iter	include/stx/skiplist.h	/^				struct sl_iter {$/;"	s	class:stx::skiplist
-sl_iter_begin	include/stx/skiplist.h	/^		sl_iter * sl_iter_begin(skiplist_t *sl, key_type key) {$/;"	f	class:stx::skiplist
-sl_iter_free	include/stx/skiplist.h	/^		void sl_iter_free ( sl_iter *iter) {$/;"	f	class:stx::skiplist
-sl_iter_next	include/stx/skiplist.h	/^		value_type sl_iter_next(sl_iter *iter, key_type * key_ptr) {$/;"	f	class:stx::skiplist
-sl_lookup	include/stx/skiplist.h	/^		value_type sl_lookup(skiplist_t *sl, key_type key) {$/;"	f	class:stx::skiplist
-sl_min_key	include/stx/skiplist.h	/^		key_type sl_min_key (skiplist_t *sl) {$/;"	f	class:stx::skiplist
-sl_remove	include/stx/skiplist.h	/^		value_type sl_remove (skiplist_t *sl, key_type key) {$/;"	f	class:stx::skiplist
+sl_iter_begin	include/stx/skiplist.h	/^				sl_iter * sl_iter_begin(skiplist_t *sl, key_type key) {$/;"	f	class:stx::skiplist
+sl_iter_free	include/stx/skiplist.h	/^				void sl_iter_free ( sl_iter *iter) {$/;"	f	class:stx::skiplist
+sl_iter_next	include/stx/skiplist.h	/^				value_type sl_iter_next(sl_iter *iter, key_type * key_ptr) {$/;"	f	class:stx::skiplist
+sl_lookup	include/stx/skiplist.h	/^				value_type sl_lookup(skiplist_t *sl, key_type key) {$/;"	f	class:stx::skiplist
+sl_min_key	include/stx/skiplist.h	/^				key_type sl_min_key (skiplist_t *sl) {$/;"	f	class:stx::skiplist
+sl_remove	include/stx/skiplist.h	/^				value_type sl_remove (skiplist_t *sl, key_type key) {$/;"	f	class:stx::skiplist
+slist	include/stx/skiplist_multimap.h	/^	sl * slist;$/;"	m	class:stx::skiplist_multimap
 slotdata	include/stx/btree.h	/^        data_type slotdata[used_as_set ? 1 : leafslotmax];$/;"	m	struct:stx::btree::leaf_node
 slotkey	include/stx/btree.h	/^        key_type  slotkey[leafslotmax];$/;"	m	struct:stx::btree::leaf_node
 slotkey	include/stx/btree.h	/^        key_type slotkey[innerslotmax];$/;"	m	struct:stx::btree::inner_node
+slotkey	include/stx/skiplist.h	/^					key_type slotkey[leafslotmax];$/;"	m	struct:stx::skiplist::leaf
 slotuse	include/stx/btree.h	/^        unsigned short slotuse;$/;"	m	struct:stx::btree::node
+slotused	include/stx/skiplist.h	/^					int slotused;$/;"	m	struct:stx::skiplist::leaf
+slotvalue	include/stx/skiplist.h	/^					value_type slotvalue[leafslotmax];$/;"	m	struct:stx::skiplist::leaf
 speedtest_LDADD	speedtest/Makefile	/^speedtest_LDADD = $(LDADD)$/;"	m
 speedtest_OBJECTS	speedtest/Makefile	/^speedtest_OBJECTS = $(am_speedtest_OBJECTS)$/;"	m
 speedtest_SOURCES	speedtest/Makefile	/^speedtest_SOURCES = speedtest.cc$/;"	m
@@ -9186,6 +9206,7 @@ traits	include/stx/btree_map.h	/^    typedef _Traits traits;$/;"	t	class:stx::bt
 traits	include/stx/btree_multimap.h	/^    typedef _Traits traits;$/;"	t	class:stx::btree_multimap
 traits	include/stx/btree_multiset.h	/^    typedef _Traits traits;$/;"	t	class:stx::btree_multiset
 traits	include/stx/btree_set.h	/^    typedef _Traits traits;$/;"	t	class:stx::btree_set
+traits	include/stx/skiplist.h	/^				typedef _Traits traits;$/;"	t	class:stx::skiplist
 traits	include/stx/skiplist_multimap.h	/^	typedef _Traits traits;$/;"	t	class:stx::skiplist_multimap
 traits	include/stx/ttree_multimap.h	/^	typedef _Traits traits;$/;"	t	class:stx::ttree_multimap
 traits	include/stx/ttree_set.h	/^	typedef _Traits traits;$/;"	t	class:stx::ttree_set
@@ -9220,7 +9241,7 @@ ttree_multimap	include/stx/ttree_multimap.h	/^class ttree_multimap$/;"	c	namespa
 ttree_set	include/stx/ttree_set.h	/^class ttree_set$/;"	c	namespace:stx
 type	include/stx/skiplist.h	/^					const datatype_t *type;$/;"	m	struct:stx::skiplist::sl
 unlink	include/stx/skiplist.h	/^enum unlink {$/;"	g
-update_item	include/stx/skiplist.h	/^		value_type update_item(node_t *item, value_type expectation, value_type new_val) {$/;"	f	class:stx::skiplist
+update_item	include/stx/skiplist.h	/^				value_type update_item(node_t *item, value_type expectation, value_type new_val) {$/;"	f	class:stx::skiplist
 upper_bound	include/stx/btree.h	/^    const_iterator upper_bound(const key_type& key) const$/;"	f	class:stx::btree
 upper_bound	include/stx/btree.h	/^    iterator upper_bound(const key_type& key)$/;"	f	class:stx::btree
 upper_bound	include/stx/btree_map.h	/^    const_iterator upper_bound(const key_type& key) const$/;"	f	class:stx::btree_map

@@ -48,14 +48,14 @@
 // *** Settings
 
 /// starting number of items to insert
-static const unsigned int minitems = 16;
+static const unsigned int minitems = 8;
 //static const unsigned int minitems = 1024000 * 64;
 //static const unsigned int minitems = 512;
 //static const unsigned int minitems = 1;
 
 /// maximum number of items to insert
 //static const unsigned int maxitems = 1024000 * 64;
-static const unsigned int maxitems = 16;
+static const unsigned int maxitems = 8;
 //static const unsigned int maxitems = 512000;
 
 static const int randseed = 34234235;
@@ -385,7 +385,8 @@ void testrunner_loop(std::ostream& os, unsigned int items)
         // discard and repeat if test took less than one second.
         if ((ts2 - ts1) < 1.0) repeatuntil *= 2;
     }
-    while ((ts2 - ts1) < 1.0); // NOLINT
+	while(0);
+//    while ((ts2 - ts1) < 1.0); // NOLINT
 	std::cerr << "do " << items << " repeat " << (repeatuntil / items)
                   << " time " << (ts2 - ts1) << "\n";
 

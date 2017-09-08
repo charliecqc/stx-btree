@@ -385,8 +385,7 @@ void testrunner_loop(std::ostream& os, unsigned int items)
         // discard and repeat if test took less than one second.
         if ((ts2 - ts1) < 1.0) repeatuntil *= 2;
     }
-	while(0);
-//    while ((ts2 - ts1) < 1.0); // NOLINT
+    while ((ts2 - ts1) < 1.0); // NOLINT
 	std::cerr << "do " << items << " repeat " << (repeatuntil / items)
                   << " time " << (ts2 - ts1) << "\n";
 

@@ -43,12 +43,17 @@ public:
 public:
 		inline value_type insert(const key_type &key, const value_type &value)
 		{
-			return list.sl_cas(slist, key, -2, value);
+			return list.sl_insert(slist, key, -2, value);
 		}
 
 		inline value_type insert(const data_type& x)
 		{
 			return insert(x.first, x.second);
+		}
+
+		inline value_type find(const key_type &key)
+		{
+			return list.sl_lookup(slist, key);
 		}
 
 };

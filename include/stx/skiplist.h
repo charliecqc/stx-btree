@@ -7,6 +7,7 @@
 #include <memory>
 #include <stdlib.h>
 #include <immintrin.h>
+#include <bitset>
 #define DEBUG
 //#define DEBUG_CLONE
 
@@ -92,32 +93,70 @@ namespace stx {
 			public:
 				typedef struct leaf {
 					///Double linked list pointers to traverse the leaves
-					struct leaf *prevleaf;	
+//					struct leaf *prevleaf;	
 					///Double linked list pointers to traverse the leaves
-					struct leaf *nextleaf;
+//					struct leaf *nextleaf;
+					std::bitset<leafslotmax> bs;
 					///array of key
 					key_type slotkey[leafslotmax];
 					///array of data
 					value_type slotvalue[leafslotmax];
 					///current count of used key
 
-					int slotused;
 
 					///set variable to initial values
 					inline leaf()
-						: slotused(-1), prevleaf(NULL),nextleaf(NULL)
-					{}
+					{
+						bs.reset(); // to set each bit to 0
+					}
 
 					///True if the node's slots are full
 					inline bool isfull() const
 					{
-						return (slotused == leafslotmax - 1);
+					//	return (slotused == leafslotmax - 1);
+						return bs.count() == bs.size();
+					}
+					///set the indexth bit to 1 
+					inline int set_bitmap(unsigned short index)
+					{
+						bs[index] = 1;
+						return 0;
+					}
+
+					///set the index th bit to 0 
+					inline int clear_bitmap(unsigned short index) 
+					{
+						bs[index] = 0;
+						return 0;
+					}
+					///return index th bit's value
+					inline int get_bit(unsigned short index)
+					{
+						return bs[index];
+					}
+					///return the first bit that was set to 1, from left to right
+					inline int get_first_non_zero_bit()
+					{
+						for(int index = 0; index < leafslotmax; index++) {
+							if(bs.test(index))
+								return index;
+						}
+					}
+
+					///return the first bit that was 0. from left to right
+					inline int get_first_free_bit()
+					{
+						for(int index = 0; index < leafslotmax; index++) {
+							if(!bs.test(index))
+								return index;
+						}
 					}
 
 				}leaf_t;
 
 				typedef struct node {
-					key_type key;
+					key_type key;  //max key in its data node
+					key_type min; //minimum key in its data node
 					value_type val;
 					unsigned num_levels;
 					markable_t next[1];
@@ -160,9 +199,8 @@ namespace stx {
 					size_t sz = sizeof(leaf_t);		
 					leaf_t *item = static_cast<leaf_t *>(malloc(sz));
 					memset(item, 0, sz);
-					item->prevleaf = NULL;
-					item->nextleaf = NULL;
-					item->slotused = -1;
+				//	item->prevleaf = NULL;
+				//	item->nextleaf = NULL;
 					return item;
 				}
 
@@ -299,7 +337,8 @@ namespace stx {
 #ifdef DEBUG
 						cout << "s3 find_preds: found pred " << pred << " next " << next << " level " << level << endl;
 #endif
-						if(level < n) {
+						//charlicqc if(level < n) {
+						if(level <= n) {
 							if(preds != NULL) {
 								preds[level] = pred;
 							}
@@ -308,12 +347,12 @@ namespace stx {
 							}
 						}
 #ifdef DEBUG
-						cout << "  end with level: " << level << endl;
+//						cout << "  end with level: " << level << endl;
 #endif
 					}
 
 #ifdef DEBUG
-					cout << "out of the loop " << endl;
+			//		cout << "out of the loop " << endl;
 #endif
 					if (d == 0) {
 #ifdef DEBUG
@@ -332,6 +371,39 @@ namespace stx {
 #ifdef DEBUG
 					cout << "s1 sl_lookup: searching for key " << key << " in skiplist " << sl << endl;
 #endif
+					node_t *nexts[MAX_LEVELS];
+					node_t *item = (node_t *)find_preds(NULL, nexts, 0, sl, key, DONT_UNLINK);
+					leaf_t *leaf = NULL;
+					if(item) 
+						leaf = item->leaf_ptr;
+					else if(nexts[0]) 
+						leaf = nexts[0]->leaf_ptr;		
+					else
+						goto not_found;
+
+					if(leaf) {
+						for(int i = leafslotmax-1; i>=0; i--) {
+							if(leaf->slotkey[i] == key) {
+#ifdef DEBUG
+					cout << " s1 sl_lookup: found value " << leaf->slotvalue[i] << " for key " << key << " in skiplist "<< endl;
+#endif
+								return leaf->slotvalue[i];
+							}
+						}
+					}else
+						goto not_found;
+not_found:
+#ifdef DEBUG
+					cout << " s1 sl_lookup: not found key " << key << " in skiplist "<< endl;
+#endif
+					return 0;
+				}
+
+				value_type sl_lookup_old(skiplist_t *sl, key_type key) {
+#ifdef DEBUG
+					cout << "s1 sl_lookup: searching for key " << key << " in skiplist " << sl << endl;
+#endif
+					node_t *nexts[MAX_LEVELS];
 					node_t *item = find_preds(NULL, NULL, 0, sl, key, DONT_UNLINK);
 
 					// if we found an <item> matching the <key> return its value
@@ -426,10 +498,11 @@ namespace stx {
 						cout << " s3 sl_insert: index node exists" << nexts[0]  << " key is " << nexts[0]->key << endl;
 #endif
 						leaf_t *leaf = nexts[0]->leaf_ptr;
-						markable_t index = SYNC_ADD(&leaf->slotused,1);
-						if(index != leafslotmax - 1) {
+						if(!leaf->isfull()) { // if the leaf node is not full
+							markable_t index = leaf->get_first_free_bit();
 							leaf->slotkey[index] = key;
 							leaf->slotvalue[index] = new_val;
+							leaf->set_bitmap(index);
 						}else {
 							//split
 						}
@@ -444,12 +517,14 @@ namespace stx {
 						leaf_t *leaf = leaf_alloc();
 						//Use SYNC_CAS to implemente concurrent array access
 						//if leaf->slotused == index ---> no other threads access it concurrently.
-						markable_t index = SYNC_ADD(&leaf->slotused, 1);	
-						if(index != leafslotmax - 1) {
+				//		markable_t index = SYNC_ADD(&leaf->slotused, 1);	
+						if(!leaf->isfull()) {
+							markable_t index = leaf->get_first_free_bit();
 							leaf->slotkey[index] = key;
 							leaf->slotvalue[index] = new_val;
+							leaf->set_bitmap(index);
 						}else { //not possible?
-
+				
 						}
 						//allocate a new skiplist node
 						key_type new_key = sl->type == NULL ? key : reinterpret_cast<key_type>(sl->type->clone(reinterpret_cast<void *>(key)));

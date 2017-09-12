@@ -48,14 +48,14 @@
 // *** Settings
 
 /// starting number of items to insert
-static const unsigned int minitems = 64;
+static const unsigned int minitems = 32;
 //static const unsigned int minitems = 1024000 * 64;
 //static const unsigned int minitems = 512;
 //static const unsigned int minitems = 1;
 
 /// maximum number of items to insert
 //static const unsigned int maxitems = 1024000 * 64;
-static const unsigned int maxitems = 64;
+static const unsigned int maxitems = 32;
 //static const unsigned int maxitems = 512000;
 
 static const int randseed = 34234235;

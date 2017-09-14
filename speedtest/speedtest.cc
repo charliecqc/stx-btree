@@ -48,14 +48,14 @@
 // *** Settings
 
 /// starting number of items to insert
-static const unsigned int minitems = 32;
-//static const unsigned int minitems = 1024000 * 64;
+//static const unsigned int minitems = 64;
+static const unsigned int minitems = 1024000 * 64;
 //static const unsigned int minitems = 512;
 //static const unsigned int minitems = 1;
 
 /// maximum number of items to insert
-//static const unsigned int maxitems = 1024000 * 64;
-static const unsigned int maxitems = 32;
+static const unsigned int maxitems = 1024000 * 64;
+//static const unsigned int maxitems = 64;
 //static const unsigned int maxitems = 512000;
 
 static const int randseed = 34234235;
@@ -273,7 +273,7 @@ public:
     {
         srand(randseed);
         for (unsigned int i = 0; i < items; i++) {
-            unsigned int r = rand() % 100;
+            unsigned int r = rand(); 
             map.insert(std::make_pair(r, r));
         }
 		cout << "charlie tree with " << items << " has been built " << endl;
@@ -544,7 +544,7 @@ int main()
         }
     }
 #endif
-#if 0
+#if 1
     {   // Map - speed test only insertion
         std::ofstream os("speed-map-insert.txt");
 
@@ -570,7 +570,7 @@ int main()
         }
     }
 #endif
-#if 1
+#if 0
     {   // Map - speed test find only
         std::ofstream os("speed-map-find.txt");
 

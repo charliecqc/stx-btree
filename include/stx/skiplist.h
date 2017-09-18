@@ -270,6 +270,107 @@ namespace stx {
 					}
 					return count;
 				}
+				
+
+				//find the index node of certain key. n is the random level of the new node
+				node_t *find_index_node(node_t **preds, node_t **succs, int n, skiplist_t *sl, key_type key, enum unlink unlink ) {
+					node_t *pred = sl->head;
+					node_t * item = NULL; //item is the pointer point to target index node.
+					int diff = 0;
+#ifdef DEBUG
+					cout << " s2 find_index_node: searching for min key that >= key " << key << " in skiplist head is " << pred << endl;
+#endif
+					for(int level = sl->high_water - 1; level >= 0; --level) {
+						markable_t next = pred->next[level]; // from top to bottom
+						if(next == 0 && level > n) {// in the case of next = 0 && level > n, next[level] directly link to the nil;
+							continue;
+						}
+#ifdef DEBUG
+						cout << " s3 find_index_node: traverling level  " << level << " starting at " << pred << endl;
+#endif
+
+#ifdef DELETE
+						if(EXPECT_FALSE(HAS_MARK(next))) {
+							return find_index_node(preds, succs, n , sl, key, unlink);
+						}
+#endif
+						item = GET_NODE(next);
+						while (item != NULL) {
+							next = item->next[level];	
+#ifdef DELETE
+							while(EXPECT_FALSE(HAS_MARK(next))) {
+								if (unlink == DONT_UNLINK) {
+									item = STRIP_MARK(next);
+									if(EXPECT_FALSE(item == NULL)) {
+										break;
+									}
+									next = item->next[level];
+								}else {
+									markable_t other = SYNC_CAS(&pred->next[level], reinterpret_cast<markable_t>(item), reinterpret_cast<markable_t>STRIP_MARK(next));
+									if(other == reinterpret_cast<markable_t>(item)) {
+										item = STRIP_MARK(next);
+									}else {
+										if(HAS_MARK(other)) {
+											return find_index_node(preds, succs, n, sl, key, unlink);
+										}
+										item = GET_NODE(other);
+									}
+									next = (item != NULL) ? item->next[level] : 0;
+								}
+							}
+#endif
+							if (EXPECT_FALSE(item == NULL)) {
+#ifdef DEBUG
+								cout << " s3 find_index_node: past the last item in the skiplist " << endl;
+#endif
+								break;
+							}
+
+#ifdef DEBUG
+							cout << " s4 find_index_node: visiting item " << item << " next is " << (node_t *)next << endl;
+							cout << " s4 find_index_node: key " << item->max << endl;
+#endif
+
+							if(EXPECT_TRUE(sl->type) == 0) {
+								diff = item->max - key;
+							}else {
+								diff = sl->type->cmp(reinterpret_cast<void *>(item->max), reinterpret_cast<void *>(key));
+							}
+							
+							if(diff > 0) {
+								break;
+							}
+							if (diff = 0 && unlink != FORCE_UNLINK) {
+								break;
+							}
+
+							pred = item;
+							item = GET_NODE(next);
+						}
+#ifdef DEBUG
+						cout << " s3 find_index_node: foud pred " << pred << " next " >> (node_t *)next << " at level " << level << endl;
+#endif
+						if (level <= n) {
+							if(preds != NULL) {
+								preds[level] = pred;
+							}
+							if(succs != NULL) {
+								succs[level] = item;	
+							}
+						}
+					} //end of for
+					if(diff == 0) {
+#ifdef DEBUG
+						cout << " find_index_node: foud excatly matching index node " << item << " in skiplist, pred is " << pred << endl;
+#endif
+						return item;
+					}
+#ifdef DEBUG
+					cout << " find_index_node:  foud proper place for key " << key << " in skiplist. pred is " << " returning null " << endl;
+#endif
+					return NULL;
+				}
+				
 				//find the preds and succss of new node. n is the random level of the new node
 				node_t *find_preds(node_t **preds, node_t **succs, int n, skiplist_t *sl, key_type key, enum unlink unlink) {
 					node_t *pred = sl->head;

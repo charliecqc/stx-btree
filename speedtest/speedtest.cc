@@ -223,7 +223,7 @@ public:
 
 		srand(randseed);
         for (unsigned int i = 0; i < items; i++) {
-            unsigned int r = rand();
+            unsigned int r = rand() % 100;
             map.insert(std::make_pair(r, r));
         }
 
@@ -381,7 +381,8 @@ void testrunner_loop(std::ostream& os, unsigned int items)
 
         // discard and repeat if test took less than one second.
         if ((ts2 - ts1) < 1.0) repeatuntil *= 2;
-    }while ((ts2 - ts1) < 1.0); // NOLINT
+    }while(0);
+	//while ((ts2 - ts1) < 1.0); // NOLINT
 	std::cerr << "do " << items << " repeat " << (repeatuntil / items)
                   << " time " << (ts2 - ts1) << "\n";
 
@@ -469,11 +470,11 @@ void TestFactory_Map<TestClass>::call_testrunner(
 #endif
 #if 0
 	cout << " BtreeMap " <<endl;
-    testrunner_loop<BtreeMap<4096> >(os, items);
+    testrunner_loop<BtreeMap<64> >(os, items);
 #endif
 #if 1
 	cout << "SkiplistMap" << endl;
-	testrunner_loop<SkiplistMap<4> >(os, items);
+	testrunner_loop<SkiplistMap<16> >(os, items);
 #endif
 #if 0
 	cout << " TtreeMap " <<endl;

@@ -34,7 +34,7 @@ using namespace std;
 namespace stx {
 	enum
 	{
-		pageSize = 6,
+		pageSize = 32,
 		minItems = pageSize - 2 // minimal number of items in internal node
 	};
 
@@ -73,7 +73,6 @@ namespace stx {
 			// Constructor.
 			CTtree(): root(NULL), m_nSize(0)
 		{
-			cout << "size of TTREENODE is " << sizeof(tagTTREENODE )  << endl;
 		}
 
 			// Destructor.

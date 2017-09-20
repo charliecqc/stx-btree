@@ -50,13 +50,14 @@
 /// starting number of items to insert
 //static const unsigned int minitems = 64;
 static const unsigned int minitems = 1024000 * 64;
-//static const unsigned int minitems = 512;
+//static const unsigned int minitems = 5120000;
 //static const unsigned int minitems = 1;
 
 /// maximum number of items to insert
 static const unsigned int maxitems = 1024000 * 64;
 //static const unsigned int maxitems = 64;
-//static const unsigned int maxitems = 512000;
+//static const unsigned int maxitems = 65536;
+//static const unsigned int maxitems = 5120000;
 
 static const int randseed = 34234235;
 
@@ -223,7 +224,7 @@ public:
 
 		srand(randseed);
         for (unsigned int i = 0; i < items; i++) {
-            unsigned int r = rand() % 100;
+            unsigned int r = rand();
             map.insert(std::make_pair(r, r));
         }
 
@@ -381,8 +382,7 @@ void testrunner_loop(std::ostream& os, unsigned int items)
 
         // discard and repeat if test took less than one second.
         if ((ts2 - ts1) < 1.0) repeatuntil *= 2;
-    }while(0);
-	//while ((ts2 - ts1) < 1.0); // NOLINT
+    }while ((ts2 - ts1) < 1.0); // NOLINT
 	std::cerr << "do " << items << " repeat " << (repeatuntil / items)
                   << " time " << (ts2 - ts1) << "\n";
 
@@ -468,15 +468,15 @@ void TestFactory_Map<TestClass>::call_testrunner(
 	cout << " Unordered " << endl;
     testrunner_loop<UnorderedMap>(os, items);
 #endif
-#if 0
+#if 1
 	cout << " BtreeMap " <<endl;
     testrunner_loop<BtreeMap<64> >(os, items);
 #endif
 #if 1
 	cout << "SkiplistMap" << endl;
-	testrunner_loop<SkiplistMap<16> >(os, items);
+	testrunner_loop<SkiplistMap<64> >(os, items);
 #endif
-#if 0
+#if 1
 	cout << " TtreeMap " <<endl;
 	testrunner_loop<TtreeMap>(os, items);
 #endif

@@ -43,7 +43,7 @@ public:
 public:
 		inline value_type insert(const key_type &key, const value_type &value)
 		{
-			return list.sl_insert(slist, key, -2, value);
+			return list.sl_insert_new(slist, key, value);
 		}
 
 		inline value_type insert(const data_type& x)

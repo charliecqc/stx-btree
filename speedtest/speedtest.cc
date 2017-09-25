@@ -48,16 +48,16 @@
 // *** Settings
 
 /// starting number of items to insert
-//static const unsigned int minitems = 64;
-static const unsigned int minitems = 1024000 * 64;
-//static const unsigned int minitems = 5120000;
+//static const unsigned int minitems = 1024;
+//static const unsigned int minitems = 1024000 * 64;
+static const unsigned int minitems = 5120000;
 //static const unsigned int minitems = 1;
 
 /// maximum number of items to insert
-static const unsigned int maxitems = 1024000 * 64;
-//static const unsigned int maxitems = 64;
+//static const unsigned int maxitems = 1024;
+//static const unsigned int maxitems = 1024000 * 64;
 //static const unsigned int maxitems = 65536;
-//static const unsigned int maxitems = 5120000;
+static const unsigned int maxitems = 5120000;
 
 static const int randseed = 34234235;
 
@@ -470,13 +470,13 @@ void TestFactory_Map<TestClass>::call_testrunner(
 #endif
 #if 1
 	cout << " BtreeMap " <<endl;
-    testrunner_loop<BtreeMap<64> >(os, items);
+    testrunner_loop<BtreeMap<32> >(os, items);
 #endif
 #if 1
 	cout << "SkiplistMap" << endl;
-	testrunner_loop<SkiplistMap<64> >(os, items);
+	testrunner_loop<SkiplistMap<37> >(os, items);
 #endif
-#if 1
+#if 0
 	cout << " TtreeMap " <<endl;
 	testrunner_loop<TtreeMap>(os, items);
 #endif

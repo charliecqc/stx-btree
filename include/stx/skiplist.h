@@ -25,7 +25,7 @@
 #define SYNC_ADD(addr, n)		__sync_add_and_fetch(addr, n)
 #define SYNC_FETCH_AND_OR		__sync_fetch_and_or(addr, x)
 
-#define MAX_LEVELS 24 
+#define MAX_LEVELS 32 
 #define TAG_VALUE(v, tag) ((v) | tag)
 #define IS_TAGGED(v, tag) ((v) & tag)
 #define STRIP_TAG(v, tag) ((v) & ~tag)
@@ -136,6 +136,7 @@ namespace stx {
 					{
 						return bs[index];
 					}
+
 					///return the first bit that was set to 1, from left to right
 					inline int get_first_non_zero_bit()
 					{
@@ -155,13 +156,50 @@ namespace stx {
 						return -1;
 					}
 
+#if 0
 					inline int set(key_type key, value_type value) {
 						markable_t index = get_first_free_bit();
 						slotkey[index] = key;
 						slotvalue[index] = value;
 						set_bitmap(index);
 					}
+#endif
 
+					inline int hash(key_type key, int k) {
+						return (key + k * (1 + (((key >> 5) + 1) % (leafslotmax - 1)))) % leafslotmax;	
+					}
+
+					inline int set(key_type key, value_type value)
+					{
+						for(int i = 0; i < leafslotmax; i++) {
+							int index = hash(key, i);
+							if(!bs.test(index)){
+#ifdef DEBUG
+								cout << "insert key at " << index << " i is " << i << " "<<this<< endl;
+#endif
+								slotkey[index] = key;
+								slotvalue[index] = value;
+								set_bitmap(index);
+								return index;
+							}else if(slotkey[index] == key) {
+								slotvalue[index] = value;
+								return index;
+							}
+						}
+						return -1;
+					}
+
+					inline value_type get(key_type key) {
+						for(int i = leafslotmax - 1; i >= 0; i--) {
+							int index = hash(key, i);
+							if(!bs.test(index)) {
+								if(slotkey[index] == key){
+									return slotvalue[index];
+								}
+							}
+						}
+						return -1;
+					}
 				}leaf_t;
 
 				typedef struct node {
@@ -184,23 +222,32 @@ namespace stx {
 
 			public:
 				int random_levels (skiplist_t *sl) {
-					unsigned int r = rand();
-					//		int z = __buildin_ctz(r);
-					int levels = ffs(r);
-					//	int levels = (int)(z / 1.5);
-					//		int levels = r % MAX_LEVELS;
-					//levels = levels / 1.5;
+					double r = rand()/(RAND_MAX + 1.0);
+					int levels = 1;
+					while(r < 0.25 && levels < MAX_LEVELS) {
+						levels++;
+						r = rand()/(RAND_MAX + 1.0);
+					}
+					if(levels > sl->high_water)
+						sl->high_water  = levels;
+					return levels;
+#if 0
+					int levels = r / 1.5;
 					if(levels == 0)
-						return 1;
+						levels = 1;
 					if(levels > sl->high_water) {
-						//		levels = SYNC_ADD(&sl->high_water, 1); // in case of unusual large level
-						levels = sl->high_water + 1;
+						sl->high_water = sl->high_water + 1;
+						levels = sl->high_water;
+
 #ifdef DEBUG
 						cout << " s2 random_levels: increased high water mark to " << sl->high_water << endl;
 #endif
 					}
-					if(levels > MAX_LEVELS)
-					{levels = MAX_LEVELS;}
+					if(levels > MAX_LEVELS) {
+						levels = MAX_LEVELS;
+						sl->high_water = MAX_LEVELS;
+					}
+#endif
 					return levels;
 				}
 
@@ -296,36 +343,9 @@ namespace stx {
 						cout << " s3 find_index_node: traverling level  " << level << " starting at " << pred << endl;
 #endif
 
-#ifdef DELETE
-						if(EXPECT_FALSE(HAS_MARK(next))) {
-							return find_index_node(preds, succs, n , sl, key, unlink);
-						}
-#endif
 						item = GET_NODE(next);
 						while (item != NULL) {
 							next = item->next[level];	
-#ifdef DELETE
-							while(EXPECT_FALSE(HAS_MARK(next))) {
-								if (unlink == DONT_UNLINK) {
-									item = STRIP_MARK(next);
-									if(EXPECT_FALSE(item == NULL)) {
-										break;
-									}
-									next = item->next[level];
-								}else {
-									markable_t other = SYNC_CAS(&pred->next[level], reinterpret_cast<markable_t>(item), reinterpret_cast<markable_t>STRIP_MARK(next));
-									if(other == reinterpret_cast<markable_t>(item)) {
-										item = STRIP_MARK(next);
-									}else {
-										if(HAS_MARK(other)) {
-											return find_index_node(preds, succs, n, sl, key, unlink);
-										}
-										item = GET_NODE(other);
-									}
-									next = (item != NULL) ? item->next[level] : 0;
-								}
-							}
-#endif
 							if (EXPECT_FALSE(item == NULL)) {
 #ifdef DEBUG
 								cout << " s3 find_index_node: past the last item in the skiplist " << endl;
@@ -515,31 +535,23 @@ namespace stx {
 					cout << "s1 sl_lookup: searching for key " << key << " in skiplist " << sl << endl;
 #endif
 					node_t *nexts[MAX_LEVELS];
-					node_t *item = (node_t *)find_preds(NULL, nexts, 0, sl, key, DONT_UNLINK);
+			//		node_t *item = (node_t *)find_preds(NULL, nexts, 0, sl, key, DONT_UNLINK);
+					node_t *index_node = (node_t *)find_index_node(NULL, nexts, 0, sl, key, DONT_UNLINK);
 					leaf_t *leaf = NULL;
-					if(item) 
-						leaf = item->leaf_ptr;
+					if(index_node) 
+						leaf = index_node->leaf_ptr;
 					else if(nexts[0]) 
 						leaf = nexts[0]->leaf_ptr;		
 					else
 						goto not_found;
 
 					if(leaf) {
-						for(int i = leafslotmax-1; i>=0; i--) {
-							if(leaf->slotkey[i] == key) {
-#ifdef DEBUG
-								cout << " s1 sl_lookup: found value " << leaf->slotvalue[i] << " for key " << key << " in skiplist "<< endl;
-#endif
-								return leaf->slotvalue[i];
-							}
-						}
+						return leaf->get(key);
 					}else
 						goto not_found;
 not_found:
-#ifdef DEBUG
 					cout << " s1 sl_lookup: not found key " << key << " in skiplist "<< endl;
-#endif
-					return 0;
+					return -1;
 				}
 
 				key_type sl_min_key (skiplist_t *sl) {
@@ -610,7 +622,7 @@ not_found:
 							if(key <= index_node->min)
 								index_node->min = key;
 						}else { //need to split
-#ifdef DEBUG
+#if DEBUG 
 							cout << " leaf " << leaf << " is full, need to be split " << endl;
 #endif
 							key_type min = ULLONG_MAX; // new min key of original leaf node  

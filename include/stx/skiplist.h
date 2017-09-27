@@ -10,7 +10,7 @@
 #include <immintrin.h>
 #include <bitset>
 #include <climits>
-//#define DEBUG
+#define DEBUG
 //#define DEBUG_CLONE
 
 
@@ -221,17 +221,21 @@ namespace stx {
 				} skiplist_t ;
 
 			public:
-				int random_levels (skiplist_t *sl) {
+				int random_levels () {
 					double r = rand()/(RAND_MAX + 1.0);
 					int levels = 1;
-					while(r < 0.25 && levels < MAX_LEVELS) {
+					while(r < 0.35 && levels < MAX_LEVELS) {
 						levels++;
 						r = rand()/(RAND_MAX + 1.0);
 					}
-					if(levels > sl->high_water)
-						sl->high_water  = levels;
-					return levels;
 #if 0
+					if(levels > sl->high_water){
+						sl->high_water++; 
+					}
+					if(sl->high_water >= MAX_LEVELS)
+						sl->high_water = MAX_LEVELS;
+					return levels;
+
 					int levels = r / 1.5;
 					if(levels == 0)
 						levels = 1;
@@ -260,7 +264,7 @@ namespace stx {
 					return item;
 				}
 
-				node_t *node_alloc(int num_levels, key_type max, key_type min = ULLONG_MAX) {
+				node_t *node_alloc(skiplist_t *sl, int num_levels, key_type max, key_type min = ULLONG_MAX, bool is_head = false) {
 					assert(num_levels >= 0 && num_levels <= MAX_LEVELS);
 					size_t sz = sizeof(node_t) + (num_levels - 1) * sizeof(node_t *);
 					node_t *item = static_cast<node_t *>(malloc(sz)); //todo use new memory allocator later
@@ -269,6 +273,10 @@ namespace stx {
 					item->min = min;
 					item->num_levels = num_levels;
 					item->leaf_ptr = NULL;
+					if(!is_head){
+						if(sl->high_water < num_levels)
+							sl->high_water = num_levels;
+					}
 #ifdef DEBUG 
 					cout << "s2 node_alloc : new node " << item << " "<< num_levels << " levels" << endl;
 #endif
@@ -279,7 +287,7 @@ namespace stx {
 					skiplist_t *sl = static_cast<skiplist_t *>(malloc(sizeof(skiplist_t)));
 					sl->type = type;
 					sl->high_water = 1;
-					sl->head = node_alloc(MAX_LEVELS, 0, 0);
+					sl->head = node_alloc(sl, MAX_LEVELS, 0, 0, true);
 					memset(reinterpret_cast<void *>(sl->head->next), 0, MAX_LEVELS * sizeof(skiplist_t *));
 					return sl;
 				}
@@ -295,6 +303,9 @@ namespace stx {
 						///invalidate the keys which are larger than target_key in the new data node
 						if(new_leaf->slotkey[index] >= target_key)
 							new_leaf->clear_bitmap(index);	
+						///calculate the largest key in the data node
+						if(new_leaf->bs.test(index) && new_leaf->slotkey[index] >= *max_key)
+							*max_key = new_leaf->slotkey[index];
 						///invalidate the keys which are smaller than target_key in the old data node
 						if(old_leaf->slotkey[index] < target_key)
 							old_leaf->clear_bitmap(index);
@@ -302,9 +313,6 @@ namespace stx {
 						if(!new_leaf->bs.test(index) && !old_leaf->bs.test(index))	
 							continue;
 #endif
-						///calculate the largest key in the data node
-						if(new_leaf->bs.test(index) && new_leaf->slotkey[index] >= *max_key)
-							*max_key = new_leaf->slotkey[index];
 						///calculate the smallest key in the dat node
 						if(old_leaf->bs.test(index) && old_leaf->slotkey[index] <= *min_key)
 							*min_key = old_leaf->slotkey[index];
@@ -344,6 +352,9 @@ namespace stx {
 #endif
 
 						item = GET_NODE(next);
+#ifdef DEBUG
+						cout << "item is " << item << " next is " << next << " level is" << level <<endl;
+#endif
 						while (item != NULL) {
 							next = item->next[level];	
 							if (EXPECT_FALSE(item == NULL)) {
@@ -409,133 +420,12 @@ namespace stx {
 					return NULL;
 				}
 
-				//find the preds and succss of new node. n is the random level of the new node
-				node_t *find_preds(node_t **preds, node_t **succs, int n, skiplist_t *sl, key_type key, enum unlink unlink) {
-					node_t *pred = sl->head;
-					node_t *item = NULL;
-					int d = 0;
-#ifdef DEBUG
-					cout << "s2 find_preds: searching for key " << key << " in skiplist (head is " << pred << " )"<<endl;
-#endif
-					for(int level = sl->high_water - 1; level >= 0; --level) {
-						//		cout << "start at level: " << level << endl;
-						markable_t next = pred->next[level];
-						if(next == 0 && level >= n) {
-							continue;	
-						}
-#ifdef DEBUG
-						cout << "s3 find_preds: traversing level " << level << " starting at " << pred <<endl;
-#endif
-						if(EXPECT_FALSE(HAS_MARK(next))) {
-#ifdef DEBUG
-							cout << "s2 find_preds: pred " << pred << " is marked for removal (next  " << next << " ), retry "<<endl;
-							cout << " hit a return " << endl;
-#endif
-							return find_preds(preds, succs, n, sl, key, unlink);
-						}
-
-						item = GET_NODE(next);
-						while (item != NULL) {
-							next = item->next[level];
-
-							//A tag means an item is logically removed but not phusically unlinked yet
-							while(EXPECT_FALSE(HAS_MARK(next))) {
-#ifdef DEBUG
-								cout << "s3 find_preds: found marked item " <<item << " next is  " << next <<endl;
-#endif
-								if (unlink == DONT_UNLINK) {
-
-									//skip over logically removed items
-									item = STRIP_MARK(next);
-									if(EXPECT_FALSE(item == NULL)) {
-										cout << " hit a break " << endl;
-										break;
-									}
-									next = item->next[level];
-								}else {
-									// Unlink logically removed items
-									markable_t other = SYNC_CAS(&pred->next[level], reinterpret_cast<markable_t>(item), reinterpret_cast<markable_t>STRIP_MARK(next));
-									if(other == reinterpret_cast<markable_t>(item)) {
-#ifdef DEBUG
-										cout << "s3 find_preds: unlinked item from pred " << pred << endl;
-#endif
-										item = STRIP_MARK(next);
-
-									}else {
-#ifdef DEBUG
-										cout << "s3 find_preds: lost race to unlink item pred " << pred << " 's link changed to " << other << endl;
-#endif
-										if(HAS_MARK(other)) {
-											cout << " hit a return " << endl;
-											return find_preds(preds, succs, n, sl, key, unlink); //retry
-										}
-										item = GET_NODE(other);
-									}
-									next = (item != NULL) ? item->next[level] : 0;
-								}
-							}
-
-							if (EXPECT_FALSE(item == NULL)) {
-#ifdef DEBUG
-								cout << "s3 find_preds: past the last item in the skiplist " << endl;
-								cout << " hit a break " << endl;
-#endif
-								break;	
-							}
-#ifdef DEBUG
-							cout << "s4 find_preds: visiting item " << item << " next is  " << reinterpret_cast<node_t *>(next) << endl;
-#endif
-							if(EXPECT_TRUE(sl->type) == 0) {
-								d = item->max - key;
-							}else {
-								d = sl->type->cmp(reinterpret_cast<void *>(item->max), reinterpret_cast<void *>(key));
-							}
-
-							if(d > 0) {
-								//	cout << " hit a break due to d > 0 " << endl; 
-								break;
-							}
-							if (d == 0 && unlink != FORCE_UNLINK) {
-								//	cout << " hit a break due to d == 0 " << endl; 
-								break;
-							}
-
-							pred = item;
-							item = GET_NODE(next);
-						}
-#ifdef DEBUG
-						cout << "s3 find_preds: found pred " << pred << " next " <<reinterpret_cast<node_t *>(next) << " level " << level << endl;
-#endif
-						//charliecqc changed
-						if(level <= n) {
-							if(preds != NULL) {
-								preds[level] = pred;
-							}
-							if(succs != NULL) {
-								succs[level] = item;
-							}
-						}
-					}
-
-					if (d == 0) {
-#ifdef DEBUG
-						cout << "s2 find_preds: found matching item " << item << " in skiplist, pred is " << pred << endl;
-#endif
-						return item;
-					}
-#ifdef DEBUG
-					cout << "s2 find_preds: found proper place for key " << key << " in skiplist, pred is " << pred << " returning null " << endl;
-#endif
-					return NULL;
-
-				}
 
 				value_type sl_lookup(skiplist_t *sl, key_type key) {
 #ifdef DEBUG
 					cout << "s1 sl_lookup: searching for key " << key << " in skiplist " << sl << endl;
 #endif
 					node_t *nexts[MAX_LEVELS];
-			//		node_t *item = (node_t *)find_preds(NULL, nexts, 0, sl, key, DONT_UNLINK);
 					node_t *index_node = (node_t *)find_index_node(NULL, nexts, 0, sl, key, DONT_UNLINK);
 					leaf_t *leaf = NULL;
 					if(index_node) 
@@ -606,7 +496,7 @@ not_found:
 					node_t *preds[MAX_LEVELS];
 					node_t *nexts[MAX_LEVELS];
 
-					int n = random_levels(sl);
+					int n = random_levels();
 
 					node_t * index_node = find_index_node(preds, nexts, n, sl, key, ASSIST_UNLINK);
 					if (index_node || nexts[0]) { // index_nodes exists: key belongs to (min, max); nexts[0] exists: index nodes exists, however, key < min; anyway, nexts[0] == index_node; insert the k,v pair to its leaf node
@@ -622,7 +512,7 @@ not_found:
 							if(key <= index_node->min)
 								index_node->min = key;
 						}else { //need to split
-#if DEBUG 
+#ifdef DEBUG 
 							cout << " leaf " << leaf << " is full, need to be split " << endl;
 #endif
 							key_type min = ULLONG_MAX; // new min key of original leaf node  
@@ -647,7 +537,7 @@ not_found:
 #ifdef DEBUG
 								cout <<" sl_insert_new: attempting to insert an new index node between " << preds[0] << " and " << nexts[0] << endl;
 #endif
-								node_t *new_index = node_alloc(n, max, index_node->min);
+								node_t *new_index = node_alloc(sl, n, max, index_node->min);
 								index_node->min = min; //update new min value of original leaf node
 								new_index->leaf_ptr = new_leaf;
 								new_index->next[0] = reinterpret_cast<markable_t>(nexts[0]);
@@ -657,15 +547,21 @@ not_found:
 								}
 
 								node_t *pred = preds[0];
+#ifdef DEBUG
+								cout << " pred of new_index is " << pred << " sl->head is " << sl->head << endl;
+#endif
 								pred->next[0] = reinterpret_cast<markable_t>(new_index);
 								for(int level = 1; level < new_index->num_levels; ++level) {
 									assert(preds[level]);
 									node_t *pred = preds[level];	
 									pred->next[level] = reinterpret_cast<markable_t>(new_index);
+#ifdef DEBUG
+									cout << "preds level" << level << " is " << preds[level] << " next is " << pred->next[level] << endl;
+#endif
 								}
 							}else{ //key belongs to original's [min, max], 
 								find_preds_simple(preds, nexts, n, sl, max);
-								node_t *new_index = node_alloc(n, max, index_node->min);
+								node_t *new_index = node_alloc(sl, n, max, index_node->min);
 								index_node->min = min;
 								new_index->leaf_ptr = new_leaf;
 								new_index->next[0] = reinterpret_cast<markable_t>(nexts[0]);
@@ -688,9 +584,9 @@ not_found:
 					}else { // naither index_node nor nexts[0] exists. add a total new index node with new leaf_node
 						assert(preds[0]);
 #ifdef DEBUG
-						cout << " s3 sl_insert_new: attempting to insert an new index node between " << preds[0] << " and " << nexts[0] << " 0?" <<endl;
+						cout << " s3 sl_insert_new with preds[0]: attempting to insert an new index node between " << preds[0] << " and " << nexts[0] << " 0?" <<endl;
 #endif
-						node_t *new_index = node_alloc(n, key);
+						node_t *new_index = node_alloc(sl, n, key);
 						leaf_t *leaf = new leaf_t();
 						if(!leaf->isfull()) {
 							leaf->set(key, new_val);
@@ -720,7 +616,7 @@ not_found:
 					cout << "s1 sl_remove: removing item with key " << key << " from skiplist " << sl << endl;
 #endif
 					node_t *preds[MAX_LEVELS];
-					node_t *item = find_preds(preds, NULL, sl->high_water, sl, key, ASSIST_UNLINK);
+					node_t *item = find_preds_index(preds, NULL, sl->high_water, sl, key, ASSIST_UNLINK);
 					if(item == NULL) {
 #ifdef DEBUG
 						cout << "s3 sl_remove: remove failed, an item with a matching key does not exist in the skiplist" << endl;
@@ -759,7 +655,7 @@ not_found:
 					cout << " sw sl_remove: replaced item " << item << " 's value whit NULL " << endl;
 #endif
 					//unlink the item
-					find_preds(NULL, NULL, 0, sl, key, FORCE_UNLINK);
+					find_preds_index(NULL, NULL, 0, sl, key, FORCE_UNLINK);
 
 					//free the node
 					if(sl->type !=NULL) {
@@ -773,7 +669,7 @@ not_found:
 				sl_iter * sl_iter_begin(skiplist_t *sl, key_type key) {
 					sl_iter *iter = static_cast<sl_iter *>(malloc(sizeof(sl_iter)));
 					if(key != NULL) {
-						find_preds(NULL, &iter->next, 1, sl, key ,DONT_UNLINK);
+						find_preds_index(NULL, &iter->next, 1, sl, key ,DONT_UNLINK);
 					}else {
 						iter->next = GET_NODE(sl->head->next[0]);
 					}

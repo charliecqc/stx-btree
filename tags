@@ -153,11 +153,11 @@ CCDEPMODE	wxbtreedemo/Makefile	/^CCDEPMODE = depmode=gcc3$/;"	m
 CCLD	memprofile/Makefile	/^CCLD = $(CC)$/;"	m
 CCLD	testsuite/Makefile	/^CCLD = $(CC)$/;"	m
 CCLD	wxbtreedemo/Makefile	/^CCLD = $(CC)$/;"	m
-CFLAGS	Makefile	/^CFLAGS = -g -O0 -fomit-frame-pointer -march=native$/;"	m
-CFLAGS	include/Makefile	/^CFLAGS = -g -O0 -fomit-frame-pointer -march=native$/;"	m
-CFLAGS	memprofile/Makefile	/^CFLAGS = -g -O0 -fomit-frame-pointer -march=native$/;"	m
-CFLAGS	speedtest/Makefile	/^CFLAGS = -g -O0 -fomit-frame-pointer -march=native$/;"	m
-CFLAGS	testsuite/Makefile	/^CFLAGS = -g -O0 -fomit-frame-pointer -march=native$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -g -O3 -fomit-frame-pointer -march=native$/;"	m
+CFLAGS	include/Makefile	/^CFLAGS = -g -O3 -fomit-frame-pointer -march=native$/;"	m
+CFLAGS	memprofile/Makefile	/^CFLAGS = -g -O3 -fomit-frame-pointer -march=native$/;"	m
+CFLAGS	speedtest/Makefile	/^CFLAGS = -g -O3 -fomit-frame-pointer -march=native$/;"	m
+CFLAGS	testsuite/Makefile	/^CFLAGS = -g -O3 -fomit-frame-pointer -march=native$/;"	m
 CFLAGS	wxbtreedemo/Makefile	/^CFLAGS = -g -O3 -fomit-frame-pointer -march=native$/;"	m
 COMPILE	memprofile/Makefile	/^COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \\$/;"	m
 COMPILE	testsuite/Makefile	/^COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \\$/;"	m
@@ -210,11 +210,11 @@ CXXDEPMODE	memprofile/Makefile	/^CXXDEPMODE = depmode=gcc3$/;"	m
 CXXDEPMODE	speedtest/Makefile	/^CXXDEPMODE = depmode=gcc3$/;"	m
 CXXDEPMODE	testsuite/Makefile	/^CXXDEPMODE = depmode=gcc3$/;"	m
 CXXDEPMODE	wxbtreedemo/Makefile	/^CXXDEPMODE = depmode=gcc3$/;"	m
-CXXFLAGS	Makefile	/^CXXFLAGS = -g -O0 -fomit-frame-pointer -march=native$/;"	m
-CXXFLAGS	include/Makefile	/^CXXFLAGS = -g -O0 -fomit-frame-pointer -march=native$/;"	m
-CXXFLAGS	memprofile/Makefile	/^CXXFLAGS = -g -O0 -fomit-frame-pointer -march=native$/;"	m
-CXXFLAGS	speedtest/Makefile	/^CXXFLAGS = -g -O0 -fomit-frame-pointer -march=native$/;"	m
-CXXFLAGS	testsuite/Makefile	/^CXXFLAGS = -g -O0 -fomit-frame-pointer -march=native$/;"	m
+CXXFLAGS	Makefile	/^CXXFLAGS = -g -O3 -fomit-frame-pointer -march=native$/;"	m
+CXXFLAGS	include/Makefile	/^CXXFLAGS = -g -O3 -fomit-frame-pointer -march=native$/;"	m
+CXXFLAGS	memprofile/Makefile	/^CXXFLAGS = -g -O3 -fomit-frame-pointer -march=native$/;"	m
+CXXFLAGS	speedtest/Makefile	/^CXXFLAGS = -g -O3 -fomit-frame-pointer -march=native$/;"	m
+CXXFLAGS	testsuite/Makefile	/^CXXFLAGS = -g -O3 -fomit-frame-pointer -march=native$/;"	m
 CXXFLAGS	wxbtreedemo/Makefile	/^CXXFLAGS = -g -O3 -fomit-frame-pointer -march=native$/;"	m
 CXXLD	memprofile/Makefile	/^CXXLD = $(CXX)$/;"	m
 CXXLD	speedtest/Makefile	/^CXXLD = $(CXX)$/;"	m
@@ -1498,7 +1498,7 @@ find	include/stx/ttree_multimap.h	/^	inline int find(int x){$/;"	f	class:stx::tt
 find	include/stx/ttree_set.h	/^	inline int find(int x){$/;"	f	class:stx::ttree_set
 find_index_node	include/stx/skiplist.h	/^				node_t *find_index_node(node_t **preds, node_t **succs, int n, skiplist_t *sl, key_type key, enum unlink unlink ) {$/;"	f	class:stx::skiplist
 find_lower	include/stx/btree.h	/^    inline int find_lower(const node_type* n, const key_type& key) const$/;"	f	class:stx::btree
-find_preds	include/stx/skiplist.h	/^				node_t *find_preds(node_t **preds, node_t **succs, int n, skiplist_t *sl, key_type key, enum unlink unlink) {$/;"	f	class:stx::skiplist
+find_preds_simple	include/stx/skiplist.h	/^				void find_preds_simple(node_t **preds, node_t **succs, int n, skiplist_t *sl, key_type key) {$/;"	f	class:stx::skiplist
 find_upper	include/stx/btree.h	/^    inline int find_upper(const node_type* n, const key_type& key) const$/;"	f	class:stx::btree
 finish	memprofile/malloc_count.c	/^static __attribute__ ((destructor)) void finish(void)$/;"	f	file:
 fixture	testsuite/tpunit.h	/^					fixture()$/;"	f	class:tpunit::TestFixture::fixture
@@ -1514,6 +1514,7 @@ friends	doxygen-html/a00020.html	/^<tr><td colspan="2"><h2><a name="friends"><\/
 friends	doxygen-html/a00022.html	/^<tr><td colspan="2"><h2><a name="friends"><\/a>$/;"	a
 front	include/stx/LinkedQueue.h	/^T& linkedQueue<T>::front()$/;"	f	class:linkedQueue
 front	include/stx/LinkedQueue.h	/^const T& linkedQueue<T>::front() const$/;"	f	class:linkedQueue
+get	include/stx/skiplist.h	/^					inline value_type get(key_type key) {$/;"	f	struct:stx::skiplist::leaf
 getNode	include/stx/LinkedQueue.h	/^node<T> *linkedQueue<T>::getNode(const T& item)$/;"	f	class:linkedQueue
 getXPos	doxygen-html/search/search.js	/^function getXPos(item)$/;"	f
 getYPos	doxygen-html/search/search.js	/^function getYPos(item)$/;"	f
@@ -1533,6 +1534,7 @@ get_stats	include/stx/btree_set.h	/^    inline const tree_stats & get_stats() co
 has	include/stx/btree.h	/^        inline bool    has(result_flags_t f) const$/;"	f	struct:stx::btree::result_t
 hasfocus	wxbtreedemo/WTreeDrawing.h	/^    bool hasfocus;$/;"	m	class:WTreeDrawing
 hash	include/stx/skiplist.h	/^					hash_fun_t hash;$/;"	m	struct:stx::skiplist::datatype
+hash	include/stx/skiplist.h	/^					inline int hash(key_type key, int k) {$/;"	f	struct:stx::skiplist::leaf
 hash_fun_t	include/stx/skiplist.h	/^				typedef int64_t (*hash_fun_t) (void *);$/;"	t	class:stx::skiplist
 head	include/stx/skiplist.h	/^					node_t *head;$/;"	m	struct:stx::skiplist::sl
 high_water	include/stx/skiplist.h	/^					int high_water;	\/\/max historic number of levels$/;"	m	struct:stx::skiplist::sl
@@ -8490,7 +8492,7 @@ max_size	include/stx/btree_map.h	/^    inline size_type max_size() const$/;"	f	c
 max_size	include/stx/btree_multimap.h	/^    inline size_type max_size() const$/;"	f	class:stx::btree_multimap
 max_size	include/stx/btree_multiset.h	/^    inline size_type max_size() const$/;"	f	class:stx::btree_multiset
 max_size	include/stx/btree_set.h	/^    inline size_type max_size() const$/;"	f	class:stx::btree_set
-maxitems	speedtest/speedtest.cc	/^static const unsigned int maxitems = 1024000 * 64;$/;"	v	file:
+maxitems	speedtest/speedtest.cc	/^static const unsigned int maxitems = 5120000;$/;"	v	file:
 memprofile_LDADD	memprofile/Makefile	/^memprofile_LDADD = $(LDADD)$/;"	m
 memprofile_OBJECTS	memprofile/Makefile	/^memprofile_OBJECTS = $(am_memprofile_OBJECTS)$/;"	m
 memprofile_SOURCES	memprofile/Makefile	/^memprofile_SOURCES = main.cc malloc_count.c malloc_count.h memprofile.h$/;"	m
@@ -8507,7 +8509,7 @@ mininnerslots	include/stx/btree_map.h	/^    static const unsigned short mininner
 mininnerslots	include/stx/btree_multimap.h	/^    static const unsigned short mininnerslots = btree_impl::mininnerslots;$/;"	m	class:stx::btree_multimap
 mininnerslots	include/stx/btree_multiset.h	/^    static const unsigned short mininnerslots = btree_impl::mininnerslots;$/;"	m	class:stx::btree_multiset
 mininnerslots	include/stx/btree_set.h	/^    static const unsigned short mininnerslots = btree_impl::mininnerslots;$/;"	m	class:stx::btree_set
-minitems	speedtest/speedtest.cc	/^static const unsigned int minitems = 1024000 * 64;$/;"	v	file:
+minitems	speedtest/speedtest.cc	/^static const unsigned int minitems = 5120000;$/;"	v	file:
 minleafslots	include/stx/btree.h	/^    static const unsigned short minleafslots = (leafslotmax \/ 2);$/;"	m	class:stx::btree
 minleafslots	include/stx/btree_map.h	/^    static const unsigned short minleafslots = btree_impl::minleafslots;$/;"	m	class:stx::btree_map
 minleafslots	include/stx/btree_multimap.h	/^    static const unsigned short minleafslots = btree_impl::minleafslots;$/;"	m	class:stx::btree_multimap
@@ -8553,7 +8555,7 @@ node	include/stx/btree.h	/^        inline node(const unsigned short l, const uns
 node	include/stx/btree.h	/^    struct node$/;"	s	class:stx::btree
 node	include/stx/skiplist.h	/^				typedef struct node {$/;"	s	class:stx::skiplist
 nodeValue	include/stx/Node.h	/^  T nodeValue;      \/\/ data held by the node$/;"	m	class:node
-node_alloc	include/stx/skiplist.h	/^				node_t *node_alloc(int num_levels, key_type key, value_type val) {$/;"	f	class:stx::skiplist
+node_alloc	include/stx/skiplist.h	/^				node_t *node_alloc(skiplist_t *sl, int num_levels, key_type max, key_type min = ULLONG_MAX, bool is_head = false) {$/;"	f	class:stx::skiplist
 node_t	include/stx/skiplist.h	/^				} node_t;$/;"	t	class:stx::skiplist	typeref:struct:stx::skiplist::node
 nodes	include/stx/btree.h	/^        inline size_type            nodes() const$/;"	f	struct:stx::btree::tree_stats
 noinst_PROGRAMS	memprofile/Makefile	/^noinst_PROGRAMS = memprofile$(EXEEXT)$/;"	m
@@ -9034,6 +9036,7 @@ selfverify	speedtest/speedtest.cc	/^    static const bool selfverify = false;$/;
 selfverify	testsuite/SimpleTest.cc	/^        static const bool selfverify = true;$/;"	m	struct:SimpleTest::traits_nodebug	file:
 selfverify	wxbtreedemo/WMain.h	/^        static const bool selfverify = true;$/;"	m	struct:BTreeBundle::btree_traits_nodebug
 sentinel	memprofile/malloc_count.c	/^static const size_t sentinel = 0xDEADC0DE;$/;"	v	file:
+set	include/stx/skiplist.h	/^					inline int set(key_type key, value_type value)$/;"	f	struct:stx::skiplist::leaf
 set	speedtest/speedtest.cc	/^    SetType set;$/;"	m	class:Test_Set_Find	file:
 setClassAttr	doxygen-html/search/search.js	/^function setClassAttr(elem,attr)$/;"	f
 setKeyActions	doxygen-html/search/search.js	/^function setKeyActions(elem,action)$/;"	f
@@ -9081,16 +9084,14 @@ skiplist_traits_speed	speedtest/speedtest.cc	/^class skiplist_traits_speed : stx
 sl	include/stx/skiplist.h	/^				typedef struct sl {$/;"	s	class:stx::skiplist
 sl	include/stx/skiplist_multimap.h	/^	typedef typename skiplist_impl::skiplist_t sl;$/;"	t	class:stx::skiplist_multimap
 sl_alloc	include/stx/skiplist.h	/^				skiplist_t *sl_alloc (const datatype_t *type) {$/;"	f	class:stx::skiplist
-sl_cas	include/stx/skiplist.h	/^				value_type sl_cas(skiplist_t *sl, key_type key, value_type expectation, value_type new_val) {$/;"	f	class:stx::skiplist
 sl_free	include/stx/skiplist.h	/^				void sl_free (skiplist_t *sl) {$/;"	f	class:stx::skiplist
-sl_insert	include/stx/skiplist.h	/^					value_type sl_insert(skiplist_t *sl, key_type key, value_type expectation, value_type new_val,leaf_t *leaf = NULL) {$/;"	f	class:stx::skiplist
+sl_insert_new	include/stx/skiplist.h	/^				value_type sl_insert_new(skiplist_t *sl, key_type key, value_type new_val, leaf_t *leaf = NULL)$/;"	f	class:stx::skiplist
 sl_iter	include/stx/skiplist.h	/^				struct sl_iter {$/;"	s	class:stx::skiplist
 sl_iter_begin	include/stx/skiplist.h	/^				sl_iter * sl_iter_begin(skiplist_t *sl, key_type key) {$/;"	f	class:stx::skiplist
 sl_iter_free	include/stx/skiplist.h	/^				void sl_iter_free ( sl_iter *iter) {$/;"	f	class:stx::skiplist
 sl_iter_next	include/stx/skiplist.h	/^				value_type sl_iter_next(sl_iter *iter, key_type * key_ptr) {$/;"	f	class:stx::skiplist
-sl_lookup	include/stx/skiplist.h	/^					value_type sl_lookup(skiplist_t *sl, key_type key) {$/;"	f	class:stx::skiplist
-sl_lookup_old	include/stx/skiplist.h	/^					value_type sl_lookup_old(skiplist_t *sl, key_type key) {$/;"	f	class:stx::skiplist
-sl_min_key	include/stx/skiplist.h	/^					key_type sl_min_key (skiplist_t *sl) {$/;"	f	class:stx::skiplist
+sl_lookup	include/stx/skiplist.h	/^				value_type sl_lookup(skiplist_t *sl, key_type key) {$/;"	f	class:stx::skiplist
+sl_min_key	include/stx/skiplist.h	/^				key_type sl_min_key (skiplist_t *sl) {$/;"	f	class:stx::skiplist
 sl_remove	include/stx/skiplist.h	/^				value_type sl_remove (skiplist_t *sl, key_type key) {$/;"	f	class:stx::skiplist
 slist	include/stx/skiplist_multimap.h	/^	sl * slist;$/;"	m	class:stx::skiplist_multimap
 slotdata	include/stx/btree.h	/^        data_type slotdata[used_as_set ? 1 : leafslotmax];$/;"	m	struct:stx::btree::leaf_node
@@ -9105,9 +9106,9 @@ speedtest_SOURCES	speedtest/Makefile	/^speedtest_SOURCES = speedtest.cc$/;"	m
 speedtest_tune_LDADD	speedtest/Makefile	/^speedtest_tune_LDADD = $(LDADD)$/;"	m
 speedtest_tune_OBJECTS	speedtest/Makefile	/^speedtest_tune_OBJECTS = $(am_speedtest_tune_OBJECTS)$/;"	m
 speedtest_tune_SOURCES	speedtest/Makefile	/^speedtest_tune_SOURCES = speedtest-tune.cc$/;"	m
-split_date_node	include/stx/skiplist.h	/^				inline leaf_t * split_date_node(key_type *max_key, key_type *min_key,const key_type target_key, leaf_t *old_leaf)	{$/;"	f	class:stx::skiplist
 split_inner_node	include/stx/btree.h	/^    void split_inner_node(inner_node* inner, key_type* _newkey, node** _newinner, unsigned int addslot)$/;"	f	class:stx::btree
 split_leaf_node	include/stx/btree.h	/^    void split_leaf_node(leaf_node* leaf, key_type* _newkey, node** _newleaf)$/;"	f	class:stx::btree
+split_leaf_node	include/stx/skiplist.h	/^				inline leaf_t * split_leaf_node(key_type *max_key, key_type *min_key,const key_type target_key, leaf_t *old_leaf)	{$/;"	f	class:stx::skiplist
 srcdir	Makefile	/^srcdir = .$/;"	m
 srcdir	include/Makefile	/^srcdir = .$/;"	m
 srcdir	memprofile/Makefile	/^srcdir = .$/;"	m
@@ -9247,8 +9248,6 @@ ttree_multimap	include/stx/ttree_multimap.h	/^class ttree_multimap$/;"	c	namespa
 ttree_set	include/stx/ttree_set.h	/^class ttree_set$/;"	c	namespace:stx
 type	include/stx/skiplist.h	/^					const datatype_t *type;$/;"	m	struct:stx::skiplist::sl
 unlink	include/stx/skiplist.h	/^enum unlink {$/;"	g
-update_item	include/stx/skiplist.h	/^					value_type update_item(skiplist_t *sl, node_t *item, value_type expectation, value_type new_val) {$/;"	f	class:stx::skiplist
-update_item_old	include/stx/skiplist.h	/^					value_type update_item_old(node_t *item, value_type expectation, value_type new_val) {$/;"	f	class:stx::skiplist
 upper_bound	include/stx/btree.h	/^    const_iterator upper_bound(const key_type& key) const$/;"	f	class:stx::btree
 upper_bound	include/stx/btree.h	/^    iterator upper_bound(const key_type& key)$/;"	f	class:stx::btree
 upper_bound	include/stx/btree_map.h	/^    const_iterator upper_bound(const key_type& key) const$/;"	f	class:stx::btree_map
@@ -9261,7 +9260,6 @@ upper_bound	include/stx/btree_set.h	/^    const_iterator upper_bound(const key_t
 upper_bound	include/stx/btree_set.h	/^    iterator upper_bound(const key_type& key)$/;"	f	class:stx::btree_set
 usage	doxygen-html/installdox	/^sub usage {$/;"	s
 used_as_set	include/stx/btree.h	/^    static const bool used_as_set = _UsedAsSet;$/;"	m	class:stx::btree
-val	include/stx/skiplist.h	/^					value_type val;$/;"	m	struct:stx::skiplist::node
 value_comp	include/stx/btree.h	/^    inline value_compare value_comp() const$/;"	f	class:stx::btree
 value_comp	include/stx/btree_map.h	/^    inline value_compare value_comp() const$/;"	f	class:stx::btree_map
 value_comp	include/stx/btree_multimap.h	/^    inline value_compare value_comp() const$/;"	f	class:stx::btree_multimap

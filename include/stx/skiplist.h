@@ -10,7 +10,7 @@
 #include <immintrin.h>
 #include <bitset>
 #include <climits>
-#define DEBUG
+//#define DEBUG
 //#define DEBUG_CLONE
 
 
@@ -221,38 +221,25 @@ namespace stx {
 				} skiplist_t ;
 
 			public:
-				int random_levels () {
+				int random_levels (skiplist_t *sl) {
 					double r = rand()/(RAND_MAX + 1.0);
 					int levels = 1;
-					while(r < 0.35 && levels < MAX_LEVELS) {
+					while(r < 0.15 && levels < MAX_LEVELS) {
 						levels++;
 						r = rand()/(RAND_MAX + 1.0);
 					}
-#if 0
 					if(levels > sl->high_water){
-						sl->high_water++; 
+						levels = sl->high_water;
+						sl->high_water++;
 					}
 					if(sl->high_water >= MAX_LEVELS)
 						sl->high_water = MAX_LEVELS;
-					return levels;
-
-					int levels = r / 1.5;
-					if(levels == 0)
-						levels = 1;
-					if(levels > sl->high_water) {
-						sl->high_water = sl->high_water + 1;
-						levels = sl->high_water;
 
 #ifdef DEBUG
 						cout << " s2 random_levels: increased high water mark to " << sl->high_water << endl;
 #endif
-					}
-					if(levels > MAX_LEVELS) {
-						levels = MAX_LEVELS;
-						sl->high_water = MAX_LEVELS;
-					}
-#endif
 					return levels;
+
 				}
 
 				// Allocate a new leaf node
@@ -273,10 +260,14 @@ namespace stx {
 					item->min = min;
 					item->num_levels = num_levels;
 					item->leaf_ptr = NULL;
+#if 0
 					if(!is_head){
 						if(sl->high_water < num_levels)
-							sl->high_water = num_levels;
+							sl->high_water++;
+						if(sl->high_water > MAX_LEVELS)
+							sl->high_water = MAX_LEVELS;
 					}
+#endif
 #ifdef DEBUG 
 					cout << "s2 node_alloc : new node " << item << " "<< num_levels << " levels" << endl;
 #endif
@@ -340,7 +331,7 @@ namespace stx {
 					int d_max = 0;
 					int d_min = 0;
 #ifdef DEBUG
-					cout << " s2 find_index_node: searching for min key that >= key " << key << " in skiplist head is " << pred << endl;
+					cout << " s2 find_index_node: searching for min key that >= key " << key << " in skiplist head is " << pred << " sl->high_water is " << sl->high_water<< " n is "<< n <<endl;
 #endif
 					for(int level = sl->high_water - 1; level >= 0; --level) {
 						markable_t next = pred->next[level]; // from top to bottom
@@ -353,7 +344,7 @@ namespace stx {
 
 						item = GET_NODE(next);
 #ifdef DEBUG
-						cout << "item is " << item << " next is " << next << " level is" << level <<endl;
+						cout << "item is " << item << " next is " << (node_t *)next << " level is " << level <<endl;
 #endif
 						while (item != NULL) {
 							next = item->next[level];	
@@ -379,7 +370,7 @@ namespace stx {
 							}
 
 							if(d_max >= 0) {
-								d_min = key - item->min;
+							d_min = key - item->min;
 								if(d_min >= 0) {  // key is belong to this index node
 #ifdef DEBUG
 									cout << "s3 find_index_node: " << item << " with min " << item->min << " max " << item->max << endl;
@@ -408,12 +399,7 @@ namespace stx {
 						}
 
 					} //end of for 
-					if(d_max == 0) { //charliecqc : verify if this case is still possible
-#ifdef DEBUG
-						cout << " find_index_node: foud excatly matching index node " << item << " in skiplist, pred is " << pred << endl;
-#endif
-						return item;
-					}
+
 #ifdef DEBUG
 					cout << " find_index_node:  foud proper place for key " << key << " in skiplist. pred is " << " returning null " << endl;
 #endif
@@ -496,7 +482,7 @@ not_found:
 					node_t *preds[MAX_LEVELS];
 					node_t *nexts[MAX_LEVELS];
 
-					int n = random_levels();
+					int n = random_levels(sl);
 
 					node_t * index_node = find_index_node(preds, nexts, n, sl, key, ASSIST_UNLINK);
 					if (index_node || nexts[0]) { // index_nodes exists: key belongs to (min, max); nexts[0] exists: index nodes exists, however, key < min; anyway, nexts[0] == index_node; insert the k,v pair to its leaf node
@@ -552,11 +538,11 @@ not_found:
 #endif
 								pred->next[0] = reinterpret_cast<markable_t>(new_index);
 								for(int level = 1; level < new_index->num_levels; ++level) {
-									assert(preds[level]);
+									assert(preds[level] != 0);
 									node_t *pred = preds[level];	
 									pred->next[level] = reinterpret_cast<markable_t>(new_index);
 #ifdef DEBUG
-									cout << "preds level" << level << " is " << preds[level] << " next is " << pred->next[level] << endl;
+									cout << "preds level " << level << " is " << preds[level] << " next is " << (node_t *)pred->next[level] << endl;
 #endif
 								}
 							}else{ //key belongs to original's [min, max], 
@@ -564,14 +550,13 @@ not_found:
 								node_t *new_index = node_alloc(sl, n, max, index_node->min);
 								index_node->min = min;
 								new_index->leaf_ptr = new_leaf;
-								new_index->next[0] = reinterpret_cast<markable_t>(nexts[0]);
-								for(int level =1; level < new_index->num_levels; level++) {
+								for(int level = 0; level < new_index->num_levels; level++) {
 									assert(nexts[level]);
 									new_index->next[level] = reinterpret_cast<markable_t>(nexts[level]);
 								}
-								node_t *pred = preds[0];
-								pred->next[0] = reinterpret_cast<markable_t>(new_index);
-								for(int level = 1; level < new_index->num_levels; ++level) {
+							//	node_t *pred = preds[0];
+							//	pred->next[0] = reinterpret_cast<markable_t>(new_index);
+								for(int level = 0; level < new_index->num_levels; ++level) {
 									assert(preds[level]);
 									node_t *pred = preds[level];	
 									pred->next[level] = reinterpret_cast<markable_t>(new_index);

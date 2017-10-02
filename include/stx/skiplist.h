@@ -10,7 +10,7 @@
 #include <immintrin.h>
 #include <bitset>
 #include <climits>
-//#define DEBUG
+#define DEBUG
 //#define DEBUG_CLONE
 
 
@@ -104,19 +104,24 @@ namespace stx {
 					///array of data
 					value_type slotvalue[leafslotmax];
 					///current count of used key
+					//
+					public:
+					int slotused;
 
 
 					///set variable to initial values
-					inline leaf()
+					leaf()
 					{
 						bs.reset(); // to set each bit to 0
+						slotused = 0;
 					}
 
 					///True if the node's slots are full
-					inline bool isfull() const
+					bool isfull() const
 					{
 						//	return (slotused == leafslotmax - 1);
-						return bs.count() == bs.size();
+						//	return bs.count() == bs.size();
+							return slotused == leafslotmax;
 					}
 					///set the indexth bit to 1 
 					inline int set_bitmap(unsigned short index)
@@ -169,7 +174,7 @@ namespace stx {
 						return (key + k * (1 + (((key >> 5) + 1) % (leafslotmax - 1)))) % leafslotmax;	
 					}
 
-					inline int set(key_type key, value_type value)
+					inline int set_hash(key_type key, value_type value)
 					{
 						for(int i = 0; i < leafslotmax; i++) {
 							int index = hash(key, i);
@@ -187,6 +192,15 @@ namespace stx {
 							}
 						}
 						return -1;
+					}
+
+					int set(key_type key, value_type value)
+					{
+						int index =	slotused++;
+						cout <<this << " 's index is set " << index <<  endl;
+						slotkey[index] = key;
+						slotvalue[index] = value;
+						return 0;
 					}
 
 					inline value_type get(key_type key) {
@@ -254,7 +268,7 @@ namespace stx {
 				node_t *node_alloc(skiplist_t *sl, int num_levels, key_type max, key_type min = ULLONG_MAX, bool is_head = false) {
 					assert(num_levels >= 0 && num_levels <= MAX_LEVELS);
 					size_t sz = sizeof(node_t) + (num_levels - 1) * sizeof(node_t *);
-					node_t *item = static_cast<node_t *>(malloc(sz)); //todo use new memory allocator later
+					node_t *item = reinterpret_cast<node_t *>(malloc(sz)); //todo use new memory allocator later
 					memset(item, 0, sz);
 					item->max = max;
 					item->min = min;
@@ -287,7 +301,7 @@ namespace stx {
 				//key will be used to make a new index node
 				//@min_key: minimum key stored in the old_leaf 
 				//@max_key: maximum key stored in the new_leaf 
-				inline leaf_t * split_leaf_node(key_type *max_key, key_type *min_key,const key_type target_key, leaf_t *old_leaf)	{
+				inline leaf_t * split_leaf_node_bitmap(key_type *max_key, key_type *min_key,const key_type target_key, leaf_t *old_leaf)	{
 					struct leaf *new_leaf = new leaf_t();
 					memcpy(new_leaf, old_leaf, sizeof(struct leaf));
 					for(int index = 0; index < new_leaf->bs.size(); index++) {
@@ -307,6 +321,30 @@ namespace stx {
 						///calculate the smallest key in the dat node
 						if(old_leaf->bs.test(index) && old_leaf->slotkey[index] <= *min_key)
 							*min_key = old_leaf->slotkey[index];
+					}
+					return new_leaf;
+				}
+
+				leaf_t *split_leaf_node(key_type *max_key, key_type *min_key, const key_type target_key, leaf_t *old_leaf, leaf_t *orig_leaf) {
+					struct leaf *new_leaf = new leaf_t();
+					for(int index = 0; index < old_leaf->slotused; index++){
+						key_type temp_key = old_leaf->slotkey[index];
+						key_type temp_value = old_leaf->slotvalue[index];
+						if(temp_key <= target_key ) {
+							new_leaf->slotkey[new_leaf->slotused] = temp_key;
+							new_leaf->slotvalue[new_leaf->slotused] = temp_value;
+							if(temp_key >= *max_key)
+								*max_key = temp_key;
+							new_leaf->slotused++;
+
+						}else{
+							orig_leaf->slotkey[orig_leaf->slotused] = temp_key;
+							orig_leaf->slotvalue[orig_leaf->slotused] = temp_value;
+							if(temp_key <= *min_key)
+								*min_key = temp_key;
+							orig_leaf->slotused++;
+
+						}
 					}
 					return new_leaf;
 				}
@@ -504,20 +542,23 @@ not_found:
 							key_type min = ULLONG_MAX; // new min key of original leaf node  
 							key_type max = 0;// new max key of new leaf node
 							key_type target_key = (index_node->max + index_node->min) / 2;
-							leaf_t *new_leaf = split_leaf_node(&max, &min, target_key, leaf);
+							leaf_t *orig_leaf = new leaf_t();
+							leaf_t *new_leaf = split_leaf_node(&max, &min, target_key, leaf, orig_leaf);
+							index_node->leaf_ptr = orig_leaf;
+							delete leaf;
 							//put the key value value into leaf node; it depends on the key
 							if(key <= min) {
 								new_leaf->set(key, new_val);
 								if(key > max)
 									max = key;
 							}else {
-								leaf->set(key, new_val);
+								orig_leaf->set(key, new_val);
 							} //put fini.
 
 							// link a new index node that contains new_leaf to the skiplist
 
 #ifdef DEBUG
-							cout << " create new_leaf " << new_leaf << " with max " << max << " min " << index_node->min << " old_leaf " << leaf << " with max " <<index_node->max << " min " << min << endl;
+							cout << " create new_leaf " << new_leaf << " with max " << max << " min " << index_node->min << " orig_leaf " << orig_leaf << " with max " <<index_node->max << " min " << min << endl;
 #endif
 							if(nexts[0]){ //allocate node, link directly
 #ifdef DEBUG

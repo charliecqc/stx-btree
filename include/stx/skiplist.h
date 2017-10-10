@@ -10,7 +10,7 @@
 #include <immintrin.h>
 #include <bitset>
 #include <climits>
-#define DEBUG
+//#define DEBUG
 //#define DEBUG_CLONE
 
 
@@ -114,6 +114,9 @@ namespace stx {
 					{
 						bs.reset(); // to set each bit to 0
 						slotused = 0;
+#ifdef DEBUG
+						cout << " new leaf is created " << this << " with slotused "<< slotused << endl;
+#endif
 					}
 
 					///True if the node's slots are full
@@ -196,8 +199,19 @@ namespace stx {
 
 					int set(key_type key, value_type value)
 					{
+#ifdef DEBUG
+						cout <<this << " 's slotused is " << slotused <<  endl;
+#endif
+						if(slotkey[slotused] == key) {
+							slotvalue[slotused] = value;
+							return 0;
+						cout <<this << " 's slotused keep unchanged due to same key" << endl;
+						}
+
 						int index =	slotused++;
-						cout <<this << " 's index is set " << index <<  endl;
+#ifdef DEBUG
+						cout <<this << " 's slotused is set to be " << slotused <<  endl;
+#endif
 						slotkey[index] = key;
 						slotvalue[index] = value;
 						return 0;
@@ -271,7 +285,10 @@ namespace stx {
 					node_t *item = reinterpret_cast<node_t *>(malloc(sz)); //todo use new memory allocator later
 					memset(item, 0, sz);
 					item->max = max;
-					item->min = min;
+					if(min == ULLONG_MAX)
+						item->min = max;
+					else
+						item->min = min;
 					item->num_levels = num_levels;
 					item->leaf_ptr = NULL;
 #if 0
@@ -330,26 +347,29 @@ namespace stx {
 					for(int index = 0; index < old_leaf->slotused; index++){
 						key_type temp_key = old_leaf->slotkey[index];
 						key_type temp_value = old_leaf->slotvalue[index];
+#ifdef DEBUG
+						cout << "target key "<< target_key << " temp_key " << temp_key << endl;
+#endif	
 						if(temp_key <= target_key ) {
 							new_leaf->slotkey[new_leaf->slotused] = temp_key;
 							new_leaf->slotvalue[new_leaf->slotused] = temp_value;
-							if(temp_key >= *max_key)
+							if(temp_key >= *max_key){
 								*max_key = temp_key;
+							}
 							new_leaf->slotused++;
-
 						}else{
 							orig_leaf->slotkey[orig_leaf->slotused] = temp_key;
 							orig_leaf->slotvalue[orig_leaf->slotused] = temp_value;
-							if(temp_key <= *min_key)
+							if(temp_key <= *min_key){
 								*min_key = temp_key;
+							}
 							orig_leaf->slotused++;
-
 						}
 					}
 					return new_leaf;
 				}
 
-				void sl_free (skiplist_t *sl) {
+				int sl_free (skiplist_t *sl) {
 					size_t count = 0;
 					node_t *item = GET_NODE(sl->head->next[0]);
 					while(item) {
@@ -394,7 +414,7 @@ namespace stx {
 							}
 
 #ifdef DEBUG
-							cout << " s4 find_index_node: visiting item " << item << " next is " << reinterpret_cast<node_t *>(next) << endl;
+							cout << " s4 find_index_node: visiting item " << item << " max " << item->max << " min " << item->min <<" next is " << reinterpret_cast<node_t *>(next) << endl;
 							cout << " s4 find_index_node: key " << item->max << endl;
 #endif
 
@@ -533,24 +553,28 @@ not_found:
 						leaf = index_node->leaf_ptr;
 						if(!leaf->isfull()) {
 							leaf->set(key, new_val);
-							if(key <= index_node->min)
+							if(key <= index_node->min) {
 								index_node->min = key;
+							}
 						}else { //need to split
 #ifdef DEBUG 
 							cout << " leaf " << leaf << " is full, need to be split " << endl;
 #endif
-							key_type min = ULLONG_MAX; // new min key of original leaf node  
-							key_type max = 0;// new max key of new leaf node
-							key_type target_key = (index_node->max + index_node->min) / 2;
+							key_type min_key = ULLONG_MAX; // new min key of original leaf node  
+							key_type max_key = 0;// new max key of new leaf node
+							key_type target_key = (index_node->max + index_node->min) / 2; //todo: new algorithm to find the seperation key
 							leaf_t *orig_leaf = new leaf_t();
-							leaf_t *new_leaf = split_leaf_node(&max, &min, target_key, leaf, orig_leaf);
+							leaf_t *new_leaf = split_leaf_node(&max_key, &min_key, target_key, leaf, orig_leaf);
 							index_node->leaf_ptr = orig_leaf;
 							delete leaf;
+#ifdef DEBUG
+							cout << " orig_leaf: " << orig_leaf << " with slot " << orig_leaf->slotused << " new_leaf " << new_leaf << " with slot " << new_leaf->slotused << endl;
+#endif
 							//put the key value value into leaf node; it depends on the key
-							if(key <= min) {
+							if(key <= min_key) {
 								new_leaf->set(key, new_val);
-								if(key > max)
-									max = key;
+								if(key > max_key)
+									max_key = key;
 							}else {
 								orig_leaf->set(key, new_val);
 							} //put fini.
@@ -558,14 +582,14 @@ not_found:
 							// link a new index node that contains new_leaf to the skiplist
 
 #ifdef DEBUG
-							cout << " create new_leaf " << new_leaf << " with max " << max << " min " << index_node->min << " orig_leaf " << orig_leaf << " with max " <<index_node->max << " min " << min << endl;
+							cout << " create new_leaf " << new_leaf << " with max " << max_key << " min " << index_node->min << " orig_leaf " << orig_leaf << " with max " <<index_node->max << " min " << min_key << endl;
 #endif
 							if(nexts[0]){ //allocate node, link directly
 #ifdef DEBUG
 								cout <<" sl_insert_new: attempting to insert an new index node between " << preds[0] << " and " << nexts[0] << endl;
 #endif
-								node_t *new_index = node_alloc(sl, n, max, index_node->min);
-								index_node->min = min; //update new min value of original leaf node
+								node_t *new_index = node_alloc(sl, n, max_key, min(index_node->min,key));
+								index_node->min = min_key; //update new min value of original leaf node
 								new_index->leaf_ptr = new_leaf;
 								new_index->next[0] = reinterpret_cast<markable_t>(nexts[0]);
 								for(int level = 1; level < new_index->num_levels; level++) {
@@ -587,16 +611,15 @@ not_found:
 #endif
 								}
 							}else{ //key belongs to original's [min, max], 
-								find_preds_simple(preds, nexts, n, sl, max);
-								node_t *new_index = node_alloc(sl, n, max, index_node->min);
-								index_node->min = min;
+								find_preds_simple(preds, nexts, n, sl, max_key);
+								node_t *new_index = node_alloc(sl, n, max_key, min(index_node->min, key));
+								index_node->min = min_key;
 								new_index->leaf_ptr = new_leaf;
 								for(int level = 0; level < new_index->num_levels; level++) {
 									assert(nexts[level]);
 									new_index->next[level] = reinterpret_cast<markable_t>(nexts[level]);
 								}
-							//	node_t *pred = preds[0];
-							//	pred->next[0] = reinterpret_cast<markable_t>(new_index);
+
 								for(int level = 0; level < new_index->num_levels; ++level) {
 									assert(preds[level]);
 									node_t *pred = preds[level];	

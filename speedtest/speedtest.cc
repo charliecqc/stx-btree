@@ -29,12 +29,12 @@
 
 #include <set>
 #include <ext/hash_set>
-#include <tr1/unordered_set>
+//#include <tr1/unordered_set>
 #include <stx/btree_multiset.h>
 
 #include <map>
 #include <ext/hash_map>
-#include <tr1/unordered_map>
+//#include <tr1/unordered_map>
 #include <stx/btree_multimap.h>
 //charlie
 #include <stx/ttree.h>
@@ -179,7 +179,7 @@ public:
     typedef TestClass<__gnu_cxx::hash_multiset<unsigned int> > HashSet;
 
     /// Test the unordered_set from STL TR1
-    typedef TestClass<std::tr1::unordered_multiset<unsigned int> > UnorderedSet;
+   // typedef TestClass<std::tr1::unordered_multiset<unsigned int> > UnorderedSet;
 
     /// Test the B+ tree with a specific leaf/inner slots
     template <int Slots>
@@ -225,6 +225,7 @@ public:
 		srand(randseed);
         for (unsigned int i = 0; i < items; i++) {
             unsigned int r = rand();
+		//	  unsigned int r = rand() % 1024;
             map.insert(std::make_pair(r, r));
         }
 
@@ -301,8 +302,8 @@ public:
     typedef TestClass<__gnu_cxx::hash_multimap<unsigned int, unsigned int> > HashMap;
 
     /// Test the unordered_map from STL TR1
-    typedef TestClass<std::tr1::unordered_multimap<
-                          unsigned int, unsigned int> > UnorderedMap;
+   // typedef TestClass<std::tr1::unordered_multimap<
+    //                      unsigned int, unsigned int> > UnorderedMap;
 
     /// Test the B+ tree with a specific leaf/inner slots
     template <int Slots>
@@ -424,8 +425,8 @@ void TestFactory_Set<TestClass>::call_testrunner(
     testrunner_loop<StdSet>(os, items);
 	cout << "HashSet " << endl;
     testrunner_loop<HashSet>(os, items);
-	cout << "UnorderedSet " << endl;
-    testrunner_loop<UnorderedSet>(os, items);
+//	cout << "UnorderedSet " << endl;
+  //  testrunner_loop<UnorderedSet>(os, items);
 #endif
 	cout << "TTreeSet " << endl;
 	testrunner_loop<TtreeSet>(os, items);

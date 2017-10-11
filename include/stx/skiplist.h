@@ -120,33 +120,33 @@ namespace stx {
 					}
 
 					///True if the node's slots are full
-					bool isfull() const
+					inline bool isfull() const
 					{
 						//	return (slotused == leafslotmax - 1);
 						//	return bs.count() == bs.size();
 							return slotused == leafslotmax;
 					}
 					///set the indexth bit to 1 
-					inline int set_bitmap(unsigned short index)
+					int set_bitmap(unsigned short index)
 					{
 						bs[index] = 1;
 						return 0;
 					}
 
 					///set the index th bit to 0 
-					inline int clear_bitmap(unsigned short index) 
+					int clear_bitmap(unsigned short index) 
 					{
 						bs[index] = 0;
 						return 0;
 					}
 					///return index th bit's value
-					inline int get_bit(unsigned short index)
+					int get_bit(unsigned short index)
 					{
 						return bs[index];
 					}
 
 					///return the first bit that was set to 1, from left to right
-					inline int get_first_non_zero_bit()
+					int get_first_non_zero_bit()
 					{
 						for(int index = 0; index < leafslotmax; index++) {
 							if(bs.test(index))
@@ -155,7 +155,7 @@ namespace stx {
 					}
 
 					///return the first bit that was 0. from left to right
-					inline int get_first_free_bit()
+					int get_first_free_bit()
 					{
 						for(int index = 0; index < leafslotmax; index++) {
 							if(!bs.test(index))
@@ -173,11 +173,11 @@ namespace stx {
 					}
 #endif
 
-					inline int hash(key_type key, int k) {
+					int hash(key_type key, int k) {
 						return (key + k * (1 + (((key >> 5) + 1) % (leafslotmax - 1)))) % leafslotmax;	
 					}
 
-					inline int set_hash(key_type key, value_type value)
+					int set_hash(key_type key, value_type value)
 					{
 						for(int i = 0; i < leafslotmax; i++) {
 							int index = hash(key, i);
@@ -197,16 +197,16 @@ namespace stx {
 						return -1;
 					}
 
-					int set(key_type key, value_type value)
+					inline int set(key_type key, value_type value)
 					{
 #ifdef DEBUG
 						cout <<this << " 's slotused is " << slotused <<  endl;
 #endif
-						if(slotkey[slotused] == key) {
-							slotvalue[slotused] = value;
-							return 0;
-						cout <<this << " 's slotused keep unchanged due to same key" << endl;
-						}
+				//		if(slotkey[slotused] == key) {
+				//			slotvalue[slotused] = value;
+				//			return 0;
+				//		cout <<this << " 's slotused keep unchanged due to same key" << endl;
+				//		}
 
 						int index =	slotused++;
 #ifdef DEBUG
@@ -217,7 +217,7 @@ namespace stx {
 						return 0;
 					}
 
-					inline value_type get(key_type key) {
+					value_type get(key_type key) {
 						for(int i = leafslotmax - 1; i >= 0; i--) {
 							int index = hash(key, i);
 							if(!bs.test(index)) {
@@ -233,6 +233,7 @@ namespace stx {
 				typedef struct node {
 					key_type max;  //max key in its data node
 					key_type min; //minimum key in its data node
+					key_type sum; //sum of all the key in the leaf node
 					unsigned num_levels;
 					markable_t next[MAX_LEVELS];
 					leaf_t *leaf_ptr;
@@ -279,7 +280,7 @@ namespace stx {
 					return item;
 				}
 
-				node_t *node_alloc(skiplist_t *sl, int num_levels, key_type max, key_type min = ULLONG_MAX, bool is_head = false) {
+				node_t *node_alloc(skiplist_t *sl, int num_levels, key_type max, key_type min = ULLONG_MAX, bool is_head = false, key_type sum = 0) {
 					assert(num_levels >= 0 && num_levels <= MAX_LEVELS);
 					size_t sz = sizeof(node_t) + (num_levels - 1) * sizeof(node_t *);
 					node_t *item = reinterpret_cast<node_t *>(malloc(sz)); //todo use new memory allocator later
@@ -291,6 +292,7 @@ namespace stx {
 						item->min = min;
 					item->num_levels = num_levels;
 					item->leaf_ptr = NULL;
+					item->sum = sum;
 #if 0
 					if(!is_head){
 						if(sl->high_water < num_levels)
@@ -318,8 +320,9 @@ namespace stx {
 				//key will be used to make a new index node
 				//@min_key: minimum key stored in the old_leaf 
 				//@max_key: maximum key stored in the new_leaf 
-				inline leaf_t * split_leaf_node_bitmap(key_type *max_key, key_type *min_key,const key_type target_key, leaf_t *old_leaf)	{
+				leaf_t * split_leaf_node_bitmap(key_type *max_key, key_type *min_key,const key_type target_key, leaf_t *old_leaf)	{
 					struct leaf *new_leaf = new leaf_t();
+
 					memcpy(new_leaf, old_leaf, sizeof(struct leaf));
 					for(int index = 0; index < new_leaf->bs.size(); index++) {
 						///invalidate the keys which are larger than target_key in the new data node
@@ -342,7 +345,7 @@ namespace stx {
 					return new_leaf;
 				}
 
-				leaf_t *split_leaf_node(key_type *max_key, key_type *min_key, const key_type target_key, leaf_t *old_leaf, leaf_t *orig_leaf) {
+				inline leaf_t *split_leaf_node(key_type *max_key, key_type *min_key, const key_type target_key, leaf_t *old_leaf, leaf_t *orig_leaf, key_type *new_sum, key_type *orig_sum) {
 					struct leaf *new_leaf = new leaf_t();
 					for(int index = 0; index < old_leaf->slotused; index++){
 						key_type temp_key = old_leaf->slotkey[index];
@@ -356,6 +359,7 @@ namespace stx {
 							if(temp_key >= *max_key){
 								*max_key = temp_key;
 							}
+							*new_sum += temp_key;
 							new_leaf->slotused++;
 						}else{
 							orig_leaf->slotkey[orig_leaf->slotused] = temp_key;
@@ -363,10 +367,21 @@ namespace stx {
 							if(temp_key <= *min_key){
 								*min_key = temp_key;
 							}
+							*orig_sum += temp_key;
 							orig_leaf->slotused++;
 						}
 					}
 					return new_leaf;
+				}
+
+				inline key_type get_split_key(node_t *index_node)
+				{
+					key_type target;
+#ifdef DEBUG
+					cout << " sum of index_node: "<<index_node << " is " << index_node->sum <<endl;
+#endif
+					target = index_node->sum / leafslotmax;
+					return target;
 				}
 
 				int sl_free (skiplist_t *sl) {
@@ -414,7 +429,7 @@ namespace stx {
 							}
 
 #ifdef DEBUG
-							cout << " s4 find_index_node: visiting item " << item << " max " << item->max << " min " << item->min <<" next is " << reinterpret_cast<node_t *>(next) << endl;
+							cout << " s4 find_index_node: visiting item " << item << " max " << item->max << " min " << item->min << " sum is "<< item->sum << " next is " << reinterpret_cast<node_t *>(next) << endl;
 							cout << " s4 find_index_node: key " << item->max << endl;
 #endif
 
@@ -431,7 +446,7 @@ namespace stx {
 							d_min = key - item->min;
 								if(d_min >= 0) {  // key is belong to this index node
 #ifdef DEBUG
-									cout << "s3 find_index_node: " << item << " with min " << item->min << " max " << item->max << endl;
+									cout << "s3 find_index_node: " << item << " with min " << item->min << " max " << item->max << " sum " << item->sum << endl;
 #endif
 									return item;	
 								}else
@@ -548,7 +563,7 @@ not_found:
 						if(!index_node)
 							index_node = nexts[0];
 #ifdef DEBUG
-						cout << " s3 sl_insert_new: going to insert key " << key << " index node exists " << index_node << " max: " << index_node->max << " min " << index_node->min << endl; 
+						cout << " s3 sl_insert_new: going to insert key " << key << " index node exists " << index_node << " max: " << index_node->max << " min " << index_node->min << " sum " << index_node->sum<< endl; 
 #endif
 						leaf = index_node->leaf_ptr;
 						if(!leaf->isfull()) {
@@ -556,16 +571,21 @@ not_found:
 							if(key <= index_node->min) {
 								index_node->min = key;
 							}
+							index_node->sum += key;
 						}else { //need to split
 #ifdef DEBUG 
 							cout << " leaf " << leaf << " is full, need to be split " << endl;
 #endif
 							key_type min_key = ULLONG_MAX; // new min key of original leaf node  
 							key_type max_key = 0;// new max key of new leaf node
-							key_type target_key = (index_node->max + index_node->min) / 2; //todo: new algorithm to find the seperation key
+							key_type orig_sum = 0; //sum of each key in original's leaf after split.
+							key_type new_sum = 0; //sum of each key in new;s leaf after split.
+
+							key_type target_key = get_split_key(index_node); //todo: new algorithm to find the seperation key
 							leaf_t *orig_leaf = new leaf_t();
-							leaf_t *new_leaf = split_leaf_node(&max_key, &min_key, target_key, leaf, orig_leaf);
+							leaf_t *new_leaf = split_leaf_node(&max_key, &min_key, target_key, leaf, orig_leaf, &new_sum, &orig_sum);
 							index_node->leaf_ptr = orig_leaf;
+							index_node->sum = orig_sum;
 							delete leaf;
 #ifdef DEBUG
 							cout << " orig_leaf: " << orig_leaf << " with slot " << orig_leaf->slotused << " new_leaf " << new_leaf << " with slot " << new_leaf->slotused << endl;
@@ -573,10 +593,12 @@ not_found:
 							//put the key value value into leaf node; it depends on the key
 							if(key <= min_key) {
 								new_leaf->set(key, new_val);
-								if(key > max_key)
+								if(key >= max_key)
 									max_key = key;
+								new_sum += key;
 							}else {
 								orig_leaf->set(key, new_val);
+								orig_sum += key;
 							} //put fini.
 
 							// link a new index node that contains new_leaf to the skiplist
@@ -584,13 +606,20 @@ not_found:
 #ifdef DEBUG
 							cout << " create new_leaf " << new_leaf << " with max " << max_key << " min " << index_node->min << " orig_leaf " << orig_leaf << " with max " <<index_node->max << " min " << min_key << endl;
 #endif
+
+							//allocate new index node and link it into the skiplist
 							if(nexts[0]){ //allocate node, link directly
 #ifdef DEBUG
-								cout <<" sl_insert_new: attempting to insert an new index node between " << preds[0] << " and " << nexts[0] << endl;
+								cout <<" sl_insert_new: attempting to insert an new index node between " << preds[0] << " and " << nexts[0] << " with new_sum " << new_sum <<endl;
 #endif
-								node_t *new_index = node_alloc(sl, n, max_key, min(index_node->min,key));
-								index_node->min = min_key; //update new min value of original leaf node
+								node_t *new_index = node_alloc(sl, n, max_key, min(index_node->min,key), false, new_sum);
 								new_index->leaf_ptr = new_leaf;
+
+								index_node->min = min_key; //update new min value of original leaf node
+								index_node->sum = orig_sum; //update new sum value of original index_node
+#ifdef DEBUG
+								cout << new_index << " sum is " <<new_index->sum << " "<<index_node << " sum is "<< index_node->sum<<endl; 
+#endif
 								new_index->next[0] = reinterpret_cast<markable_t>(nexts[0]);
 								for(int level = 1; level < new_index->num_levels; level++) {
 									assert(nexts[level]);
@@ -612,9 +641,10 @@ not_found:
 								}
 							}else{ //key belongs to original's [min, max], 
 								find_preds_simple(preds, nexts, n, sl, max_key);
-								node_t *new_index = node_alloc(sl, n, max_key, min(index_node->min, key));
-								index_node->min = min_key;
+								node_t *new_index = node_alloc(sl, n, max_key, index_node->min, false, new_sum);
 								new_index->leaf_ptr = new_leaf;
+								index_node->min = min_key;
+								index_node->sum = orig_sum;;
 								for(int level = 0; level < new_index->num_levels; level++) {
 									assert(nexts[level]);
 									new_index->next[level] = reinterpret_cast<markable_t>(nexts[level]);
@@ -627,7 +657,6 @@ not_found:
 								}
 							}
 
-
 						}
 
 					}else { // naither index_node nor nexts[0] exists. add a total new index node with new leaf_node
@@ -639,6 +668,7 @@ not_found:
 						leaf_t *leaf = new leaf_t();
 						if(!leaf->isfull()) {
 							leaf->set(key, new_val);
+							new_index->sum += key;
 						}
 						new_index->leaf_ptr = leaf;
 						new_index->next[0] = reinterpret_cast<markable_t>(nexts[0]);

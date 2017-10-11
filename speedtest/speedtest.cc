@@ -225,7 +225,7 @@ public:
 		srand(randseed);
         for (unsigned int i = 0; i < items; i++) {
             unsigned int r = rand();
-		//	  unsigned int r = rand() % 1024;
+			//  unsigned int r = rand() % 1024;
             map.insert(std::make_pair(r, r));
         }
 
@@ -469,13 +469,13 @@ void TestFactory_Map<TestClass>::call_testrunner(
 	cout << " Unordered " << endl;
     testrunner_loop<UnorderedMap>(os, items);
 #endif
-#if 0
+#if 1
 	cout << " BtreeMap " <<endl;
-    testrunner_loop<BtreeMap<36> >(os, items);
+    testrunner_loop<BtreeMap<256> >(os, items);
 #endif
 #if 1
-	cout << "SkiplistMap" << endl;
-	testrunner_loop<SkiplistMap<7> >(os, items);
+	cout << "S8kiplistMap" << endl;
+	testrunner_loop<SkiplistMap<256> >(os, items);
 #endif
 #if 0
 	cout << " TtreeMap " <<endl;

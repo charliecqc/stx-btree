@@ -9,7 +9,9 @@
 #include <assert.h>
 #include <immintrin.h>
 #include <bitset>
+#include <list>
 #include <climits>
+#include "nv_backend.h"
 //#define DEBUG
 //#define DEBUG_CLONE
 
@@ -30,13 +32,15 @@
 #define IS_TAGGED(v, tag) ((v) & tag)
 #define STRIP_TAG(v, tag) ((v) & ~tag)
 
+#define PEM_LEN 4096000000
+
 typedef size_t markable_t;
 
 //Marking the <next> field of a node logically removes it from the list
 #define MARK_NODE(x) TAG_VALUE(reinterpret_cast<markable_t>(x), 0x1)
 #define HAS_MARK(x) (IS_TAGGED((x), 0x1) == 0x1)
-#define GET_NODE(x) (reinterpret_cast<node_t *>(x))
-#define STRIP_MARK(x) (reinterpret_cast<node_t *>(STRIP_TAG((x), 0x1)))
+#define GET_NODE(x) (reinterpret_cast<dnode_t *>(x))
+#define STRIP_MARK(x) (reinterpret_cast<dnode_t *>(STRIP_TAG((x), 0x1)))
 
 enum unlink {
 	FORCE_UNLINK,
@@ -94,28 +98,40 @@ namespace stx {
 
 			public:
 				typedef struct leaf {
-					///Double linked list pointers to traverse the leaves
-					//					struct leaf *prevleaf;	
-					///Double linked list pointers to traverse the leaves
-					//					struct leaf *nextleaf;
-					std::bitset<leafslotmax> bs;
-					///array of key
+
 					key_type slotkey[leafslotmax];
 					///array of data
 					value_type slotvalue[leafslotmax];
-					///current count of used key
-					//
-					public:
+
+					inline int set(key_type key, value_type value, int index)
+					{
+						slotkey[index] = key;
+						slotvalue[index] = value;
+						return 0;
+					}
+
+					value_type get(key_type key) {
+						for(int i = leafslotmax - 1; i >= 0; i--) {
+								if(slotkey[i] == key){
+									return slotvalue[index];
+								}
+							}
+						return -1;
+					}
+				}leaf_t;
+
+				typedef struct nvram_node {
+					std::bitset<leafslotmax> bs;
+					struct nvram_node *next;
+					leaf_t *leaf;
 					int slotused;
 
-
-					///set variable to initial values
-					leaf()
+					nvram_node()
 					{
-						bs.reset(); // to set each bit to 0
+						bs.reset(); //to set each bit to 0;
 						slotused = 0;
 #ifdef DEBUG
-						cout << " new leaf is created " << this << " with slotused "<< slotused << endl;
+					cout << " new leaf is created " << this << " with slotused "<< slotused << endl;
 #endif
 					}
 
@@ -123,9 +139,10 @@ namespace stx {
 					inline bool isfull() const
 					{
 						//	return (slotused == leafslotmax - 1);
-						//	return bs.count() == bs.size();
-							return slotused == leafslotmax;
+							return bs.count() == bs.size();
+						//	return slotused == leafslotmax;
 					}
+
 					///set the indexth bit to 1 
 					int set_bitmap(unsigned short index)
 					{
@@ -164,19 +181,10 @@ namespace stx {
 						return -1;
 					}
 
-#if 0
-					inline int set(key_type key, value_type value) {
-						markable_t index = get_first_free_bit();
-						slotkey[index] = key;
-						slotvalue[index] = value;
-						set_bitmap(index);
-					}
-#endif
-
 					int hash(key_type key, int k) {
 						return (key + k * (1 + (((key >> 5) + 1) % (leafslotmax - 1)))) % leafslotmax;	
 					}
-
+#if 0
 					int set_hash(key_type key, value_type value)
 					{
 						for(int i = 0; i < leafslotmax; i++) {
@@ -196,64 +204,58 @@ namespace stx {
 						}
 						return -1;
 					}
-
-					inline int set(key_type key, value_type value)
-					{
-#ifdef DEBUG
-						cout <<this << " 's slotused is " << slotused <<  endl;
-#endif
-				//		if(slotkey[slotused] == key) {
-				//			slotvalue[slotused] = value;
-				//			return 0;
-				//		cout <<this << " 's slotused keep unchanged due to same key" << endl;
-				//		}
-
-						int index =	slotused++;
-#ifdef DEBUG
-						cout <<this << " 's slotused is set to be " << slotused <<  endl;
-#endif
-						slotkey[index] = key;
-						slotvalue[index] = value;
+#endif	
+					inline int set(key_type key, value_type value) {
+						int index = get_first_free_bit(); 			
+						leaf->set(key, value, index);
+						set_bitmap(index);
 						return 0;
 					}
-
-					value_type get(key_type key) {
-						for(int i = leafslotmax - 1; i >= 0; i--) {
-							int index = hash(key, i);
-							if(!bs.test(index)) {
-								if(slotkey[index] == key){
-									return slotvalue[index];
-								}
-							}
-						}
-						return -1;
+					
+					inline value_type get(key_type key) {
+						return leaf->get(key); 
 					}
-				}leaf_t;
 
-				typedef struct node {
+
+				}nvnode_t;
+
+				typedef struct dram_node {
 					key_type max;  //max key in its data node
 					key_type min; //minimum key in its data node
 					key_type sum; //sum of all the key in the leaf node
 					unsigned num_levels;
 					markable_t next[MAX_LEVELS];
-					leaf_t *leaf_ptr;
-				} node_t;
+					nvnode_t *nv_node;
+				} dnode_t;
 
 				struct sl_iter {
-					node_t *next;
+					dnode_t *next;
 				};
 
 				typedef struct sl {
-					node_t *head;
+					dnode_t *head;
 					const datatype_t *type;
 					int high_water;	//max historic number of levels
+					list<nvnode_t *> shadow_list;
 				} skiplist_t ;
 
 			public:
+
+				nvnode_t *get_shadow_node(skiplist_t *sl) //since we use append style to insert new pair into leaf, logging for leaf is not necessary. shadow node is only for nvnode_t
+				{
+					nvnode_t *nv_node = sl->shadow_list.front();
+					sl->shadow_list.pop_front();
+					return nv_node;
+				}
+
+				 void put_shadow_node(skiplist_t *sl, nvnode_t *nv_node) {
+					 sl->shadow_list.push_back(nv_node);	
+				}
+
 				int random_levels (skiplist_t *sl) {
 					double r = rand()/(RAND_MAX + 1.0);
 					int levels = 1;
-					while(r < 0.15 && levels < MAX_LEVELS) {
+					while(r < 0.25 && levels < MAX_LEVELS) {
 						levels++;
 						r = rand()/(RAND_MAX + 1.0);
 					}
@@ -280,6 +282,40 @@ namespace stx {
 					return item;
 				}
 
+				nvnode_t *nvnode_alloc(){
+					nvnode_t *item = (nvnode_t *)nv_malloc(sizeof(nvnode_t));
+					item->bs.reset();
+					item->slotused = 0;
+					item->leaf = NULL;
+					item->next = NULL;
+					return item;
+				}
+
+				int nvnode_flush(nvnode_t *nv_node)
+				{
+					nv_flush(nv_node, sizeof(nvnode_t));
+					return 0;
+				}
+
+				dnode_t *dnode_alloc(int num_levels, key_type max, key_type min = ULLONG_MAX, key_type sum = 0){
+					
+					assert(num_levels >= 0 && num_levels <= MAX_LEVELS);
+					size_t sz = sizeof(dnode_t) + (num_levels - 1) * sizeof(dnode_t *);
+					dnode_t *item = reinterpret_cast<dnode_t *>(malloc(sz)); //todo use new memory allocator later
+					memset(item, 0x00, sz);
+					item->max = max;
+					if(min == ULLONG_MAX)
+						item->min = max;
+					else
+						item->min = min;
+					item->num_levels = num_levels;
+					item->sum = sum;
+#ifdef DEBUG 
+					cout << "s2 node_alloc : new node " << item << " "<< num_levels << " levels" << endl;
+#endif
+					return item;
+				}
+#if 0
 				node_t *node_alloc(skiplist_t *sl, int num_levels, key_type max, key_type min = ULLONG_MAX, bool is_head = false, key_type sum = 0) {
 					assert(num_levels >= 0 && num_levels <= MAX_LEVELS);
 					size_t sz = sizeof(node_t) + (num_levels - 1) * sizeof(node_t *);
@@ -293,26 +329,25 @@ namespace stx {
 					item->num_levels = num_levels;
 					item->leaf_ptr = NULL;
 					item->sum = sum;
-#if 0
-					if(!is_head){
-						if(sl->high_water < num_levels)
-							sl->high_water++;
-						if(sl->high_water > MAX_LEVELS)
-							sl->high_water = MAX_LEVELS;
-					}
-#endif
 #ifdef DEBUG 
 					cout << "s2 node_alloc : new node " << item << " "<< num_levels << " levels" << endl;
 #endif
 					return item;
 				}
-
+#endif
 				skiplist_t *sl_alloc (const datatype_t *type) {
 					skiplist_t *sl = static_cast<skiplist_t *>(malloc(sizeof(skiplist_t)));
 					sl->type = type;
 					sl->high_water = 1;
-					sl->head = node_alloc(sl, MAX_LEVELS, 0, 0, true);
-					memset(reinterpret_cast<void *>(sl->head->next), 0, MAX_LEVELS * sizeof(skiplist_t *));
+					memset(reinterpret_cast<void *>(sl->head->next), 0x00, MAX_LEVELS * sizeof(skiplist_t *));
+					//
+					nvnode_t *shadow_node = nvnode_alloc();
+					put_shadow_node(sl, shadow_node);
+					//
+					sl->head = dnode_alloc(MAX_LEVELS, 0, 0);
+					sl->head->nv_node = nvnode_alloc();
+					//todo: logging
+					nv_flush(sl->head->nv_node, sizeof(nvnode_t));	
 					return sl;
 				}
 
@@ -345,36 +380,35 @@ namespace stx {
 					return new_leaf;
 				}
 
-				inline leaf_t *split_leaf_node(key_type *max_key, key_type *min_key, const key_type target_key, leaf_t *old_leaf, leaf_t *orig_leaf, key_type *new_sum, key_type *orig_sum) {
-					struct leaf *new_leaf = new leaf_t();
-					for(int index = 0; index < old_leaf->slotused; index++){
+				inline nvnode_t *split_leaf_node(key_type *max_key, key_type *min_key, const key_type target_key, nvnode_t *old_nvnode, nvnode_t *orig_nvnode, key_type *new_sum, key_type *orig_sum) {
+					nvnode_t *new_nvnode = nvnode_alloc();
+					struct leaf *old_leaf = old_nvnode->leaf;
+					for(int index = 0; index < leafslotmax; index++){
+						if(old_nvnode->bs.test(index) != 1)
+							continue;
 						key_type temp_key = old_leaf->slotkey[index];
 						key_type temp_value = old_leaf->slotvalue[index];
 #ifdef DEBUG
 						cout << "target key "<< target_key << " temp_key " << temp_key << endl;
 #endif	
 						if(temp_key <= target_key ) {
-							new_leaf->slotkey[new_leaf->slotused] = temp_key;
-							new_leaf->slotvalue[new_leaf->slotused] = temp_value;
+							new_nvnode->set(temp_key, temp_value);
 							if(temp_key >= *max_key){
 								*max_key = temp_key;
 							}
 							*new_sum += temp_key;
-							new_leaf->slotused++;
 						}else{
-							orig_leaf->slotkey[orig_leaf->slotused] = temp_key;
-							orig_leaf->slotvalue[orig_leaf->slotused] = temp_value;
+							orig_nvnode->set(temp_key, temp_value);
 							if(temp_key <= *min_key){
 								*min_key = temp_key;
 							}
 							*orig_sum += temp_key;
-							orig_leaf->slotused++;
 						}
 					}
-					return new_leaf;
+					return new_nvnode;
 				}
 
-				inline key_type get_split_key(node_t *index_node)
+				inline key_type get_split_key(dnode_t *index_node)
 				{
 					key_type target;
 #ifdef DEBUG
@@ -386,7 +420,7 @@ namespace stx {
 
 				int sl_free (skiplist_t *sl) {
 					size_t count = 0;
-					node_t *item = GET_NODE(sl->head->next[0]);
+					dnode_t *item = GET_NODE(sl->head->next[0]);
 					while(item) {
 						if(!HAS_MARK(item->next[0])) {
 							count++;
@@ -398,9 +432,9 @@ namespace stx {
 
 
 				//find the index node of certain key. n is the random level of the new node
-				node_t *find_index_node(node_t **preds, node_t **succs, int n, skiplist_t *sl, key_type key, enum unlink unlink ) {
-					node_t *pred = sl->head;
-					node_t * item = NULL; //item is the pointer point to target index node.
+				dnode_t *find_index_node(dnode_t **preds, dnode_t **succs, int n, skiplist_t *sl, key_type key, enum unlink unlink ) {
+					dnode_t *pred = sl->head;
+					dnode_t * item = NULL; //item is the pointer point to target index node.
 					int d_max = 0;
 					int d_min = 0;
 #ifdef DEBUG
@@ -417,7 +451,7 @@ namespace stx {
 
 						item = GET_NODE(next);
 #ifdef DEBUG
-						cout << "item is " << item << " next is " << (node_t *)next << " level is " << level <<endl;
+						cout << "item is " << item << " next is " << (dnode_t *)next << " level is " << level <<endl;
 #endif
 						while (item != NULL) {
 							next = item->next[level];	
@@ -429,7 +463,7 @@ namespace stx {
 							}
 
 #ifdef DEBUG
-							cout << " s4 find_index_node: visiting item " << item << " max " << item->max << " min " << item->min << " sum is "<< item->sum << " next is " << reinterpret_cast<node_t *>(next) << endl;
+							cout << " s4 find_index_node: visiting item " << item << " max " << item->max << " min " << item->min << " sum is "<< item->sum << " next is " << reinterpret_cast<dnode_t *>(next) << endl;
 							cout << " s4 find_index_node: key " << item->max << endl;
 #endif
 
@@ -484,18 +518,18 @@ namespace stx {
 #ifdef DEBUG
 					cout << "s1 sl_lookup: searching for key " << key << " in skiplist " << sl << endl;
 #endif
-					node_t *nexts[MAX_LEVELS];
-					node_t *index_node = (node_t *)find_index_node(NULL, nexts, 0, sl, key, DONT_UNLINK);
-					leaf_t *leaf = NULL;
+					dnode_t *nexts[MAX_LEVELS];
+					dnode_t *index_node = (dnode_t *)find_index_node(NULL, nexts, 0, sl, key, DONT_UNLINK);
+					nvnode_t *nv_node =NULL;
 					if(index_node) 
-						leaf = index_node->leaf_ptr;
+						nv_node = index_node->nv_node;
 					else if(nexts[0]) 
-						leaf = nexts[0]->leaf_ptr;		
+						nv_node = nexts[0]->nv_node;		
 					else
 						goto not_found;
 
-					if(leaf) {
-						return leaf->get(key);
+					if(nv_node) {
+						return nv_node->get(key);
 					}else
 						goto not_found;
 not_found:
@@ -504,7 +538,7 @@ not_found:
 				}
 
 				key_type sl_min_key (skiplist_t *sl) {
-					node_t *item = GET_NODE(sl->head->next[0]);
+					dnode_t *item = GET_NODE(sl->head->next[0]);
 					while(item != NULL) {
 						markable_t next = item->next[0];
 						if(!HAS_MARK(next))
@@ -514,15 +548,15 @@ not_found:
 					return NULL;
 				}
 
-				void find_preds_simple(node_t **preds, node_t **succs, int n, skiplist_t *sl, key_type key) {
-					node_t *pred = sl->head;
+				void find_preds_simple(dnode_t **preds, dnode_t **succs, int n, skiplist_t *sl, key_type key) {
+					dnode_t *pred = sl->head;
 					int diff = 0;
 					for(int level = sl->high_water - 1; level >= 0; --level) {
 						markable_t next = pred->next[level];
 						if(next == 0 && level >= n)
 							continue;
 
-						node_t *item = GET_NODE(next);
+						dnode_t *item = GET_NODE(next);
 						while(item != NULL) {
 							next = item->next[level];
 							if(EXPECT_FALSE(item == NULL)) {
@@ -547,17 +581,17 @@ not_found:
 					}//end of for
 				}
 
-				value_type sl_insert_new(skiplist_t *sl, key_type key, value_type new_val, leaf_t *leaf = NULL)
+				value_type sl_insert_new(skiplist_t *sl, key_type key, value_type new_val, nvnode_t *nv_node = NULL)
 				{
 #ifdef DEBUG
 					cout << " s1 sl_insert_new: going to insert key " << key << " into sl " << sl << endl;
 #endif
-					node_t *preds[MAX_LEVELS];
-					node_t *nexts[MAX_LEVELS];
+					dnode_t *preds[MAX_LEVELS];
+					dnode_t *nexts[MAX_LEVELS];
 
 					int n = random_levels(sl);
-
-					node_t * index_node = find_index_node(preds, nexts, n, sl, key, ASSIST_UNLINK);
+					//find the indexing dram node
+					dnode_t * index_node = find_index_node(preds, nexts, n, sl, key, ASSIST_UNLINK);
 					if (index_node || nexts[0]) { // index_nodes exists: key belongs to (min, max); nexts[0] exists: index nodes exists, however, key < min; anyway, nexts[0] == index_node; insert the k,v pair to its leaf node
 						//	assert(index_node == nexts[0]);
 						if(!index_node)
@@ -565,9 +599,16 @@ not_found:
 #ifdef DEBUG
 						cout << " s3 sl_insert_new: going to insert key " << key << " index node exists " << index_node << " max: " << index_node->max << " min " << index_node->min << " sum " << index_node->sum<< endl; 
 #endif
-						leaf = index_node->leaf_ptr;
-						if(!leaf->isfull()) {
-							leaf->set(key, new_val);
+						nv_node = index_node->nv_node; // read from the nvram 
+						if(!nv_node->isfull()) {
+							//
+							nvnode_t *shadow_node = get_shadow_node(sl); 
+							shadow_node->bs.set(shadow_node->get_first_free_bit());
+							nvnode_flush(shadow_node);
+							nv_node->set(key, new_val); 
+							nvnode_flush(nv_node);
+							put_shadow_node(sl, shadow_node);
+							//
 							if(key <= index_node->min) {
 								index_node->min = key;
 							}
@@ -582,81 +623,98 @@ not_found:
 							key_type new_sum = 0; //sum of each key in new;s leaf after split.
 
 							key_type target_key = get_split_key(index_node); //todo: new algorithm to find the seperation key
-							leaf_t *orig_leaf = new leaf_t();
-							leaf_t *new_leaf = split_leaf_node(&max_key, &min_key, target_key, leaf, orig_leaf, &new_sum, &orig_sum);
-							index_node->leaf_ptr = orig_leaf;
+							nvnode_t *orig_nvnode = nvnode_alloc(); 
+							nvnode_t *new_nvnode = split_leaf_node(&max_key, &min_key, target_key, nv_node, orig_nvnode, &new_sum, &orig_sum);
 							index_node->sum = orig_sum;
-							delete leaf;
-#ifdef DEBUG
-							cout << " orig_leaf: " << orig_leaf << " with slot " << orig_leaf->slotused << " new_leaf " << new_leaf << " with slot " << new_leaf->slotused << endl;
-#endif
+
 							//put the key value value into leaf node; it depends on the key
 							if(key <= min_key) {
-								new_leaf->set(key, new_val);
+								new_nvnode->set(key, new_val);
 								if(key >= max_key)
 									max_key = key;
 								new_sum += key;
 							}else {
-								orig_leaf->set(key, new_val);
+								orig_nvnode->set(key, new_val);
 								orig_sum += key;
 							} //put fini.
+							nvnode_flush(orig_nvnode);// we do not need logging orig_node because it is a copy of nv_node
+							index_node->nv_node = orig_nvnode;
+						//	nv_free(nv_node);
+#ifdef DEBUG
+							cout << " orig_leaf: " << orig_leaf << " with slot " << orig_leaf->slotused << " new_leaf " << new_leaf << " with slot " << new_leaf->slotused << endl;
+#endif
 
 							// link a new index node that contains new_leaf to the skiplist
 
-#ifdef DEBUG
-							cout << " create new_leaf " << new_leaf << " with max " << max_key << " min " << index_node->min << " orig_leaf " << orig_leaf << " with max " <<index_node->max << " min " << min_key << endl;
-#endif
 
 							//allocate new index node and link it into the skiplist
 							if(nexts[0]){ //allocate node, link directly
 #ifdef DEBUG
 								cout <<" sl_insert_new: attempting to insert an new index node between " << preds[0] << " and " << nexts[0] << " with new_sum " << new_sum <<endl;
 #endif
-								node_t *new_index = node_alloc(sl, n, max_key, min(index_node->min,key), false, new_sum);
-								new_index->leaf_ptr = new_leaf;
 
+							//link the nvnode into the nvnode list
+								
+
+								dnode_t *new_index = dnode_alloc(n, max_key, min(index_node->min,key), new_sum);
 								index_node->min = min_key; //update new min value of original leaf node
 								index_node->sum = orig_sum; //update new sum value of original index_node
 #ifdef DEBUG
 								cout << new_index << " sum is " <<new_index->sum << " "<<index_node << " sum is "<< index_node->sum<<endl; 
 #endif
-								new_index->next[0] = reinterpret_cast<markable_t>(nexts[0]);
-								for(int level = 1; level < new_index->num_levels; level++) {
-									assert(nexts[level]);
-									new_index->next[level] = reinterpret_cast<markable_t>(nexts[level]);
-								}
-
-								node_t *pred = preds[0];
-#ifdef DEBUG
-								cout << " pred of new_index is " << pred << " sl->head is " << sl->head << endl;
-#endif
-								pred->next[0] = reinterpret_cast<markable_t>(new_index);
-								for(int level = 1; level < new_index->num_levels; ++level) {
-									assert(preds[level] != 0);
-									node_t *pred = preds[level];	
-									pred->next[level] = reinterpret_cast<markable_t>(new_index);
-#ifdef DEBUG
-									cout << "preds level " << level << " is " << preds[level] << " next is " << (node_t *)pred->next[level] << endl;
-#endif
-								}
-							}else{ //key belongs to original's [min, max], 
-								find_preds_simple(preds, nexts, n, sl, max_key);
-								node_t *new_index = node_alloc(sl, n, max_key, index_node->min, false, new_sum);
-								new_index->leaf_ptr = new_leaf;
-								index_node->min = min_key;
-								index_node->sum = orig_sum;;
+								new_nvnode->next = nexts[0]->nv_node; //link nv_node
+								nvnode_flush(new_nvnode);
 								for(int level = 0; level < new_index->num_levels; level++) {
 									assert(nexts[level]);
 									new_index->next[level] = reinterpret_cast<markable_t>(nexts[level]);
 								}
 
+								dnode_t *pred = preds[0];
+								nvnode_t *shadow_node = get_shadow_node(sl);
+								nv_memcpy(shadow_node, pred->nv_node, sizeof(nvnode_t));
+								nvnode_flush(shadow_node);
+								pred->nv_node->next = new_nvnode;
+#ifdef DEBUG
+								cout << " pred of new_index is " << pred << " sl->head is " << sl->head << endl;
+#endif
+								for(int level = 0; level < new_index->num_levels; ++level) {
+									assert(preds[level] != 0);
+									dnode_t *pred = preds[level];	
+									pred->next[level] = reinterpret_cast<markable_t>(new_index);
+#ifdef DEBUG
+									cout << "preds level " << level << " is " << preds[level] << " next is " << (node_t *)pred->next[level] << endl;
+#endif
+								}
+								nvnode_flush(pred->nv_node);
+								put_shadow_node(sl,shadow_node);
+								new_index->nv_node = new_nvnode;
+							}else{ //key belongs to original's [min, max], 
+								find_preds_simple(preds, nexts, n, sl, max_key);
+								dnode_t *new_index = dnode_alloc(n, max_key, index_node->min, new_sum);
+								index_node->min = min_key;
+								index_node->sum = orig_sum;;
+								new_nvnode->next = nexts[0]->nv_node;
+								for(int level = 0; level < new_index->num_levels; level++) {
+									assert(nexts[level]);
+									new_index->next[level] = reinterpret_cast<markable_t>(nexts[level]);
+								}
+								nvnode_flush(new_nvnode);
+
+								dnode_t *pred = preds[0];
+								nvnode_t *shadow_node = get_shadow_node(sl);
+								nv_memcpy(shadow_node, pred->nv_node, sizeof(nvnode_t));
+								nvnode_flush(shadow_node);
+								pred->nv_node->next = new_nvnode;
+
 								for(int level = 0; level < new_index->num_levels; ++level) {
 									assert(preds[level]);
-									node_t *pred = preds[level];	
+									dnode_t *pred = preds[level];	
 									pred->next[level] = reinterpret_cast<markable_t>(new_index);
 								}
+								nvnode_flush(pred->nv_node);
+								put_shadow_node(sl, shadow_node);
+								new_index->nv_node = new_nvnode;
 							}
-
 						}
 
 					}else { // naither index_node nor nexts[0] exists. add a total new index node with new leaf_node
@@ -664,24 +722,38 @@ not_found:
 #ifdef DEBUG
 						cout << " s3 sl_insert_new with preds[0]: attempting to insert an new index node between " << preds[0] << " and " << nexts[0] << " 0?" <<endl;
 #endif
-						node_t *new_index = node_alloc(sl, n, key);
-						leaf_t *leaf = new leaf_t();
-						if(!leaf->isfull()) {
-							leaf->set(key, new_val);
+						dnode_t *new_index = dnode_alloc(n, key);
+						nvnode_t *nv_node = nvnode_alloc();
+						if(!nv_node->isfull()) {
+							nvnode_t *shadow_node = get_shadow_node(sl);
+							shadow_node->set_bitmap(shadow_node->get_first_free_bit());
+							nvnode_flush(shadow_node);
+							nv_node->set(key, new_val); 
+							nvnode_flush(nv_node);
+							put_shadow_node(sl,shadow_node);
 							new_index->sum += key;
 						}
-						new_index->leaf_ptr = leaf;
-						new_index->next[0] = reinterpret_cast<markable_t>(nexts[0]);
-						for(int level = 1; level < new_index->num_levels; ++level) {
+					//	new_index->leaf_ptr = leaf;
+						nv_node->next = NULL;
+						for(int level = 0; level < new_index->num_levels; ++level) {
 							new_index->next[level] = reinterpret_cast<markable_t>(nexts[level]);
 						}
-						node_t *pred = preds[0];
-						pred->next[0] = reinterpret_cast<markable_t>(new_index);
-						for(int level = 1; level < new_index->num_levels; ++level) {
+						dnode_t *pred = preds[0];
+						nvnode_t *shadow_node = get_shadow_node(sl);
+						nv_memcpy(shadow_node, pred->nv_node, sizeof(nvnode_t));
+						shadow_node->next = nv_node;
+						nvnode_flush(shadow_node);
+						pred->nv_node = nv_node;
+						nvnode_flush(pred->nv_node);
+						put_shadow_node(sl,shadow_node);
+
+						for(int level = 0; level < new_index->num_levels; ++level) {
 							assert(preds[level]);
-							node_t *pred = preds[level];	
+							dnode_t *pred = preds[level];	
 							pred->next[level] = reinterpret_cast<markable_t>(new_index);
 						}
+
+						new_index->nv_node = nv_node;
 					}
 					return 0;
 				}
@@ -694,8 +766,8 @@ not_found:
 #ifdef DEBUG
 					cout << "s1 sl_remove: removing item with key " << key << " from skiplist " << sl << endl;
 #endif
-					node_t *preds[MAX_LEVELS];
-					node_t *item = find_preds_index(preds, NULL, sl->high_water, sl, key, ASSIST_UNLINK);
+					dnode_t *preds[MAX_LEVELS];
+					dnode_t *item = find_preds_index(preds, NULL, sl->high_water, sl, key, ASSIST_UNLINK);
 					if(item == NULL) {
 #ifdef DEBUG
 						cout << "s3 sl_remove: remove failed, an item with a matching key does not exist in the skiplist" << endl;
@@ -715,7 +787,7 @@ not_found:
 							cout << "s3 sl_remove: marking item at level " << level << "next " << old_next << endl;
 #endif
 							next = old_next;
-							old_next = SYNC_CAS(&item->next[level], next, MARK_NODE(static_cast<node_t *>(next)));
+							old_next = SYNC_CAS(&item->next[level], next, MARK_NODE(static_cast<dnode_t *>(next)));
 							if(HAS_MARK(old_next)) {
 #ifdef DEBUG
 								cout << " s2 sl_remove: " << item << " is already marked for remove by another thread next " << old_next << endl;
@@ -756,7 +828,7 @@ not_found:
 				}
 
 				value_type sl_iter_next(sl_iter *iter, key_type * key_ptr) {
-					node_t *item = iter->next;
+					dnode_t *item = iter->next;
 					while ( item != NULL && HAS_MARK(item->next[0])) {
 						item = STRIP_MARK(item->next[0]);
 					}

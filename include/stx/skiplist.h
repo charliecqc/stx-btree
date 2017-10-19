@@ -12,7 +12,7 @@
 #include <list>
 #include <climits>
 #include "nv_backend.h"
-//#define DEBUG
+#define DEBUG
 //#define DEBUG_CLONE
 
 
@@ -124,15 +124,10 @@ namespace stx {
 					std::bitset<leafslotmax> bs;
 					struct nvram_node *next;
 					leaf_t *leaf;
-					int slotused;
 
 					nvram_node()
 					{
 						bs.reset(); //to set each bit to 0;
-						slotused = 0;
-#ifdef DEBUG
-					cout << " new leaf is created " << this << " with slotused "<< slotused << endl;
-#endif
 					}
 
 					///True if the node's slots are full
@@ -207,6 +202,9 @@ namespace stx {
 #endif	
 					inline int set(key_type key, value_type value) {
 						int index = get_first_free_bit(); 			
+#ifdef DEBUG
+						cout << this << " set key " << key << " at " <<index << endl; 
+#endif
 						leaf->set(key, value, index);
 						set_bitmap(index);
 						return 0;
@@ -236,20 +234,20 @@ namespace stx {
 					dnode_t *head;
 					const datatype_t *type;
 					int high_water;	//max historic number of levels
-					list<nvnode_t *> shadow_list;
+					list<nvnode_t *> *shadow_list;
 				} skiplist_t ;
 
 			public:
 
 				nvnode_t *get_shadow_node(skiplist_t *sl) //since we use append style to insert new pair into leaf, logging for leaf is not necessary. shadow node is only for nvnode_t
 				{
-					nvnode_t *nv_node = sl->shadow_list.front();
-					sl->shadow_list.pop_front();
+					nvnode_t *nv_node = sl->shadow_list->front();
+					sl->shadow_list->pop_front();
 					return nv_node;
 				}
 
 				 void put_shadow_node(skiplist_t *sl, nvnode_t *nv_node) {
-					 sl->shadow_list.push_back(nv_node);	
+					 sl->shadow_list->push_back(nv_node);	
 				}
 
 				int random_levels (skiplist_t *sl) {
@@ -285,9 +283,9 @@ namespace stx {
 				nvnode_t *nvnode_alloc(){
 					nvnode_t *item = (nvnode_t *)nv_malloc(sizeof(nvnode_t));
 					item->bs.reset();
-					item->slotused = 0;
 					item->leaf = NULL;
 					item->next = NULL;
+					item->leaf = (leaf_t *)nv_malloc(sizeof(leaf_t));
 					return item;
 				}
 
@@ -302,7 +300,7 @@ namespace stx {
 					assert(num_levels >= 0 && num_levels <= MAX_LEVELS);
 					size_t sz = sizeof(dnode_t) + (num_levels - 1) * sizeof(dnode_t *);
 					dnode_t *item = reinterpret_cast<dnode_t *>(malloc(sz)); //todo use new memory allocator later
-					memset(item, 0x00, sz);
+					memset(item, 0x0, sz);
 					item->max = max;
 					if(min == ULLONG_MAX)
 						item->min = max;
@@ -339,12 +337,14 @@ namespace stx {
 					skiplist_t *sl = static_cast<skiplist_t *>(malloc(sizeof(skiplist_t)));
 					sl->type = type;
 					sl->high_water = 1;
-					memset(reinterpret_cast<void *>(sl->head->next), 0x00, MAX_LEVELS * sizeof(skiplist_t *));
+					sl->shadow_list = new list <nvnode_t *>();
+					sl->head = dnode_alloc(MAX_LEVELS, 0, 0);
+					memset(reinterpret_cast<void *>(sl->head->next), 0x0, MAX_LEVELS * sizeof(skiplist_t *));
 					//
 					nvnode_t *shadow_node = nvnode_alloc();
 					put_shadow_node(sl, shadow_node);
 					//
-					sl->head = dnode_alloc(MAX_LEVELS, 0, 0);
+
 					sl->head->nv_node = nvnode_alloc();
 					//todo: logging
 					nv_flush(sl->head->nv_node, sizeof(nvnode_t));	
@@ -494,7 +494,7 @@ namespace stx {
 							item = GET_NODE(next);
 						} // end of while;
 #ifdef DEBUG
-						cout << " s3 find_index_node: foud pred " << pred << " next " << reinterpret_cast <node_t *>(next) << " at level " << level << endl;
+						cout << " s3 find_index_node: foud pred " << pred << " next " << reinterpret_cast <dnode_t *>(next) << " at level " << level << endl;
 #endif
 						if (level <= n) {
 							if(preds != NULL) {
@@ -603,6 +603,7 @@ not_found:
 						if(!nv_node->isfull()) {
 							//
 							nvnode_t *shadow_node = get_shadow_node(sl); 
+							nv_memcpy(shadow_node,nv_node,sizeof(nvnode_t));
 							shadow_node->bs.set(shadow_node->get_first_free_bit());
 							nvnode_flush(shadow_node);
 							nv_node->set(key, new_val); 
@@ -615,7 +616,7 @@ not_found:
 							index_node->sum += key;
 						}else { //need to split
 #ifdef DEBUG 
-							cout << " leaf " << leaf << " is full, need to be split " << endl;
+							cout << " nvnode " << nv_node << " is full, need to be split " << endl;
 #endif
 							key_type min_key = ULLONG_MAX; // new min key of original leaf node  
 							key_type max_key = 0;// new max key of new leaf node
@@ -641,7 +642,7 @@ not_found:
 							index_node->nv_node = orig_nvnode;
 						//	nv_free(nv_node);
 #ifdef DEBUG
-							cout << " orig_leaf: " << orig_leaf << " with slot " << orig_leaf->slotused << " new_leaf " << new_leaf << " with slot " << new_leaf->slotused << endl;
+							cout << " orig_nvnode: " << orig_nvnode << " with slot " << orig_nvnode->bs.count() << " new_leaf " << new_nvnode << " with slot " << new_nvnode->bs.count() << endl;
 #endif
 
 							// link a new index node that contains new_leaf to the skiplist
@@ -682,7 +683,7 @@ not_found:
 									dnode_t *pred = preds[level];	
 									pred->next[level] = reinterpret_cast<markable_t>(new_index);
 #ifdef DEBUG
-									cout << "preds level " << level << " is " << preds[level] << " next is " << (node_t *)pred->next[level] << endl;
+									cout << "preds level " << level << " is " << preds[level] << " next is " << (dnode_t *)pred->next[level] << endl;
 #endif
 								}
 								nvnode_flush(pred->nv_node);

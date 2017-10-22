@@ -11,10 +11,10 @@
 #include <bitset>
 #include <list>
 #include <climits>
+#include <set>
 #include "nv_backend.h"
-#define DEBUG
+//#define DEBUG
 //#define DEBUG_CLONE
-
 
 #define EXPECT_TRUE(x)	__builtin_expect(!!(x), 1)
 #define EXPECT_FALSE(x)	__builtin_expect(!!(x), 0)
@@ -169,7 +169,7 @@ namespace stx {
 					///return the first bit that was 0. from left to right
 					int get_first_free_bit()
 					{
-						for(int index = 0; index < leafslotmax; index++) {
+						for(int index = 0; index < bs.size(); index++) {
 							if(!bs.test(index))
 								return index;
 						}
@@ -351,43 +351,21 @@ namespace stx {
 					return sl;
 				}
 
-				///return a pointer to the splited new data node
-				//key will be used to make a new index node
-				//@min_key: minimum key stored in the old_leaf 
-				//@max_key: maximum key stored in the new_leaf 
-				leaf_t * split_leaf_node_bitmap(key_type *max_key, key_type *min_key,const key_type target_key, leaf_t *old_leaf)	{
-					struct leaf *new_leaf = new leaf_t();
-
-					memcpy(new_leaf, old_leaf, sizeof(struct leaf));
-					for(int index = 0; index < new_leaf->bs.size(); index++) {
-						///invalidate the keys which are larger than target_key in the new data node
-						if(new_leaf->slotkey[index] >= target_key)
-							new_leaf->clear_bitmap(index);	
-						///calculate the largest key in the data node
-						if(new_leaf->bs.test(index) && new_leaf->slotkey[index] >= *max_key)
-							*max_key = new_leaf->slotkey[index];
-						///invalidate the keys which are smaller than target_key in the old data node
-						if(old_leaf->slotkey[index] < target_key)
-							old_leaf->clear_bitmap(index);
-#if 0
-						if(!new_leaf->bs.test(index) && !old_leaf->bs.test(index))	
-							continue;
-#endif
-						///calculate the smallest key in the dat node
-						if(old_leaf->bs.test(index) && old_leaf->slotkey[index] <= *min_key)
-							*min_key = old_leaf->slotkey[index];
-					}
-					return new_leaf;
-				}
-
 				inline nvnode_t *split_leaf_node(key_type *max_key, key_type *min_key, const key_type target_key, nvnode_t *old_nvnode, nvnode_t *orig_nvnode, key_type *new_sum, key_type *orig_sum) {
+					
 					nvnode_t *new_nvnode = nvnode_alloc();
+					std::set<key_type> redundant_checker;
 					struct leaf *old_leaf = old_nvnode->leaf;
-					for(int index = 0; index < leafslotmax; index++){
+					for(int index = old_nvnode->bs.count() - 1; index >= 0; index--){
 						if(old_nvnode->bs.test(index) != 1)
 							continue;
+
 						key_type temp_key = old_leaf->slotkey[index];
 						key_type temp_value = old_leaf->slotvalue[index];
+						if(redundant_checker.count(temp_key) == 1)
+							continue;
+						else
+							redundant_checker.insert(temp_key);
 #ifdef DEBUG
 						cout << "target key "<< target_key << " temp_key " << temp_key << endl;
 #endif	
@@ -406,6 +384,18 @@ namespace stx {
 						}
 					}
 					return new_nvnode;
+				}
+
+				inline int journaling_ahead(skiplist_t *sl, nvnode_t *nv_node)
+				{
+					nvnode_t *shadow_node = get_shadow_node(sl); 
+					nv_memcpy(shadow_node,nv_node,sizeof(nvnode_t));
+					if(nvnode_flush(shadow_node) == 0){
+						put_shadow_node(sl,shadow_node);
+						return 0;
+					}
+					else
+						return -1;
 				}
 
 				inline key_type get_split_key(dnode_t *index_node)
@@ -597,19 +587,16 @@ not_found:
 						if(!index_node)
 							index_node = nexts[0];
 #ifdef DEBUG
-						cout << " s3 sl_insert_new: going to insert key " << key << " index node exists " << index_node << " max: " << index_node->max << " min " << index_node->min << " sum " << index_node->sum<< endl; 
+						cout << " s3 sl_insert_new: going to insert key " << key << " index node exists " << index_node << " max: " << index_node->max << " min " << index_node->min << " sum " << index_node->sum << " slot " << index_node->nv_node->bs.count()<< endl; 
 #endif
 						nv_node = index_node->nv_node; // read from the nvram 
 						if(!nv_node->isfull()) {
-							//
-							nvnode_t *shadow_node = get_shadow_node(sl); 
-							nv_memcpy(shadow_node,nv_node,sizeof(nvnode_t));
-							shadow_node->bs.set(shadow_node->get_first_free_bit());
-							nvnode_flush(shadow_node);
 							nv_node->set(key, new_val); 
-							nvnode_flush(nv_node);
-							put_shadow_node(sl, shadow_node);
-							//
+							if(journaling_ahead(sl, nv_node) == 0)	
+								nvnode_flush(nv_node);
+							else
+								return -1;
+							//update index_node
 							if(key <= index_node->min) {
 								index_node->min = key;
 							}
@@ -626,28 +613,27 @@ not_found:
 							key_type target_key = get_split_key(index_node); //todo: new algorithm to find the seperation key
 							nvnode_t *orig_nvnode = nvnode_alloc(); 
 							nvnode_t *new_nvnode = split_leaf_node(&max_key, &min_key, target_key, nv_node, orig_nvnode, &new_sum, &orig_sum);
-							index_node->sum = orig_sum;
 
 							//put the key value value into leaf node; it depends on the key
 							if(key <= min_key) {
-								new_nvnode->set(key, new_val);
 								if(key >= max_key)
 									max_key = key;
+								new_nvnode->set(key, new_val);
 								new_sum += key;
 							}else {
 								orig_nvnode->set(key, new_val);
 								orig_sum += key;
-							} //put fini.
-							nvnode_flush(orig_nvnode);// we do not need logging orig_node because it is a copy of nv_node
+							} 
+
+							if(journaling_ahead(sl, orig_nvnode) == 0)
+								nvnode_flush(orig_nvnode);
+							else
+								return -1;
 							index_node->nv_node = orig_nvnode;
-						//	nv_free(nv_node);
 #ifdef DEBUG
 							cout << " orig_nvnode: " << orig_nvnode << " with slot " << orig_nvnode->bs.count() << " new_leaf " << new_nvnode << " with slot " << new_nvnode->bs.count() << endl;
 #endif
-
 							// link a new index node that contains new_leaf to the skiplist
-
-
 							//allocate new index node and link it into the skiplist
 							if(nexts[0]){ //allocate node, link directly
 #ifdef DEBUG
@@ -664,17 +650,22 @@ not_found:
 								cout << new_index << " sum is " <<new_index->sum << " "<<index_node << " sum is "<< index_node->sum<<endl; 
 #endif
 								new_nvnode->next = nexts[0]->nv_node; //link nv_node
-								nvnode_flush(new_nvnode);
+								if(journaling_ahead(sl, new_nvnode) == 0)
+									nvnode_flush(new_nvnode);
+								else
+									return -1;
+
 								for(int level = 0; level < new_index->num_levels; level++) {
 									assert(nexts[level]);
 									new_index->next[level] = reinterpret_cast<markable_t>(nexts[level]);
 								}
 
 								dnode_t *pred = preds[0];
-								nvnode_t *shadow_node = get_shadow_node(sl);
-								nv_memcpy(shadow_node, pred->nv_node, sizeof(nvnode_t));
-								nvnode_flush(shadow_node);
 								pred->nv_node->next = new_nvnode;
+								if(journaling_ahead(sl, pred->nv_node) == 0)
+									nvnode_flush(pred->nv_node);
+								else 
+									return -1;
 #ifdef DEBUG
 								cout << " pred of new_index is " << pred << " sl->head is " << sl->head << endl;
 #endif
@@ -686,8 +677,6 @@ not_found:
 									cout << "preds level " << level << " is " << preds[level] << " next is " << (dnode_t *)pred->next[level] << endl;
 #endif
 								}
-								nvnode_flush(pred->nv_node);
-								put_shadow_node(sl,shadow_node);
 								new_index->nv_node = new_nvnode;
 							}else{ //key belongs to original's [min, max], 
 								find_preds_simple(preds, nexts, n, sl, max_key);
@@ -695,25 +684,27 @@ not_found:
 								index_node->min = min_key;
 								index_node->sum = orig_sum;;
 								new_nvnode->next = nexts[0]->nv_node;
+								if(journaling_ahead(sl, new_nvnode) == 0)
+									nvnode_flush(new_nvnode);
+								else
+									return -1;
 								for(int level = 0; level < new_index->num_levels; level++) {
 									assert(nexts[level]);
 									new_index->next[level] = reinterpret_cast<markable_t>(nexts[level]);
 								}
-								nvnode_flush(new_nvnode);
-
 								dnode_t *pred = preds[0];
-								nvnode_t *shadow_node = get_shadow_node(sl);
-								nv_memcpy(shadow_node, pred->nv_node, sizeof(nvnode_t));
-								nvnode_flush(shadow_node);
 								pred->nv_node->next = new_nvnode;
+							//	nvnode_t *shadow_node = jounraling_ahead(sl, pred->nv_node);
+								if(journaling_ahead(sl, pred->nv_node) == 0)
+									nvnode_flush(pred->nv_node);
+								else
+									return -1;
 
 								for(int level = 0; level < new_index->num_levels; ++level) {
 									assert(preds[level]);
 									dnode_t *pred = preds[level];	
 									pred->next[level] = reinterpret_cast<markable_t>(new_index);
 								}
-								nvnode_flush(pred->nv_node);
-								put_shadow_node(sl, shadow_node);
 								new_index->nv_node = new_nvnode;
 							}
 						}
@@ -726,27 +717,24 @@ not_found:
 						dnode_t *new_index = dnode_alloc(n, key);
 						nvnode_t *nv_node = nvnode_alloc();
 						if(!nv_node->isfull()) {
-							nvnode_t *shadow_node = get_shadow_node(sl);
-							shadow_node->set_bitmap(shadow_node->get_first_free_bit());
-							nvnode_flush(shadow_node);
 							nv_node->set(key, new_val); 
-							nvnode_flush(nv_node);
-							put_shadow_node(sl,shadow_node);
+							nv_node->next = NULL;
+							if(journaling_ahead(sl, nv_node) == 0)	
+								nvnode_flush(nv_node);
+							else
+								return -1;
 							new_index->sum += key;
 						}
-					//	new_index->leaf_ptr = leaf;
-						nv_node->next = NULL;
+
 						for(int level = 0; level < new_index->num_levels; ++level) {
 							new_index->next[level] = reinterpret_cast<markable_t>(nexts[level]);
 						}
 						dnode_t *pred = preds[0];
-						nvnode_t *shadow_node = get_shadow_node(sl);
-						nv_memcpy(shadow_node, pred->nv_node, sizeof(nvnode_t));
-						shadow_node->next = nv_node;
-						nvnode_flush(shadow_node);
-						pred->nv_node = nv_node;
-						nvnode_flush(pred->nv_node);
-						put_shadow_node(sl,shadow_node);
+						pred->nv_node->next = nv_node;
+						if(journaling_ahead(sl, pred->nv_node) == 0)
+							nvnode_flush(pred->nv_node);
+						else
+							return -1;
 
 						for(int level = 0; level < new_index->num_levels; ++level) {
 							assert(preds[level]);

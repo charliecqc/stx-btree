@@ -15,6 +15,8 @@ void *nv_malloc(size_t length) {
 void nv_flush(void *m, size_t length) {
 #ifdef USING_NVRAM
 	//using mb();clflush();mb();
+	mb();
+	_mm_clflush(m);
 #else
 	mb();
 	msync(m, length, MS_SYNC);

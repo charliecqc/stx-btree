@@ -97,33 +97,12 @@ namespace stx {
 				static const int rs = 12345678;
 
 			public:
-				typedef struct leaf {
-
-					key_type slotkey[leafslotmax];
-					///array of data
-					value_type slotvalue[leafslotmax];
-
-					inline int set(key_type key, value_type value, int index)
-					{
-						slotkey[index] = key;
-						slotvalue[index] = value;
-						return 0;
-					}
-
-					value_type get(key_type key) {
-						for(int i = leafslotmax - 1; i >= 0; i--) {
-								if(slotkey[i] == key){
-									return slotvalue[index];
-								}
-							}
-						return -1;
-					}
-				}leaf_t;
-
 				typedef struct nvram_node {
 					std::bitset<leafslotmax> bs;
 					struct nvram_node *next;
-					leaf_t *leaf;
+
+					key_type slotkey[leafslotmax];
+					value_type slotvalue[leafslotmax];
 
 					nvram_node()
 					{
@@ -133,9 +112,7 @@ namespace stx {
 					///True if the node's slots are full
 					inline bool isfull() const
 					{
-						//	return (slotused == leafslotmax - 1);
 							return bs.count() == bs.size();
-						//	return slotused == leafslotmax;
 					}
 
 					///set the indexth bit to 1 
@@ -205,15 +182,20 @@ namespace stx {
 #ifdef DEBUG
 						cout << this << " set key " << key << " at " <<index << endl; 
 #endif
-						leaf->set(key, value, index);
+						slotkey[index] = key;
+						slotvalue[index] = value;
 						set_bitmap(index);
 						return 0;
 					}
-					
-					inline value_type get(key_type key) {
-						return leaf->get(key); 
-					}
 
+					inline value_type get(key_type key) {
+						for(int i = leafslotmax - 1; i >= 0; i--) {
+								if(slotkey[i] == key){
+									return slotvalue[index];
+								}
+							}
+						return -1;
+					}
 
 				}nvnode_t;
 
@@ -271,21 +253,11 @@ namespace stx {
 
 				}
 
-				// Allocate a new leaf node
-				leaf_t *leaf_alloc() {
-					size_t sz = sizeof(leaf_t);		
-					//	leaf_t *item = reinterpret_cast<leaf_t *>(malloc(sz));
-					leaf_t *item = new leaf_t(); 
-					memset(item, 0, sz);
-					return item;
-				}
 
 				nvnode_t *nvnode_alloc(){
 					nvnode_t *item = (nvnode_t *)nv_malloc(sizeof(nvnode_t));
 					item->bs.reset();
-					item->leaf = NULL;
 					item->next = NULL;
-					item->leaf = (leaf_t *)nv_malloc(sizeof(leaf_t));
 					return item;
 				}
 
@@ -313,26 +285,7 @@ namespace stx {
 #endif
 					return item;
 				}
-#if 0
-				node_t *node_alloc(skiplist_t *sl, int num_levels, key_type max, key_type min = ULLONG_MAX, bool is_head = false, key_type sum = 0) {
-					assert(num_levels >= 0 && num_levels <= MAX_LEVELS);
-					size_t sz = sizeof(node_t) + (num_levels - 1) * sizeof(node_t *);
-					node_t *item = reinterpret_cast<node_t *>(malloc(sz)); //todo use new memory allocator later
-					memset(item, 0, sz);
-					item->max = max;
-					if(min == ULLONG_MAX)
-						item->min = max;
-					else
-						item->min = min;
-					item->num_levels = num_levels;
-					item->leaf_ptr = NULL;
-					item->sum = sum;
-#ifdef DEBUG 
-					cout << "s2 node_alloc : new node " << item << " "<< num_levels << " levels" << endl;
-#endif
-					return item;
-				}
-#endif
+
 				skiplist_t *sl_alloc (const datatype_t *type) {
 					skiplist_t *sl = static_cast<skiplist_t *>(malloc(sizeof(skiplist_t)));
 					sl->type = type;
@@ -355,13 +308,13 @@ namespace stx {
 					
 					nvnode_t *new_nvnode = nvnode_alloc();
 					std::set<key_type> redundant_checker;
-					struct leaf *old_leaf = old_nvnode->leaf;
+				//	struct leaf *old_leaf = old_nvnode->leaf;
 					for(int index = old_nvnode->bs.count() - 1; index >= 0; index--){
 						if(old_nvnode->bs.test(index) != 1)
 							continue;
 
-						key_type temp_key = old_leaf->slotkey[index];
-						key_type temp_value = old_leaf->slotvalue[index];
+						key_type temp_key = old_nvnode->slotkey[index];
+						key_type temp_value = old_nvnode->slotvalue[index];
 						if(redundant_checker.count(temp_key) == 1)
 							continue;
 						else
@@ -583,7 +536,6 @@ not_found:
 					//find the indexing dram node
 					dnode_t * index_node = find_index_node(preds, nexts, n, sl, key, ASSIST_UNLINK);
 					if (index_node || nexts[0]) { // index_nodes exists: key belongs to (min, max); nexts[0] exists: index nodes exists, however, key < min; anyway, nexts[0] == index_node; insert the k,v pair to its leaf node
-						//	assert(index_node == nexts[0]);
 						if(!index_node)
 							index_node = nexts[0];
 #ifdef DEBUG

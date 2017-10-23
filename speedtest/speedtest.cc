@@ -225,6 +225,7 @@ public:
 		srand(randseed);
         for (unsigned int i = 0; i < items; i++) {
             unsigned int r = rand();
+			//  unsigned int r = rand() % 1024;
             map.insert(std::make_pair(r, r));
         }
 

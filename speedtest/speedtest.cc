@@ -469,13 +469,13 @@ void TestFactory_Map<TestClass>::call_testrunner(
 	cout << " Unordered " << endl;
     testrunner_loop<UnorderedMap>(os, items);
 #endif
-#if 0
+#if 1
 	cout << " BtreeMap " <<endl;
-    testrunner_loop<BtreeMap<256> >(os, items);
+    testrunner_loop<BtreeMap<64> >(os, items);
 #endif
 #if 1
 	cout << "SkiplistMap" << endl;
-	testrunner_loop<SkiplistMap<8> >(os, items);
+	testrunner_loop<SkiplistMap<64> >(os, items);
 #endif
 #if 0
 	cout << " TtreeMap " <<endl;

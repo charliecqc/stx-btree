@@ -1,9 +1,18 @@
 #ifndef _NV_BACKEND_H
 #define _NV_BACKEND_H
 #include <sys/mman.h>
+#include <stdio.h>
+#include <stdint.h>
 #define  mb() asm volatile("mfence" ::: "memory")
 #define  rmb() asm volatile("lfence" ::: "memory")
 #define  wmb() asm volatile("sfence" ::: "memory")
+#define _mm_clwb(addr)\
+	asm volatile(".byte 0x66; xsaveopt %0" : "+m" (*(volatile char *)addr));
+
+inline void clflush(volatile void *p) 
+{
+	asm volatile("clflush (%0)" ::"r"(p));
+}
 
 void *nv_malloc(size_t length) {
 #ifdef USING_NVRAM
@@ -12,12 +21,12 @@ void *nv_malloc(size_t length) {
 #endif
 }
 
-void nv_flush(void *m, size_t length) {
-#ifdef USING_NVRAM
+void nv_flush(void *m) {
 	//using mb();clflush();mb();
 	mb();
-	_mm_clflush(m);
-#else
+	clflush(m);
+//	_mm_clwb(m);
+#if 0
 	mb();
 	msync(m, length, MS_SYNC);
 	mb();

@@ -97,12 +97,16 @@ namespace stx {
 				static const int rs = 12345678;
 
 			public:
+				typedef struct kv_entry
+				{
+					key_type key;
+					value_type value;
+				}entry_t;
+
 				typedef struct nvram_node {
 					std::bitset<leafslotmax> bs;
 					struct nvram_node *next;
-
-					key_type slotkey[leafslotmax];
-					value_type slotvalue[leafslotmax];
+					entry_t slotentry[leafslotmax];
 
 					nvram_node()
 					{
@@ -112,7 +116,7 @@ namespace stx {
 					///True if the node's slots are full
 					inline bool isfull() const
 					{
-							return bs.count() == bs.size();
+						return bs.count() == bs.size();
 					}
 
 					///set the indexth bit to 1 
@@ -177,23 +181,24 @@ namespace stx {
 						return -1;
 					}
 #endif	
-					inline int set(key_type key, value_type value) {
+					inline int set(entry_t *entry) {
 						int index = get_first_free_bit(); 			
 #ifdef DEBUG
-						cout << this << " set key " << key << " at " <<index << endl; 
+						cout << this << " set key " << entry->key << " at " <<index << endl; 
 #endif
-						slotkey[index] = key;
-						slotvalue[index] = value;
+						nv_memcpy(&slotentry[index],entry,sizeof(entry_t));
+						nv_flush(&slotentry[index]);
 						set_bitmap(index);
+						nv_flush(&bs);
 						return 0;
 					}
 
 					inline value_type get(key_type key) {
 						for(int i = leafslotmax - 1; i >= 0; i--) {
-								if(slotkey[i] == key){
-									return slotvalue[index];
-								}
+							if(slotentry[i].key == key){
+								return slotentry[index].value;
 							}
+						}
 						return -1;
 					}
 
@@ -228,8 +233,8 @@ namespace stx {
 					return nv_node;
 				}
 
-				 void put_shadow_node(skiplist_t *sl, nvnode_t *nv_node) {
-					 sl->shadow_list->push_back(nv_node);	
+				void put_shadow_node(skiplist_t *sl, nvnode_t *nv_node) {
+					sl->shadow_list->push_back(nv_node);	
 				}
 
 				int random_levels (skiplist_t *sl) {
@@ -247,7 +252,7 @@ namespace stx {
 						sl->high_water = MAX_LEVELS;
 
 #ifdef DEBUG
-						cout << " s2 random_levels: increased high water mark to " << sl->high_water << endl;
+					cout << " s2 random_levels: increased high water mark to " << sl->high_water << endl;
 #endif
 					return levels;
 
@@ -255,7 +260,7 @@ namespace stx {
 
 
 				nvnode_t *nvnode_alloc(){
-					nvnode_t *item = (nvnode_t *)nv_malloc(sizeof(nvnode_t));
+					nvnode_t *item = reinterpret_cast<nvnode_t *>(nv_malloc(sizeof(nvnode_t)));
 					item->bs.reset();
 					item->next = NULL;
 					return item;
@@ -263,12 +268,15 @@ namespace stx {
 
 				int nvnode_flush(nvnode_t *nv_node)
 				{
-					nv_flush(nv_node, sizeof(nvnode_t));
+					size_t sz = sizeof(*nv_node);
+					for(markable_t i = 0; i <= sz; i += 64) {
+						nv_flush((void *)nv_node + i);
+					}
 					return 0;
 				}
 
 				dnode_t *dnode_alloc(int num_levels, key_type max, key_type min = ULLONG_MAX, key_type sum = 0){
-					
+
 					assert(num_levels >= 0 && num_levels <= MAX_LEVELS);
 					size_t sz = sizeof(dnode_t) + (num_levels - 1) * sizeof(dnode_t *);
 					dnode_t *item = reinterpret_cast<dnode_t *>(malloc(sz)); //todo use new memory allocator later
@@ -300,21 +308,22 @@ namespace stx {
 
 					sl->head->nv_node = nvnode_alloc();
 					//todo: logging
-					nv_flush(sl->head->nv_node, sizeof(nvnode_t));	
+					//		nv_flush(sl->head->nv_node, sizeof(nvnode_t));	
+					nvnode_flush(sl->head->nv_node);	
 					return sl;
 				}
 
 				inline nvnode_t *split_leaf_node(key_type *max_key, key_type *min_key, const key_type target_key, nvnode_t *old_nvnode, nvnode_t *orig_nvnode, key_type *new_sum, key_type *orig_sum) {
-					
+
 					nvnode_t *new_nvnode = nvnode_alloc();
 					std::set<key_type> redundant_checker;
-				//	struct leaf *old_leaf = old_nvnode->leaf;
+					//	struct leaf *old_leaf = old_nvnode->leaf;
 					for(int index = old_nvnode->bs.count() - 1; index >= 0; index--){
 						if(old_nvnode->bs.test(index) != 1)
 							continue;
 
-						key_type temp_key = old_nvnode->slotkey[index];
-						key_type temp_value = old_nvnode->slotvalue[index];
+						key_type temp_key = old_nvnode->slotentry[index].key;
+						key_type temp_value = old_nvnode->slotentry[index].value;
 						if(redundant_checker.count(temp_key) == 1)
 							continue;
 						else
@@ -322,14 +331,19 @@ namespace stx {
 #ifdef DEBUG
 						cout << "target key "<< target_key << " temp_key " << temp_key << endl;
 #endif	
+						entry_t temp_entry;
 						if(temp_key <= target_key ) {
-							new_nvnode->set(temp_key, temp_value);
+							temp_entry.key = temp_key;
+							temp_entry.value = temp_value;
+							new_nvnode->set(&temp_entry);
 							if(temp_key >= *max_key){
 								*max_key = temp_key;
 							}
 							*new_sum += temp_key;
 						}else{
-							orig_nvnode->set(temp_key, temp_value);
+							temp_entry.key = temp_key;
+							temp_entry.value = temp_value;
+							orig_nvnode->set(&temp_entry);
 							if(temp_key <= *min_key){
 								*min_key = temp_key;
 							}
@@ -420,12 +434,15 @@ namespace stx {
 							}
 
 							if(d_max >= 0) {
-							d_min = key - item->min;
+								d_min = key - item->min;
 								if(d_min >= 0) {  // key is belong to this index node
 #ifdef DEBUG
 									cout << "s3 find_index_node: " << item << " with min " << item->min << " max " << item->max << " sum " << item->sum << endl;
 #endif
-									return item;	
+									if(!item->nv_node->isfull())
+										return item;	
+									else
+										break;
 								}else
 									break;
 							}
@@ -543,11 +560,10 @@ not_found:
 #endif
 						nv_node = index_node->nv_node; // read from the nvram 
 						if(!nv_node->isfull()) {
-							nv_node->set(key, new_val); 
-							if(journaling_ahead(sl, nv_node) == 0)	
-								nvnode_flush(nv_node);
-							else
-								return -1;
+							entry_t new_entry;
+							new_entry.key = key;
+							new_entry.value = new_val;
+							nv_node->set(&new_entry); 
 							//update index_node
 							if(key <= index_node->min) {
 								index_node->min = key;
@@ -564,101 +580,45 @@ not_found:
 
 							key_type target_key = get_split_key(index_node); //todo: new algorithm to find the seperation key
 							nvnode_t *orig_nvnode = nvnode_alloc(); 
-							nvnode_t *new_nvnode = split_leaf_node(&max_key, &min_key, target_key, nv_node, orig_nvnode, &new_sum, &orig_sum);
-
-							//put the key value value into leaf node; it depends on the key
+							nvnode_t *new_nvnode = split_leaf_node(&max_key, &min_key, target_key, nv_node, orig_nvnode, &new_sum, &orig_sum); // get two new leafs, each contains half of entries of nv_node;
+							//link two new nv_nodes
+							orig_nvnode->next = nv_node->next;
+							new_nvnode->next = orig_nvnode;
+							//link completed
+							//
+							//insert the new key,value into either orignal node or new node
 							if(key <= min_key) {
 								if(key >= max_key)
 									max_key = key;
-								new_nvnode->set(key, new_val);
+								entry_t new_entry;
+								new_entry.key = key;
+								new_entry.value = new_val;
+								new_nvnode->set(&new_entry); 
 								new_sum += key;
 							}else {
-								orig_nvnode->set(key, new_val);
+								entry_t new_entry;
+								new_entry.key = key;
+								new_entry.value = new_val;
+								orig_nvnode->set(&new_entry);
 								orig_sum += key;
 							} 
-
-							if(journaling_ahead(sl, orig_nvnode) == 0)
-								nvnode_flush(orig_nvnode);
-							else
-								return -1;
-							index_node->nv_node = orig_nvnode;
-#ifdef DEBUG
-							cout << " orig_nvnode: " << orig_nvnode << " with slot " << orig_nvnode->bs.count() << " new_leaf " << new_nvnode << " with slot " << new_nvnode->bs.count() << endl;
-#endif
-							// link a new index node that contains new_leaf to the skiplist
-							//allocate new index node and link it into the skiplist
-							if(nexts[0]){ //allocate node, link directly
-#ifdef DEBUG
-								cout <<" sl_insert_new: attempting to insert an new index node between " << preds[0] << " and " << nexts[0] << " with new_sum " << new_sum <<endl;
-#endif
-
-							//link the nvnode into the nvnode list
-								
-
-								dnode_t *new_index = dnode_alloc(n, max_key, min(index_node->min,key), new_sum);
-								index_node->min = min_key; //update new min value of original leaf node
-								index_node->sum = orig_sum; //update new sum value of original index_node
-#ifdef DEBUG
-								cout << new_index << " sum is " <<new_index->sum << " "<<index_node << " sum is "<< index_node->sum<<endl; 
-#endif
-								new_nvnode->next = nexts[0]->nv_node; //link nv_node
-								if(journaling_ahead(sl, new_nvnode) == 0)
-									nvnode_flush(new_nvnode);
-								else
-									return -1;
-
-								for(int level = 0; level < new_index->num_levels; level++) {
-									assert(nexts[level]);
-									new_index->next[level] = reinterpret_cast<markable_t>(nexts[level]);
-								}
-
-								dnode_t *pred = preds[0];
-								pred->nv_node->next = new_nvnode;
-								if(journaling_ahead(sl, pred->nv_node) == 0)
-									nvnode_flush(pred->nv_node);
-								else 
-									return -1;
-#ifdef DEBUG
-								cout << " pred of new_index is " << pred << " sl->head is " << sl->head << endl;
-#endif
-								for(int level = 0; level < new_index->num_levels; ++level) {
-									assert(preds[level] != 0);
-									dnode_t *pred = preds[level];	
-									pred->next[level] = reinterpret_cast<markable_t>(new_index);
-#ifdef DEBUG
-									cout << "preds level " << level << " is " << preds[level] << " next is " << (dnode_t *)pred->next[level] << endl;
-#endif
-								}
-								new_index->nv_node = new_nvnode;
-							}else{ //key belongs to original's [min, max], 
-								find_preds_simple(preds, nexts, n, sl, max_key);
-								dnode_t *new_index = dnode_alloc(n, max_key, index_node->min, new_sum);
-								index_node->min = min_key;
-								index_node->sum = orig_sum;;
-								new_nvnode->next = nexts[0]->nv_node;
-								if(journaling_ahead(sl, new_nvnode) == 0)
-									nvnode_flush(new_nvnode);
-								else
-									return -1;
-								for(int level = 0; level < new_index->num_levels; level++) {
-									assert(nexts[level]);
-									new_index->next[level] = reinterpret_cast<markable_t>(nexts[level]);
-								}
-								dnode_t *pred = preds[0];
-								pred->nv_node->next = new_nvnode;
-							//	nvnode_t *shadow_node = jounraling_ahead(sl, pred->nv_node);
-								if(journaling_ahead(sl, pred->nv_node) == 0)
-									nvnode_flush(pred->nv_node);
-								else
-									return -1;
-
-								for(int level = 0; level < new_index->num_levels; ++level) {
-									assert(preds[level]);
-									dnode_t *pred = preds[level];	
-									pred->next[level] = reinterpret_cast<markable_t>(new_index);
-								}
-								new_index->nv_node = new_nvnode;
+							nvnode_flush(orig_nvnode);
+							nvnode_flush(new_nvnode);
+							SYNC_CAS(&preds[0]->nv_node->next, reinterpret_cast<markable_t>(orig_nvnode), reinterpret_cast<markable_t>(new_nvnode));
+							//insert completed
+							//update dram indexing node
+							index_node->min = min_key;
+							index_node->sum = orig_sum;
+							dnode_t * new_index = dnode_alloc(n, max_key, min(index_node->min, key), new_sum);
+							for(int level = 0; level < new_index->num_levels; level++){
+								new_index->next[level] = reinterpret_cast<markable_t>(nexts[level]);	
+								dnode_t *pred = preds[level];
+								pred->next[level] = reinterpret_cast<markable_t>(new_index);
 							}
+							index_node->nv_node = orig_nvnode;
+							new_index->nv_node = new_nvnode;
+
+							//update completed
 						}
 
 					}else { // naither index_node nor nexts[0] exists. add a total new index node with new leaf_node
@@ -668,32 +628,25 @@ not_found:
 #endif
 						dnode_t *new_index = dnode_alloc(n, key);
 						nvnode_t *nv_node = nvnode_alloc();
+
+						//	pred->nv_node->next = nv_node;
+
 						if(!nv_node->isfull()) {
-							nv_node->set(key, new_val); 
-							nv_node->next = NULL;
-							if(journaling_ahead(sl, nv_node) == 0)	
-								nvnode_flush(nv_node);
-							else
-								return -1;
+							entry_t new_entry;
+							new_entry.key = key;
+							new_entry.value = new_val;
+							nv_node->set(&new_entry); 
 							new_index->sum += key;
 						}
 
+						dnode_t *pred = preds[0];
+						SYNC_CAS(&pred->nv_node->next, 0, reinterpret_cast<markable_t>(nv_node));
+
 						for(int level = 0; level < new_index->num_levels; ++level) {
 							new_index->next[level] = reinterpret_cast<markable_t>(nexts[level]);
-						}
-						dnode_t *pred = preds[0];
-						pred->nv_node->next = nv_node;
-						if(journaling_ahead(sl, pred->nv_node) == 0)
-							nvnode_flush(pred->nv_node);
-						else
-							return -1;
-
-						for(int level = 0; level < new_index->num_levels; ++level) {
-							assert(preds[level]);
-							dnode_t *pred = preds[level];	
+							dnode_t *pred = preds[level];
 							pred->next[level] = reinterpret_cast<markable_t>(new_index);
 						}
-
 						new_index->nv_node = nv_node;
 					}
 					return 0;

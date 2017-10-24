@@ -12,10 +12,7 @@
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program. If not, see <http://www.gnu.org/licenses/>.
+ * more details.  * * You should have received a copy of the GNU General Public License along with * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
 #include <sys/time.h>
@@ -471,11 +468,11 @@ void TestFactory_Map<TestClass>::call_testrunner(
 #endif
 #if 1
 	cout << " BtreeMap " <<endl;
-    testrunner_loop<BtreeMap<256> >(os, items);
+    testrunner_loop<BtreeMap<64> >(os, items);
 #endif
 #if 1
 	cout << "S8kiplistMap" << endl;
-	testrunner_loop<SkiplistMap<256> >(os, items);
+	testrunner_loop<SkiplistMap<64> >(os, items);
 #endif
 #if 0
 	cout << " TtreeMap " <<endl;

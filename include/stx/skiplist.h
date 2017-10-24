@@ -124,7 +124,7 @@ namespace stx {
 					{
 						//	return (slotused == leafslotmax - 1);
 						//	return bs.count() == bs.size();
-							return slotused == leafslotmax;
+						return slotused == leafslotmax;
 					}
 					///set the indexth bit to 1 
 					int set_bitmap(unsigned short index)
@@ -202,11 +202,11 @@ namespace stx {
 #ifdef DEBUG
 						cout <<this << " 's slotused is " << slotused <<  endl;
 #endif
-				//		if(slotkey[slotused] == key) {
-				//			slotvalue[slotused] = value;
-				//			return 0;
-				//		cout <<this << " 's slotused keep unchanged due to same key" << endl;
-				//		}
+						//		if(slotkey[slotused] == key) {
+						//			slotvalue[slotused] = value;
+						//			return 0;
+						//		cout <<this << " 's slotused keep unchanged due to same key" << endl;
+						//		}
 
 						int index =	slotused++;
 #ifdef DEBUG
@@ -265,7 +265,7 @@ namespace stx {
 						sl->high_water = MAX_LEVELS;
 
 #ifdef DEBUG
-						cout << " s2 random_levels: increased high water mark to " << sl->high_water << endl;
+					cout << " s2 random_levels: increased high water mark to " << sl->high_water << endl;
 #endif
 					return levels;
 
@@ -443,12 +443,13 @@ namespace stx {
 							}
 
 							if(d_max >= 0) {
-							d_min = key - item->min;
+								d_min = key - item->min;
 								if(d_min >= 0) {  // key is belong to this index node
 #ifdef DEBUG
 									cout << "s3 find_index_node: " << item << " with min " << item->min << " max " << item->max << " sum " << item->sum << endl;
 #endif
-									return item;	
+									if(!item->leaf_ptr->isfull())
+										return item;	
 								}else
 									break;
 							}
@@ -640,7 +641,7 @@ not_found:
 #endif
 								}
 							}else{ //key belongs to original's [min, max], 
-								find_preds_simple(preds, nexts, n, sl, max_key);
+							//	find_preds_simple(preds, nexts, n, sl, max_key);
 								node_t *new_index = node_alloc(sl, n, max_key, index_node->min, false, new_sum);
 								new_index->leaf_ptr = new_leaf;
 								index_node->min = min_key;

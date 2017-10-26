@@ -50,14 +50,14 @@
 /// starting number of items to insert
 //static const unsigned int minitems = 10240;
 //static const unsigned int minitems = 1024000 * 64;
-static const unsigned int minitems = 5120000;
-//static const unsigned int minitems = 1;
+static const unsigned int minitems = 5120000 * 2;
+//static const unsigned int minitems = 128;
 
 /// maximum number of items to insert
 //static const unsigned int maxitems = 10240;
 //static const unsigned int maxitems = 1024000 * 64;
-//static const unsigned int maxitems = 65536;
-static const unsigned int maxitems = 5120000;
+//static const unsigned int maxitems = 128;
+static const unsigned int maxitems = 5120000 * 2;
 
 static const int randseed = 34234235;
 
@@ -68,30 +68,30 @@ static const int max_nodeslots = 256;
 /// Time is measured using gettimeofday()
 static inline double timestamp()
 {
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return tv.tv_sec + tv.tv_usec * 0.000001;
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	return tv.tv_sec + tv.tv_usec * 0.000001;
 }
 
 /// Traits used for the speed tests, BTREE_DEBUG is not defined.
 template <int _innerslots, int _leafslots>
 class btree_traits_speed : stx::btree_default_set_traits<unsigned int>
 {
-public:
-    static const bool selfverify = false;
-    static const bool debug = false;
+	public:
+		static const bool selfverify = false;
+		static const bool debug = false;
 
-    static const int leafslots = _innerslots;
-    static const int innerslots = _leafslots;
+		static const int leafslots = _innerslots;
+		static const int innerslots = _leafslots;
 
-    static const size_t binsearch_threshold = 256 * 1024 * 1024; // never
+		static const size_t binsearch_threshold = 256 * 1024 * 1024; // never
 };
 
 template <int _leafslots>
 class skiplist_traits_speed : stx::skiplist_default_set_traits<unsigned int>
 {
-public:
-	static const int leafslots = _leafslots;
+	public:
+		static const int leafslots = _leafslots;
 };
 
 // -----------------------------------------------------------------------------
@@ -100,69 +100,69 @@ public:
 template <typename SetType>
 class Test_Set_Insert
 {
-public:
-    explicit Test_Set_Insert(unsigned int) { }
+	public:
+		explicit Test_Set_Insert(unsigned int) { }
 
-    void run(unsigned int items)
-    {
-        SetType set;
+		void run(unsigned int items)
+		{
+			SetType set;
 
-        srand(randseed);
-        for (unsigned int i = 0; i < items; i++)
-            set.insert(rand());
-		 assert(set.size() == items);
-    }
+			srand(randseed);
+			for (unsigned int i = 0; i < items; i++)
+				set.insert(rand());
+			assert(set.size() == items);
+		}
 };
 
 /// Test a generic set type with insert, find and delete sequences
 template <typename SetType>
 class Test_Set_InsertFindDelete
 {
-public:
-    explicit Test_Set_InsertFindDelete(unsigned int) { }
+	public:
+		explicit Test_Set_InsertFindDelete(unsigned int) { }
 
-    void run(unsigned int items)
-    {
-        SetType set;
+		void run(unsigned int items)
+		{
+			SetType set;
 
-        srand(randseed);
-        for (unsigned int i = 0; i < items; i++)
-            set.insert(rand());
+			srand(randseed);
+			for (unsigned int i = 0; i < items; i++)
+				set.insert(rand());
 
-        assert(set.size() == items);
+			assert(set.size() == items);
 
-        srand(randseed);
-        for (unsigned int i = 0; i < items; i++)
-            set.find(rand());
+			srand(randseed);
+			for (unsigned int i = 0; i < items; i++)
+				set.find(rand());
 
-        srand(randseed);
-        for (unsigned int i = 0; i < items; i++)
-            set.erase(set.find(rand()));
+			srand(randseed);
+			for (unsigned int i = 0; i < items; i++)
+				set.erase(set.find(rand()));
 
-        assert(set.empty());
-    }
+			assert(set.empty());
+		}
 };
 
 /// Test a generic set type with insert, find and delete sequences
 template <typename SetType>
 class Test_Set_Find
 {
-public:
-    SetType set;
+	public:
+		SetType set;
 
-    explicit Test_Set_Find(unsigned int items)
-    {
-        srand(randseed);
-        for (unsigned int i = 0; i < items; i++)
-            set.insert(rand());
+		explicit Test_Set_Find(unsigned int items)
+		{
+			srand(randseed);
+			for (unsigned int i = 0; i < items; i++)
+				set.insert(rand());
 
-        assert(set.size() == items);
-    }
+			assert(set.size() == items);
+		}
 
-    void run(unsigned int items)
-    {
-        srand(randseed);
-        for (unsigned int i = 0; i < items; i++)
+		void run(unsigned int items)
+		{
+			srand(randseed);
+			for (unsigned int i = 0; i < items; i++)
             set.find(rand());
     }
 };
@@ -228,7 +228,7 @@ public:
 			//  unsigned int r = rand() % 1024;
             map.insert(std::make_pair(r, r));
         }
-
+	//	map.print();
         assert(map.size() == items);
     }
 };
@@ -469,7 +469,7 @@ void TestFactory_Map<TestClass>::call_testrunner(
 	cout << " Unordered " << endl;
     testrunner_loop<UnorderedMap>(os, items);
 #endif
-#if 1
+#if 0
 	cout << " BtreeMap " <<endl;
     testrunner_loop<BtreeMap<64> >(os, items);
 #endif

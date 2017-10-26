@@ -55,6 +55,11 @@ public:
 		{
 			return list.sl_lookup(slist, key);
 		}
+		
+		inline void print()
+		{
+			list.print_height(slist);
+		}
 
 };
 

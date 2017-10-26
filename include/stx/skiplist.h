@@ -27,7 +27,8 @@
 #define SYNC_ADD(addr, n)		__sync_add_and_fetch(addr, n)
 #define SYNC_FETCH_AND_OR		__sync_fetch_and_or(addr, x)
 
-#define MAX_LEVELS 32 
+#define MAX_LEVELS 16 
+#define HOT_THRESHOULD 15 
 #define TAG_VALUE(v, tag) ((v) | tag)
 #define IS_TAGGED(v, tag) ((v) & tag)
 #define STRIP_TAG(v, tag) ((v) & ~tag)
@@ -107,6 +108,7 @@ namespace stx {
 					std::bitset<leafslotmax> bs;
 					struct nvram_node *next;
 					entry_t slotentry[leafslotmax];
+					uint64_t x;
 
 					nvram_node()
 					{
@@ -150,11 +152,14 @@ namespace stx {
 					///return the first bit that was 0. from left to right
 					int get_first_free_bit()
 					{
+#if 0
 						for(int index = 0; index < bs.size(); index++) {
 							if(!bs.test(index))
 								return index;
 						}
 						return -1;
+#endif
+						return bs.count();
 					}
 
 					int hash(key_type key, int k) {
@@ -187,10 +192,10 @@ namespace stx {
 						cout << this << " set key " << entry->key << " at " <<index << endl; 
 #endif
 						nv_memcpy(&slotentry[index],entry,sizeof(entry_t));
-						nv_flush(&slotentry[index]);
-						set_bitmap(index);
-						nv_flush(&bs);
-						return 0;
+					//	nv_flush(&slotentry[index]);
+				//		set_bitmap(index);
+				//		nv_flush(&bs);
+						return index;
 					}
 
 					inline value_type get(key_type key) {
@@ -208,9 +213,10 @@ namespace stx {
 					key_type max;  //max key in its data node
 					key_type min; //minimum key in its data node
 					key_type sum; //sum of all the key in the leaf node
+					int split_count;
 					unsigned num_levels;
-					markable_t next[MAX_LEVELS];
 					nvnode_t *nv_node;
+					markable_t next[0];
 				} dnode_t;
 
 				struct sl_iter {
@@ -238,6 +244,7 @@ namespace stx {
 				}
 
 				int random_levels (skiplist_t *sl) {
+#if 1
 					double r = rand()/(RAND_MAX + 1.0);
 					int levels = 1;
 					while(r < 0.25 && levels < MAX_LEVELS) {
@@ -255,7 +262,15 @@ namespace stx {
 					cout << " s2 random_levels: increased high water mark to " << sl->high_water << endl;
 #endif
 					return levels;
-
+#else
+					int level = 1;
+					while(rand() % 2)
+						level++;
+					level = (MAX_LEVELS > level)? level : MAX_LEVELS;
+					if(level >= sl->high_water)
+						sl->high_water = level;
+					return level;
+#endif
 				}
 
 
@@ -278,7 +293,8 @@ namespace stx {
 				dnode_t *dnode_alloc(int num_levels, key_type max, key_type min = ULLONG_MAX, key_type sum = 0){
 
 					assert(num_levels >= 0 && num_levels <= MAX_LEVELS);
-					size_t sz = sizeof(dnode_t) + (num_levels - 1) * sizeof(dnode_t *);
+			//		size_t sz = sizeof(dnode_t) + (num_levels - 1) * sizeof(dnode_t *);
+					size_t sz = sizeof(dnode_t) + num_levels * sizeof(dnode_t *);
 					dnode_t *item = reinterpret_cast<dnode_t *>(malloc(sz)); //todo use new memory allocator later
 					memset(item, 0x0, sz);
 					item->max = max;
@@ -288,6 +304,7 @@ namespace stx {
 						item->min = min;
 					item->num_levels = num_levels;
 					item->sum = sum;
+					item->split_count = 0;
 #ifdef DEBUG 
 					cout << "s2 node_alloc : new node " << item << " "<< num_levels << " levels" << endl;
 #endif
@@ -316,18 +333,12 @@ namespace stx {
 				inline nvnode_t *split_leaf_node(key_type *max_key, key_type *min_key, const key_type target_key, nvnode_t *old_nvnode, nvnode_t *orig_nvnode, key_type *new_sum, key_type *orig_sum) {
 
 					nvnode_t *new_nvnode = nvnode_alloc();
-					std::set<key_type> redundant_checker;
-					//	struct leaf *old_leaf = old_nvnode->leaf;
 					for(int index = old_nvnode->bs.count() - 1; index >= 0; index--){
 						if(old_nvnode->bs.test(index) != 1)
 							continue;
 
 						key_type temp_key = old_nvnode->slotentry[index].key;
 						key_type temp_value = old_nvnode->slotentry[index].value;
-						if(redundant_checker.count(temp_key) == 1)
-							continue;
-						else
-							redundant_checker.insert(temp_key);
 #ifdef DEBUG
 						cout << "target key "<< target_key << " temp_key " << temp_key << endl;
 #endif	
@@ -335,7 +346,8 @@ namespace stx {
 						if(temp_key <= target_key ) {
 							temp_entry.key = temp_key;
 							temp_entry.value = temp_value;
-							new_nvnode->set(&temp_entry);
+							int ix = new_nvnode->set(&temp_entry);
+							new_nvnode->set_bitmap(ix);
 							if(temp_key >= *max_key){
 								*max_key = temp_key;
 							}
@@ -343,7 +355,8 @@ namespace stx {
 						}else{
 							temp_entry.key = temp_key;
 							temp_entry.value = temp_value;
-							orig_nvnode->set(&temp_entry);
+							int ix = orig_nvnode->set(&temp_entry);
+							orig_nvnode->set_bitmap(ix);
 							if(temp_key <= *min_key){
 								*min_key = temp_key;
 							}
@@ -424,14 +437,7 @@ namespace stx {
 							cout << " s4 find_index_node: key " << item->max << endl;
 #endif
 
-							if(EXPECT_TRUE(sl->type) == 0) {
-								d_max = item->max - key;
-#ifdef DEBUG
-								cout << "item->max: " << item->max << " item->min " << item->min <<endl;
-#endif
-							}else {
-								d_max = sl->type->cmp(reinterpret_cast<void *>(item->max), reinterpret_cast<void *>(key));
-							}
+							d_max = item->max - key;
 
 							if(d_max >= 0) {
 								d_min = key - item->min;
@@ -541,6 +547,20 @@ not_found:
 					}//end of for
 				}
 
+				void print_height(skiplist_t *sl)
+				{
+					dnode_t *pred = sl->head;
+					dnode_t *item = NULL;
+					markable_t next = pred->next[0];
+					item = GET_NODE(next);
+					while(item != NULL)
+					{
+						cout << item->num_levels << endl;
+						next = item->next[0];
+						item = GET_NODE(next);
+					}
+				}
+
 				value_type sl_insert_new(skiplist_t *sl, key_type key, value_type new_val, nvnode_t *nv_node = NULL)
 				{
 #ifdef DEBUG
@@ -548,6 +568,8 @@ not_found:
 #endif
 					dnode_t *preds[MAX_LEVELS];
 					dnode_t *nexts[MAX_LEVELS];
+					memset(preds, 0x0, sizeof(dnode_t *)*MAX_LEVELS);
+					memset(nexts, 0x0, sizeof(dnode_t *)*MAX_LEVELS);
 
 					int n = random_levels(sl);
 					//find the indexing dram node
@@ -563,7 +585,11 @@ not_found:
 							entry_t new_entry;
 							new_entry.key = key;
 							new_entry.value = new_val;
-							nv_node->set(&new_entry); 
+							int ix = nv_node->set(&new_entry); 
+							nv_flush(&nv_node->slotentry[ix]);
+							nv_node->set_bitmap(ix);
+							nv_flush(&nv_node->bs);
+
 							//update index_node
 							if(key <= index_node->min) {
 								index_node->min = key;
@@ -577,6 +603,7 @@ not_found:
 							key_type max_key = 0;// new max key of new leaf node
 							key_type orig_sum = 0; //sum of each key in original's leaf after split.
 							key_type new_sum = 0; //sum of each key in new;s leaf after split.
+							
 
 							key_type target_key = get_split_key(index_node); //todo: new algorithm to find the seperation key
 							nvnode_t *orig_nvnode = nvnode_alloc(); 
@@ -593,13 +620,15 @@ not_found:
 								entry_t new_entry;
 								new_entry.key = key;
 								new_entry.value = new_val;
-								new_nvnode->set(&new_entry); 
+								int ix = new_nvnode->set(&new_entry); 
+								new_nvnode->set_bitmap(ix);
 								new_sum += key;
 							}else {
 								entry_t new_entry;
 								new_entry.key = key;
 								new_entry.value = new_val;
-								orig_nvnode->set(&new_entry);
+								int ix = orig_nvnode->set(&new_entry);
+								orig_nvnode->set_bitmap(ix);
 								orig_sum += key;
 							} 
 							nvnode_flush(orig_nvnode);
@@ -609,10 +638,19 @@ not_found:
 							//update dram indexing node
 							index_node->min = min_key;
 							index_node->sum = orig_sum;
+							index_node->split_count++;
+					#if 0
+							if(index_node->split_count >= HOT_THRESHOULj) {
+								n = MAX_LEVELS;
+								index_node->split_count = 0;
+							}
+					#endif
 							dnode_t * new_index = dnode_alloc(n, max_key, min(index_node->min, key), new_sum);
 							for(int level = 0; level < new_index->num_levels; level++){
 								new_index->next[level] = reinterpret_cast<markable_t>(nexts[level]);	
 								dnode_t *pred = preds[level];
+								if(pred == NULL)
+									pred = sl->head;
 								pred->next[level] = reinterpret_cast<markable_t>(new_index);
 							}
 							index_node->nv_node = orig_nvnode;
@@ -629,13 +667,15 @@ not_found:
 						dnode_t *new_index = dnode_alloc(n, key);
 						nvnode_t *nv_node = nvnode_alloc();
 
-						//	pred->nv_node->next = nv_node;
 
 						if(!nv_node->isfull()) {
 							entry_t new_entry;
 							new_entry.key = key;
 							new_entry.value = new_val;
-							nv_node->set(&new_entry); 
+							int ix = nv_node->set(&new_entry); 
+							nv_flush(&nv_node->slotentry[ix]);
+							nv_node->set_bitmap(ix);
+							nv_flush(&nv_node->bs);
 							new_index->sum += key;
 						}
 

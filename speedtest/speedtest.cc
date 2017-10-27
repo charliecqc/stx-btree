@@ -50,14 +50,14 @@
 /// starting number of items to insert
 //static const unsigned int minitems = 10240;
 //static const unsigned int minitems = 1024000 * 64;
-static const unsigned int minitems = 5120000 * 2;
-//static const unsigned int minitems = 128;
+//static const unsigned int minitems = 5120000 * 2;
+static const unsigned int minitems = 1024;
 
 /// maximum number of items to insert
 //static const unsigned int maxitems = 10240;
 //static const unsigned int maxitems = 1024000 * 64;
-//static const unsigned int maxitems = 128;
-static const unsigned int maxitems = 5120000 * 2;
+static const unsigned int maxitems = 1024;
+//static const unsigned int maxitems = 5120000 * 2;
 
 static const int randseed = 34234235;
 
@@ -225,7 +225,7 @@ public:
 		srand(randseed);
         for (unsigned int i = 0; i < items; i++) {
             unsigned int r = rand();
-			//  unsigned int r = rand() % 1024;
+		//	  unsigned int r = rand() % 1024;
             map.insert(std::make_pair(r, r));
         }
 	//	map.print();

@@ -22,8 +22,8 @@ void *nv_malloc(size_t length) {
 }
 
 void nv_flush(void *m) {
-	mb();
-	clflush(m);
+//	mb();
+//	clflush(m);
 //	_mm_clwb(m);
 #if 0
 	mb();

@@ -262,15 +262,6 @@ namespace stx {
 					cout << " s2 random_levels: increased high water mark to " << sl->high_water << endl;
 #endif
 					return levels;
-#else
-					int level = 1;
-					while(rand() % 2)
-						level++;
-					level = (MAX_LEVELS > level)? level : MAX_LEVELS;
-					if(level >= sl->high_water)
-						sl->high_water = level;
-					return level;
-#endif
 				}
 
 
@@ -402,83 +393,64 @@ namespace stx {
 
 
 				//find the index node of certain key. n is the random level of the new node
-				dnode_t *find_index_node(dnode_t **preds, dnode_t **succs, int n, skiplist_t *sl, key_type key, enum unlink unlink ) {
+				dnode_t *find_index_node(dnode_t **preds, bool *is_full, int n, skiplist_t *sl, key_type key, enum unlink unlink ) {
 					dnode_t *pred = sl->head;
 					dnode_t * item = NULL; //item is the pointer point to target index node.
-					int d_max = 0;
-					int d_min = 0;
-#ifdef DEBUG
-					cout << " s2 find_index_node: searching for min key that >= key " << key << " in skiplist head is " << pred << " sl->high_water is " << sl->high_water<< " n is "<< n <<endl;
-#endif
+					int d_max = 0, d_min = 0;
+
 					for(int level = sl->high_water - 1; level >= 0; --level) {
-						markable_t next = pred->next[level]; // from top to bottom
+						markable_t next = pred->next[level]; // from top to botto
 						if(next == 0 && level > n) {// in the case of next = 0 && level > n, next[level] directly link to the nil;
 							continue;
 						}
-#ifdef DEBUG
-						cout << " s3 find_index_node: traverling level  " << level << " starting at " << pred << endl;
-#endif
-
 						item = GET_NODE(next);
-#ifdef DEBUG
-						cout << "item is " << item << " next is " << (dnode_t *)next << " level is " << level <<endl;
-#endif
 						while (item != NULL) {
-							next = item->next[level];	
-							if (EXPECT_FALSE(item == NULL)) {
-#ifdef DEBUG
-								cout << " s3 find_index_node: past the last item in the skiplist " << endl;
-#endif
-								break;
-							}
-
-#ifdef DEBUG
-							cout << " s4 find_index_node: visiting item " << item << " max " << item->max << " min " << item->min << " sum is "<< item->sum << " next is " << reinterpret_cast<dnode_t *>(next) << endl;
-							cout << " s4 find_index_node: key " << item->max << endl;
-#endif
-
-							d_max = item->max - key;
-
-							if(d_max >= 0) {
-								d_min = key - item->min;
-								if(d_min >= 0) {  // key is belong to this index node
-#ifdef DEBUG
-									cout << "s3 find_index_node: " << item << " with min " << item->min << " max " << item->max << " sum " << item->sum << endl;
-#endif
+							next = item->next[level];
+#if 0
+							if(item->max >= key) {
+								if(key >= item->min) {
 									if(!item->nv_node->isfull())
-										return item;	
+										return item;
 									else
 										break;
 								}else
 									break;
 							}
-							if (d_max == 0 && unlink != FORCE_UNLINK) {
-								break;
-							}
-
 							pred = item;
 							item = GET_NODE(next);
-						} // end of while;
-#ifdef DEBUG
-						cout << " s3 find_index_node: foud pred " << pred << " next " << reinterpret_cast <dnode_t *>(next) << " at level " << level << endl;
+#else
+							d_max = item->max - key;
+							d_min = key - item->min;
+							if(d_max >= 0 && d_min >= 0) { // key belongs to [min, max]
+								if(!item->nv_node->isfull()){
+									return item;
+								}else{
+									*is_full = true;
+									break;
+								}
+							}else if(d_min < 0) { // key < item->min
+								break;	
+							}else { // key > item->max
+								pred = item;
+								item = GET_NODE(next);
+							}
 #endif
+						} // end of while;
 						if (level <= n) {
 							if(preds != NULL) {
 								preds[level] = pred;
 							}
-							if(succs != NULL) {
-								succs[level] = item;	
-							}
 						}
-
 					} //end of for 
-
-#ifdef DEBUG
-					cout << " find_index_node:  foud proper place for key " << key << " in skiplist. pred is " << " returning null " << endl;
-#endif
-					return NULL;
+					if(preds[0]->next[0]) {
+						item = GET_NODE(preds[0]->next[0]);
+						if(item->nv_node->isfull())
+							*is_full = true;
+						return item;
+					}
+					else
+						return NULL;
 				}
-
 
 				value_type sl_lookup(skiplist_t *sl, key_type key) {
 #ifdef DEBUG
@@ -567,21 +539,18 @@ not_found:
 					cout << " s1 sl_insert_new: going to insert key " << key << " into sl " << sl << endl;
 #endif
 					dnode_t *preds[MAX_LEVELS];
-					dnode_t *nexts[MAX_LEVELS];
 					memset(preds, 0x0, sizeof(dnode_t *)*MAX_LEVELS);
-					memset(nexts, 0x0, sizeof(dnode_t *)*MAX_LEVELS);
+					bool is_full = false;
 
 					int n = random_levels(sl);
 					//find the indexing dram node
-					dnode_t * index_node = find_index_node(preds, nexts, n, sl, key, ASSIST_UNLINK);
-					if (index_node || nexts[0]) { // index_nodes exists: key belongs to (min, max); nexts[0] exists: index nodes exists, however, key < min; anyway, nexts[0] == index_node; insert the k,v pair to its leaf node
-						if(!index_node)
-							index_node = nexts[0];
+					dnode_t * index_node = find_index_node(preds, &is_full, n, sl, key, ASSIST_UNLINK);
+					if (index_node) { // index_nodes exists: key belongs to (min, max); nexts[0] exists: index nodes exists, however, key < min; anyway, nexts[0] == index_node; insert the k,v pair to its leaf node
 #ifdef DEBUG
 						cout << " s3 sl_insert_new: going to insert key " << key << " index node exists " << index_node << " max: " << index_node->max << " min " << index_node->min << " sum " << index_node->sum << " slot " << index_node->nv_node->bs.count()<< endl; 
 #endif
 						nv_node = index_node->nv_node; // read from the nvram 
-						if(!nv_node->isfull()) {
+						if(!is_full) {
 							entry_t new_entry;
 							new_entry.key = key;
 							new_entry.value = new_val;
@@ -647,10 +616,8 @@ not_found:
 					#endif
 							dnode_t * new_index = dnode_alloc(n, max_key, min(index_node->min, key), new_sum);
 							for(int level = 0; level < new_index->num_levels; level++){
-								new_index->next[level] = reinterpret_cast<markable_t>(nexts[level]);	
 								dnode_t *pred = preds[level];
-								if(pred == NULL)
-									pred = sl->head;
+								new_index->next[level] = reinterpret_cast<markable_t>(pred->next[level]);
 								pred->next[level] = reinterpret_cast<markable_t>(new_index);
 							}
 							index_node->nv_node = orig_nvnode;
@@ -662,7 +629,7 @@ not_found:
 					}else { // naither index_node nor nexts[0] exists. add a total new index node with new leaf_node
 						assert(preds[0]);
 #ifdef DEBUG
-						cout << " s3 sl_insert_new with preds[0]: attempting to insert an new index node between " << preds[0] << " and " << nexts[0] << " 0?" <<endl;
+						cout << " s3 sl_insert_new with preds[0]: attempting to insert an new index node between " << preds[0] << " and " << preds[0]->next[0] << " 0?" <<endl;
 #endif
 						dnode_t *new_index = dnode_alloc(n, key);
 						nvnode_t *nv_node = nvnode_alloc();
@@ -683,8 +650,8 @@ not_found:
 						SYNC_CAS(&pred->nv_node->next, 0, reinterpret_cast<markable_t>(nv_node));
 
 						for(int level = 0; level < new_index->num_levels; ++level) {
-							new_index->next[level] = reinterpret_cast<markable_t>(nexts[level]);
 							dnode_t *pred = preds[level];
+							new_index->next[level] = reinterpret_cast<markable_t>(pred->next[level]);
 							pred->next[level] = reinterpret_cast<markable_t>(new_index);
 						}
 						new_index->nv_node = nv_node;
@@ -783,6 +750,6 @@ not_found:
 				}
 
 		};
-}
+};
 #endif
-
+#endif

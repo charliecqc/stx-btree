@@ -13,7 +13,7 @@
 #include <climits>
 #include <set>
 #include "nv_backend.h"
-//#define DEBUG
+#define DEBUG
 //#define DEBUG_CLONE
 
 #define EXPECT_TRUE(x)	__builtin_expect(!!(x), 1)
@@ -216,6 +216,7 @@ namespace stx {
 					int split_count;
 					unsigned num_levels;
 					nvnode_t *nv_node;
+					struct dram_node *prev;
 					markable_t next[0];
 				} dnode_t;
 
@@ -276,12 +277,12 @@ namespace stx {
 				{
 					size_t sz = sizeof(*nv_node);
 					for(markable_t i = 0; i <= sz; i += 64) {
-						nv_flush((void *)nv_node + i);
+						nv_flush((char *)nv_node + i);
 					}
 					return 0;
 				}
 
-				dnode_t *dnode_alloc(int num_levels, key_type max, key_type min = ULLONG_MAX, key_type sum = 0){
+				dnode_t *dnode_alloc(int num_levels, key_type max = 0, key_type min = ULLONG_MAX, key_type sum = 0){
 
 					assert(num_levels >= 0 && num_levels <= MAX_LEVELS);
 			//		size_t sz = sizeof(dnode_t) + (num_levels - 1) * sizeof(dnode_t *);
@@ -397,30 +398,25 @@ namespace stx {
 					dnode_t *pred = sl->head;
 					dnode_t * item = NULL; //item is the pointer point to target index node.
 					int d_max = 0, d_min = 0;
-
+#ifdef DEBUG
+					cout << "going to search key " << key << " head is " << pred << endl;
+#endif
 					for(int level = sl->high_water - 1; level >= 0; --level) {
 						markable_t next = pred->next[level]; // from top to botto
 						if(next == 0 && level > n) {// in the case of next = 0 && level > n, next[level] directly link to the nil;
 							continue;
 						}
 						item = GET_NODE(next);
+#ifdef DEBUG
+						cout << " going to search on node " << item << " node->prev "<<item->prev << endl;
+#endif
 						while (item != NULL) {
 							next = item->next[level];
-#if 0
-							if(item->max >= key) {
-								if(key >= item->min) {
-									if(!item->nv_node->isfull())
-										return item;
-									else
-										break;
-								}else
-									break;
-							}
-							pred = item;
-							item = GET_NODE(next);
-#else
 							d_max = item->max - key;
 							d_min = key - item->min;
+#ifdef DEBUG
+							cout << " max " << item->max << " min " << item->min << " item " << item << endl;
+#endif
 							if(d_max >= 0 && d_min >= 0) { // key belongs to [min, max]
 								if(!item->nv_node->isfull()){
 									return item;
@@ -429,12 +425,18 @@ namespace stx {
 									break;
 								}
 							}else if(d_min < 0) { // key < item->min
-								break;	
+								if(key > item->prev->max){
+#ifdef DEBUG	
+									cout << " key " << key << " item->prev " << item->prev << "item->prev->max " << item->prev->max << endl;
+#endif
+									return item;
+								}
+								else
+									break;	
 							}else { // key > item->max
 								pred = item;
 								item = GET_NODE(next);
 							}
-#endif
 						} // end of while;
 						if (level <= n) {
 							if(preds != NULL) {
@@ -602,7 +604,8 @@ not_found:
 							} 
 							nvnode_flush(orig_nvnode);
 							nvnode_flush(new_nvnode);
-							SYNC_CAS(&preds[0]->nv_node->next, reinterpret_cast<markable_t>(orig_nvnode), reinterpret_cast<markable_t>(new_nvnode));
+						//	SYNC_CAS(&preds[0]->nv_node->next, reinterpret_cast<markable_t>(orig_nvnode), reinterpret_cast<markable_t>(new_nvnode));
+							SYNC_CAS(&preds[0]->nv_node->next, orig_nvnode, new_nvnode);
 							//insert completed
 							//update dram indexing node
 							index_node->min = min_key;
@@ -615,10 +618,12 @@ not_found:
 							}
 					#endif
 							dnode_t * new_index = dnode_alloc(n, max_key, min(index_node->min, key), new_sum);
-							for(int level = 0; level < new_index->num_levels; level++){
+							for(unsigned int level = 0; level < new_index->num_levels; level++){
 								dnode_t *pred = preds[level];
 								new_index->next[level] = reinterpret_cast<markable_t>(pred->next[level]);
 								pred->next[level] = reinterpret_cast<markable_t>(new_index);
+								if(level == 0)
+									new_index->prev = pred;
 							}
 							index_node->nv_node = orig_nvnode;
 							new_index->nv_node = new_nvnode;
@@ -647,12 +652,15 @@ not_found:
 						}
 
 						dnode_t *pred = preds[0];
-						SYNC_CAS(&pred->nv_node->next, 0, reinterpret_cast<markable_t>(nv_node));
+					//	SYNC_CAS(&pred->nv_node->next, 0, reinterpret_cast<markable_t>(nv_node));
+						SYNC_CAS(&pred->nv_node->next, 0, nv_node);
 
-						for(int level = 0; level < new_index->num_levels; ++level) {
+						for(unsigned int level = 0; level < new_index->num_levels; ++level) {
 							dnode_t *pred = preds[level];
 							new_index->next[level] = reinterpret_cast<markable_t>(pred->next[level]);
 							pred->next[level] = reinterpret_cast<markable_t>(new_index);
+							if(level == 0)
+								new_index->prev = pred;
 						}
 						new_index->nv_node = nv_node;
 					}

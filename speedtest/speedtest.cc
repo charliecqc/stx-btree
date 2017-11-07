@@ -10,10 +10,7 @@
  * any later version.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details.
- *
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for * more details.  *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
@@ -48,15 +45,15 @@
 // *** Settings
 
 /// starting number of items to insert
-//static const unsigned int minitems = 10240;
+//static const unsigned int minitems = 500;
 //static const unsigned int minitems = 1024000 * 64;
 static const unsigned int minitems = 5120000 * 2;
-//static const unsigned int minitems = 1024;
+//static const unsigned int minitems = 10240;
 
 /// maximum number of items to insert
-//static const unsigned int maxitems = 10240;
+//static const unsigned int maxitems = 500;
 //static const unsigned int maxitems = 1024000 * 64;
-//static const unsigned int maxitems = 1024;
+//static const unsigned int maxitems = 10240;
 static const unsigned int maxitems = 5120000 * 2;
 
 static const int randseed = 34234235;
@@ -77,8 +74,7 @@ static inline double timestamp()
 template <int _innerslots, int _leafslots>
 class btree_traits_speed : stx::btree_default_set_traits<unsigned int>
 {
-	public:
-		static const bool selfverify = false;
+	public: static const bool selfverify = false;
 		static const bool debug = false;
 
 		static const int leafslots = _innerslots;
@@ -224,8 +220,8 @@ public:
 
 		srand(randseed);
         for (unsigned int i = 0; i < items; i++) {
-            unsigned int r = rand();
-		//	  unsigned int r = rand() % 1024;
+           unsigned int r = rand();
+			//  unsigned int r = rand() % 1024;
             map.insert(std::make_pair(r, r));
         }
 	//	map.print();
@@ -469,7 +465,7 @@ void TestFactory_Map<TestClass>::call_testrunner(
 	cout << " Unordered " << endl;
     testrunner_loop<UnorderedMap>(os, items);
 #endif
-#if 1
+#if 0
 	cout << " BtreeMap " <<endl;
     testrunner_loop<BtreeMap<64> >(os, items);
 #endif
